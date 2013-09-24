@@ -1,0 +1,17 @@
+<div>
+    <fieldset>
+      <legend>Primary Contact information</legend>
+      <%= f.simple_fields_for :emails do |builder| %>
+         <%= builder.input :email, label: 'email' %>
+      <% end %>
+
+      <%= f.simple_fields_for :websites do |builder| %>
+         <%= builder.input :website, label: 'website' %>
+      <% end %>
+
+      <%= f.simple_fields_for :phones do |builder| %>
+         <%= builder.input :phone, label: 'phone number' %>
+      <% end %>
+
+     </fieldset>
+  </div>

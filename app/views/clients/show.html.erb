@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%=link_to @client.adj_name, edit_client_path(@client) %></h3><br>
+
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="active">
+    <a data-toggle="tab" href="#main">Main information</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#contact">Contacts</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#additional_info">Additional Information</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#history">History</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+  <div class="tab-pane active" id="main">
+  <%= render 'clients/show_sections/main' %>
+  </div>
+
+  <div class="tab-pane" id="contact">
+  <%= render 'clients/show_sections/contact' %>
+  </div>
+
+  <div class="tab-pane" id="additional_info">
+  <%= render 'clients/show_sections/additional_info' %>
+  </div>
+
+  <div class="tab-pane" id="history">
+  <%= render 'clients/show_sections/history' %>
+  </div>
+
+</div>
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

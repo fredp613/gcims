@@ -1,0 +1,12 @@
+<%= simple_form_for foreign_clients_path(@client) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+
+   <%= f.input :country_id, collection: Country.all(order: 'name'),
+          :label_method => lambda { |cy| "#{cy.name}" }, :input_html=>{name: "country_id"} %>
+	  <div class="form-actions">
+	    <%= f.button :submit, :label=>"Save", :class=>'btn btn-primary btn-small' %>
+	  </div>
+ 
+<% end %>

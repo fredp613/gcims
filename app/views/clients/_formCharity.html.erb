@@ -1,0 +1,22 @@
+<%= simple_form_for (@client) do |f| %>
+  <%= f.error_notification %>
+
+   <div class="form-inputs">
+   	<%= f.simple_fields_for :charity do |charity|  %>
+	    <%= charity.input :registrationnumber %>
+	    
+     
+      <%= charity.input :registrationdate, as: :string,
+      :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %>
+	    <%= charity.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+      
+    <% end  %>
+  </div>
+
+   <div class="form-actions">
+    <%= f.button :submit, "back", :name=> "back_button", :class=>'btn btn-primary btn-small' %>
+   <%= f.button :submit, "continue" %>
+    
+  </div>	
+
+ <% end  %>

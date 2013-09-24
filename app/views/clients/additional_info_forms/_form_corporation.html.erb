@@ -1,0 +1,17 @@
+<%= simple_form_for @client  do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :incorporated, as: :hidden, :input_html=>{value: true} %>
+
+<%= f.simple_fields_for :corporation do |corp|  %>
+	<%= corp.input :businessnumber, :input_html=>{value: @client.corporation.businessnumber} %>
+	<%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>	
+<% end  %>
+
+   <div class="form-actions">
+ <%= f.button :submit, "back", :name=> "back_button", :class=>'btn btn-primary btn-small' %>
+   <%= f.button :submit, "continue" %>
+  </div>	
+
+ <% end  %>
+

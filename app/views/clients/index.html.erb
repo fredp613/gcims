@@ -1,0 +1,82 @@
+<h2>Search for client(s)</h2>
+
+
+
+<div id='clientFilter'>
+  <%= simple_form_for clients_path, :method => 'get', :html => { :class => 'form-inline' } do |f|  %>
+      
+
+<div class='form-inputs row'>
+
+    <div class='span4' style='padding-left:2%'>
+      Client Name:<br>
+      <%= text_field_tag 'name' %><br>
+      Client Type:<br> 
+      <%= select_tag 'type', options_for_select(@types.collect { |p| [p.name, p.id] }), include_blank: true %><br>
+      Province:<br>
+      <%= select_tag 'province', options_for_select(@provinces.collect { |p| [p.name, p.id ]}), include_blank: true %><br>
+    </div>
+    <div class='span5' >
+      Postal Code:<br>
+      <%= text_field_tag 'postal' %><br>
+      Contact Name:<br>
+      <%= text_field_tag 'contact_name' %><br>
+      Project Number (RIMS):<br>
+      <%= text_field_tag 'rims' %><br>
+   </div>
+  
+  </div><br> 
+   <p>
+    <%= f.submit "Search", :class=>'btn btn-primary' %>
+    </p>
+  <% end %>
+</div> 
+
+<div class='row' style='padding-left:2%'>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= client.name %></td>
+    <td><%= link_to 'Show Details', client %></td>
+    <td><%= link_to 'Edit', edit_client_path(client) %></td>
+    <td><%= link_to 'Add Project', new_client_project_path(client), :class=>'newProject' %></td>
+    <td><%= link_to 'Delete', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Client',  new_client_clienttypes_path %>
+</div>
+
+
+<div class="modal fade" id="myModal" style='display:none;'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <!--<div class="modal-footer">
+          <a href="#" class="btn">Close</a>
+          <a href="#" class="btn btn-primary">Save changes</a>
+        </div> -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->   
+
+
+

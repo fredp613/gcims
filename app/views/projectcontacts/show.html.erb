@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<p>
+  <b>Contact Name:</b>
+  <%= @projectcontact.contact_id %>
+</p>
+
+<p>
+  <b>Project Title:</b>
+  <%= @projectcontact.project.projectname %>
+</p>
+
+
+<%= link_to 'Edit', edit_projectcontact_path(@projectcontact) %> |
+<%= link_to 'Back', projectcontacts_path %>

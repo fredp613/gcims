@@ -1,0 +1,7 @@
+<%- model_class = Summarycommitment -%>
+<% if @layout=='true'%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<% end %>
+<%= render :partial => 'form' %>

@@ -1,0 +1,66 @@
+<% if @client.new_record? %>
+
+<div>
+	<fieldset>
+	  <legend>Organization Information</legend>
+	  <%= f.input :incorporated, :label=>"Incorporated?" %><br>
+	  <%= f.input :registeredcharity, :label =>"Registered charity?"  %><br>
+	  <%= f.input :registeredband, :label =>"Registered band?"  %>
+	<%= f.input :mandate, :label=>"Organization mandate", :input_html=>{style: "height:100px;width:300px"} %>
+	</fieldset>
+</div>
+
+<% else %>
+
+<div>
+
+	<% if @client.incorporated %>
+		<fieldset>
+		  <legend>Incorporation Information <%= link_to 'Remove', @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' } %></legend>
+		  <%= f.simple_fields_for :corporation do |corp|  %>
+		     <%= corp.input :businessnumber, :input_html=>{value: @client.corporation.businessnumber} %><br>
+		     <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %><br>
+		     <%= corp.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+	   	  <% end  %>
+		</fieldset>
+	<% else  %>
+	<p>
+	<%= link_to "click here if incorporated", edit_client_path(@client, :step=>'corporation', :edit=>true), :class=>'btn btn-success btn-small'  %><br>
+
+	</p>
+	<% end  %>
+
+	<% if @client.registeredband %>
+		<fieldset>
+		  <legend>Band Information <%= link_to 'Remove', @client.band, method: :delete, data: { confirm: 'Are you sure you want to delete all band information?' } %></legend>
+		  <%= f.simple_fields_for :band do |band|  %>
+		    <%= band.input :bandnumber %>
+		    <%= band.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+		  <% end  %>
+		</fieldset>
+	<% else  %>
+	<p>
+	<%= link_to "Click here if registered band", edit_client_path(@client, :step=>'band', :edit=>true), :class=>'btn btn-success btn-small'  %><br>
+	</p>
+	<% end  %>
+
+	<% if @client.registeredcharity  %>
+	<fieldset>
+	  <legend>Charity Information <%= link_to 'Remove', @client.charity, method: :delete, data: { confirm: 'Are you sure you want to delete all charity information?' } %></legend>
+	  <%= f.simple_fields_for :charity do |charity|  %>
+  		<%= charity.input :registrationnumber %><br>
+  		<%= charity.input :registrationdate, as: :string,
+  		:input_html=>{ :class=>'datepicker', value: @date.to_date  } %>
+  		<%= charity.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+	  <% end  %>
+	</fieldset>
+	<% else  %>
+	<p>
+	<%= link_to "click here if registered charity", edit_client_path(@client, :step=>'charity', :edit=>true), :class=>'btn btn-success btn-small'  %>
+	</p>
+	<% end  %>
+
+</div>
+
+
+<% end %>

@@ -1,0 +1,5 @@
+<%= link_to psl.psl_name, productserviceline_path(psl), :name=>psl, :value=>psl.id, 
+    :class=>((psl.fiscalyear_ids.to_a & @fyArray).size > 0  ? "pras_item" : "pras_item red")%>
+    <%= link_to '', edit_productserviceline_path(psl), :class=>'editPsl icon-pencil black'%>
+    <%= link_to '', new_productserviceline_path, :class=>'newPras icon-plus-sign black' %> 
+    <%= link_to '', psl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> 

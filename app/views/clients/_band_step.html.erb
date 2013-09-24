@@ -1,0 +1,4 @@
+<%= f.simple_fields_for :band do |band|  %>
+	    <%= band.input :bandnumber %>
+	    <%= band.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+<% end  %>

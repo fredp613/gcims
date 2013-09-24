@@ -1,0 +1,38 @@
+
+
+<%= simple_form_for @project, :html => {:id => "frmOpenProject"}  do |f| %>
+ <%= f.error_notification %>
+
+ <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
+  <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
+  
+
+    <%= f.input :client_id, as: :hidden, collection: Client.all, label_method: lambda { |c| "#{c.name}" }, 
+		  selected: @client_id %>
+  <div class="form-inputs">
+
+	<%= render 'tombstone', :f=>f %>
+	<%= render 'pras', :f=>f %>					
+    
+  </div>
+
+   <div class="submit">
+    <%= f.button :submit, class: 'pull-right btn-success', id: 'openProjectSubmit', style: 'margin-top:-35px;' %>
+ </div>	
+
+<% end %>
+
+<div class="input-append date" id="dp3" data-date-format="dd-mm-yyyy">
+    <input class="span2" size="16" type="text" value="2013-12-03" readonly><span class="add-on"><i class="icon-th"></i></span>
+</div>
+
+<script type="text/javascript">
+
+$("#frmOpenProject").formToWizard();
+
+$('#dp3').datepicker({
+	autoclose: 'true',
+	format: 'yyyy-mm-dd'
+});
+
+</script>

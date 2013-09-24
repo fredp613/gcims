@@ -1,0 +1,6 @@
+<%= f.simple_fields_for :charity do |charity|  %>
+  <%= charity.input :registrationnumber %>   
+  <%= charity.input :registrationdate, as: :string,
+  :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %>
+  <%= charity.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+<% end  %>

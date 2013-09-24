@@ -1,0 +1,64 @@
+
+<%= simple_form_for(@client) do |f| %>
+  <%= f.error_notification %>
+
+
+  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
+  <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
+
+  <div class="form-inputs">
+    <% if @clienttype.to_s == '1' && @clienttype_from_change.blank? %>
+      <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
+      <% if @name %>
+        <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
+      <% else %>
+        <%= f.input :name, :label=>"First Name"  %>
+      <% end %>
+        <%= f.input :name1, :label=>"Last Name" %>
+    <% elsif !@clienttype_from_change.blank? %>
+        
+        <% if @clienttype_from_change.to_s == '1' %>
+          
+          <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
+          <% if @name %>
+            <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
+          <% else %>
+            <%= f.input :name, :label=>"First Name"  %>
+          <% end %>     
+          <%= f.input :name1, :label=>"Last Name" %>
+        
+        <% else %>
+        
+            <% if @name  %>
+              <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
+            <% else %>
+              <%= f.input :name, :label=>"Organization Name"  %>
+            <% end %>    
+             
+             <%= render 'orginfo', :f=>f %> 
+        
+        <% end  %>
+    <% else  %>
+      
+            <% if @name %>
+              <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
+            <% else %>
+              <%= f.input :name, :label=>"Organization Name"  %>
+            <% end %> 
+             <%= render 'orginfo', :f=>f %> 
+    
+    <% end %>
+
+    <%= render 'mandatetype', :f=>f %>
+    <%= render 'addressfields', :f=>f %>
+
+      <%= render 'contactfields', :f=>f %>
+
+ </div>
+
+    
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

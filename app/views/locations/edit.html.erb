@@ -1,0 +1,10 @@
+<h1>Editing location</h1>
+
+<% if @country  %>
+	<%= render 'form_country' %>
+<% else %>
+	<%= render 'form' %>
+<% end  %>
+
+<%= link_to 'Show', @location %> |
+<%= link_to 'Back', locations_path %>

@@ -1,0 +1,42 @@
+<%- model_class = Fincode -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:productservicelines_id) %></th>
+      <th><%= model_class.human_attribute_name(:subservicelines_id) %></th>
+      <th><%= model_class.human_attribute_name(:summarycommitments_id) %></th>
+      <th><%= model_class.human_attribute_name(:commitmentitems_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pras.each do |fincode| %>
+      <tr>
+        <td><%= link_to fincode.id, fincode_path(fincode) %></td>
+        <td><%= fincode.productservicelines_id %></td>
+        <td><%= fincode.subservicelines_id %></td>
+        <td><%= fincode.summarycommitments_id %></td>
+        <td><%= fincode.commitmentitems_id %></td>
+        <td><%=l fincode.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_fincode_path(fincode), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      fincode_path(fincode),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_fincode_path,
+            :class => 'btn btn-primary' %>

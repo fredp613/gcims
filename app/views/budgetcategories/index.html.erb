@@ -1,0 +1,23 @@
+<h1>Listing budgetcategories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @budgetcategories.each do |budgetcategory| %>
+  <tr>
+    <td><%= budgetcategory.name %></td>
+    <td><%= link_to 'Show', budgetcategory %></td>
+    <td><%= link_to 'Edit', edit_budgetcategory_path(budgetcategory) %></td>
+    <td><%= link_to 'Destroy', budgetcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Budgetcategory', new_budgetcategory_path %>

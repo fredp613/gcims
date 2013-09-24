@@ -1,0 +1,13 @@
+defaults: &defaults
+  adapter: mysql2
+  database: dossier_test
+  host: localhost
+  username: root
+  password:
+  
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+production:
+  <<: *defaults

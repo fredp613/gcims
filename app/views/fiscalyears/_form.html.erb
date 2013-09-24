@@ -1,0 +1,10 @@
+<%= simple_form_for @fiscalyear, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :fy %>
+  <%= f.input :startdate %>
+  <%= f.input :enddate %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                fiscalyears_path, :class => 'btn' %>
+  </div>
+<% end %>

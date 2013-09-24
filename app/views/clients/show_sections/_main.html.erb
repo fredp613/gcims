@@ -1,0 +1,78 @@
+
+
+    <b>Type</b>
+    <%= @client.clienttype.name %><br>
+    <p class='contact_info'>
+    <b>Email(s) <%= link_to "add new", new_email_path(:client=>@client) %></b><br>
+    <% @client.emails.each do |email| %>
+      <%= email.email %>
+      <%= email.type %>
+      <%= link_to "edit", edit_email_path(email) %>
+      <%= link_to 'delete', email, method: :delete, data: { confirm: 'Are you sure?' }%><br>
+    <% end %>
+  </p>
+  <p class='contact_info'>
+  <b>Website(s) <%= link_to "add new", new_website_path(:client=>@client) %></b><br>
+  <% @client.websites.each do |website| %>
+    <%= website.website %>
+     <%= link_to "edit", edit_website_path(website) %>
+    <%= link_to 'delete', website, method: :delete, data: { confirm: 'Are you sure?' }%><br>
+  <% end %>
+  </p>
+  <p class='contact_info'>
+  <b>Phone Number(s) <%= link_to "add new", new_phone_path(:client=>@client) %></b><br>
+  <% @client.phones.each do |phone| %>
+    <%= phone.phone %>
+    <%= phone.type %>
+      <%= link_to "edit", edit_phone_path(phone) %>
+    <%= link_to 'delete', phone, method: :delete, data: { confirm: 'Are you sure?' }%><br>
+  <% end  %>
+  </p>
+
+
+
+<div id='address-fields'>
+
+   <fieldset>
+    <legend>Address information   
+    <%= link_to "Add address", new_client_location_path(@client), :class=> "btn btn-primary btn-small pull-right"%>
+      </legend>
+
+    <% @client.locations.each do |location| %>
+
+    	<p>
+        <% location.addresstypes.select(:name).each do |t| %>
+          <%= t.name %>
+        <% end %>
+         <br>
+	    	  <%= location.addressline1 %> <br>
+	    	<% if location.addressline2? %>
+	    	  <%= location.addressline2 %> <br>
+	    	<% end %>
+	    	<% if location.addressline3? %>
+	    	  <%= location.addressline3 %> <br>
+	    	<% end %>
+	    	<% if location.addressline4? %>
+	    	  <%= location.addressline4 %> <br>
+	    	<% end %>
+	    	<% if location.city? %>
+	    	  <%= location.city %> <br>
+	    	<% end %>
+        <% if location.state.name? %>
+          <%= location.state.name %> <br>
+        <% end %>
+        <% if location.postal? %>
+          <%= location.postal %> <br>
+        <% end %>
+
+
+  <%= link_to "edit address", edit_client_location_path(@client, location), :class=> 'btn btn-info btn-small' %>
+      <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
+
+
+    	</p>
+    <% end %> 
+
+
+    </fieldset>         
+  </div>

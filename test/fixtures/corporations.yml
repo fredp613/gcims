@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  level: MyString
+  businessnumber: MyString
+  client_id: 1
+
+two:
+  level: MyString
+  businessnumber: MyString
+  client_id: 1

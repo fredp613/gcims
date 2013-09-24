@@ -1,0 +1,23 @@
+<h1>Listing clienttypes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clienttypes.each do |clienttype| %>
+  <tr>
+    <td><%= clienttype.name %></td>
+    <td><%= link_to 'Show', clienttype %></td>
+    <td><%= link_to 'Edit', edit_clienttype_path(clienttype) %></td>
+    <td><%= link_to 'Destroy', clienttype, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clienttype', new_clienttype_path %>

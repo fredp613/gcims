@@ -1,0 +1,16 @@
+<%= simple_form_for(@project) do |f| %>
+ <%= f.error_notification %>
+
+ <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
+  <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
+	<div class="form-inputs">
+	 <%= render 'tombstone', :f=>f %>
+
+	 <%= render 'pre-assessment', :f=>f %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+

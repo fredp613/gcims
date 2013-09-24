@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Level:</b>
+  <%= @corporation.level %>
+</p>
+
+<p>
+  <b>Businessnumber:</b>
+  <%= @corporation.businessnumber %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @corporation.client_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_corporation_path(@corporation) %> |
+<%= link_to 'Back', corporations_path %>

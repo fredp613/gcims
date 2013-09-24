@@ -1,0 +1,72 @@
+<%- model_class = Productserviceline -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => "PRAS" %></h1>
+</div>
+
+<h2>Filter by fiscal years</h2>
+
+
+
+<div id='fiscalYearFilter'>
+  <%= form_for productservicelines_path, :method => 'get', :html => { :class => 'form-inline' } do |f|  %>
+      
+  
+    From: <%= f.collection_select(:fiscalyears, Fiscalyear.all,:id, :fy, {:include_blank => true}, { :name => 'fy1'}) %>
+    To: <%= f.collection_select(:fiscalyears, Fiscalyear.all,:id, :fy, {:include_blank => true}, { :name => 'fy2'}) %>
+    
+    <%= f.submit "Search", :class=>'btn btn-primary' %>
+   
+  <% end %>
+</div> 
+
+
+<ul class='tree'>
+<% @productservicelines.each do |psl| %> 
+  <li class='icon-folder-close'><%= render 'psl', :psl=>psl %><br>
+    <ul style='display:none;'><% psl.subservicelines.each do |ssl|%>
+      <li class='icon-folder-close'><%= render 'ssl', :ssl=>ssl %><br> 
+        <ul><% ssl.summarycommitments.each do |sc|%>  
+           <li class='icon-folder-close'><%= render 'sc', :sc=>sc %><br>
+              <ul><% sc.commitmentitems.each do |ci|%>
+                <li class='icon-folder-close'><%= render 'ci', :ci=>ci %><br></li>
+              <% end %>
+              </ul>
+           </li>
+           <% end %> 
+        </ul>
+      </li>  
+      <% end %>           
+  </ul>
+ </li>
+ <% end %>
+</ul>
+
+
+    
+
+
+ 
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_productserviceline_path,
+            :class => 'newPras btn btn-primary' %>
+
+
+
+<div class="modal fade" id="myModal" style='display:none;'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <!--<div class="modal-footer">
+          <a href="#" class="btn">Close</a>
+          <a href="#" class="btn btn-primary">Save changes</a>
+        </div> -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->            

@@ -1,0 +1,46 @@
+<%- model_class = Productserviceline -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:psl_name) %>:</strong></dt>
+  <dd><%= @productserviceline.psl_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
+  <dd><%= @productserviceline.active %></dd>
+  <dt><strong>Last updated by:</strong></dt>
+  <dd><%= @productserviceline.user.full_name %></dd>
+  
+  <dt><strong>subservicelines:</strong></dt>
+  <% @productserviceline.subservicelines.each do |ssl| %>
+  <dd><%= ssl.ssl_name %></dd>
+  <% end %>
+
+  <dt><strong>summary commitments:</strong></dt>
+  <% @productserviceline.summarycommitments.each do |sc| %>
+  <dd><%= sc.sc_name %></dd>
+  <% end %>
+
+    <dt><strong>commitments:</strong></dt>
+  <% @productserviceline.commitmentitems.each do |ci| %>
+  <dd><%= ci.ci_name %></dd>
+  <% end %>
+
+   <dt><strong>Fiscal Years:</strong></dt>
+  <% @productserviceline.fiscalyears.each do |fy| %>
+  <dd><%= fy.fy %></dd>
+  <% end %>
+
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              productservicelines_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_productserviceline_path(@productserviceline), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              productserviceline_path(@productserviceline),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

@@ -1,0 +1,68 @@
+<%= simple_form_for(@location) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <% if @project %>
+  <%= text_field_tag "project_id", @project %>
+  <% end  %>
+  <% if @client  %>
+  <%= text_field_tag "client_id", @client %>
+  <% end  %>
+
+  <% if @contact  %>
+  <%= text_field_tag "contact_id", @contact %>
+  <% end  %>
+
+
+        <div id='countries'>
+           <%= f.input :country_id, collection: Country.all(order: 'name'),
+           :selected => @country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
+
+           <%= f.button :submit, "change country", :name=>'country', :class=>'btn btn-info btn-small' %>    
+
+        </div> 
+        <%= f.input :addressline1 %>
+        <%= f.input :addressline2 %>
+        <%= f.input :addressline3 %>
+        <%= f.input :addressline4 %>
+        <%= f.input :city %>
+        <%= f.input :state_id, :label=>"Province", 
+           collection: State.where(:country_id=>@country_id), 
+            :label_method => lambda { |se| "#{se.name}" } %>   
+        <%= f.input :postal %>
+        <% if @client && !@contact %>
+            <%= f.simple_fields_for :clientlocations do |builder| %>
+                  <% if @location.new_record? %>
+                  <%= builder.input :client_id, :input_html=>{value: @client} %>
+                  <% end %>
+
+               <% if @check_for_primary = 1 && @primarycheck != 1 %>
+                 <%= builder.input :addresstype_id, :label=>"Type", 
+                   collection: Addresstype.where('id != 1'), 
+                    :label_method => lambda { |at| "#{at.name}" } %>      
+              <% else %>
+                 <%= builder.input :addresstype_id, :label=>"Type", 
+                   collection: Addresstype.all(order: 'name'), 
+                    :label_method => lambda { |at| "#{at.name}" } %>           
+              <% end %>
+                
+            <% end %>
+
+        <% end %>
+
+        <% if @contact %>
+          <%= f.simple_fields_for :contactlocations do |builder| %>
+          <% if @location.new_record?  %>
+              <%= builder.input :contact_id,:input_html=>{ value: @contact} %>
+          <% end %>
+          <%= @contact %>
+
+          <% end %>
+        <% end %>
+           
+  </div>
+  
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

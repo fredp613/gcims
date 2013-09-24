@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @budgetitem.title %>
+</p>
+
+<p>
+  <b>Desc:</b>
+  <%= @budgetitem.desc %>
+</p>
+
+<p>
+  <b>Forecast:</b>
+  <%= @budgetitem.forecast %>
+</p>
+
+<p>
+  <b>Actual:</b>
+  <%= @budgetitem.actual %>
+</p>
+
+<p>
+  <b>Fiscalyear:</b>
+  <%= @budgetitem.fiscalyear_id %>
+</p>
+
+<p>
+  <b>Application:</b>
+  <%= @budgetitem.application_id %>
+</p>
+
+<p>
+  <b>Budgetcategory:</b>
+  <%= @budgetitem.budgetcategory_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_budgetitem_path(@budgetitem) %> |
+<%= link_to 'Back', budgetitems_path %>

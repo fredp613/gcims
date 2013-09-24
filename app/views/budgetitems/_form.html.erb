@@ -1,0 +1,17 @@
+<%= simple_form_for(@budgetitem) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :desc %>
+    <%= f.input :forecast %>
+    <%= f.input :actual %>
+    <%= f.input :fiscalyear_id %>
+    <%= f.input :application_id %>
+    <%= f.input :budgetcategory_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

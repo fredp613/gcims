@@ -1,0 +1,35 @@
+<h1>Listing budgetitems</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Desc</th>
+    <th>Forecast</th>
+    <th>Actual</th>
+    <th>Fiscalyear</th>
+    <th>Application</th>
+    <th>Budgetcategory</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @budgetitems.each do |budgetitem| %>
+  <tr>
+    <td><%= budgetitem.title %></td>
+    <td><%= budgetitem.desc %></td>
+    <td><%= budgetitem.forecast %></td>
+    <td><%= budgetitem.actual %></td>
+    <td><%= budgetitem.fiscalyear_id %></td>
+    <td><%= budgetitem.application_id %></td>
+    <td><%= budgetitem.budgetcategory_id %></td>
+    <td><%= link_to 'Show', budgetitem %></td>
+    <td><%= link_to 'Edit', edit_budgetitem_path(budgetitem) %></td>
+    <td><%= link_to 'Destroy', budgetitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Budgetitem', new_budgetitem_path %>

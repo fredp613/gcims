@@ -1,0 +1,19 @@
+<%= simple_form_for @commitmentitem, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :ci_name, label: 'Commitment Item (EN)' %>
+  <%= f.input :active %>
+  <%= f.input :summarycommitment_id, :as => :hidden %>
+
+  
+
+ <fieldset>
+    <legend>Fiscal Years</legend>
+  <%= f.input :fiscalyear_ids, :label=>"Select fiscal year(s)", collection: Fiscalyear.all(order: 'fy'), :selected =>
+  :fiscalyear_ids, :label_method => lambda { |fy| "#{fy.fy}" }, as: :check_boxes %>
+  </fieldset>
+  
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                commitmentitems_path, :class => 'btn' %>
+  </div>
+<% end %>

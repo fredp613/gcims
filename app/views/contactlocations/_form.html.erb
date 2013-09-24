@@ -1,0 +1,31 @@
+<%= simple_form_for(@contactlocation) do |f| %>
+
+   <%= f.input :location_id, :label=>"Select location", 
+    collection: Location.where(:id => @location), 
+    :label_method => lambda { |at| "#{at.addressline1}" } %> 
+    <%= f.input :contact_id, :input_html=>{value: @contact} %>
+ 
+ 	<% if @project  %>
+    <%= text_field_tag "project_id", @project %>
+    <% end  %>
+
+      <% if @client  %>
+    <%= text_field_tag "client_id", @client %>
+    <% end  %>
+  <div class="form-actions">
+   <%= f.button :submit %>
+  </div>
+
+
+
+<% end %>
+
+ <span>Or create a new address:</span>
+
+<% if params[:project_id]  %>
+  <%= link_to "Add address", new_project_location_path(@project, :contact_id=>@contact) %>
+<% else  %>
+  <%= link_to "Add address", new_client_location_path(@client, :contact_id=>@contact) %>
+<% end  %>
+
+ 

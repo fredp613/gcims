@@ -1,0 +1,25 @@
+<h1>Listing projectcontacts</h1>
+
+<table class='table'>
+  <thead>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+
+<% @projectcontacts.each do |projectcontact| %>
+  <tbody>
+   <td><%= projectcontact.contact.fullname %></td>
+   <td><%= projectcontact.project.projectname %></td>
+   <td><%= link_to 'Show', projectcontact %> |
+     <%= link_to 'Edit', edit_projectcontact_path(projectcontact) %> |
+     <%= link_to 'Destroy', projectcontact, method: :delete, data: { confirm: 'Are you sure?' } %>
+   </td>
+</tbody>
+
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Projectcontact', new_projectcontact_path %>

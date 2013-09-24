@@ -1,0 +1,35 @@
+<h1>Listing projects</h1>
+
+<table class='table'>
+  <tr>
+    <th>Project Title</th>
+    <th>Project Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.projectname %></td>
+    <td><%= project.projectdesc %></td>
+    <td><%= link_to project do %>
+          <i class='icon-eye-open'></i>  
+        <% end  %>
+    </td>
+    <td><%= link_to edit_project_path(project) do %>
+          <i class='icon-pencil'></i> 
+        <% end  %>
+    </td>
+    <td><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class='icon-fire'></i> 
+      <% end  %>
+
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project', new_project_path %>

@@ -1,0 +1,14 @@
+<%= simple_form_for @fincode, :html => { :class => 'form-horizontal' } do |f| %>
+
+  	 <%= f.collection_select :productserviceline_id, Productserviceline.all, :id, :psl_name, :include_blank => true %>
+  	 <%= f.collection_select :subserviceline_id, Subserviceline.all, :id, :ssl_name, :include_blank => true %>
+  	 <%= f.collection_select :summarycommitment_id, Summarycommitment.all, :id, :sc_name, :include_blank => true %>
+  	 <%= f.collection_select :commitmentitem_id, Commitmentitem.all, :id, :ci_name, :include_blank => true %>
+
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                fincodes_path, :class => 'btn' %>
+  </div>
+<% end %>

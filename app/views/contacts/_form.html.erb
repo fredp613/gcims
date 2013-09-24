@@ -1,0 +1,77 @@
+<%= simple_form_for(@contact) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <% if params[:project_id] %>
+  <%= text_field_tag "project_id", @project %>
+  <% end %>
+
+  <% if params[:client_id] %>
+  <%= text_field_tag "client_id", @client %>
+  <% end %>
+
+
+  	<% if @contact.new_record? %>
+  	 <%= f.input :client_id, :input_html=>{value: @client} %>
+  	<% end %>
+    <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
+    <%= f.input :firstname %>
+    <%= f.input :lastname %>
+     <%= f.input :title %>
+       <%= f.input :contacttype_id, :label=>"Contact Type",
+    collection: Contacttype.all  %>
+    <%= f.input :authority, :label=>"Signing authority" %>
+
+
+    <div id='address-fields'>
+
+     <% if !@contact.new_record? %>
+     <fieldset>
+      <legend>Address information</legend>
+     <p>
+      <% if !@location.blank?  %>
+        <%= link_to "Add address", new_client_contact_location_path(@client, @contact), :class=>'btn btn-primary btn-small' %>
+      <% else %>
+        <%= link_to "Add address", new_client_location_path(@client,:contact=>@contact), :class=>'btn btn-primary btn-small' %>
+      <% end  %>
+    </p>
+       <% @contact.contactlocations.each do |cl| %>
+            <%= cl.location.addressline1 %> <br>
+            <% if cl.location.addressline2? %>
+            <%= cl.location.addressline2 %> <br>
+            <% end %>
+            <% if cl.location.addressline3? %>
+            <%= cl.location.addressline3 %> <br>
+            <% end %>
+            <% if cl.location.addressline4? %>
+            <%= cl.location.addressline4 %> <br>
+            <% end %>
+            <% if cl.location.city? %>
+            <%= cl.location.city %> <br>
+            <% end %>
+            <% if cl.location.state_id %>
+            <%= cl.location.state.name %> <br>
+            <% end %>
+            <% if cl.location.country_id %>
+            <%= cl.location.country.name %> <br>
+            <% end %>
+            <% if cl.location.postal %>
+            <%= cl.location.postal %> <br>
+            <% end %>
+            <%= link_to "Edit location", edit_client_contact_location_path(@client, @contact, cl.location), :class=>'btn btn-primary btn-small' %>   
+        <%= link_to 'Change location', cl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%> <br>
+       <% end %>
+     <% end  %>
+      	
+    </fieldset>         
+ 
+  <div class="form-actions">
+    <% if @contact.new_record? %>
+     <%= f.button :submit, "Add address information", :class=>'btn btn-primary btn-small' %>
+    <% else %>
+     <%= f.button :submit, "Save changes", :class=>'btn btn-primary btn-small' %>
+    <% end %>
+  </div>
+<% end %>
+
+</div>

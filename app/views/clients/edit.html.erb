@@ -1,0 +1,20 @@
+<h1>Editing client</h1>
+
+<% if @mandate_only   %>
+	<%= render 'formMandate' %>
+
+<% elsif @step   %>
+	<%= render "clients/additional_info_forms/form_#{@step}" %>
+
+<% elsif @wizard %>
+	<%= render 'formWizard' %>
+<% else %>
+
+ <%= render 'form' %>
+
+<% end  %>
+
+<%= @steps %>
+
+<%= link_to 'Show', @client %> |
+<%= link_to 'Back', clients_path %>

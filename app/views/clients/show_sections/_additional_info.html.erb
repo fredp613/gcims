@@ -1,0 +1,59 @@
+<div id='Additional Information'>
+    <fieldset>
+      <legend>Additional Information</legend>
+
+        <div>
+        <h5>Mandate</h5>
+        <% if @client.mandate %>
+        <%= @client.mandate %>
+        <%= link_to "edit", edit_client_path(@client, :mandate_only=>true) %>
+        <% else %>
+        <%= link_to "add", edit_client_path(@client, :mandate_only=>true) %>
+        <% end  %>
+        </div>
+
+        <% if @client.incorporated  %>
+        <h5>Corporate Information</h5>
+          <% if @client.corporation %>
+            Business Number:<% if @client.corporation.businessnumber %>
+             <%= @client.corporation.businessnumber %><br>
+            <% end %>
+            Level:<% if @client.corporation.level %>
+             <%= @client.corporation.level %><br>
+            <% end %>
+            <%= link_to "edit", edit_client_path(@client, :step=>'corporation') %>
+            <% else  %>
+              <%= link_to "add", edit_client_path(@client, :step=>'corporation') %>
+            <% end %>  
+        <% end  %>
+
+        <% if @client.registeredcharity  %>
+           <h5>Charity Information</h5>
+            <% if @client.charity  %>
+                  registration number:<% if @client.charity.registrationnumber  %>
+                    <%= @client.charity.registrationnumber %><br>
+                  <% end %>
+                  registration date:<% if @client.charity.registrationdate %>
+                    <%= @client.charity.registrationdate.to_date %><br>
+                  <% end  %>
+                  <%= link_to "edit", edit_client_path(@client, :step=>'charity') %>
+             <% else  %>
+              <%= link_to "add", edit_client_path(@client, :step=>'charity') %>
+            <% end %> 
+        <% end  %>
+
+        <% if @client.registeredband  %>
+         <h5>Band Information</h5>
+          <% if @client.band %>
+              Band Number:<% if @client.band.bandnumber %>
+              <%= @client.band.bandnumber %><br>  
+              <% end %>
+              <%= link_to "edit", edit_client_path(@client, :step=>'band') %>
+          <% else  %>
+            <%= link_to "add", edit_client_path(@client, :step=>'band') %>
+          <% end %>
+        <% end  %>
+
+    </fieldset>
+
+  </div>

@@ -1,0 +1,25 @@
+<%- model_class = Fiscalyear -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:fy) %>:</strong></dt>
+  <dd><%= @fiscalyear.fy %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:startdate) %>:</strong></dt>
+  <dd><%= @fiscalyear.startdate %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:enddate) %>:</strong></dt>
+  <dd><%= @fiscalyear.enddate %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              fiscalyears_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_fiscalyear_path(@fiscalyear), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              fiscalyear_path(@fiscalyear),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

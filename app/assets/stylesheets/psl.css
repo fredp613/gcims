@@ -1,0 +1,18 @@
+.hidden {
+	display: none;
+}
+
+
+#pras_tree li.menu_closed {
+    list-style-image: url(/assets/closed_folder.png);	   
+}
+
+#pras_tree li.menu_open {
+    list-style-image: url(/assets/open_folder.png);
+}
+
+
+
+
+
+	

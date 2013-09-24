@@ -1,0 +1,24 @@
+<%= simple_form_for @client do |f| %>
+  <%= f.error_notification %>
+
+
+  <div class="form-inputs">
+  	
+    <%= render  "#{@client.current_step}_step", :f => f %>
+
+  </div>
+
+   <div class="form-actions">
+    
+   <%= f.submit "Back", :name => "back_button" unless @client.first_step? %>
+ 
+  <% if @client.last_step?  %>
+   <%= f.button :submit, "continue", :name=>"last" %>
+  <% else  %>
+   <%= f.button :submit, "continue" %>
+  <% end  %>
+  </div>
+
+  <% @steps %>	
+
+ <% end  %>

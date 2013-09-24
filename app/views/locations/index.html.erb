@@ -1,0 +1,31 @@
+<h1>Listing locations</h1>
+
+<table>
+  <tr>
+    <th>Addressline1</th>
+    <th>Addressline2</th>
+    <th>Addressline3</th>
+    <th>Addressline4</th>
+    <th>City</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @locations.each do |location| %>
+  <tr>
+    <td><%= location.addressline1 %></td>
+    <td><%= location.addressline2 %></td>
+    <td><%= location.addressline3 %></td>
+    <td><%= location.addressline4 %></td>
+    <td><%= location.city %></td>
+    <td><%= link_to 'Show', location %></td>
+    <td><%= link_to 'Edit', edit_location_path(location) %></td>
+    <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Location', new_location_path %>

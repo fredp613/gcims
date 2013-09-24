@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  registrationnumber: MyString
+  registrationdate: 2013-08-27 16:26:20
+  client_id: 1
+
+two:
+  registrationnumber: MyString
+  registrationdate: 2013-08-27 16:26:20
+  client_id: 1

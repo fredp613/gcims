@@ -1,0 +1,37 @@
+<%= simple_form_for(@location) do |f| %>
+
+	<% if @contact %>
+      <%= f.simple_fields_for :contactlocations do |builder| %>
+         <%= builder.input :location_id, :label=>"Select existing location", 
+          collection: Location.where(:id => @locations), 
+          :label_method => lambda { |at| "#{at.addressline1}" } %> 
+          <%= builder.input :contact_id, :input_html=>{value: @contact} %>
+      <% end %>
+    <% end %>
+
+    <% if @client %>
+      <%= f.simple_fields_for :clientlocations do |builder| %>
+         <%= builder.input :location_id, :label=>"Select existing location", 
+          collection: Location.where(:id => @locations), 
+          :label_method => lambda { |at| "#{at.addressline1}" } %> 
+          <%= builder.input :client_id, :input_html=>{value: @client} %>
+      <% end %>
+    <% end %>
+
+<% end %>
+
+  <div class="form-actions">
+   <%= f.button :submit %>
+  </div>
+
+<% end %>
+
+ <span>Or create a new address:</span>
+
+ <% if @contact %>
+  <%= link_to "Add address", new_location_path(:contact=>@contact) %>
+ <% end %>
+
+ <% if @client %>
+ <%= link_to "Add address", new_location_path(:client=>@client) %>
+ <% end %>

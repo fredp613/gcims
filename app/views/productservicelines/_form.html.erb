@@ -1,0 +1,44 @@
+
+		<%= simple_form_for @productserviceline, :html => { :class => 'form-horizontal' } do |f| %>
+		  <fieldset>
+		  	<legend>Product Service Line</legend>
+		  <%= f.input :psl_name, :label => "Product Service line (EN)" %>
+		  
+		 </fieldset>
+
+		 <% if @productserviceline.new_record? %>
+			  <%= f.simple_fields_for :subservicelines do |builder| %>
+				  	<fieldset>
+				  		<legend>Sub Service Line</legend>
+				  		<%= builder.input :ssl_name, :label => "Sub Service Line (EN)" %>
+				  	</fieldset>
+
+				  	<%= builder.simple_fields_for :summarycommitments do |builder| %>
+				  		<fieldset>
+				  		<legend>Summary commitment</legend>
+				  		<%= builder.input :sc_name, :label => "Summary Commitment (EN)" %>
+				  	</fieldset>
+
+				  		<%= builder.simple_fields_for :commitmentitems do |builder| %>
+				  		<fieldset>
+				  		<legend>Commitment Item</legend>
+				  		<%= builder.input :ci_name, :label => "Commitment Item (EN)" %>
+				  	</fieldset>
+				  		<% end %>
+				  	<% end %>
+			<% end %>
+		  <% end %>
+
+		  <fieldset>
+		  	<legend>Fiscal Years</legend>
+		   <%= f.association :fiscalyears, :label=>"Select fiscal year(s)", collection: Fiscalyear.all(order: 'fy'), :label_method => lambda { |fy| "#{fy.fy}" }, as: :check_boxes %>
+		   </fieldset>
+
+		   <%= f.input :active, :label=>"Activate on Save" %>
+
+		  <div class="form-actions">
+		    <%= f.button :submit, :class => 'btn-primary' %>
+		    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		                productservicelines_path, :class => 'btn' %>
+		  </div>
+		<% end %>

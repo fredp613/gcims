@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ci_name: MyString
+  updated_by: 1
+  active: 
+
+two:
+  ci_name: MyString
+  updated_by: 1
+  active: 

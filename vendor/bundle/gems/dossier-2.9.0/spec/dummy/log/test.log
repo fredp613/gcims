@@ -1,0 +1,527 @@
+Connecting to database specified by database.yml
+  [1m[36mFACTORY (0.2ms)[0m  [1mCREATE DATABASE IF NOT EXISTS `dossier_test`[0m
+  [1m[35mFACTORY (0.1ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (65.4ms)[0m  [1m CREATE TABLE `employees` (
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) NOT NULL,
+ `division` varchar(255) NOT NULL,
+ `salary` int(11) NOT NULL,
+ `suspended` tinyint(1) NOT NULL DEFAULT 0,
+ `hired_on` date NOT NULL,
+ PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+[0m
+  [1m[35mFACTORY (4.0ms)[0m  TRUNCATE `employees`
+  [1m[36mFACTORY (0.4ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Moustafa McMann', '2010-10-02', false, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (0.3ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Jimmy Jackalope, Jr.', '2013-01-11', true, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (0.3ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Elise Elderberry', '2013-01-11', false, 'Corporate Malfeasance', 99000);
+[0m
+  [1m[35mFACTORY (0.3ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (1.5ms)[0m  [1m CREATE TABLE `employees` (
+ `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+ `name` TEXT NOT NULL,
+ `division` TEXT NOT NULL,
+ `salary` INTEGER NOT NULL,
+ `suspended` TINYINT NOT NULL DEFAULT 0,
+ `hired_on` DATE NOT NULL
+ );
+[0m
+  [1m[35mFACTORY (0.9ms)[0m  DELETE FROM `employees`
+  [1m[36mFACTORY (1.1ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('MOUSTAFA MCMANN', '2010-10-02', 0, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (1.1ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('JIMMY JACKALOPE, JR.', '2013-01-11', 1, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (0.9ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('ELISE ELDERBERRY', '2013-01-11', 0, 'Corporate Malfeasance', 99000);
+[0m
+  [1m[35mEmployeeReport (0.4ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within dossier/layouts/application (28.2ms)
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within dossier/layouts/application (5.7ms)
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (5.0ms)
+Started GET "/reports/employee_with_custom_client" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_client"}
+  [1m[35mEmployeeWithCustomClientReport (0.3ms)[0m  
+SELECT * FROM `employees`
+Completed 200 OK in 14ms (Views: 10.8ms | ActiveRecord: 0.3ms)
+Started GET "/reports/cats/are/super_fun" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"cats/are/super_fun"}
+  [1m[36mCats::Are::SuperFunReport (0.1ms)[0m  [1m
+select 'cats', 'are', 'super', 'fun'[0m
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.1ms)
+Started GET "/reports/employee.xls" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as XLS
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 132ms (ActiveRecord: 0.3ms)
+Started GET "/reports/employee.csv" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as CSV
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 4ms (ActiveRecord: 0.3ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee?options[divisions][]=Tedious+Toiling&options[names][]=Jimmy+Jackalope&options[names][]=Moustafa+McMann&options[order]=desc&options[salary]=true" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"divisions"=>["Tedious Toiling"], "names"=>["Jimmy Jackalope", "Moustafa McMann"], "order"=>"desc", "salary"=>"true"}, "report"=>"employee"}
+  [1m[36mEmployeeReport (0.6ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ AND division in (('Tedious Toiling'))
+ AND salary > 10000
+ AND (name like '%Moustafa McMann%' or name like '%Jimmy Jackalope%')
+ ORDER BY name DESC[0m
+Completed 200 OK in 13ms (Views: 10.8ms | ActiveRecord: 0.6ms)
+Started GET "/reports/employee?options[footer]=1" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"footer"=>"1"}, "report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (60.0ms)
+  [1m[36mEmployeeWithCustomViewReport (0.2ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 70ms (Views: 68.9ms | ActiveRecord: 0.2ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (2.4ms)
+  [1m[35mEmployeeWithCustomViewReport (0.2ms)[0m  
+SELECT * FROM employees WHERE suspended = true
+Completed 200 OK in 9ms (Views: 8.2ms | ActiveRecord: 0.2ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.3ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Started GET "/employee_report_custom_controller" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by SiteController#report as HTML
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 10ms (Views: 6.6ms | ActiveRecord: 0.3ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (3.7ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.4ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.7ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.8ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.4ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 16ms (Views: 14.2ms | ActiveRecord: 0.7ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:46:45 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.6ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 14ms (Views: 12.0ms | ActiveRecord: 0.6ms)
+Connecting to database specified by database.yml
+  [1m[36mFACTORY (0.1ms)[0m  [1mCREATE DATABASE IF NOT EXISTS `dossier_test`[0m
+  [1m[35mFACTORY (1.8ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (57.8ms)[0m  [1m CREATE TABLE `employees` (
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) NOT NULL,
+ `division` varchar(255) NOT NULL,
+ `salary` int(11) NOT NULL,
+ `suspended` tinyint(1) NOT NULL DEFAULT 0,
+ `hired_on` date NOT NULL,
+ PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+[0m
+  [1m[35mFACTORY (4.3ms)[0m  TRUNCATE `employees`
+  [1m[36mFACTORY (0.4ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Moustafa McMann', '2010-10-02', false, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (0.4ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Jimmy Jackalope, Jr.', '2013-01-11', true, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (0.4ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Elise Elderberry', '2013-01-11', false, 'Corporate Malfeasance', 99000);
+[0m
+  [1m[35mFACTORY (1.7ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (1.2ms)[0m  [1m CREATE TABLE `employees` (
+ `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+ `name` TEXT NOT NULL,
+ `division` TEXT NOT NULL,
+ `salary` INTEGER NOT NULL,
+ `suspended` TINYINT NOT NULL DEFAULT 0,
+ `hired_on` DATE NOT NULL
+ );
+[0m
+  [1m[35mFACTORY (0.9ms)[0m  DELETE FROM `employees`
+  [1m[36mFACTORY (1.0ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('MOUSTAFA MCMANN', '2010-10-02', 0, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (0.9ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('JIMMY JACKALOPE, JR.', '2013-01-11', 1, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (0.9ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('ELISE ELDERBERRY', '2013-01-11', 0, 'Corporate Malfeasance', 99000);
+[0m
+Started GET "/reports/cats/are/super_fun" for 127.0.0.1 at 2013-07-31 11:52:22 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"cats/are/super_fun"}
+  [1m[35mCats::Are::SuperFunReport (0.1ms)[0m  
+select 'cats', 'are', 'super', 'fun'
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (62.9ms)
+Completed 200 OK in 75ms (Views: 67.5ms | ActiveRecord: 0.1ms)
+  [1m[36mEmployeeReport (0.4ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within dossier/layouts/application (16.7ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within dossier/layouts/application (5.6ms)
+Started GET "/employee_report_custom_controller" for 127.0.0.1 at 2013-07-31 11:52:22 -0400
+Processing by SiteController#report as HTML
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 9ms (Views: 5.0ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee.csv" for 127.0.0.1 at 2013-07-31 11:52:22 -0400
+Processing by Dossier::ReportsController#show as CSV
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.4ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 5ms (ActiveRecord: 0.4ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:52:22 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (4.9ms)
+  [1m[36mEmployeeWithCustomViewReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+  Rendered dossier/reports/employee_with_custom_view.html.haml within layouts/application (11.7ms)
+Completed 200 OK in 15ms (Views: 13.9ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:52:22 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (2.6ms)
+  [1m[35mEmployeeWithCustomViewReport (0.3ms)[0m  
+SELECT * FROM employees WHERE suspended = true
+  Rendered dossier/reports/employee_with_custom_view.html.haml within layouts/application (7.2ms)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (5.5ms)
+Completed 200 OK in 9ms (Views: 6.7ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (5.8ms)
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee?options[footer]=1" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"footer"=>"1"}, "report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (5.4ms)
+Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee?options[divisions][]=Tedious+Toiling&options[names][]=Jimmy+Jackalope&options[names][]=Moustafa+McMann&options[order]=desc&options[salary]=true" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"divisions"=>["Tedious Toiling"], "names"=>["Jimmy Jackalope", "Moustafa McMann"], "order"=>"desc", "salary"=>"true"}, "report"=>"employee"}
+  [1m[35mEmployeeReport (0.4ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ AND division in (('Tedious Toiling'))
+ AND salary > 10000
+ AND (name like '%Moustafa McMann%' or name like '%Jimmy Jackalope%')
+ ORDER BY name DESC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml within layouts/application (5.6ms)
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 0.4ms)
+Started GET "/reports/employee.xls" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as XLS
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 4ms (ActiveRecord: 0.3ms)
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (4.2ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (3.4ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.4ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 22ms (Views: 20.4ms | ActiveRecord: 0.7ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.7ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 13ms (Views: 11.8ms | ActiveRecord: 0.6ms)
+Started GET "/multi/reports/combination.csv" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#multi as CSV
+  Parameters: {"report"=>"combination"}
+Completed 500 Internal Server Error in 1ms
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.7ms)
+  [1m[35mEmployeeReport (0.4ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  [1m[36mEmployeeWithCustomViewReport (0.4ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 14ms (Views: 12.1ms | ActiveRecord: 0.8ms)
+Started GET "/reports/employee_with_custom_client" for 127.0.0.1 at 2013-07-31 11:52:23 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_client"}
+  [1m[35mEmployeeWithCustomClientReport (0.2ms)[0m  
+SELECT * FROM `employees`
+Completed 200 OK in 6ms (Views: 4.3ms | ActiveRecord: 0.2ms)
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Connecting to database specified by database.yml
+  [1m[36mFACTORY (0.2ms)[0m  [1mCREATE DATABASE IF NOT EXISTS `dossier_test`[0m
+  [1m[35mFACTORY (1.9ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (43.1ms)[0m  [1m CREATE TABLE `employees` (
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `name` varchar(255) NOT NULL,
+ `division` varchar(255) NOT NULL,
+ `salary` int(11) NOT NULL,
+ `suspended` tinyint(1) NOT NULL DEFAULT 0,
+ `hired_on` date NOT NULL,
+ PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+[0m
+  [1m[35mFACTORY (3.9ms)[0m  TRUNCATE `employees`
+  [1m[36mFACTORY (0.4ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Moustafa McMann', '2010-10-02', false, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (0.3ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Jimmy Jackalope, Jr.', '2013-01-11', true, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (0.3ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('Elise Elderberry', '2013-01-11', false, 'Corporate Malfeasance', 99000);
+[0m
+  [1m[35mFACTORY (1.8ms)[0m  DROP TABLE IF EXISTS `employees`
+  [1m[36mFACTORY (1.1ms)[0m  [1m CREATE TABLE `employees` (
+ `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+ `name` TEXT NOT NULL,
+ `division` TEXT NOT NULL,
+ `salary` INTEGER NOT NULL,
+ `suspended` TINYINT NOT NULL DEFAULT 0,
+ `hired_on` DATE NOT NULL
+ );
+[0m
+  [1m[35mFACTORY (0.9ms)[0m  DELETE FROM `employees`
+  [1m[36mFACTORY (1.2ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('MOUSTAFA MCMANN', '2010-10-02', 0, 'Zany Inventions', 30000);
+[0m
+  [1m[35mFACTORY (0.8ms)[0m   INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('JIMMY JACKALOPE, JR.', '2013-01-11', 1, 'Tedious Toiling', 20000);
+
+  [1m[36mFACTORY (1.1ms)[0m  [1m INSERT INTO 
+ `employees` (`name`, `hired_on`, `suspended`, `division`, `salary`) 
+ VALUES ('ELISE ELDERBERRY', '2013-01-11', 0, 'Corporate Malfeasance', 99000);
+[0m
+Started GET "/multi/reports/combination.csv" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#multi as CSV
+  Parameters: {"report"=>"combination"}
+Completed 500 Internal Server Error in 1ms
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (7.6ms)
+  [1m[35mEmployeeReport (0.4ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml (8.9ms)
+  [1m[36mEmployeeWithCustomViewReport (0.5ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+  Rendered dossier/reports/employee_with_custom_view.html.haml (3.5ms)
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/multi.html.haml within layouts/application (39.9ms)
+Completed 200 OK in 101ms (Views: 99.7ms | ActiveRecord: 0.8ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.5ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml (5.3ms)
+  [1m[36mEmployeeWithCustomViewReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+  Rendered dossier/reports/employee_with_custom_view.html.haml (1.6ms)
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/multi.html.haml within layouts/application (10.3ms)
+Completed 200 OK in 13ms (Views: 11.1ms | ActiveRecord: 0.7ms)
+Started GET "/multi/reports/combination" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#multi as HTML
+  Parameters: {"report"=>"combination"}
+  Rendered dossier/reports/combination/_options.html.haml (1.5ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/show.html.haml (5.0ms)
+  [1m[36mEmployeeWithCustomViewReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+  Rendered dossier/reports/employee_with_custom_view.html.haml (1.9ms)
+  Rendered /Users/adamhunter/Studio/github/dossier/app/views/dossier/reports/multi.html.haml within layouts/application (10.3ms)
+Completed 200 OK in 13ms (Views: 11.2ms | ActiveRecord: 0.6ms)
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (5.3ms)
+Started GET "/reports/employee_with_custom_client" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_client"}
+  [1m[35mEmployeeWithCustomClientReport (0.2ms)[0m  
+SELECT * FROM `employees`
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.2ms)
+Started GET "/reports/employee.xls" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as XLS
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 4ms (ActiveRecord: 0.3ms)
+Started GET "/reports/employee.csv" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as CSV
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 4ms (ActiveRecord: 0.3ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee?options[divisions][]=Tedious+Toiling&options[names][]=Jimmy+Jackalope&options[names][]=Moustafa+McMann&options[order]=desc&options[salary]=true" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"divisions"=>["Tedious Toiling"], "names"=>["Jimmy Jackalope", "Moustafa McMann"], "order"=>"desc", "salary"=>"true"}, "report"=>"employee"}
+  [1m[35mEmployeeReport (0.5ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ AND division in (('Tedious Toiling'))
+ AND salary > 10000
+ AND (name like '%Moustafa McMann%' or name like '%Jimmy Jackalope%')
+ ORDER BY name DESC
+Completed 200 OK in 67ms (Views: 64.7ms | ActiveRecord: 0.5ms)
+Started GET "/reports/employee?options[footer]=1" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"options"=>{"footer"=>"1"}, "report"=>"employee"}
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.3ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (3.4ms)
+  [1m[35mEmployeeWithCustomViewReport (0.2ms)[0m  
+SELECT * FROM employees WHERE suspended = true
+Completed 200 OK in 13ms (Views: 11.4ms | ActiveRecord: 0.2ms)
+Started GET "/reports/employee_with_custom_view" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee_with_custom_view"}
+  Rendered dossier/reports/employee_with_custom_view/_options.html.haml (2.2ms)
+  [1m[36mEmployeeWithCustomViewReport (0.2ms)[0m  [1m
+SELECT * FROM employees WHERE suspended = true[0m
+Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 0.2ms)
+Started GET "/reports/employee" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"employee"}
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.3ms)
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Started GET "/reports/cats/are/super_fun" for 127.0.0.1 at 2013-07-31 11:52:40 -0400
+Processing by Dossier::ReportsController#show as HTML
+  Parameters: {"report"=>"cats/are/super_fun"}
+  [1m[36mCats::Are::SuperFunReport (0.1ms)[0m  [1m
+select 'cats', 'are', 'super', 'fun'[0m
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.1ms)
+  [1m[35mEmployeeReport (0.3ms)[0m  
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC
+Started GET "/employee_report_custom_controller" for 127.0.0.1 at 2013-07-31 11:52:41 -0400
+Processing by SiteController#report as HTML
+  [1m[36mEmployeeReport (0.3ms)[0m  [1m
+SELECT * FROM employees WHERE 1=1
+ ORDER BY name ASC[0m
+Completed 200 OK in 8ms (Views: 4.4ms | ActiveRecord: 0.3ms)

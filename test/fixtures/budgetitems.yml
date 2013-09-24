@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  desc: MyText
+  forecast: 9.99
+  actual: 9.99
+  fiscalyear_id: 1
+  application_id: 1
+  budgetcategory_id: 1
+
+two:
+  title: MyString
+  desc: MyText
+  forecast: 9.99
+  actual: 9.99
+  fiscalyear_id: 1
+  application_id: 1
+  budgetcategory_id: 1

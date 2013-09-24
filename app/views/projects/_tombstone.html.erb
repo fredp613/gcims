@@ -1,0 +1,18 @@
+<fieldset>
+<div class='content'>
+	 <legend class='proj_legend'>Project Details</legend>
+
+	  <%= f.input :projectname, label: 'Title' %>
+	  <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>
+	  <% if @project.new_record?  %>
+		  <%= date_picker :startdate, f, "", "Start Date" %>
+		    <%= date_picker :enddate, f, "", "End Date" %>
+
+	  <% else  %>
+		  <%= date_picker :startdate, f,  @project.startdate, "Start Date" %>
+		  <%= date_picker :enddate, f,  @project.enddate, "Start Date" %>
+	  <% end  %>
+
+
+
+</fieldset>

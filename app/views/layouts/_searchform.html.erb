@@ -1,0 +1,7 @@
+<%= form_for quicksearch_path, :method => 'get', :html => { :class => 'form-inline' } do |f|  %>
+	<div class='input-append'>
+	<%= f.text_field "Search", placeholder: 'Search anything'%>  
+	<%= button_tag(:type=>:submit, :class=>'btn', :style=>'margin-bottom:5px') do %>
+	  <i class='icon-search'></i>
+	<% end %>
+<% end %>

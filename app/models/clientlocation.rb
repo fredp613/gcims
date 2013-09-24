@@ -1,0 +1,9 @@
+class Clientlocation < ActiveRecord::Base
+  set_table_name "clients_locations"
+  attr_accessible :client_id, :location_id, :addresstype_id
+  belongs_to :client
+  belongs_to :location
+  belongs_to :addresstype
+
+
+end
