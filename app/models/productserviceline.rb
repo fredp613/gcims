@@ -1,5 +1,5 @@
 class Productserviceline < ActiveRecord::Base
-  set_table_name "Productservicelines"
+  set_table_name "productservicelines"
   attr_accessible :psl_name, :active, :fiscalyear_ids, :subservicelines_attributes, 
   :summarycommitments_attributes, :commitmentitems_attributes
 

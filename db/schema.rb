@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130914004400) do
+ActiveRecord::Schema.define(:version => 20130921211238) do
 
   create_table "addresstypes", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20130914004400) do
     t.integer  "subserviceline_id"
     t.integer  "productserviceline_id"
     t.integer  "applicationtype_id"
+    t.string   "corporate_file_number"
   end
 
   create_table "applicationtypes", :force => true do |t|
@@ -227,6 +228,14 @@ ActiveRecord::Schema.define(:version => 20130914004400) do
   end
 
   add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
+
+  create_table "pg_search_documents", :force => true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "phones", :force => true do |t|
     t.string   "phone"

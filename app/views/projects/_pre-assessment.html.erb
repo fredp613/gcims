@@ -1,9 +1,9 @@
 <fieldset>
 	 	<legend>Financial Coding <%= f.button :submit, "change", name: 'pras', 
 	 	:class=>'btn btn-info btn-small' %></legend>
-		Product service line: <strong><%= @mainapplication.productserviceline.psl_name %></strong><br>
-		Sub service line: <strong><%= @mainapplication.subserviceline.ssl_name %></strong><br>
-		Summary Commitment: <strong><%= @mainapplication.summarycommitment.sc_name %></strong><br>
+		Product service line: <strong><%= @mainapplication.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></strong><br>
+		Sub service line: <strong><%= @mainapplication.commitmentitem.summarycommitment.subserviceline.ssl_name %></strong><br>
+		Summary Commitment: <strong><%= @mainapplication.commitmentitem.summarycommitment.sc_name %></strong><br>
 		Commitment Item: <strong><%= @mainapplication.commitmentitem.ci_name %></strong>
 	 </fieldset>
 

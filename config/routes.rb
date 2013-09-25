@@ -1,6 +1,10 @@
 GCIMS::Application.routes.draw do
   
 
+  get "searches/index"
+
+  get "searches/advanced"
+
   resources :applicationtypes
 
 
@@ -9,12 +13,14 @@ GCIMS::Application.routes.draw do
 
   resources :budgetitems
 
-
-  get "search/index", :as=>'quicksearch'
-  post "search/index", :as=>'quicksearch'
-  get "search/advanced", :as=>'advancedsearch'
-  post "search/advanced", :as=>'advancedsearch'
-
+  resources :searches do
+    collection do
+      get "searches/index", :as=>'quicksearch'
+      post "searches/index", :as=>'quicksearch'
+      get "searches/advanced", :as=>'advancedsearch'
+      post "searches/advanced", :as=>'advancedsearch'
+    end
+  end
   resources :divisions
   resources :charities
   resources :bands

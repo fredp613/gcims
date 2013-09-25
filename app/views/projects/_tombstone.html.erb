@@ -5,12 +5,14 @@
 	  <%= f.input :projectname, label: 'Title' %>
 	  <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>
 	  <% if @project.new_record?  %>
-		  <%= date_picker :startdate, f, "", "Start Date" %>
-		    <%= date_picker :enddate, f, "", "End Date" %>
+		  
+		  <%= date_picker :startdate, f, @project.startdate, "Start Date", @project.errors %>
+		    <%= date_picker :enddate, f, @project.enddate, "End Date", @project.errors %>
+
 
 	  <% else  %>
-		  <%= date_picker :startdate, f,  @project.startdate, "Start Date" %>
-		  <%= date_picker :enddate, f,  @project.enddate, "Start Date" %>
+		  <%= date_picker :startdate, f,  @project.startdate.to_date, "Start Date", @project.errors.full_messages %>
+		  <%= date_picker :enddate, f,  @project.enddate.to_date, "Start Date", @project.errors.full_messages %>
 	  <% end  %>
 
 

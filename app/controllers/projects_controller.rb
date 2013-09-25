@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.client_id = params[:client_id]
     @project.applications.build
 
     @token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
@@ -42,14 +43,20 @@ class ProjectsController < ApplicationController
       @client_name = Client.where(:id=>@client_id).first.name
     end
 
-    if @layout= "false"   
-      render :layout => false
-    else
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @subserviceline }
-      end
+
+
+
+    respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @project}
+        
     end
+    
+
   end
 
   # GET /projects/1/edit
@@ -60,20 +67,19 @@ class ProjectsController < ApplicationController
     @existing = Contact.joins(:projectcontacts).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
-
-    
-
   end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
+    @client_id = params[:client_id]
+    @project.client_id = @client_id
 
-    if session[:last_created_at].to_i > params[:ts].to_i
-      @existing_project = Project.where(:token=>@project.token).first
-      redirect_to edit_project_path(@existing_project)
-    else
+    #if session[:last_created_at].to_i > params[:ts].to_i
+    #  @existing_project = Project.where(:token=>@project.token).first
+    #  redirect_to edit_project_path(@existing_project)
+    #else
 
     respond_to do |format|
       if @project.save
@@ -85,13 +91,17 @@ class ProjectsController < ApplicationController
           format.html { redirect_to edit_project_path(@project), notice: 'Project was successfully created.' }
         end
         format.json { render json: @project, status: :created, location: @project }
+        format.js {render :js => "window.location = '#{edit_project_path(@project)}'" } 
 
       else
-        format.html { render action: "new" }
+       # @state_form_ts = Time.now.to_i
+        #session[:last_created_at] = @state_form_ts
+        format.html { render action: "new"  }
         format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.js 
       end
     end
-    end
+    #end
   end
 
   # PUT /projects/1

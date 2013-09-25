@@ -12,4 +12,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :client
 
+  validates :projectname, presence: true
+  validates :startdate, presence: true
+  validates :enddate, presence: true
+
+
 end

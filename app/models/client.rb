@@ -1,4 +1,6 @@
 class Client < ActiveRecord::Base
+  include PgSearch
+
   attr_accessible :name, :name1, :salutation, :locations_attributes, :clientlocations_attributes, :clienttype_id, 
                   :websites_attributes, :phones_attributes, :emails_attributes, :incorporated, :registeredcharity, 
                   :registeredband, :mandate, :corporation_attributes, :charity_attributes, :band_attributes,
@@ -7,6 +9,7 @@ class Client < ActiveRecord::Base
 
   has_many :clientlocations, dependent: :delete_all
   has_many :locations, through: :clientlocations
+  has_many :states, through: :locations 
   has_many :projects
   has_many :contacts, dependent: :delete_all
   has_many :emails
@@ -16,6 +19,13 @@ class Client < ActiveRecord::Base
   has_one :charity, dependent: :destroy
   has_one :band, dependent: :destroy
   has_one :corporation, dependent: :destroy
+  has_many :applications, through: :projects
+  has_many :commitmentitems, through: :applications
+  has_many :summarycommitments, through: :commitmentitems
+  has_many :subservicelines, through: :summarycommitments
+  has_many :productservicelines, through: :subservicelines
+
+
 
   belongs_to :clienttype
   
@@ -30,6 +40,21 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :corporation
   accepts_nested_attributes_for :divisions
   accepts_nested_attributes_for :projects
+
+  pg_search_scope :search, against: [:name, :name1],
+  using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  associated_against: {projects: [:projectname, :projectdesc], applications: :corporate_file_number,
+  commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
+  locations: [:addressline1, :addressline2, :city, :postal], states: :name, contacts: [:firstname, :lastname] }
+
+  def self.text_search(query)
+    if query.present?
+      search(query)
+    else
+      scoped
+    end
+  end 
+
 
   def adj_name
   	"#{salutation} #{name} #{name1}"
