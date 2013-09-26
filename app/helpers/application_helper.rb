@@ -25,18 +25,18 @@ module ApplicationHelper
 		@object = f.object.class.name.downcase
 		object = @object + "_" + name.to_s
 		@name = f.object.class.name.downcase + "[" + name.to_s + "]"
-		if !error.empty?
-			error = error.get(name).first
-			error_ind = "error"
+		if !error.get(name).blank? #used to be !error.empty?
+			@error = error.get(name)
+			@error_ind = "error"
 		else
-			error = ""
-			error_ind = ""
+			@error = ""
+			@error_ind = ""
 		end
 	     	
 			#error(@name,object,label) +
-		content_tag(:div, :class=>'control-group string required ' + object + ' ' + error_ind) do
+		content_tag(:div, :class=>'control-group string required ' + object + ' ' + @error_ind) do
 	      concat content_tag(:label, label, :class=>"string required control-label", :for=>object) 
-	     	concat field(@name,object,value,error) 
+	     	concat field(@name,object,value,@error) 
    		 end
    		
    	end
@@ -46,8 +46,8 @@ module ApplicationHelper
 	     		concat content_tag :input,"", :class=>"string required datepicker", 
 	       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value
 	       	  	
-	       	  	if !error.blank?
-		     		concat content_tag(:span, error.to_s, :class=>'help-inline') 
+	       	  	if !(error.blank? || error == "")
+		     		concat content_tag(:span, error.first, :class=>'help-inline') 
 		     	end
     	end
    	end
