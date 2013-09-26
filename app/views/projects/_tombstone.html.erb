@@ -11,8 +11,8 @@
 
 
 	  <% else  %>
-		  <%= date_picker :startdate, f,  @project.startdate.to_date, "Start Date", @project.errors.full_messages %>
-		  <%= date_picker :enddate, f,  @project.enddate.to_date, "Start Date", @project.errors.full_messages %>
+		  <%= date_picker :startdate, f,  @project.startdate.to_date, "Start Date", @project.errors %>
+		  <%= date_picker :enddate, f,  @project.enddate.to_date, "Start Date", @project.errors %>
 	  <% end  %>
 
 
