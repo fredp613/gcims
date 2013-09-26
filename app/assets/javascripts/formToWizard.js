@@ -9,6 +9,10 @@
 
         var steps = $(element).find("fieldset");
         var count = steps.size();
+
+       
+        
+
         var submmitButtonName = "#" + options.submitButton;
         $(submmitButtonName).hide();
 
@@ -66,8 +70,21 @@
         }
 
         function selectStep(i) {
+
             $("#steps li").removeClass("active current");
             $("#stepDesc" + i).addClass("active current");
+
+            var errors = $(element).find(".help-inline").first();
+
+            if (errors > 0) {
+                var parent = errors.closest("div[id]").attr("id").substring(5,4);
+                    
+                if (i != parent) {
+                  $("#stepDesc" + i).removeClass("active current");
+                  $("#stepDesc" + parent).addClass("active current");
+                }
+         }
+
         }
 
     }
