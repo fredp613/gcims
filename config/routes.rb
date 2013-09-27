@@ -1,9 +1,7 @@
 GCIMS::Application.routes.draw do
   
 
-  get "searches/index"
-
-  get "searches/advanced"
+ 
 
   resources :applicationtypes
 
