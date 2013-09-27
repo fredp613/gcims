@@ -1,0 +1,27 @@
+<%= form_tag searches_path, :action=>'searches/index', :method=>'get', :html => { :class => 'form-inline' } do |f|  %>
+  
+
+  <div class='input-append'>
+  
+
+  <% if @query %>
+  <%= text_field_tag :search_field, @query%>  
+   <% else %>
+  <%= text_field_tag :search_field, "", placeholder: 'Search anything'%>  
+    <% end  %>
+  
+
+  <%= button_tag(:type=>:submit, :class=>'btn', :style=>'margin-bottom:5px') do %>
+      <i class='icon-search'></i>
+  <% end %>
+  
+  </div>  	
+
+
+
+<%= link_to "Click here for advanced search", advancedsearch_searches_path, :class=>'btn btn-small btn-info',
+:style=>'margin-bottom:12px;' %>
+
+</div>
+
+<% end %>

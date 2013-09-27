@@ -1,0 +1,31 @@
+
+
+  <%= content_tag(:div, :class=>"modal fade", :id=>"myModal", :style=>'display:none;') do %>
+    <%= content_tag(:div, :class=>'modal-dialog') do %>
+        <%= content_tag(:div, :class=>'modal-content') do %>      
+
+          <%= content_tag(:div, :class=>'modal-header') do %>
+            <%= button_tag(:class=>'close', :type=>'button', 'data-dismiss'=>"modal", 'aria-hidden'=>"true") do %>
+              &times;
+            <% end  %>
+            <%= tag(:h4, :class=>'modal-title') %>
+          <% end %>
+
+          <%= content_tag(:div, :class=>'modal-body') do %>
+          <% end %>      
+          
+
+        <% end %>
+    
+    <% end %>
+  <% end %>
+
+  
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+
+
+
+<h3>Clients</h3>
+<div id='client_table'>
+<table class='table table-bordered'>
+ <thead>
+ 	<tr>
+ 	 <td>name</td>
+ 	 <td>email</td>
+ 	 <td>phone</td>
+ 	 <td>website</td>
+ 	 <td></td>
+ 	</tr>
+ </thead>
+ <tbody id='client_records'>
+ <%= render 'client_records' %>
+ </tbody>
+
+</table>
+</div>
+
+<div id='client_paginator'>
+<%= paginate @clients, :param_name=>'client_page', :remote=>true %>
+</div>
+
+<% if @client.count > 5 %>
+	<%= render 'pageSize', :id=>'clients' %>
+<% end %>
+
+
+
+

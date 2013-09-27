@@ -1,0 +1,15 @@
+<% @applications.each do |a| %>
+  	<tr>
+  		<td><%= a.corporate_file_number %></td>
+  		<td><%= a.project.client.adj_name %></td>
+  		<td><%= a.project.projectname %></td>
+  		<td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></td>
+  		<td><%= a.commitmentitem.summarycommitment.subserviceline.ssl_name %></td>
+  		<td><%= a.commitmentitem.summarycommitment.sc_name %></td>
+  		<td><%= a.commitmentitem.ci_name %></td>
+  		<td>
+      <%= link_to 'Add', new_client_project_path(a.project.client_id), :class=>'newProject btn btn-small btn-primary' %> 
+      </td>
+      <td><%= link_to "details", a.project, :class=>'btn btn-small btn-info' %></td>
+  	</tr>
+  <% end %>

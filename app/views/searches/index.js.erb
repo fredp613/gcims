@@ -1,0 +1,8 @@
+$("#client_records").html('<%= j render("client_records")  %>');
+$("#project_records").html('<%= j render("project_records") %>');
+
+$("#client_paginator").html('<%= j(paginate(@clients, :param_name=>"client_page", :remote=>true).to_s) %>');
+$("#project_paginator").html('<%= j(paginate(@applications, :param_name=>"project_page", :remote=>true).to_s) %>');
+
+
+

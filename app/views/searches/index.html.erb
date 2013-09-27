@@ -1,0 +1,47 @@
+
+
+
+<p><h3>Search for Client</h3></p>
+
+
+<%= render 'shared/quicksearch' %>
+
+<div id='results' class='row span9'>
+
+<% if !params[:create] %>
+
+<ul class="nav nav-pills" data-tabs="tabs">
+  <li class="active">
+    <a data-toggle="tab" href="#clients">Clients (<%= @client.count %>)</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#projects">Projects (<%= @projects.count %>)</a>
+  </li>
+  
+</ul>
+
+<div class="tab-content">
+
+  <div class="tab-pane active" id="clients">
+  <% if !@clients.blank? %>  
+  <%= render 'clients' %>
+  <% else %>
+    <strong>Your search did not yield any clients</strong>
+  <% end %>
+  </div>
+
+  <div class="tab-pane" id="projects">
+  <% if !@projects.blank? %>
+  <%= render 'projects' %>
+  <% else %>
+  <strong>Your search did not yield any projects</strong>
+  <% end %>
+  </div>
+</div>
+
+<% end %>
+
+
+</div>
+
+<%= render 'shared/modal' %>

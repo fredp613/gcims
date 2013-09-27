@@ -1,0 +1,24 @@
+<% @clients.each do |c| %>
+ <tr>
+ 	<td><%= c.adj_name  %></td>
+ 	<td>
+ 		<% c.emails.each do |e| %>
+ 		 <%= e.email %>
+ 		<% end %>
+ 	</td>
+ 	<td>
+ 		<% c.phones.each do |p| %>
+ 		 <%= p.phone %>
+ 		<% end %>
+ 	</td>
+ 	<td>
+ 		<% c.websites.each do |w| %>
+ 		 <%= w.website %>
+ 		<% end %>
+ 	</td>
+ 	<td> 	
+ 	<%= link_to 'Add Project', new_client_project_path(c), :class=>'newProject btn btn-small btn-primary' %> 
+ 	<%= link_to "Details", c, :class=>'btn btn-small btn-primary' %>
+    </td>
+ </tr>
+ <% end  %>
