@@ -29,7 +29,7 @@ class SearchesController < ApplicationController
 
  	 @projects_by_location = Project.where(:client_id=>@cl.select(:client_id))
  	
- 	 @project_final = @projects.map(&:id) + @projects_by_location
+ 	 @project_final = @projects.map(&:id) + @projects_by_location.map(&:id).reject{ |p| @projects.map(&:id).include? p}
  
 
  	 @applications = Application.where(:project_id=>@project_final).page(params[:project_page]).per(@project_page_size)
