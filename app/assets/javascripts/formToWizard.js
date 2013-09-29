@@ -10,12 +10,9 @@
         var steps = $(element).find("fieldset");
         var count = steps.size();
 
-       
-        
-
         var submmitButtonName = "#" + options.submitButton;
         $(submmitButtonName).hide();
-
+       
         // 2 
         $(element).before("<ul id='steps' class='nav nav-pills'></ul>");
 
@@ -29,16 +26,25 @@
 
             if (i == 0) {
                 createNextButton(i);
-                selectStep(i);
+                
             }
             else if (i == count - 1) {
                 $("#step" + i).hide();
                 createPrevButton(i);
+                
             }
             else {
                 $("#step" + i).hide();
                 createPrevButton(i);
                 createNextButton(i);
+                
+            }
+            var errors = $(element).find(".help-inline").first();                    
+            if (errors.size() >= 1) { 
+             selectErrorStep(i);
+            }
+            else {
+             selectStep(i);
             }
         });
 
@@ -70,21 +76,24 @@
         }
 
         function selectStep(i) {
-
             $("#steps li").removeClass("active current");
             $("#stepDesc" + i).addClass("active current");
-
-            var errors = $(element).find(".help-inline").first();
-
-            /**if (errors > 0) {
-                var parent = errors.closest("div[id]").attr("id").substring(5,4);
-                    
-                if (i != parent) {
-                  $("#stepDesc" + i).removeClass("active current");
-                  $("#stepDesc" + parent).addClass("active current");
-                }
-            }**/
-
+           
         }
+
+        function selectErrorStep(i) {
+            
+            var errors = $(element).find(".help-inline").first();                                              
+            var parent = errors.closest("div[id]").attr("id").substring(5,4)
+            $("#steps li").removeClass("active current");
+            $("#stepDesc" + parent).addClass("active current");                                                           
+            $("#step" + i).hide();                            
+            $("#step" + parent).show();    
+
+            if (parent == count - 1) {
+             $(submmitButtonName).show();                     
+            }
+        }
+
 
     }

@@ -1,5 +1,5 @@
 class Application < ActiveRecord::Base
-  attr_accessible :budgetitems_attributes, :commitmentitem_id, :applicationtype_id
+  attr_accessible :budgetitems_attributes, :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, :productserviceline 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline 
 
 
@@ -11,8 +11,8 @@ class Application < ActiveRecord::Base
   accepts_nested_attributes_for :budgetitems
 
   validates :commitmentitem_id, presence: true
-  #validates :subserviceline, presence: true
-  #validates :summarycommitment, presence: true
-  #validates :productserviceline, presence: true
+  validates :subserviceline, presence: true
+  validates :summarycommitment, presence: true
+  validates :productserviceline, presence: true
   
 end
