@@ -1,4 +1,7 @@
 class Location < ActiveRecord::Base
+
+  include PgSearch
+
   attr_accessible :addressline1, :addressline2, :addressline3, :addressline4, :city, :state_id, :country_id, :postal, 
   :contactlocations_attributes, :clientlocations_attributes, :contacts_attributes, :clients_attributes, 
   :addresstypes_attributes, :divisions_attributes
@@ -20,5 +23,18 @@ class Location < ActiveRecord::Base
   accepts_nested_attributes_for :contactlocations
   accepts_nested_attributes_for :addresstypes
   accepts_nested_attributes_for :divisions
+
+  pg_search_scope :search, against: [:addressline1, :addressline2, :addressline3, :addressline4, :city],
+  using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  associated_against: { state: :name }
+
+  
+  def self.text_search(query)
+    if query.present?
+      search(query)
+    else
+      scoped
+    end
+  end 
 
 end

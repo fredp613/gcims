@@ -1,5 +1,8 @@
 class Application < ActiveRecord::Base
-  attr_accessible :budgetitems_attributes, :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, :productserviceline 
+
+  
+
+  attr_accessible :corporate_file_number, :budgetitems_attributes, :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, :productserviceline 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline 
 
 
@@ -7,6 +10,7 @@ class Application < ActiveRecord::Base
   has_one :applicationtype
   belongs_to :project
   belongs_to :commitmentitem
+
   
   accepts_nested_attributes_for :budgetitems
 
@@ -14,5 +18,6 @@ class Application < ActiveRecord::Base
   validates :subserviceline, presence: true
   validates :summarycommitment, presence: true
   validates :productserviceline, presence: true
+
   
 end

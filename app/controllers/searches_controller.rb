@@ -20,8 +20,19 @@ class SearchesController < ApplicationController
  	 @clients = Client.text_search(params[:search_field]).page(params[:client_page]).per(@client_page_size)
 
  	 @client = Client.text_search(params[:search_field]).select(:id)
- 	 @projects = Project.where(:client_id=>@client.map(&:id))
- 	 @applications = Application.where(:project_id=>@projects).page(params[:project_page]).per(@project_page_size)
+ 	 
+ 	 #@projects = Project.where(:client_id=>@client.map(&:id))
+ 	 @projects = Project.text_search(params[:search_field]).select(:id)
+
+ 	 @locations = Location.text_search(params[:search_field]).select(:id)
+ 	 @cl = Clientlocation.where(:location_id=>@locations.map(&:id))
+
+ 	 @projects_by_location = Project.where(:client_id=>@cl.select(:client_id))
+ 	
+ 	 @project_final = @projects.map(&:id) + @projects_by_location
+ 
+
+ 	 @applications = Application.where(:project_id=>@project_final).page(params[:project_page]).per(@project_page_size)
 
  	end	
 
