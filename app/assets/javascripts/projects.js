@@ -9,13 +9,14 @@ var createModal = function(link, title) {
 
 } 
 
-/**/ 
-$('.newProject').on('click', function() {
+
+
+$(document).on('click', '.newProject', function(){ 
+   // $.getScript(this.href);  
       var link = $(this).attr('href') + '?layout="false"';
       createModal(link, 'Create Project Wizard');
-      return false;    
- });
-/**/
+      return false;
+  }); 
 
  $("#myModal").on('hidden', function() {
     $("#modalId").remove();

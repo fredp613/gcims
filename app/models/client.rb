@@ -42,7 +42,11 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :projects
 
   pg_search_scope :search, against: [:name, :name1],
-  using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  using: {     
+    tsearch: {dictionary: 'english', prefix: true, any_word: true},
+    trigram: {}
+    #dmetaphone: {}
+    },
   associated_against: {projects: [:projectname, :projectdesc], applications: :corporate_file_number,
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   locations: [:addressline1, :addressline2, :city, :postal], states: :name, contacts: [:firstname, :lastname] }

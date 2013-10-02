@@ -26,6 +26,7 @@
 
             if (i == 0) {
                 createNextButton(i);
+                selectStep(i)
                 
             }
             else if (i == count - 1) {
@@ -43,9 +44,9 @@
             if (errors.size() >= 1) { 
              selectErrorStep(i);
             }
-            else {
+           /** else {
              selectStep(i);
-            }
+            }**/
         });
 
         function createPrevButton(i) {

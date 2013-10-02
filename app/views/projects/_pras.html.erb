@@ -1,7 +1,22 @@
-<fieldset>
- 	<legend>Financial Coding</legend>
+
  	<%= f.simple_fields_for :applications do |application| %>
-	
+		
+
+	  	<fieldset>
+
+	  		
+		 <legend>Core Information</legend>
+			<%= application.input :corporate_file_number %>
+	  		
+
+	  		<%= application.input :requested, :wrapper => :prepend do %>
+			    <%= content_tag :span, "$", :class => "add-on" %>
+			    <%= application.input_field :requested, :style=>'width:92%' %>
+			 <% end %>	
+	  	
+		
+ 			<legend>Financial Coding</legend>
+
 		<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
 
  		<%= application.input :subserviceline, label: 'Sub Service Line', collection: Subserviceline.all, :label_method => lambda { |ssl| "#{ssl.ssl_name}" }  %>
@@ -11,6 +26,6 @@
  		<%= application.input :commitmentitem_id, label: 'Commitment Item', collection: Commitmentitem.all, :label_method => lambda { |ci| "#{ci.ci_name}" }  %>
  	<% end %>
 
-</fieldset>
+	</fieldset>
 
 

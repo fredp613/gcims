@@ -24,6 +24,11 @@ class Project < ActiveRecord::Base
   validates :projectname, presence: true
   validates :startdate, presence: true
   validates :enddate, presence: true
+  
+  
+#custom validators
+  validate :validate_date_fields?
+
 
 
   pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate],
@@ -39,5 +44,16 @@ class Project < ActiveRecord::Base
       scoped
     end
   end 
+
+  def validate_date_fields?     
+    return if [enddate.blank?, startdate.blank?].any?
+    if enddate < startdate
+      errors.add(:startdate, 'must be smaller than end date')
+    end
+  end
+
+ 
+
+  
 
 end

@@ -2,7 +2,10 @@ class Application < ActiveRecord::Base
 
   
 
-  attr_accessible :corporate_file_number, :budgetitems_attributes, :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, :productserviceline 
+  attr_accessible :corporate_file_number, :budgetitems_attributes, 
+  :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
+  :productserviceline, :requested
+
   attr_accessor :summarycommitment, :subserviceline, :productserviceline 
 
 
@@ -14,10 +17,15 @@ class Application < ActiveRecord::Base
   
   accepts_nested_attributes_for :budgetitems
 
+  validates :corporate_file_number, presence: :true
   validates :commitmentitem_id, presence: true
   validates :subserviceline, presence: true
   validates :summarycommitment, presence: true
   validates :productserviceline, presence: true
+
+  validates :requested, :numericality => true,
+            :format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
+
 
   
 end
