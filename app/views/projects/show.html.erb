@@ -1,15 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Projectname:</b>
-  <%= @project.projectname %>
-</p>
-
-<p>
-  <b>Projectdesc:</b>
-  <%= @project.projectdesc %>
-</p>
-
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<div><h4><%= link_to @project.client.name, client_path(@project.client) %></h4><br></div>
+ <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
+  
+  <div class="form-inputs">
+	 <%= render 'form_show_core' %>
+	 <%= render 'pre-assessment' %>
+  </div>

@@ -1,7 +1,8 @@
-<h1>Listing budgetitems</h1>
+<h1>Project budget</h1>
 
-<table>
+<table class='table'>
   <tr>
+    <th>App Id</th>
     <th>Title</th>
     <th>Desc</th>
     <th>Forecast</th>
@@ -16,6 +17,7 @@
 
 <% @budgetitems.each do |budgetitem| %>
   <tr>
+    <th><%= budgetitem.application.id %></th>
     <td><%= budgetitem.title %></td>
     <td><%= budgetitem.desc %></td>
     <td><%= budgetitem.forecast %></td>
@@ -32,4 +34,4 @@
 
 <br />
 
-<%= link_to 'New Budgetitem', new_budgetitem_path %>
+<%= link_to 'Add budget item', new_budgetitem_path %>

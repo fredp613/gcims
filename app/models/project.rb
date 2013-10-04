@@ -3,12 +3,13 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   attr_accessible :projectdesc, :projectname, :startdate, :enddate, :applications_attributes, 
-  :token, :projectcontacts_attributes, :contacts_attributes, :client_id
+  :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id
 
   has_many :projectcontacts, :dependent=>:destroy
   has_many :contacts, through: :projectcontacts
 
   has_many :applications
+  has_many :budgetitems, through: :applications
   has_many :commitmentitems, through: :applications
   has_many :summarycommitments, through: :commitmentitems
   has_many :subservicelines, through: :summarycommitments
@@ -20,6 +21,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :projectcontacts
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :client
+  accepts_nested_attributes_for :budgetitems
 
   validates :projectname, presence: true
   validates :startdate, presence: true

@@ -10,9 +10,10 @@ var createModal = function(link, title) {
 } 
 
 
-
-$(document).on('click', '.newProject', function(){ 
-   // $.getScript(this.href);  
+//$(document).on('click', '.newProject', function(e){
+$(".newProject").on('click', function() { 
+   // $.getScript(this.href);
+      //e.preventDefault();  
       var link = $(this).attr('href') + '?layout="false"';
       createModal(link, 'Create Project Wizard');
       return false;

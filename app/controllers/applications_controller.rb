@@ -65,7 +65,7 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.update_attributes(params[:application])
         if session[:pras]
-          format.html { redirect_to edit_project_path(@application.project_id), notice: 'Application was successfully updated.' }
+          format.html { redirect_to project_path(@application.project), notice: 'Application was successfully updated.' }
         else
           format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         end

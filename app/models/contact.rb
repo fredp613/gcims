@@ -4,7 +4,7 @@ class Contact < ActiveRecord::Base
 
   belongs_to :client
   
-  has_many :projectcontacts	
+  has_many :projectcontacts, :dependent => :destroy
   has_many :projects, through: :projectcontacts
   has_many :contactlocations,:dependent => :destroy
   has_many :locations, through: :contactlocations

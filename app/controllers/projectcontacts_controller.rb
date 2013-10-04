@@ -63,7 +63,7 @@ class ProjectcontactsController < ApplicationController
 
     respond_to do |format|
       if @projectcontact.save
-        format.html { redirect_to edit_project_path(@projectcontact.project_id), notice: 'Contacttype was successfully created.' }
+        format.html { redirect_to project_path(@projectcontact.project_id), notice: 'Contacttype was successfully created.' }
         format.json { render json: @projectcontact, status: :created, location: @projectcontact }
       else
         format.html { render action: "new" }

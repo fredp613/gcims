@@ -1,6 +1,8 @@
 <fieldset>
-	 	<legend>Financial Coding <%= f.button :submit, "change", name: 'pras', 
+	 	<legend>Financial Coding 
+	 	<%= link_to "change", edit_application_path(@project.applications.first, :pras=>true), name: 'pras', 
 	 	:class=>'btn btn-info btn-small' %></legend>
+
 		Product service line: <strong><%= @mainapplication.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></strong><br>
 		Sub service line: <strong><%= @mainapplication.commitmentitem.summarycommitment.subserviceline.ssl_name %></strong><br>
 		Summary Commitment: <strong><%= @mainapplication.commitmentitem.summarycommitment.sc_name %></strong><br>
@@ -35,7 +37,11 @@
 	 	<%= link_to "Click here to add new contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
 	 	<% end  %>
 	 <% else  %>
+	 	<% if @no_contact.blank? %>
+	 		<%= link_to "Click here to add new contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
+	 	<% else %>
 	 	<%= link_to "Click here to add project contact(s)", new_projectcontact_path(:project_id=>@project), :class=>'btn btn-info btn-small' %>
+	 	<% end %>
 	 <% end  %>
 
 

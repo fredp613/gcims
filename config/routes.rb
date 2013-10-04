@@ -46,7 +46,7 @@ GCIMS::Application.routes.draw do
     resources :contacts do
       resources :locations
     end
-    #resources :contactlocations
+    resources :contactlocations
     resources :projects
   end
 

@@ -23,7 +23,7 @@ class Application < ActiveRecord::Base
   validates :summarycommitment, presence: true
   validates :productserviceline, presence: true
 
-  validates :requested, :numericality => true,
+  validates :requested, presence: :true, :numericality => true,
             :format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
 
 

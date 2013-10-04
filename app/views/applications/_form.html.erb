@@ -8,12 +8,17 @@
   <legend>PRAS</legend>
  <% end  %>
   <div class="form-inputs">
+    <%= f.input :corporate_file_number, as: :hidden %>
+    <%= f.input :requested, as: :hidden %>
   	<%= f.input :productserviceline, label: 'Product Service Line', 
-  	collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %>
+  	collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" },
+    :selected=>@application.commitmentitem.summarycommitment.subserviceline.productserviceline.id  %>
 	<%= f.input :subserviceline, label: 'Sub Service Line', 
-	collection: Subserviceline.all, :label_method => lambda { |ssl| "#{ssl.ssl_name}" }  %>
+	collection: Subserviceline.all, :label_method => lambda { |ssl| "#{ssl.ssl_name}" },
+  :selected=>@application.commitmentitem.summarycommitment.subserviceline.id  %>
 	<%= f.input :summarycommitment, label: 'Summary Commitment', 
-	collection: Summarycommitment.all, :label_method => lambda { |sc| "#{sc.sc_name}" }  %>
+	collection: Summarycommitment.all, :label_method => lambda { |sc| "#{sc.sc_name}" }, 
+  :selected=>@application.commitmentitem.summarycommitment.id %>
 	<%= f.input :commitmentitem_id, label: 'Commitment Item', 
 	collection: Commitmentitem.all, :label_method => lambda { |ci| "#{ci.ci_name}" }  %>
   </div>

@@ -1,0 +1,27 @@
+<% if !@project.new_record? %>
+		  <%= f.simple_fields_for :applications do |app| %>
+		  	<%= app.input :corporate_file_number %>
+		  	<%= app.input :requested, :wrapper => :prepend do %>
+			    <%= content_tag :span, "$", :class => "add-on" %>
+			    <%= app.input_field :requested, :style=>'width:92%' %>
+			 <% end %>
+		  	<%= app.input :productserviceline, as: :hidden, :input_html=> {value: "1"} %>
+		  	<%= app.input :subserviceline, as: :hidden, :input_html=> {value: "1"} %>
+		  	<%= app.input :summarycommitment, as: :hidden, :input_html=> {value: "1"} %>
+		  	<%= app.input :commitmentitem_id, as: :hidden  %>
+
+		  <% end  %>
+	  <% end %>
+
+	  <%= f.input :projectname, label: 'Title' %>
+	  <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>
+	  <% if @project.new_record?  %>
+
+		  <%= date_picker :startdate, f, @project.startdate, "Start Date", @project.errors %>
+		    <%= date_picker :enddate, f, @project.enddate, "End Date", @project.errors %>
+
+
+	  <% else  %>
+		  <%= date_picker :startdate, f,  @project.startdate.to_date, "Start Date", @project.errors %>
+		  <%= date_picker :enddate, f,  @project.enddate.to_date, "Start Date", @project.errors %>
+	  <% end  %>

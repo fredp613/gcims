@@ -74,7 +74,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-         if params[:client_id] 
+         if params[:client_id] && !params[:project_id] 
          format.html { redirect_to new_client_contactlocation_path(@client, :contact_id=>@contact), notice: 'Add address information.' }
          elsif params[:project_id] 
           Projectcontact.create!(:contact_id=>@contact.id, :project_id=>@project)
@@ -103,7 +103,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
         if params[:project_id]
-        format.html { redirect_to edit_project_path(@project), notice: 'Contact was successfully added.' }
+        format.html { redirect_to project_path(@project), notice: 'Contact was successfully added.' }
         else
         format.html { redirect_to client_path(@client), notice: 'Contact was successfully updated.' }
         end

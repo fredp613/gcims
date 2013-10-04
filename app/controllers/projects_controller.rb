@@ -16,6 +16,15 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    #@project.applications.build
+
+    @mainapplication = Application.where(:project_id=>@project).first
+    @contacts = Contact.where(:client_id=>@project.client_id)
+    @existing = Contact.joins(:projectcontacts).where("projectcontacts.project_id = ?", @project )
+    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
+    @ddl = Contact.where(:id=>@contacts_clean)
+
+    @no_contact = Contact.where(:client_id=>@project.client_id)
 
     respond_to do |format|
       format.html # show.html.erb

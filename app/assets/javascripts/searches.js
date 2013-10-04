@@ -1,6 +1,10 @@
+
+
+$(".newProject").attr('disabled', false);
+
 $(".size").on('change', function() {
   $(this).parent('form').submit();
-  
+
   /**$(this).parent('form').submit(function() {
     $.ajax({
           url: this.action,

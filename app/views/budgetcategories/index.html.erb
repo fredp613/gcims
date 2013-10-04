@@ -3,17 +3,15 @@
 <table>
   <tr>
     <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
 <% @budgetcategories.each do |budgetcategory| %>
   <tr>
     <td><%= budgetcategory.name %></td>
-    <td><%= link_to 'Show', budgetcategory %></td>
-    <td><%= link_to 'Edit', edit_budgetcategory_path(budgetcategory) %></td>
-    <td><%= link_to 'Destroy', budgetcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', budgetcategory %> |
+    <%= link_to 'Edit', edit_budgetcategory_path(budgetcategory) %> |
+    <%= link_to 'Destroy', budgetcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

@@ -2,10 +2,9 @@
 <div class='content'>
 	 <legend class='proj_legend'>Project Details</legend>
 
-
-	 	<%= render 'project_fields', :f=>f %>
-	
-
+	 	<%= simple_form_for(@project) do |f| %>		  
+		  <%= render 'project_fields', :f=>f %>
+	  <% end %>
 </div>
 
 </fieldset>
