@@ -315,7 +315,7 @@ class LocationsController < ApplicationController
   def filter_type  
     if params[:client_id]
      # @client = params[:client]
-      @newrecord = Clientlocation.where(:Location_id=>@location.id).first
+      @newrecord = Clientlocation.where(:location_id=>@location.id).first
       @check_for_primary = Clientlocation.where(:client_id=>@client, :addresstype_id=>1)
       if  !@newrecord.blank?
         @check_current_primary = Clientlocation.where(:client_id=>@client, :Location_id=>@location.id).first
