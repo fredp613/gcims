@@ -7,11 +7,11 @@ class Client < ActiveRecord::Base
                   :divisions_attributes, :projects_attributes, :token
   attr_writer :current_step, :ts
 
-  has_many :clientlocations, dependent: :delete_all
-  has_many :locations, through: :clientlocations
+  has_many :clientlocations, dependent: :destroy
+  has_many :locations, through: :clientlocations, dependent: :destroy
   has_many :states, through: :locations 
-  has_many :projects
-  has_many :contacts, dependent: :delete_all
+  has_many :projects, dependent: :destroy
+  has_many :contacts, dependent: :destroy
   has_many :emails
   has_many :phones
   has_many :websites

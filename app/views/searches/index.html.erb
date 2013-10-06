@@ -8,48 +8,55 @@
 
 <%= render 'shared/quicksearch' %>
 
-<div id='results' class='row span9'>
 
-<% if !params[:create] %>
+<div id='table_container' class='row span9'>
+ <div class='cover offset2'></div>
+  <div id='results' style='display:none;'>
 
-<ul class="nav nav-pills" data-tabs="tabs">
-  <li class="active">
-    <a data-toggle="tab" href="#clients">Clients (<%= @client.count %>)</a>
-  </li>
-  <li>
-    <a data-toggle="tab" href="#projects">Projects (<%= @project_final.count %>)</a>
-  </li>
-  
-</ul>
 
-<div class="tab-content">
+  <% if !params[:create] %>
 
-  <div class="tab-pane active" id="clients">
-  <% if !@clients.blank? %>  
-  <%= render 'clients' %>
-  <% else %>
-    <strong>Your search did not yield any clients</strong>
-  <% end %>
+  <ul class="nav nav-pills" data-tabs="tabs">
+    <li class="active">
+      <a data-toggle="tab" href="#clients">Clients (<%= @client.count %>)</a>
+    </li>
+    <li>
+      <a data-toggle="tab" href="#projects">Projects (<%= @project_final.count %>)</a>
+    </li>
+    
+  </ul>
+
+  <div class="tab-content">
+
+
+
+    <div class="tab-pane active" id="clients">
+    <% if !@clients.blank? %>  
+    <%= render 'clients' %>
+    <% else %>
+      <strong>Your search did not yield any clients</strong>
+    <% end %>
+    </div>
+
+    <div class="tab-pane" id="projects">
+    <% if !@project_final.blank? %>
+    <%= render 'projects' %>
+    <% else %>
+    <strong>Your search did not yield any projects</strong>
+    <% end %>
+    </div>
+
+    
+    <p>
+      <%= link_to "Add Client", new_client_clienttypes_path, :class=>'btn btn-info' %>
+    </p>
+
   </div>
 
-  <div class="tab-pane" id="projects">
-  <% if !@project_final.blank? %>
-  <%= render 'projects' %>
-  <% else %>
-  <strong>Your search did not yield any projects</strong>
   <% end %>
+
+
   </div>
-
-  
-  <p>
-    <%= link_to "Add Client", new_client_clienttypes_path, :class=>'btn btn-info' %>
-  </p>
-
-</div>
-
-<% end %>
-
-
 </div>
 
 <%= render 'shared/modal' %>

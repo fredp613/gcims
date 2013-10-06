@@ -1,5 +1,14 @@
 
 
+
+
+$(function(){
+  $('.cover').fadeOut(200);
+  $('#results').fadeIn(200);
+    
+});
+
+
 $(".newProject").attr('disabled', false);
 
 $(".size").on('change', function() {
@@ -24,3 +33,31 @@ $(".size").on('change', function() {
     return false;
   }); **/
 });
+
+
+
+
+var createModal = function(link, title) {
+  $('.modal-title').html(title);
+  $('<div id="modalId" />').appendTo('.modal-body');
+  $('#modalId').load(link);
+  $("#myModal").modal();  
+
+} 
+
+
+//$(document).on('click', '.newProject', function(e){
+$("#table_container").on('click', '.newProject', function() { 
+   // $.getScript(this.href);
+      //e.preventDefault();  
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Create Project Wizard');
+      return false;
+  }); 
+
+ $("#myModal").on('hidden', function() {
+    $("#modalId").remove();
+ });
+
+
+
