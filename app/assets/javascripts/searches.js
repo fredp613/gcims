@@ -1,5 +1,7 @@
 
 
+//$('#cover').addClass("cover")
+//$('.cover').toggle();
 
 
 $(function(){

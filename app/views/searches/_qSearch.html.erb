@@ -3,7 +3,13 @@
 
   <div class='input-append'>
   
+
+  <% if @query %>
+  <%= text_field_tag :search_field, @query%>  
+   <% else %>
   <%= text_field_tag :search_field, "", placeholder: 'Search anything'%>  
+    <% end  %>
+  
 
   <%= button_tag(:type=>:submit, :class=>'btn', :style=>'margin-bottom:5px') do %>
       <i class='icon-search'></i>
