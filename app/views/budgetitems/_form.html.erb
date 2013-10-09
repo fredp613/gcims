@@ -1,14 +1,32 @@
 <%= simple_form_for(@budgetitem) do |f| %>
   <%= f.error_notification %>
-
+<br>
   <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :desc %>
-    <%= f.input :forecast %>
-    <%= f.input :actual %>
-    <%= f.input :fiscalyear_id %>
-    <%= f.input :application_id %>
-    <%= f.input :budgetcategory_id %>
+    <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
+    <%= f.input :forecast, :wrapper => :prepend do %>
+          <%= content_tag :span, "$", :class => "add-on" %>
+          <%= f.input_field :forecast, :style=>'width:92%' %>
+    <% end %>
+    <%= f.input :actual, :wrapper => :prepend do %>
+          <%= content_tag :span, "$", :class => "add-on" %>
+          <%= f.input_field :actual, :style=>'width:92%' %>
+    <% end %>
+    
+
+    <% if @budgetitem.new_record? %>
+      <% Fiscalyear.all.each do |fy| %>
+       <label class="checkbox">
+        <%= check_box_tag 'fiscalyear_ids[]', fy.id %>
+        <%= h fy.fy %>
+      </label>
+      <% end %> <br>
+    <% end %>
+
+    
+    <%= f.input :application_id, :label=>"Application", 
+    collection: @apptypes, :label_method => lambda { |type| "#{type.name}" }  %>
+
+    <%= f.input :budgetcategory_id, :label=>"Expense Category", collection: Budgetcategory.all , :label_method => lambda { |cat| "#{cat.name}" } %>
   </div>
 
   <div class="form-actions">

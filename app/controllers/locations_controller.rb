@@ -77,6 +77,10 @@ class LocationsController < ApplicationController
       #session[:contact] = @contact
     end
 
+    if params[:project_id]
+      @project = params[:project_id]
+    end
+
     if params[:country_id]
       @country_id = params[:country_id]
     else
@@ -215,7 +219,6 @@ class LocationsController < ApplicationController
              format.html { redirect_to edit_client_contact_path(@client, @contact), notice: 'Location was successfully updated.' }
           elsif @project
             format.html { redirect_to edit_project_contact_path(@project, @contact), notice: 'Location was successfully updated.' }
-
           end
           format.json { head :no_content }
         else
@@ -318,7 +321,7 @@ class LocationsController < ApplicationController
       @newrecord = Clientlocation.where(:location_id=>@location.id).first
       @check_for_primary = Clientlocation.where(:client_id=>@client, :addresstype_id=>1)
       if  !@newrecord.blank?
-        @check_current_primary = Clientlocation.where(:client_id=>@client, :Location_id=>@location.id).first
+        @check_current_primary = Clientlocation.where(:client_id=>@client, :location_id=>@location.id).first
         @primarycheck = @check_current_primary.addresstype_id
       else
         @primarycheck = 0

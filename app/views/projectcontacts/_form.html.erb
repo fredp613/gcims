@@ -5,7 +5,7 @@
 
   <%= f.input :project_id, as: :hidden,:input_html=>{value: @project} %>
   
-  	<%= f.input :contact_id,  collection: @ddl, label_method: lambda { |c| "#{c.fullname}" } %>
+  	<%= f.input :contact_id,  collection: @ddl, label_method: lambda { |c| "#{c.fullname}" } %> <br>
   	<%= f.input :authority, label: false, inline_label: 'Signing authority?' %>
 
   <div class="form-actions">

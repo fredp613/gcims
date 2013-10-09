@@ -25,6 +25,13 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems/new.json
   def new
     @budgetitem = Budgetitem.new
+    @project = params[:project]
+
+    @applications = Application.where(:project_id=>@project)
+
+    @apptypes = Applicationtype.joins(:applications).select('applications.id, applicationtypes.name').where('applications.id'=>@applications)
+    @app = Application.joins(:applicationtype)
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +42,28 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems/1/edit
   def edit
     @budgetitem = Budgetitem.find(params[:id])
+    @apptypes = Applicationtype.joins(:applications).select('applications.id, applicationtypes.name').where('applications.id'=>@budgetitem.application_id)
+
   end
 
   # POST /budgetitems
   # POST /budgetitems.json
   def create
-    @budgetitem = Budgetitem.new(params[:budgetitem])
+
+    @fys = params[:fiscalyear_ids]
+
+    @fys.each do |fy|
+      @budgetitem = Budgetitem.new(params[:budgetitem])
+      @budgetitem.fiscalyear_id = fy
+      @budgetitem.save
+    end
+ 
+    #redirect_to project_path(@budgetitem.application.project)
+    
 
     respond_to do |format|
       if @budgetitem.save
-        format.html { redirect_to @budgetitem, notice: 'Budgetitem was successfully created.' }
+        format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
         format.json { render json: @budgetitem, status: :created, location: @budgetitem }
       else
         format.html { render action: "new" }
@@ -53,6 +72,8 @@ class BudgetitemsController < ApplicationController
     end
   end
 
+
+
   # PUT /budgetitems/1
   # PUT /budgetitems/1.json
   def update
@@ -60,7 +81,7 @@ class BudgetitemsController < ApplicationController
 
     respond_to do |format|
       if @budgetitem.update_attributes(params[:budgetitem])
-        format.html { redirect_to @budgetitem, notice: 'Budgetitem was successfully updated.' }
+        format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +97,7 @@ class BudgetitemsController < ApplicationController
     @budgetitem.destroy
 
     respond_to do |format|
-      format.html { redirect_to budgetitems_url }
+      format.html { redirect_to project_path(@budgetitem.application.project) }
       format.json { head :no_content }
     end
   end

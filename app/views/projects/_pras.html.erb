@@ -1,31 +1,28 @@
 
- 	<%= f.simple_fields_for :applications do |application| %>
+<%= f.simple_fields_for :applications do |application| %>
+
+<fieldset style='margin-top:-40px;'>
 		
-
-	  	<fieldset>
-
-	  		
-		 <legend>Core Information</legend>
-			<%= application.input :corporate_file_number %>
-	  		
-
-	  		<%= application.input :requested, :wrapper => :prepend do %>
-			    <%= content_tag :span, "$", :class => "add-on" %>
-			    <%= application.input_field :requested, :style=>'width:180px;' %>
-			 <% end %>	
-	  	
+ <legend>Core Information</legend>
+	<%= application.input :corporate_file_number %>
 		
- 			<legend>Financial Coding</legend>
+		<%= application.input :requested, :wrapper => :prepend do %>
+	    <%= content_tag :span, "$", :class => "add-on" %>
+	    <%= application.input_field :requested, :style=>'width:180px;' %>
+	 <% end %>	
+	
 
-		<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
+		<legend>Financial Coding</legend>
 
- 		<%= application.input :subserviceline, label: 'Sub Service Line', collection: Subserviceline.all, :label_method => lambda { |ssl| "#{ssl.ssl_name}" }  %>
+<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
 
- 		<%= application.input :summarycommitment, label: 'Summary Commitment', collection: Summarycommitment.all, :label_method => lambda { |sc| "#{sc.sc_name}" }  %>
+	<%= application.input :subserviceline, label: 'Sub Service Line', collection: Subserviceline.all, :label_method => lambda { |ssl| "#{ssl.ssl_name}" }  %>
 
- 		<%= application.input :commitmentitem_id, label: 'Commitment Item', collection: Commitmentitem.all, :label_method => lambda { |ci| "#{ci.ci_name}" }  %>
- 	<% end %>
+	<%= application.input :summarycommitment, label: 'Summary Commitment', collection: Summarycommitment.all, :label_method => lambda { |sc| "#{sc.sc_name}" }  %>
 
-	</fieldset>
+	<%= application.input :commitmentitem_id, label: 'Commitment Item', collection: Commitmentitem.all, :label_method => lambda { |ci| "#{ci.ci_name}" }  %>
+<% end %>
+
+</fieldset>
 
 

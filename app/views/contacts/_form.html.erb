@@ -3,16 +3,16 @@
 
   <div class="form-inputs">
   <% if params[:project_id] %>
-  <%= text_field_tag "project_id", @project %>
+  <%= hidden_field_tag "project_id", @project %>
   <% end %>
 
   <% if params[:client_id] %>
-  <%= text_field_tag "client_id", @client %>
+  <%= hidden_field_tag "client_id", @client %>
   <% end %>
 
 
   	<% if @contact.new_record? %>
-  	 <%= f.input :client_id, :input_html=>{value: @client} %>
+  	 <%= f.input :client_id, as: :hidden, :input_html=>{value: @client} %>
   	<% end %>
     <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
     <%= f.input :firstname %>
@@ -20,7 +20,15 @@
      <%= f.input :title %>
        <%= f.input :contacttype_id, :label=>"Contact Type",
     collection: Contacttype.all  %>
-    <%= f.input :authority, :label=>"Signing authority" %>
+    
+    <% if @project %>
+      <%= f.simple_fields_for :projectcontacts do |pc| %>
+        <%= pc.input :authority,  :label=>"Project signing authority?" %>
+      <% end %>
+    <% else %>
+      <%= f.input :authority, :label=>"Signing authority?" %>
+    <% end %>
+
 
 
     <div id='address-fields'>
@@ -30,10 +38,26 @@
       <legend>Address information</legend>
      <p>
       <% if !@location.blank?  %>
+        
+
+        <% if @project %>
+        <%= link_to "Add address", new_project_contact_location_path(@project, @contact), :class=>'btn btn-primary btn-small' %>
+        <% else %>
         <%= link_to "Add address", new_client_contact_location_path(@client, @contact), :class=>'btn btn-primary btn-small' %>
+        <% end %>
+      
+
       <% else %>
+
+        <% if @project %>
+        <%= link_to "Add address", new_project_contact_location_path(@project,:contact=>@contact), :class=>'btn btn-primary btn-small' %>
+        <% else %>
         <%= link_to "Add address", new_client_location_path(@client,:contact=>@contact), :class=>'btn btn-primary btn-small' %>
+        <% end %>
+
       <% end  %>
+
+
     </p>
        <% @contact.contactlocations.each do |cl| %>
             <%= cl.location.addressline1 %> <br>
@@ -58,8 +82,14 @@
             <% if cl.location.postal %>
             <%= cl.location.postal %> <br>
             <% end %>
-            <%= link_to "Edit location", edit_client_contact_location_path(@client, @contact, cl.location), :class=>'btn btn-primary btn-small' %>   
-        <%= link_to 'Change location', cl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%> <br>
+
+            <% if @project %>
+              <%= link_to "Edit location", edit_project_contact_location_path(@project, @contact, cl.location), :class=>'btn btn-primary btn-small' %>   
+              <%= link_to 'Change location', cl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%> <br>
+            <% else %>
+              <%= link_to "Edit location", edit_client_contact_location_path(@client, @contact, cl.location), :class=>'btn btn-primary btn-small' %>   
+              <%= link_to 'Change location', cl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%> <br>
+            <% end %>
        <% end %>
      <% end  %>
       	

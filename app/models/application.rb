@@ -10,12 +10,14 @@ class Application < ActiveRecord::Base
 
 
   has_many :budgetitems, :dependent => :destroy
-  has_one :applicationtype
+  belongs_to :applicationtype
   belongs_to :project
   belongs_to :commitmentitem
 
   
   accepts_nested_attributes_for :budgetitems
+  #accepts_nested_attributes_for :applicationtype
+  
 
   validates :corporate_file_number, presence: :true
   validates :commitmentitem_id, presence: true

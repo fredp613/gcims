@@ -3,14 +3,14 @@
 
   <div class="form-inputs">
   <% if @project %>
-  <%= text_field_tag "project_id", @project %>
+  <%= hidden_field_tag "project_id", @project %>
   <% end  %>
   <% if @client  %>
-  <%= text_field_tag "client_id", @client %>
+  <%= hidden_field_tag "client_id", @client %>
   <% end  %>
 
   <% if @contact  %>
-  <%= text_field_tag "contact_id", @contact %>
+  <%= hidden_field_tag "contact_id", @contact %>
   <% end  %>
 
 
@@ -54,9 +54,9 @@
         <% if @contact %>
           <%= f.simple_fields_for :contactlocations do |builder| %>
           <% if @location.new_record?  %>
-              <%= builder.input :contact_id,:input_html=>{ value: @contact} %>
+              <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @contact} %>
           <% end %>
-          <%= @contact %>
+          
 
           <% end %>
         <% end %>

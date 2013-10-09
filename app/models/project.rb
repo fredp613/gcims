@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
   validates :enddate, presence: true
   
   
-#custom validators
+  
   validate :validate_date_fields?
 
 

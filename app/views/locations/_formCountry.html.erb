@@ -3,19 +3,19 @@
 
   <div class="form-inputs">
 <% if @project %>
-<%= text_field_tag "project_id", @project %>
+<%= hidden_field_tag "project_id", @project %>
 <% end  %>
 
 <% if @client  %>
-<%= text_field_tag "client_id", @client %>
+<%= hidden_field_tag "client_id", @client %>
 <% end  %>
 
 <% if !@location.new_record?  %>
-<%= text_field_tag "location_id", @location.id %>
+<%= hidden_field_tag "location_id", @location.id %>
 <% end %>
 
 <% if @contact %>
-<%= text_field_tag "contact_id", @contact %>
+<%= hidden_field_tag "contact_id", @contact %>
 <% end  %>
 
    <%= f.input :country_id, collection: Country.all(order: 'name'),

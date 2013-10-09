@@ -41,7 +41,8 @@ GCIMS::Application.routes.draw do
       get "/foreign" => 'clients#foreign'
       post "/foreign" => 'clients#foreign_go'
     end
-    resources :projects
+    resources :projects 
+    
     resources :locations
     resources :contacts do
       resources :locations
@@ -53,7 +54,9 @@ GCIMS::Application.routes.draw do
 
   resources :projectcontacts
 
-  resources :applications
+  resources :applications do
+    resources :budgetitems
+  end
   
   resources :projects do
     resources :contacts do

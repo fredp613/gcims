@@ -4,7 +4,11 @@
 
 	 	<%= simple_form_for(@project) do |f| %>		  
 		  <%= render 'project_fields', :f=>f %>
+
+		  <div class="submit">
+    		<%= f.button :submit, "Save", :class=>'btn btn-small btn-info' %>
+ 		  </div>	
 	  <% end %>
 </div>
-
 </fieldset>
+

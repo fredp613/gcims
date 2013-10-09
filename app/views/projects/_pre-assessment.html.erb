@@ -17,6 +17,7 @@
 		 	 	 <tr>
 		 	 		<th>Contact Name</th>
 		 	 		<th>Authority?</th>
+		 	 		<th>Edit</th>
 		 	 		<th>Remove</th>
 		 	 	 </tr>
 		 	 	</thead>
@@ -24,7 +25,12 @@
 		 	 	 <% @project.projectcontacts.each do |pc| %>
 		 	 	 <tr>
 		 	 		<td><%= pc.contact.fullname %></td>
-		 	 		<td><%= pc.authority %></td>
+		 	 		<td>
+		 	 			<% if pc.authority == true %>
+		 	 				<span class='icon-ok'></span>
+		 	 			<% end %>
+		 	 		</td>
+		 	 		<td><%= link_to '', edit_project_contact_path(pc.contact, :project_id=>pc.project_id), :class=>'icon-pencil' %></td>
 		 	 		<td><%= link_to '', pc, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> </td>
 		 	 	</tr>
 		 	 	 <% end  %>
@@ -32,7 +38,7 @@
 		 	 </table>
 	 	<br>
 	 	<% if !@ddl.blank?  %>
-	 	<%= link_to "Click here to add additional project contact(s)", new_project_contact_path(@project), :class=>'btn btn-info btn-small' %>
+	 	<%= link_to "Click here to add additional project contact(s)", new_project_projectcontact_path(@project), :class=>'btn btn-info btn-small' %>
 	 	<% else %>
 	 	<%= link_to "Click here to add new contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
 	 	<% end  %>
@@ -40,7 +46,7 @@
 	 	<% if @no_contact.blank? %>
 	 		<%= link_to "Click here to add new contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
 	 	<% else %>
-	 	<%= link_to "Click here to add project contact(s)", new_projectcontact_path(:project_id=>@project), :class=>'btn btn-info btn-small' %>
+	 	<%= link_to "Click here to add project contact(s)", new_project_projectcontact_path(:project_id=>@project), :class=>'btn btn-info btn-small' %>
 	 	<% end %>
 	 <% end  %>
 

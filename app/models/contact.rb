@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   attr_accessible :firstname, :lastname, :title, :contacttype_id, :authority, :locations_attributes,
-  :contactlocations_attributes, :client_id,:custom_field, :salutation
+  :contactlocations_attributes, :projectcontacts_attributes, :client_id,:custom_field, :salutation
 
   belongs_to :client
   
@@ -16,6 +16,7 @@ class Contact < ActiveRecord::Base
   accepts_nested_attributes_for :contactlocations
   accepts_nested_attributes_for :phones
   accepts_nested_attributes_for :emails
+  accepts_nested_attributes_for :projectcontacts
 
   def fullname
     firstname + " " + lastname

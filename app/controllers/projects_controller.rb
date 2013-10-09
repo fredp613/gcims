@@ -26,6 +26,9 @@ class ProjectsController < ApplicationController
 
     @no_contact = Contact.where(:client_id=>@project.client_id)
 
+    @total_estimate = @mainapplication.budgetitems.sum(&:forecast)
+    @total_actual = @mainapplication.budgetitems.sum(&:actual)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
