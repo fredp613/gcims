@@ -97,11 +97,7 @@ class ProjectsController < ApplicationController
       if @project.save
         @state_form_ts = Time.now.to_i
         session[:last_created_at] = @state_form_ts
-        if !session[:new]
-          format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        else
-          format.html { redirect_to edit_project_path(@project), notice: 'Project was successfully created.' }
-        end
+        format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }        
         format.json { render json: @project, status: :created, location: @project }
         format.js {render :js => "window.location = '#{edit_project_path(@project)}'" } 
 
@@ -126,7 +122,7 @@ class ProjectsController < ApplicationController
         if params[:pras]
          format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }
         else
-         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+         format.html { redirect_to project_path(@project), notice: 'Project was successfully updated.' }
         end
         format.json { head :no_content }
       else
