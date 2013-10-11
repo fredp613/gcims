@@ -3,7 +3,7 @@
   	 <%= app.input :corporate_file_number %>
   	 <%= app.input :requested, :wrapper => :prepend do %>
        <%= content_tag :span, "$", :class => "add-on" %>
-       <%= app.input_field :requested, :style=>'width:92%' %>
+       <%= app.input_field :requested %>
      <% end %>
 	  <%= app.input :applicationtype_id, as: :hidden,  :input_html=>{value: 1} %>
   	<%= app.input :productserviceline, as: :hidden, :input_html=> {value: "1"} %>

@@ -4,7 +4,7 @@ class Client < ActiveRecord::Base
   attr_accessible :name, :name1, :salutation, :locations_attributes, :clientlocations_attributes, :clienttype_id, 
                   :websites_attributes, :phones_attributes, :emails_attributes, :incorporated, :registeredcharity, 
                   :registeredband, :mandate, :corporation_attributes, :charity_attributes, :band_attributes,
-                  :divisions_attributes, :projects_attributes, :token
+                  :divisions_attributes, :projects_attributes, :applications_attributes, :token
   attr_writer :current_step, :ts
 
   has_many :clientlocations, dependent: :destroy
@@ -40,6 +40,7 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :corporation
   accepts_nested_attributes_for :divisions
   accepts_nested_attributes_for :projects
+  accepts_nested_attributes_for :applications
 
   pg_search_scope :search, against: [:name, :name1],
   using: {     

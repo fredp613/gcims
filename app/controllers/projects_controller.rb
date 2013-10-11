@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @projects }
@@ -84,7 +84,8 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(params[:project])
+    @project = current_user.projects.new(params[:project])
+    
     @client_id = params[:client_id]
     @project.client_id = @client_id
 
@@ -99,7 +100,7 @@ class ProjectsController < ApplicationController
         session[:last_created_at] = @state_form_ts
         format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }        
         format.json { render json: @project, status: :created, location: @project }
-        format.js {render :js => "window.location = '#{project_path(@project)}'" } 
+        format.js { render :js => "window.location = '#{project_path(@project)}'" } 
 
       else
        # @state_form_ts = Time.now.to_i
@@ -126,7 +127,7 @@ class ProjectsController < ApplicationController
         end
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "show" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
