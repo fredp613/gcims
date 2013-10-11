@@ -1,4 +1,4 @@
-<%= form_tag searches_path, :action=>'searches/index', :method=>'get', :html => { :class => 'form-inline' } do |f|  %>
+<%= form_tag searches_path, :action=>'searches/index', :method=>'get', :html => {:id=>'searchForm', :class => 'form-inline' } do |f|  %>
   
 
   <div class='input-append'>
@@ -11,7 +11,7 @@
     <% end  %>
   
 
-  <%= button_tag(:type=>:submit, :class=>'btn', :style=>'margin-bottom:5px') do %>
+  <%= button_tag(:type=>:submit, :class=>'btn search', :style=>'margin-bottom:5px') do %>
       <i class='icon-search'></i>
   <% end %>
   

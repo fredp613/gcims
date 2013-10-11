@@ -99,7 +99,7 @@ class ProjectsController < ApplicationController
         session[:last_created_at] = @state_form_ts
         format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }        
         format.json { render json: @project, status: :created, location: @project }
-        format.js {render :js => "window.location = '#{edit_project_path(@project)}'" } 
+        format.js {render :js => "window.location = '#{project_path(@project)}'" } 
 
       else
        # @state_form_ts = Time.now.to_i

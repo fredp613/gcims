@@ -3,12 +3,17 @@
 //$('#cover').addClass("cover")
 //$('.cover').toggle();
 
-
 $(function(){
-  $('.cover').fadeOut(200);
-  $('#results').fadeIn(200);
-    
+ // $('.cover').show();
+ // $('.cover').fadeOut(200);
+ // $('#results').fadeIn(200);  
 });
+
+
+
+
+
+
 
 
 $(".newProject").attr('disabled', false);

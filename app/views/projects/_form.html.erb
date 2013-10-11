@@ -1,5 +1,5 @@
 
-<%= simple_form_for @project, :remote=>true, :html => { :id => "frmOpenProject"}  do |f| %>
+<%= simple_form_for [@client, @project], :remote=>true, :html => { :id => "frmOpenProject"}  do |f| %>
  <%= f.error_notification %>
 
  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
