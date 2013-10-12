@@ -102,7 +102,11 @@ CREATE TABLE applications (
     productserviceline_id integer,
     applicationtype_id integer,
     corporate_file_number character varying(255),
-    requested numeric
+    requested numeric,
+    created_by integer,
+    updated_by integer,
+    decision_by integer,
+    responsible_official integer
 );
 
 
@@ -992,7 +996,9 @@ CREATE TABLE projects (
     startdate timestamp without time zone,
     enddate timestamp without time zone,
     token character varying(255),
-    state character varying(255)
+    state character varying(255),
+    created_by integer,
+    updated_by integer
 );
 
 
@@ -1955,3 +1961,7 @@ INSERT INTO schema_migrations (version) VALUES ('20130929192843');
 INSERT INTO schema_migrations (version) VALUES ('20130929192902');
 
 INSERT INTO schema_migrations (version) VALUES ('20131002010216');
+
+INSERT INTO schema_migrations (version) VALUES ('20131011195405');
+
+INSERT INTO schema_migrations (version) VALUES ('20131011202216');

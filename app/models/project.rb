@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
 
   include PgSearch
 
-  attr_accessible :projectdesc, :projectname, :startdate, :enddate, :applications_attributes, 
+  attr_accessible :projectdesc, :projectname, :startdate, :enddate, :created_by, :updated_by, :applications_attributes, 
   :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id
 
   has_many :projectcontacts, :dependent=>:destroy

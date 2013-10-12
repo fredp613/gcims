@@ -84,7 +84,9 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = current_user.projects.new(params[:project])
+    @project = Project.new(params[:project])
+    @project.created_by = current_user
+    
     
     @client_id = params[:client_id]
     @project.client_id = @client_id
@@ -117,6 +119,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
+    @project.updated_by = current_user
 
     respond_to do |format|
       if @project.update_attributes(params[:project])

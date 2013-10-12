@@ -1,35 +1,43 @@
-<h1>Listing projects</h1>
+<h1>My Projects</h1>
 
-<table class='table'>
-  <tr>
-    <th>Project Title</th>
-    <th>Project Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= project.projectname %></td>
-    <td><%= project.projectdesc %></td>
-    <td><%= link_to project do %>
-          <i class='icon-eye-open'></i>  
+
+<% if !@projects.blank? %>
+  <table class='table'>
+    <tr>
+      <th>Project Title</th>
+      <th>Project Description</th>
+      <th>Commitment Item</th>
+      <th>Official</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @projects.each do |project| %>
+    <% project.applications.by_official(current_user).each do |a| %>
+    <tr>
+      <td><%= a.project.projectname %></td>
+      <td><%= a.project.projectdesc %></td>
+      <td><%= a.commitmentitem_id %></td>
+      <td><%= a.official_email(current_user) %></td>
+      <td><%= link_to a.project do %>
+            <i class='icon-pencil icon-large black'></i>  
+          <% end  %>
+      </td>
+      <td><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class='icon-remove-sign icon-large red'></i> 
         <% end  %>
-    </td>
-    <td><%= link_to edit_project_path(project) do %>
-          <i class='icon-pencil'></i> 
-        <% end  %>
-    </td>
-    <td><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %>
-        <i class='icon-fire'></i> 
-      <% end  %>
 
-    </td>
-  </tr>
+      </td>
+    </tr>
+  <% end %>
+  <% end %>
+  </table>
+
+<% else %>
+<p><strong>You have no projects</strong></p>
 <% end %>
-</table>
 
 <br />
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to "Create project", searches_path(:create=>true), :class=>'btn btn-primary btn-small' %>

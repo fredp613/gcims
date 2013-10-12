@@ -4,7 +4,9 @@ class Application < ActiveRecord::Base
 
   attr_accessible :corporate_file_number, :budgetitems_attributes, 
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
-  :productserviceline, :requested
+  :productserviceline, :requested, 
+  #user columns
+  :updated_by, :created_by, :decision_by, :responsible_official
 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline 
 
@@ -27,6 +29,19 @@ class Application < ActiveRecord::Base
 
   validates :requested, presence: :true, :numericality => true,
             :format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
+
+
+  def self.by_official(user)
+    where("responsible_official in (?)", user.id)
+  end
+
+  def official_email(user)
+    @user = User.where("id = (?)", user.id).first.email
+    @user
+  end
+
+
+
 
 
   

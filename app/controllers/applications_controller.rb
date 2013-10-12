@@ -45,6 +45,7 @@ class ApplicationsController < ApplicationController
   # POST /applications.json
   def create
     @application = Application.new(params[:application])
+    @application.created_by = current_user
 
     respond_to do |format|
       if @application.save
@@ -61,6 +62,7 @@ class ApplicationsController < ApplicationController
   # PUT /applications/1.json
   def update
     @application = Application.find(params[:id])
+    @application.updated_by = current_user
 
     respond_to do |format|
       if @application.update_attributes(params[:application])
