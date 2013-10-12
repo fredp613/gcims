@@ -34,10 +34,10 @@
         <% if @client && !@contact %>
             <%= f.simple_fields_for :clientlocations do |builder| %>
                   <% if @location.new_record? %>
-                  <%= builder.input :client_id, :input_html=>{value: @client} %>
+                  <%= builder.input :client_id, as: :hidden, :input_html=>{value: @client} %>
                   <% end %>
 
-               <% if @check_for_primary = 1 && @primarycheck != 1 %>
+               <% if !@check_for_primary.blank? && @primarycheck != 1 %>
                  <%= builder.input :addresstype_id, :label=>"Type", 
                    collection: Addresstype.where('id != 1'), 
                     :label_method => lambda { |at| "#{at.name}" } %>      

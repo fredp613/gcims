@@ -35,7 +35,10 @@ class ClienttypesController < ApplicationController
 
   def new_client
     @clienttype = Clienttype.new
+    
+    if params[:client_id]
     @client = params[:client_id]
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,13 +48,22 @@ class ClienttypesController < ApplicationController
   end
 
   def new_client_go
-    @clienttype = params[:clienttype]
-    if !params[:client].blank?
-      @client = params[:client]
-      redirect_to edit_client_path(:id=>@client, :clienttype=> @clienttype)
-    else
-      redirect_to new_client_path(:clienttype=>@clienttype)
+    @clienttype = Clienttype.new(params[:clienttype])
+
+     respond_to do |format|
+      if @clienttype.valid? && !params[:client_id].blank?
+        format.html { redirect_to edit_client_path(:id=>@client, :clienttype=> @clienttype.name), notice: 'Client type was successfully updated' }
+        format.json { render json: @clienttype, status: :created, location: @clienttype }
+      elsif @clienttype.valid? && params[:client_id].blank?
+        format.html { redirect_to new_client_path(:clienttype=> @clienttype.name), notice: 'Client type was successfully updated' }
+        format.json { render json: @clienttype, status: :created, location: @clienttype }
+      else
+        format.html { render action: "new_client" }
+        format.json { render json: @clienttype.errors, status: :unprocessable_entity }
+      end
     end
+
+
   end
 
   

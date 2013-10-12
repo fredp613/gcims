@@ -1,17 +1,17 @@
-<%= simple_form_for new_client_clienttypes_path(@clienttype) do |f| %>
+<%= simple_form_for @clienttype, :url => { :action => :new_client } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-   <%= f.input :id, :label=>"Select client type",
-    collection: Clienttype.all, :input_html=>{name: "clienttype"}  %>
+   <%= f.input :name, :label=>"Select client type",
+    collection: Clienttype.all  %>
    </div>
 
    <% if @client  %>
-     <%= f.input :client_id, as: :hidden, :input_html=>{value: @client, name: "client"} %>
+     <%= f.input :client_id, :input_html=>{value: @client} %>
    <% end %>
 
-	  <div class="form-actions">
-	    <%= f.button :submit, :label=>"Save", :class=>'btn btn-primary btn-small' %>
-	  </div>
+	  
+	    <%= f.button :submit, "Next", :class=>'btn btn-primary btn-small' %>
+	  
  
 <% end %>

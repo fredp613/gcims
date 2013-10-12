@@ -13,10 +13,11 @@
     <%= f.input :clienttype_id, as: :hidden, :input_html=>{value: @clienttype} %>
    Client Type: <b><%= @clienttype_display.name %></b>
 <% end %>
-    <%= link_to "change", new_client_clienttypes_path(:client_id=>@client.id),:class=>'btn btn-info btn-small' %>
+    <%= link_to "change", new_client_clienttypes_path(:client_id=>@client.id),:class=>'btn btn-info btn-small' %><br>
     
 <% if @clienttype != 1 %>
  <%= f.input :mandate, :label=>'Mandate', :input_html=>{ rows: '5' } %>
 <% end %>
 
 <% end  %>
+

@@ -316,10 +316,10 @@ class LocationsController < ApplicationController
   end
 
   def filter_type  
-    if params[:client_id]
+   # if params[:client_id]
      # @client = params[:client]
-      @newrecord = Clientlocation.where(:location_id=>@location.id).first
-      @check_for_primary = Clientlocation.where(:client_id=>@client, :addresstype_id=>1)
+      @newrecord = Clientlocation.where(:location_id=>@location.id)
+      @check_for_primary = Clientlocation.where(:client_id=>@client, :addresstype_id=>1).first
       if  !@newrecord.blank?
         @check_current_primary = Clientlocation.where(:client_id=>@client, :location_id=>@location.id).first
         @primarycheck = @check_current_primary.addresstype_id
@@ -339,7 +339,7 @@ class LocationsController < ApplicationController
      # else
      #   @primarycheck = 0
      # end
-    end
+   # end
   end
 
 
