@@ -62,11 +62,22 @@
 <% end %>
 
 <% if @client.new_record? %>
+
   <script type="text/javascript">
     $(function() {
+      $('#frmClient').fadeIn(300);
       $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
     });
   </script>
+
+<% else %>
+
+  <script type="text/javascript">
+    $(function() {
+      $('#frmClient').fadeIn(200);
+    });
+  </script>
+
 <% end %>
 
 
