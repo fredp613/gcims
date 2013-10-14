@@ -6,29 +6,29 @@
      <%= f.simple_fields_for :locations do |builder| %>     
      <div id='countries'>
 
-      <%= builder.input :country_id, as: :integer, as: :hidden,  :input_html=> { value: @country_id } %>
+      <%= builder.input :country_id, as: :integer, as: :hidden %>
        <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
-        :selected => @country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
+        :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
 
-     <% if @clienttype.to_i != 3  %>
+     <% if clienttype.to_i != 3  %>
         <%= f.button :submit, "Change country", :name=>'country',:class=>'btn btn-primary btn-small'  %>
        </div>
      <% end %>
-
+     <br>
      <%= builder.input :addressline1, :label => "Addressline 1" %>  
      <%= builder.input :addressline2, :label => "Addressline 2" %>  
      <%= builder.input :addressline3, :label => "Addressline 3" %>  
      <%= builder.input :addressline4, :label => "Addressline 4" %>  
      <%= builder.input :city, :label => "City" %> 
 
-     <% if @country_id == 38 %>
+     <% if @client.country_id == 38 %>
       <%= builder.input :state_id, :label=>"Province", 
-      collection: State.where(:country_id=>@country_id), 
+      collection: State.where(:country_id=>@client.country_id), 
        :label_method => lambda { |se| "#{se.name}" } %>   
       <%= builder.input :postal, :label=>"Postal Code" %>   
      <% else %>
      <%= builder.input :state_id, :label=>"State/Region", 
-      collection: State.where(:country_id=>@country_id), 
+      collection: State.where(:country_id=>@client.country_id), 
        :label_method => lambda { |se| "#{se.name}" } %>   
       <%= builder.input :postal, :label=>"Postal Code / zip code" %> 
      <% end  %>

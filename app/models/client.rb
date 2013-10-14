@@ -4,8 +4,13 @@ class Client < ActiveRecord::Base
   attr_accessible :name, :name1, :salutation, :locations_attributes, :clientlocations_attributes, :clienttype_id, 
                   :websites_attributes, :phones_attributes, :emails_attributes, :incorporated, :registeredcharity, 
                   :registeredband, :mandate, :corporation_attributes, :charity_attributes, :band_attributes,
-                  :divisions_attributes, :projects_attributes, :applications_attributes, :token
+                  :divisions_attributes, :projects_attributes, :applications_attributes, :token, :country_id
   attr_writer :current_step, :ts
+  attr_accessor :country_id
+
+
+  #before_validation :assign_country
+  
 
   has_many :clientlocations, dependent: :destroy
   has_many :locations, through: :clientlocations, dependent: :destroy
@@ -25,6 +30,8 @@ class Client < ActiveRecord::Base
   has_many :subservicelines, through: :summarycommitments
   has_many :productservicelines, through: :subservicelines
 
+  validates :name, presence: true
+  #validates :name1, presence: true
 
 
   belongs_to :clienttype
@@ -68,6 +75,7 @@ class Client < ActiveRecord::Base
   def current_step
     @current_step || steps.first
   end
+
 
   def steps
    
@@ -116,6 +124,8 @@ class Client < ActiveRecord::Base
   def last_step?
     current_step == steps.last
   end
+
+  
 
   
 end

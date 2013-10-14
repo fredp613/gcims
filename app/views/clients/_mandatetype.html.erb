@@ -1,23 +1,16 @@
 
 <% if @client.new_record?  %>
-   Client Type: <b><%= @clienttype_display.name %></b>
-     <%= f.button :submit, "change", :name=>'clienttype', :class=>'btn btn-info btn-small' %>
-     <%= f.input :clienttype_id, as: :hidden, :input_html=>{value: @clienttype} %>
-
-<% else  %>
-
-<% if !@clienttype_from_change.blank? %>
-   <%= f.input :clienttype_id, as: :hidden, :input_html=>{value: @clienttype_from_change} %>
-   Client Type: <b><%= @clienttype_from_change_display.name %></b>
-<% else %>      
-    <%= f.input :clienttype_id, as: :hidden, :input_html=>{value: @clienttype} %>
-   Client Type: <b><%= @clienttype_display.name %></b>
-<% end %>
-    <%= link_to "change", new_client_clienttypes_path(:client_id=>@client.id),:class=>'btn btn-info btn-small' %><br>
-    
-<% if @clienttype != 1 %>
- <%= f.input :mandate, :label=>'Mandate', :input_html=>{ rows: '5' } %>
-<% end %>
+   Client Type: <b><%= Clienttype.where(:id=>@client.clienttype_id).first.name %></b>
+     <%= f.button :submit, "change", :name=>'clienttype', :class=>'btn-small' %>
+     <%= f.input :clienttype_id, as: :hidden %>
+     
+<% else %>
+	
+	    <%= link_to "change", new_client_clienttypes_path(:client_id=>@client.id),:class=>'btn-small' %><br>
+	    
+	<% if @clienttype != 1 %>
+	 <%= f.input :mandate, :label=>'Mandate', :input_html=>{ rows: '5' } %>
+	<% end %>
 
 <% end  %>
 

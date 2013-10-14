@@ -8,7 +8,7 @@ class Productserviceline < ActiveRecord::Base
   has_many :commitmentitems, through: :summarycommitments
   has_many :applications, through: :commitmentitems
   has_many :projects, through: :commitmentitems
-  has_many :fypsls, :dependent => :delete_all
+  has_many :fypsls, :dependent => :destroy
   has_many :fiscalyears, through: :fypsls
 
   belongs_to :user

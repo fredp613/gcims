@@ -44,22 +44,26 @@ class ClientsController < ApplicationController
       @name = session[:name]
     end
 
+    @client.clienttype_id = params[:clienttype_id]
+    
     if params[:country_id]
-      @country_id = params[:country_id]
+      @client.country_id = params[:country_id]
     else
-      @country_id = 38
+      @client.country_id = 38
     end
 
-    if params[:clienttype]
-      session[:clienttype] = params[:clienttype]
-      @clienttype = params[:clienttype]
-    end
-    @clienttype_display = Clienttype.where(:id=>@clienttype).first
+    #@clienttype_display_name = Clienttype.where(:id=>@clienttype).first.name
+
     #session[:return_to] ||= request.referer
     
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @client }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @client}
+        
     end
   end
 
@@ -67,18 +71,22 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
       @client = Client.new(params[:client])
-      
-    if session[:last_created_at].to_i > params[:ts].to_i
-      @existing_client = Client.where(:token=>@client.token).first
-      redirect_to edit_client_path(@existing_client, :wizard=>true)
-    else
-        if params[:country] || params[:clienttype]
+      #@client.clienttype_id = params[:clienttype_id]
+
+          
+    #if (session[:last_created_at].to_i > params[:ts].to_i) && !@client.errors.any?
+      #@existing_client = Client.where(:token=>@client.token).first
+     # redirect_to edit_client_path(@existing_client, :wizard=>true)
+    #else
+        if params[:country] || params[:clienttype] 
           if params[:country]
             session[:name] = @client.name
+            session[:clienttype] = @client.clienttype_id
             redirect_to foreign_clients_path
           else
             session[:name] = @client.name
-            redirect_to new_client_clienttypes_path
+            redirect_to new_client_clienttypes_path(:country_id=>params[:country_id])
+
           end
         else
           respond_to do |format|
@@ -90,20 +98,22 @@ class ClientsController < ApplicationController
               @step = @nav.nav
               if (@step == 'corporation' || @step == 'band' || @step == 'charity') && @client.clienttype_id !=1
                 session[:step] = @client.steps.first
-                format.html { redirect_to edit_client_path(@client, :wizard=>true), notice: 'Enter details.' }
+                format.html { redirect_to edit_client_path(@client, :wizard=>true) }
               else
                 format.html { redirect_to @client, notice: 'Client was successfully updated.' }
               #  reset_session
               end
               format.json { render json: @client, status: :created, location: @client }
-
+              # session.delete(:clienttype)
             else
+              @client.country_id = params[:country_id]
+              
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }
             end
           end
         end
-    end
+    #end
   end
 
   # GET /clients/1/edit
@@ -257,7 +267,7 @@ class ClientsController < ApplicationController
   end
 
   def foreign_go
-    redirect_to new_client_path(:country_id=>params[:country_id], :clienttype=>session[:clienttype], :name=>session[:name])
+    redirect_to new_client_path(:country_id=>params[:country_id], :clienttype_id=>session[:clienttype], :name=>session[:name])
   end
 
 

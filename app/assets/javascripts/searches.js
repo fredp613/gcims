@@ -3,17 +3,11 @@
 //$('#cover').addClass("cover")
 //$('.cover').toggle();
 
-$(function(){
+//$(function(){
  // $('.cover').show();
  // $('.cover').fadeOut(200);
  // $('#results').fadeIn(200);  
-});
-
-
-
-
-
-
+//});
 
 
 $(".newProject").attr('disabled', false);
@@ -60,11 +54,12 @@ $("#table_container").on('click', '.newProject', function() {
       var link = $(this).attr('href') + '?layout="false"';
       createModal(link, 'Create Project Wizard');
       return false;
-  }); 
+}); 
 
- $("#myModal").on('hidden', function() {
-    $("#modalId").remove();
- });
+
+$("#myModal").on('hidden', function() {
+  $("#modalId").remove();
+});
 
 
 

@@ -24,6 +24,9 @@ class Location < ActiveRecord::Base
   accepts_nested_attributes_for :addresstypes
   accepts_nested_attributes_for :divisions
 
+
+  validates :addressline1, presence: true
+
   pg_search_scope :search, against: [:addressline1, :addressline2, :addressline3, :addressline4, :city],
   using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
   associated_against: { state: :name }

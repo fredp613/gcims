@@ -35,6 +35,12 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
+    <style type="text/css">
+      .js #frmClient {display: none;}
+    </style>
+    <script type="text/javascript">
+      document.documentElement.className = 'js';
+    </script>
 
   </head>
   <body>

@@ -38,7 +38,10 @@ class ClienttypesController < ApplicationController
     
     if params[:client_id]
     @client = params[:client_id]
+    #@country = params[:country_id]
     end
+
+    @country = params[:country_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,10 +55,10 @@ class ClienttypesController < ApplicationController
 
      respond_to do |format|
       if @clienttype.valid? && !params[:client_id].blank?
-        format.html { redirect_to edit_client_path(:id=>@client, :clienttype=> @clienttype.name), notice: 'Client type was successfully updated' }
+        format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=> @clienttype.name), notice: 'Client type was successfully updated' }
         format.json { render json: @clienttype, status: :created, location: @clienttype }
       elsif @clienttype.valid? && params[:client_id].blank?
-        format.html { redirect_to new_client_path(:clienttype=> @clienttype.name), notice: 'Client type was successfully updated' }
+        format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id]), notice: 'Client type was successfully updated' }
         format.json { render json: @clienttype, status: :created, location: @clienttype }
       else
         format.html { render action: "new_client" }

@@ -1,59 +1,45 @@
 
-<%= simple_form_for(@client) do |f| %>
+<%= simple_form_for @client, :html=>{id: 'frmClient'} do |f| %>
   <%= f.error_notification %>
 
-
+  <%= hidden_field_tag :country_id, @client.country_id %>
   <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
   <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
 
   <div class="form-inputs">
-    <% if @clienttype.to_s == '1' && @clienttype_from_change.blank? %>
-      <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
-      <% if @name %>
-        <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
-      <% else %>
-        <%= f.input :name, :label=>"First Name"  %>
-      <% end %>
-        <%= f.input :name1, :label=>"Last Name" %>
-    <% elsif !@clienttype_from_change.blank? %>
-        
-        <% if @clienttype_from_change.to_s == '1' %>
-          
-          <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
-          <% if @name %>
-            <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
-          <% else %>
-            <%= f.input :name, :label=>"First Name"  %>
-          <% end %>     
-          <%= f.input :name1, :label=>"Last Name" %>
-        
-        <% else %>
-        
-            <% if @name  %>
-              <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
-            <% else %>
-              <%= f.input :name, :label=>"Organization Name"  %>
-            <% end %>    
-             
-             <%= render 'orginfo', :f=>f %> 
-        
-        <% end  %>
-    <% else  %>
-      
-            <% if @name %>
-              <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
-            <% else %>
-              <%= f.input :name, :label=>"Organization Name"  %>
-            <% end %> 
-             <%= render 'orginfo', :f=>f %> 
+   <fieldset>
+        <legend>Main client information</legend>
     
-    <% end %>
+    <% if @client.clienttype_id == 1 %>  
+    
+        <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
+        <% if @name %>
+          <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
+        <% else %>
+          <%= f.input :name, :label=>"First Name"  %>
+        <% end %>
+        <%= f.input :name1, :label=>"Last Name" %>
+    
+    <% else %>
+      
+          <% if @name  %>
+            <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
+          <% else %>
+            <%= f.input :name, :label=>"Organization Name"  %>
+          <% end %>            
+          <%= render 'orginfo', :f=>f %>       
 
-    <p>
+  <% end  %>
+    
+     <p>
     <%= render 'mandatetype', :f=>f %> 
   </p><br>
+  
+   </fieldset>
+
+   
     <p>
-    <%= render 'addressfields', :f=>f %>
+    <%= render 'addressfields', :f=>f, :clienttype=>@client.clienttype_id, :country=>@client.country_id %>
     </p>
       <%= render 'contactfields', :f=>f %>
 
@@ -61,7 +47,21 @@
 
     
 
-  <div class="form-actions">
-    <%= f.button :submit, "Save", :class=>"btn btn-success" %>
+  <div class="submit form-actions">
+    <% if @client.new_record? %>
+    <%= f.button :submit, "Finish", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
+    <% else %>
+    <%= f.button :submit, "Save changes", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
+    <% end %>
   </div>
 <% end %>
+
+
+
+<script type="text/javascript">
+
+
+</script>
+
+
+

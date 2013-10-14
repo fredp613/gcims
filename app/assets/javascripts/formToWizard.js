@@ -6,7 +6,7 @@
         }, options); 
         
         var element = this;
-
+        
         var steps = $(element).find("fieldset");
         var count = steps.size();
 
@@ -51,11 +51,12 @@
 
         function createPrevButton(i) {
             var stepName = "step" + i;
-            $("#" + stepName + "commands").append("<button id='" + stepName + "Prev' class='btn btn-small btn-info'>Back</button>");
+            $("#" + stepName + "commands").append("<button id='" + 
+                stepName + "Prev' class='btn btn-small btn-info', style='margin-right:10px;'>Back</button>");
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 $("#" + stepName).hide();
-                $("#step" + (i - 1)).show();
+                $("#step" + (i - 1)).fadeIn(300);
                 $(submmitButtonName).hide();
                 selectStep(i - 1);
                 return false;
@@ -68,7 +69,7 @@
 
             $("#" + stepName + "Next").bind("click", function(e) {
                 $("#" + stepName).hide();
-                $("#step" + (i + 1)).show();
+                $("#step" + (i + 1)).fadeIn(300);
                 if (i + 2 == count)
                     $(submmitButtonName).show();
                 selectStep(i + 1);
