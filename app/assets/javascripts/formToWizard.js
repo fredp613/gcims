@@ -56,7 +56,7 @@
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 $("#" + stepName).hide();
-                $("#step" + (i - 1)).fadeIn(300);
+                $("#step" + (i - 1)).fadeIn(280);
                 $(submmitButtonName).hide();
                 selectStep(i - 1);
                 return false;

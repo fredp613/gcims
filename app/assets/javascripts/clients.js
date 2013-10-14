@@ -1,7 +1,7 @@
 
 $(function() {
-  $('#frmClient').fadeIn(270);
-  $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+  $('#frmClient').fadeIn(300);
+  
 });
 
 

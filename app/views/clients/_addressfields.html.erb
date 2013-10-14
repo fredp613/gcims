@@ -1,13 +1,16 @@
 <div id='address-fields'>
 
     <fieldset>
-   <legend>Primary address information</legend>
+   <legend>Address(es) information</legend>
 
      <%= f.simple_fields_for :locations do |builder| %>     
+
+     <h2>Address</h2>
+
      <div id='countries'>
 
-      <%= builder.input :country_id, as: :integer, as: :hidden %>
-       <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
+     <%= builder.input :country_id, as: :integer, as: :hidden %>
+     <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
         :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
 
      <% if clienttype.to_i != 3  %>

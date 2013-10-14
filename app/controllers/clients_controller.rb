@@ -46,7 +46,7 @@ class ClientsController < ApplicationController
 
     @client.clienttype_id = params[:clienttype_id]
     
-    if params[:country_id]
+    if params[:country_id] && !params[:country_id].blank?
       @client.country_id = params[:country_id]
     else
       @client.country_id = 38

@@ -1,5 +1,10 @@
 
-<%= simple_form_for @client, :html=>{id: 'frmClient'} do |f| %>
+   
+  <div class='loader'>
+  </div>
+
+
+<%= simple_form_for @client, :html=>{id: 'frmClient', class: 'form'} do |f| %>
   <%= f.error_notification %>
 
   <%= hidden_field_tag :country_id, @client.country_id %>
@@ -56,12 +61,15 @@
   </div>
 <% end %>
 
+<% if @client.new_record? %>
+  <script type="text/javascript">
+    $(function() {
+      $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+    });
+  </script>
+<% end %>
 
 
-<script type="text/javascript">
-
-
-</script>
 
 
 
