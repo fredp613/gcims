@@ -4,7 +4,7 @@
   </div>
 
 
-<%= simple_form_for @client, :html=>{id: 'frmClient', class: 'form'} do |f| %>
+<%= simple_form_for @client, :html=>{id: 'frmClient', class: 'frm'} do |f| %>
   <%= f.error_notification %>
 
   <%= hidden_field_tag :country_id, @client.country_id %>
@@ -61,24 +61,10 @@
   </div>
 <% end %>
 
-<% if @client.new_record? %>
 
-  <script type="text/javascript">
-    $(function() {
-      $('#frmClient').fadeIn(300);
-      $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
-    });
-  </script>
 
-<% else %>
 
-  <script type="text/javascript">
-    $(function() {
-      $('#frmClient').fadeIn(200);
-    });
-  </script>
 
-<% end %>
 
 
 

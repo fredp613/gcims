@@ -8,8 +8,9 @@
   <legend>PRAS</legend>
  <% end  %>
   <div class="form-inputs">
-    <%= f.input :corporate_file_number %>
-    <%= f.input :requested %>
+
+    <%= f.input :corporate_file_number, as: :hidden %>
+    <%= f.input :requested, as: :hidden %>
   	<%= f.input :productserviceline, label: 'Product Service Line', 
   	collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" },
     :selected=>@application.commitmentitem.summarycommitment.subserviceline.productserviceline.id  %>

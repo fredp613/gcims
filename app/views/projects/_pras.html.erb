@@ -3,14 +3,14 @@
 
 <fieldset style='margin-top:-40px;'>
 		
- <legend>Core Information</legend>
-	<%= application.input :corporate_file_number %>
-	<%= application.input :applicationtype_id, as: :hidden, :input_html=>{value: 1} %>
-	<%= application.input :requested, :wrapper => :prepend do %>
-    <%= content_tag :span, "$", :class => "add-on" %>
-    <%= application.input_field :requested, :style=>'width:180px;' %>
-    <%= application.input :responsible_official, as: :hidden, :input_html=>{value: current_user.id } %>
- <% end %>	
+	 <legend>Core Information</legend>
+		<%= application.input :corporate_file_number %>
+		<%= application.input :applicationtype_id, as: :hidden, :input_html=>{value: 1} %>
+		<%= application.input :requested, :wrapper => :prepend do %>
+	    <%= content_tag :span, "$", :class => "add-on" %>
+	    <%= application.input_field :requested, :style=>'width:180px;' %>
+	    <%= application.input :responsible_official, as: :hidden, :input_html=>{value: current_user.id } %>
+	 <% end %>	
 	
 
 		<legend>Financial Coding</legend>
