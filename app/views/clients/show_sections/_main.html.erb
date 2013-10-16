@@ -64,6 +64,9 @@
         <% if location.postal? %>
           <%= location.postal %> <br>
         <% end %>
+        <% if location.country_id? %>
+          <%= location.country.name  %><br>
+        <% end %>
 
 
   <%= link_to "edit address", edit_client_location_path(@client, location), :class=> 'btn btn-info btn-small' %>

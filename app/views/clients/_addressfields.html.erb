@@ -9,7 +9,7 @@
 
      <div id='countries'>
 
-     <%= builder.input :country_id, as: :integer, as: :hidden %>
+     <%= builder.input :country_id, as: :integer, as: :hidden, :input_html=>{value: @client.country_id} %>
      <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
         :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
 
