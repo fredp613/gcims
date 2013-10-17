@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   has_many :projectcontacts, :dependent=>:destroy
   has_many :contacts, through: :projectcontacts
 
-  has_many :applications
+  has_many :applications, :dependent=>:destroy
   has_many :budgetitems, through: :applications
   has_many :commitmentitems, through: :applications
   has_many :summarycommitments, through: :commitmentitems

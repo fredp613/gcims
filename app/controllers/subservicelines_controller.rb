@@ -2,7 +2,7 @@ class SubservicelinesController < ApplicationController
   # GET /subservicelines
   # GET /subservicelines.json
   def index
-    @subservicelines = Subserviceline.all
+    @subservicelines = Subserviceline.where(:productserviceline_id=>params[:psl])
 
     respond_to do |format|
       format.html # index.html.erb

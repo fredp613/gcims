@@ -125,6 +125,9 @@ class Client < ActiveRecord::Base
     current_step == steps.last
   end
 
+
+  
+
   
 
   

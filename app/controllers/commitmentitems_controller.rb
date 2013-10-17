@@ -2,7 +2,7 @@ class CommitmentitemsController < ApplicationController
   # GET /commitmentitems
   # GET /commitmentitems.json
   def index
-    @commitmentitems = Commitmentitem.all
+    @commitmentitems = Commitmentitem.where(:summarycommitment_id=>params[:sc])
 
     respond_to do |format|
       format.html # index.html.erb

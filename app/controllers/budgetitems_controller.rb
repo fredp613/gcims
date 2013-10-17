@@ -52,10 +52,16 @@ class BudgetitemsController < ApplicationController
 
     @fys = params[:fiscalyear_ids]
 
-    @fys.each do |fy|
+
+    if @fys 
+
+      @fys.each do |fy|
+        @budgetitem = Budgetitem.new(params[:budgetitem])
+        @budgetitem.fiscalyear_id = fy
+        @budgetitem.save
+      end
+    else
       @budgetitem = Budgetitem.new(params[:budgetitem])
-      @budgetitem.fiscalyear_id = fy
-      @budgetitem.save
     end
  
     #redirect_to project_path(@budgetitem.application.project)

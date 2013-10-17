@@ -5,11 +5,11 @@
     <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :forecast, :style=>'width:92%' %>
+          <%= f.input_field :forecast, :style=>'width:92%', :value=> (number_with_precision(f.object.forecast, :precision=>2)) %>
     <% end %>
     <%= f.input :actual, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :actual, :style=>'width:92%' %>
+          <%= f.input_field :actual, :style=>'width:92%', :value=> (number_with_precision(f.object.actual, :precision=>2)) %>
     <% end %>
     
 
