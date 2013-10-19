@@ -43,12 +43,12 @@
    </fieldset>
 
    
-    <p>
+    
     <%= render 'addressfields', :f=>f, :clienttype=>@client.clienttype_id, :country=>@client.country_id %>
-    </p>
+    
       <%= render 'contactfields', :f=>f %>
 
- </div>
+ 
 
     
 
@@ -59,6 +59,8 @@
     <%= f.button :submit, "Save changes", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
     <% end %>
   </div>
+
+</div>
 <% end %>
 
 

@@ -1,17 +1,19 @@
 <div id='address-fields' class='row-fluid'>
   <fieldset>
    <legend>Address(es) information</legend>
-    <div>
+    
  
          <% if @client.new_record? %>
+         <div>
            <div class='span3 section'>
-              <%= render 'new_location' %>
+              <%= render 'new_location', :f=>f %>
             </div>
+         </div>
          <% else %>
            
-            <%= render 'edit_location' %>
+            <%= render 'edit_location', :f=>f %>
          <% end %>
-    </div>
+    
 
    </fieldset>         
 
