@@ -1,18 +1,21 @@
 
 <%= f.simple_fields_for :applications do |application| %>
 
-<fieldset style='margin-top:-40px;'>
-		
-	 <legend>Core Information</legend>
+<fieldset>
+
+	<legend>Main Information</legend>
 		<%= application.input :corporate_file_number %>
 		<%= application.input :applicationtype_id, as: :hidden, :input_html=>{value: 1} %>
 		<%= application.input :requested, :wrapper => :prepend do %>
 	    <%= content_tag :span, "$", :class => "add-on" %>
 	    <%= application.input_field :requested, :style=>'width:180px;' %>
 	    <%= application.input :responsible_official, as: :hidden, :input_html=>{value: current_user.id } %>
-	 <% end %>	
-	
+	 <% end %>
 
+</fieldset>
+
+<fieldset style='margin-top:-40px;'>
+		
 		<legend>Financial Coding</legend>
 
 <%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
@@ -27,8 +30,8 @@
 		:summarycommitments, :ssl_name, :id, :sc_name, include_blank: true %>
 	<% end %>
 
-	<%= application.input :commitmentitem do %>
-		<%= application.grouped_collection_select :commitmentitem, Summarycommitment.order(:sc_name),
+	<%= application.input :commitmentitem_id do %>
+		<%= application.grouped_collection_select :commitmentitem_id, Summarycommitment.order(:sc_name),
 		:commitmentitems, :sc_name, :id, :ci_name, include_blank: true %>
 	<% end %>
 <% end %>

@@ -2,7 +2,20 @@ class SubservicelinesController < ApplicationController
   # GET /subservicelines
   # GET /subservicelines.json
   def index
-    @subservicelines = Subserviceline.where(:productserviceline_id=>params[:psl])
+    if params[:psl]
+      @subservicelines = Subserviceline.where(:productserviceline_id=>params[:psl])
+    end
+
+    if params[:sc]
+      @ssl_id = Summarycommitment.where(:id=>params[:sc]).select(:subserviceline_id)
+      @subservicelines = Subserviceline.where(:id=>@ssl_id)
+    end
+
+    if params[:ci]
+      @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
+      @ssl_id = Summarycommitment.where(:id=>@sc_id).first.subserviceline_id
+      @subservicelines = Subserviceline.where(:id=>@ssl_id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

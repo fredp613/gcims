@@ -69,6 +69,9 @@ class LocationsController < ApplicationController
 
     if params[:client_id]
       @client = params[:client_id]
+      if params[:edit]
+        session[:edit] = true
+      end
       #session[:client] = @client
     end
 
@@ -214,7 +217,11 @@ class LocationsController < ApplicationController
         if @location.update_attributes(params[:location])
 
           if @client && !@contact && !@project
-            format.html { redirect_to client_path(@client) , notice: 'Location was successfully updated.' }
+            if !session[:edit] == true
+              format.html { redirect_to client_path(@client) , notice: 'Location was successfully updated.' }
+            else
+              format.html { redirect_to edit_client_path(@client) , notice: 'Location was successfully updated.' }
+            end
           elsif @contact && @client && !@project        
              format.html { redirect_to edit_client_contact_path(@client, @contact), notice: 'Location was successfully updated.' }
           elsif @project

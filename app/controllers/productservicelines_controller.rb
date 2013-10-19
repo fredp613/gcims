@@ -18,6 +18,34 @@ class ProductservicelinesController < ApplicationController
     end
   end
 
+  def pras_index
+
+    if params[:ssl]
+      @psl_id = Subserviceline.where(:id=>params[:ssl]).select(:productserviceline_id)
+      @productservicelines =  Productserviceline.where(:id=>@psl_id)
+    end
+
+    if params[:sc]
+      @ssl_id = Summarycommitment.where(:id=>params[:sc]).first.subserviceline_id
+      @psl_id = Subserviceline.where(:id=>@ssl_id).select(:productserviceline_id)
+      @productservicelines = Productserviceline.where(:id=>@psl_id)
+    end
+
+    if params[:ci]
+      @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
+      @ssl_id = Summarycommitment.where(:id=>@sc_id).first.subserviceline_id
+      @psl_id = Subserviceline.where(:id=>@ssl_id).select(:productserviceline_id)
+      @productservicelines = Productserviceline.where(:id=>@psl_id)
+    end
+
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @productservicelines }
+    end
+
+  end
+
   # GET /productservicelines/1
   # GET /productservicelines/1.json
   def show

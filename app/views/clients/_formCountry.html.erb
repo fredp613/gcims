@@ -3,6 +3,10 @@
 
   <div class="form-inputs">
 
+   <% if @client_id %>
+   	<%= text_field_tag "client_id", @client_id %>
+   <% end %>
+   
    <%= f.input :country_id, collection: Country.all(order: 'name'),
           :label_method => lambda { |cy| "#{cy.name}" }, :input_html=>{name: "country_id"} %>
 	  <div class="form-actions">

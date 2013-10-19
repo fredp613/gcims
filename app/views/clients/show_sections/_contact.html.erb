@@ -1,9 +1,14 @@
-<div id='contacts'>
+
+<fieldset>
+
      <legend>Contacts   
-    <%= link_to "Add contact", new_client_contact_path(@client), :class=> "btn btn-primary btn-small pull-right"%>
+    <%= link_to "Add contact", new_client_contact_path(@client), :class=> "btn btn-primary btn-small"%>
       </legend> 
+
+      <div>
          <% @client.contacts.each do |contact| %>
-         <p>
+
+         <div id='contacts' class='span3 section'>
           <%= contact.firstname  %> <br>
           <%= contact.lastname  %><br>
           <%= contact.title  %><br>
@@ -22,10 +27,10 @@
         	<% if location.city? %>
         	<%= location.city %> <br>
         	<% end %>
-          <% if location.state.name? %>
+          <% if location.state_id? %>
      		   <%= location.state.name %> <br>
            <% end %>
-           <% if location.country.name? %>
+           <% if location.country_id? %>
         	<%= location.country.name %> <br>
           <% end %>
 
@@ -35,10 +40,11 @@
       <%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
       </p>
 
- <% end %>
+            </div>
 
+       <% end %>
+    </div>
 
+</fieldset>
 
-    </fieldset>
-
-  </div>
+  

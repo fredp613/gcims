@@ -164,9 +164,7 @@ class ClientsController < ApplicationController
     end
 
     if params[:country_id]
-      @country_id = params[:country_id]
-    else
-      @country_id = 38
+      @client.country_id = params[:country_id]
     end
 
     @clienttype = @client.clienttype_id
@@ -187,6 +185,7 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find(params[:id])
     
+
     if !session[:edit_only]
         @client.current_step = session[:step]
 
@@ -232,7 +231,7 @@ class ClientsController < ApplicationController
           format.html { redirect_to @client, notice: 'Client has been saved' }
         else 
           format.html { redirect_to edit_client_path(@client), notice: 'saved' }
-          reset_session
+          #reset_session
         end
       end
       #reset_session
@@ -262,12 +261,19 @@ class ClientsController < ApplicationController
 
   #custom routes
   def foreign
+    if params[:client_id]
+      @client_id = params[:client_id]
+    end
+      
     @client = Client.new
-    
   end
 
   def foreign_go
-    redirect_to new_client_path(:country_id=>params[:country_id], :clienttype_id=>session[:clienttype], :name=>session[:name])
+    if !params[:client_id]
+      redirect_to new_client_path(:country_id=>params[:country_id], :clienttype_id=>session[:clienttype], :name=>session[:name])
+    else
+      redirect_to edit_client_path(:id=>params[:client_id], :country_id=>params[:country_id])
+    end
   end
 
 

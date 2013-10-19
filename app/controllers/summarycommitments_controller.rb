@@ -2,7 +2,21 @@ class SummarycommitmentsController < ApplicationController
   # GET /summarycommitments
   # GET /summarycommitments.json
   def index
-    @summarycommitments = Summarycommitment.where(:subserviceline_id=>params[:ssl])
+   
+    if params[:psl]
+      @ssls = Subserviceline.where(:productserviceline_id=>params[:psl])
+      @summarycommitments = Summarycommitment.where(:subserviceline_id=>@ssls)
+    end
+
+    if params[:ssl]
+      @summarycommitments = Summarycommitment.where(:subserviceline_id=>params[:ssl])
+    end
+
+    if params[:ci]
+      @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
+      @summarycommitments = Summarycommitment.where(:id=>@sc_id)
+    end
+
 
     respond_to do |format|
       format.html # index.html.erb

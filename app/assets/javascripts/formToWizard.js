@@ -18,7 +18,7 @@
 
         steps.each(function(i) {
             $(this).wrap("<div id='step" + i + "'></div>");
-            $(this).append("<p id='step" + i + "commands'></p>");
+            $(this).append("<p id='step" + i + "commands' class='span10' style='padding-top:10px;margin-left:0px;'></p>");
 
             // 2
             var name = 'step' + (i+1) //$(this).find("legend").html(); 

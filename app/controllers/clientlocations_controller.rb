@@ -80,9 +80,10 @@ class ClientlocationsController < ApplicationController
     @client = @clientlocation.client_id
     @clientlocation.destroy
 
-    respond_to do |format|
-      format.html { redirect_to client_path(@client) }
-      format.json { head :no_content }
-    end
+    redirect_to :back
+    #respond_to do |format|
+    #  format.html { redirect_to client_path(@client) }
+    #  format.json { head :no_content }
+    #end
   end
 end

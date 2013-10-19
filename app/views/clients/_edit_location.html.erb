@@ -1,0 +1,37 @@
+
+<% @client.clientlocations.each do |cl| %>
+ <div class='span3 section'>
+  <h3>Address
+  </h3>
+  <%= link_to "edit address", edit_client_location_path(@client, cl.location, :edit=>true), :class=> 'btn btn-info btn-small' %>
+      <%= link_to 'Delete', cl.location, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%><br><br>
+    
+
+    <%= cl.location.addressline1 %> <br>
+    <% if cl.location.addressline2? %>
+    <%= cl.location.addressline2 %> <br>
+    <% end %>
+    <% if cl.location.addressline3? %>
+    <%= cl.location.addressline3 %> <br>
+    <% end %>
+    <% if cl.location.addressline4? %>
+    <%= cl.location.addressline4 %> <br>
+    <% end %>
+    <% if cl.location.city? %>
+    <%= cl.location.city %> <br>
+    <% end %>
+    <% if cl.location.state_id? %>
+     <%= cl.location.state.name %> <br>
+     <% end %>
+     <% if cl.location.country_id? %>
+    <%= cl.location.country.name %> <br>
+    <% end %>
+    <% if cl.addresstype_id %>
+    <%= cl.addresstype.name %>
+    <% end %>
+
+
+    
+
+</div>
+<% end %>

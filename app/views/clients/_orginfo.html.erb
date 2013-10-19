@@ -11,53 +11,65 @@
 
 <% else %>
 
-<div>
+<div class='fields_inside_tabs'>
 
-	<% if @client.incorporated %>
-		
-		  <b>Incorporation Information <%= link_to 'Remove', @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' } %></b>
+  <div class='row'>
+	
+	<% if @client.incorporated %>	
+	<div class='span4 section'>	
+		  <b>Incorporation Information <%= link_to 'Click here if not incorporated', @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' } %></b><br><br>
 		  <%= f.simple_fields_for :corporation do |corp|  %>
-		     <%= corp.input :businessnumber, :input_html=>{value: @client.corporation.businessnumber} %><br>
-		     <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %><br>
+		     <%= corp.input :businessnumber, :input_html=>{value: @client.corporation.businessnumber} %>
+		     <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>
 		     <%= corp.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
 	   	  <% end  %>
-		
-	<% else  %>
+	   	</div>
+			<% else  %>
 	<p>
 	<%= link_to "click here if incorporated", edit_client_path(@client, :step=>'corporation', :edit=>true), :class=>'btn btn-success btn-small'  %><br>
 
 	</p>
 	<% end  %>
+  </div><br>
 
-	<% if @client.registeredband %>
-		
-		  <b>Band Information <%= link_to 'Remove', @client.band, method: :delete, data: { confirm: 'Are you sure you want to delete all band information?' } %></b>
-		  <%= f.simple_fields_for :band do |band|  %>
-		    <%= band.input :bandnumber %>
-		    <%= band.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
-		  <% end  %>
-		
-	<% else  %>
-	<p>
-	<%= link_to "Click here if registered band", edit_client_path(@client, :step=>'band', :edit=>true), :class=>'btn btn-success btn-small'  %><br>
-	</p>
-	<% end  %>
+  <div class='row'>
+		<% if @client.registeredband %>
+		 <div class='span4 section'>
+			  <b>Band Information <%= link_to 'Click here if not a band', @client.band, method: :delete, data: { confirm: 'Are you sure you want to delete all band information?' } %></b>
+			  <%= f.simple_fields_for :band do |band|  %>
+			    <%= band.input :bandnumber %>
+			    <%= band.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
+			  <% end  %>
+		</div>
+			
+		<% else  %>
+		<p>
+		<%= link_to "Click here if registered band", edit_client_path(@client, :step=>'band', :edit=>true), :class=>'btn btn-success btn-small'  %><br>
+		</p>
+		<% end  %>
+	</div><br>
+
+
+<div class='row'>
 
 	<% if @client.registeredcharity  %>
-	
-	  <b>Charity Information <%= link_to 'Remove', @client.charity, method: :delete, data: { confirm: 'Are you sure you want to delete all charity information?' } %></b>
+	<div class='span4 section'>	  
+	  <b>Charity Information <%= link_to 'Click here if not a charity', @client.charity, method: :delete, data: { confirm: 'Are you sure you want to delete all charity information?' } %></b>
 	  <%= f.simple_fields_for :charity do |charity|  %>
-  		<%= charity.input :registrationnumber %><br>
+  		<%= charity.input :registrationnumber %>
   		<%= charity.input :registrationdate, as: :string,
   		:input_html=>{ :class=>'datepicker', value: @date.to_date  } %>
   		<%= charity.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
 	  <% end  %>
+	  </div>
 	
 	<% else  %>
 	<p>
 	<%= link_to "click here if registered charity", edit_client_path(@client, :step=>'charity', :edit=>true), :class=>'btn btn-success btn-small'  %>
 	</p>
 	<% end  %>
+</div>
+
 
 </div>
 

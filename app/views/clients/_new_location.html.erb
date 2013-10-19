@@ -1,0 +1,53 @@
+<%= f.simple_fields_for :locations do |builder| %>     
+     <div class='span3 section'>
+       <h2>Address</h2>
+
+       <div id='countries'>
+
+       <% if @client.new_record? %>
+         <%= builder.input :country_id, as: :integer, as: :hidden, :input_html=>{value: @client.country_id} %>
+         <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
+            :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
+          <% if clienttype.to_i != 3  %>
+            <%= f.button :submit, "Change country", :name=>'country',:class=>'btn btn-primary btn-small'  %>
+          <% end %>
+       <% end %>
+
+
+       </div>
+       <br>
+       <%= builder.input :addressline1, :label => "Addressline 1" %>  
+       <%= builder.input :addressline2, :label => "Addressline 2" %>  
+       <%= builder.input :addressline3, :label => "Addressline 3" %>  
+       <%= builder.input :addressline4, :label => "Addressline 4" %>  
+       <%= builder.input :city, :label => "City" %> 
+
+       <% if @client.new_record? %>
+         <% if @client.country_id == 38 %>
+          <%= builder.input :state_id, :label=>"Province", 
+          collection: State.where(:country_id=>38), 
+           :label_method => lambda { |se| "#{se.name}" } %>   
+          <%= builder.input :postal, :label=>"Postal Code" %>   
+         <% else %>
+         <%= builder.input :state_id, :label=>"State/Region", 
+          collection: State.where(:country_id=>@client.country_id), 
+           :label_method => lambda { |se| "#{se.name}" } %>   
+          <%= builder.input :postal, :label=>"Postal Code / zip code" %> 
+         <% end  %>
+
+        <% else %>
+          <% if @client.country_id  %>
+            <%= builder.input :state_id, :label=>"Province", 
+            collection: State.where(:country_id=>@client.country_id),
+            :label_method=>lambda { |se| "#{se.name}" } %>
+          <% else %>
+            <%= builder.input :state_id, :label=>"Province", 
+            collection: State.where(:country_id=>:country_id),
+            :label_method=>lambda { |se| "#{se.name}" } %>
+          <% end %>
+            <%= builder.input :postal, :label=>"Postal Code / zip code" %>
+        <% end %>
+
+     </div>
+
+     <%end%>
