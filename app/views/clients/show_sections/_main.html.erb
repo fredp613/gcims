@@ -39,39 +39,38 @@
       </legend>
 
     <div>
-    <% @client.locations.each do |location| %>
+    <% @client.clientlocations.each do |cl| %>
       <div class='span3 section'>
-    	
-        <% location.addresstypes.select(:name).each do |t| %>
-          <%= t.name %>
+    	 <% if cl.addresstype %>
+        <h4><%= cl.addresstype.name %></h4>
+       <% end  %>
+      
+	    	  <%= cl.location.addressline1 %> <br>
+	    	<% if cl.location.addressline2? %>
+	    	  <%= cl.location.addressline2 %> <br>
+	    	<% end %>
+	    	<% if cl.location.addressline3? %>
+	    	  <%= cl.location.addressline3 %> <br>
+	    	<% end %>
+	    	<% if cl.location.addressline4? %>
+	    	  <%= cl.location.addressline4 %> <br>
+	    	<% end %>
+	    	<% if cl.location.city? %>
+	    	  <%= cl.location.city %> <br>
+	    	<% end %>
+        <% if cl.location.state_id? %>
+          <%= cl.location.state.name %> <br>
         <% end %>
-         <br>
-	    	  <%= location.addressline1 %> <br>
-	    	<% if location.addressline2? %>
-	    	  <%= location.addressline2 %> <br>
-	    	<% end %>
-	    	<% if location.addressline3? %>
-	    	  <%= location.addressline3 %> <br>
-	    	<% end %>
-	    	<% if location.addressline4? %>
-	    	  <%= location.addressline4 %> <br>
-	    	<% end %>
-	    	<% if location.city? %>
-	    	  <%= location.city %> <br>
-	    	<% end %>
-        <% if location.state_id? %>
-          <%= location.state.name %> <br>
+        <% if cl.location.postal? %>
+          <%= cl.location.postal %> <br>
         <% end %>
-        <% if location.postal? %>
-          <%= location.postal %> <br>
-        <% end %>
-        <% if location.country_id? %>
-          <%= location.country.name  %><br>
+        <% if cl.location.country_id? %>
+          <%= cl.location.country.name  %><br>
         <% end %>
 
 
-  <%= link_to "edit address", edit_client_location_path(@client, location), :class=> 'btn btn-info btn-small' %>
-      <%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
+  <%= link_to "edit address", edit_client_location_path(@client, cl.location), :class=> 'btn btn-info btn-small' %>
+      <%= link_to 'Destroy', cl.location, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
 
 
     	</div>

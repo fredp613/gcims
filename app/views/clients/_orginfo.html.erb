@@ -1,11 +1,47 @@
 <% if @client.new_record? %>
 
-<div>
+<div class='form-inputs'>
 
-	  <%= f.input :incorporated, :label=>"Incorporated?" %><br>
-	  <%= f.input :registeredcharity, :label =>"Registered charity?"  %><br>
+	<p>
+  	<%= f.input :incorporated, :label=>"Incorporated?" %>  	
+  	 <% if @client.corporation.errors.any? || !@client.corporation.businessnumber.blank? %>
+  	  <div id='corporation_fields' class='section'>
+  	 <% else %>
+	  <div id='corporation_fields' class='section' style='display:none;'>
+	 <% end %>
+	  	<%= render 'corporation_fields', :f=>f %>
+	  </div>
+  	</p>
+  	<p>
+		<%= f.input :registeredcharity, :label =>"Registered charity?"  %>
+		<% if @client.charity.errors.any? || !@client.charity.registrationnumber.blank? %>
+		<div id='charity_fields' class='section'>
+		<% else %>
+		<div id='charity_fields' class='section' style='display:none;'>
+		<% end %>
+		  <%= f.simple_fields_for :charity do |charity|  %>
+			   <%= charity.input :registrationnumber %>
+		       <%= charity.input :registrationdate, as: :string,
+		       :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %>    
+		  <% end  %>
+		</div>
+	</p>
+
+  	<p>
 	  <%= f.input :registeredband, :label =>"Registered band?"  %><br>
-	<%= f.input :mandate, :label=>"Organization mandate", :input_html=>{style: "height:100px;width:300px"} %>
+	  <% if @client.band.errors.any? || !@client.band.bandnumber.blank? %>
+	  <div id='band_fields' class='section'>
+	  <% else %>
+	  <div id='band_fields' class='section' style='display:none;'>
+	  <% end %>
+		  <%= f.simple_fields_for :band do |band|  %>
+		    <%= band.input :bandnumber %>
+	    <% end  %>
+	  </div>
+	</p>
+
+
+<%= f.input :mandate, :label=>"Organization mandate", :input_html=>{style: "height:100px;width:300px"} %>
 
 </div>
 

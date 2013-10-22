@@ -2,7 +2,7 @@
     <fieldset>
       <legend>Additional Information</legend>
 
-        <div>
+        <p>
         <h5>Mandate</h5>
         <% if @client.mandate %>
         <%= @client.mandate %>
@@ -10,8 +10,9 @@
         <% else %>
         <%= link_to "add", edit_client_path(@client, :mandate_only=>true) %>
         <% end  %>
-        </div>
+        </p>
 
+        <p>
         <% if @client.incorporated  %>
         <h5>Corporate Information</h5>
           <% if @client.corporation %>
@@ -25,8 +26,12 @@
             <% else  %>
               <%= link_to "add", edit_client_path(@client, :step=>'corporation') %>
             <% end %>  
-        <% end  %>
+        <% else %>
+        <%= link_to "click here if incorporated", edit_client_path(@client, :step=>'corporation', :edit=>true), :class=>'btn btn-info btn-small', :remote=>true  %>
+         
+        <% end  %></p>
 
+        <p>
         <% if @client.registeredcharity  %>
            <h5>Charity Information</h5>
             <% if @client.charity  %>
@@ -39,9 +44,15 @@
                   <%= link_to "edit", edit_client_path(@client, :step=>'charity') %>
              <% else  %>
               <%= link_to "add", edit_client_path(@client, :step=>'charity') %>
-            <% end %> 
-        <% end  %>
 
+            <% end %>
+
+        <% else %>
+          <%= link_to "click here if registered charity", edit_client_path(@client, :step=>'charity', :edit=>true), :class=>'btn btn-info btn-small', :remote=>true  %>
+        <% end  %>
+        </p>
+
+        <p>
         <% if @client.registeredband  %>
          <h5>Band Information</h5>
           <% if @client.band %>
@@ -52,7 +63,10 @@
           <% else  %>
             <%= link_to "add", edit_client_path(@client, :step=>'band') %>
           <% end %>
+        <% else %>
+        <%= link_to "Click here if registered band", edit_client_path(@client, :step=>'band', :edit=>true), :class=>'btn btn-info btn-small', :remote=>true  %>
         <% end  %>
+        </p>
 
     </fieldset>
 

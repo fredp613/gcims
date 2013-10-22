@@ -35,13 +35,14 @@ class ClientsController < ApplicationController
     @token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
     @stale_form_ts = Time.now.to_i
     @client = Client.new
+    @corporation = Corporation.new 
     build
     #@stale_form_ts = Time.now.to_i
 
     if params[:name]
-      @name = params[:name]
+      @client.name = params[:name]
     else
-      @name = session[:name]
+      @client.name = session[:name]
     end
 
     @client.clienttype_id = params[:clienttype_id]
@@ -63,8 +64,19 @@ class ClientsController < ApplicationController
           format.html # show.html.erb
         end
         format.json { render json: @client}
+       
+
         
     end
+  end
+
+  def corporation
+    @client = Client.new
+    respond_to do |format|
+        format.html # show.html.erb
+        format.js {render :layout => false}  
+    end
+
   end
 
   # POST /clients
@@ -72,6 +84,18 @@ class ClientsController < ApplicationController
   def create
       @client = Client.new(params[:client])
       #@client.clienttype_id = params[:clienttype_id]
+
+      if params[:client][:incorporated] == '1'
+        @client.corporation.nested_from_client = 'yes'
+      end
+
+      if params[:client][:registeredcharity] == '1'
+        @client.charity.nested_from_client = 'yes'
+      end
+
+      if params[:client][:registeredband] == '1'
+        @client.band.nested_from_client = 'yes'
+      end
 
           
     #if (session[:last_created_at].to_i > params[:ts].to_i) && !@client.errors.any?
@@ -104,12 +128,14 @@ class ClientsController < ApplicationController
               #  reset_session
               end
               format.json { render json: @client, status: :created, location: @client }
+              format.js { render :js => "window.location = '#{client_path(@client)}'" } 
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
               
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }
+              format.js
             end
           end
         end
@@ -176,9 +202,6 @@ class ClientsController < ApplicationController
     
   end
 
-
-
-  
 
   # PUT /clients/1 
   # PUT /clients/1.json
@@ -281,8 +304,10 @@ class ClientsController < ApplicationController
   private
 
   def build
-    @client.locations.build 
-    @client.clientlocations.build
+    @client.locations.build.clientlocations.build 
+    @client.build_corporation
+    @client.build_charity
+    @client.build_band
     @client.emails.build
     @client.websites.build
     @client.phones.build

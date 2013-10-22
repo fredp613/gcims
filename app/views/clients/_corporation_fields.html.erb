@@ -1,0 +1,10 @@
+
+
+	<%= f.simple_fields_for :corporation do |corp|  %>
+				<%= corp.input :businessnumber, :input_html=>{value: @client.corporation.businessnumber} %>
+				<%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>	
+				
+	<% end  %>
+
+
+

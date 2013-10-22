@@ -33,6 +33,7 @@ GCIMS::Application.routes.draw do
       collection do
         get "/new_client" => 'clienttypes#new_client'
         post "/new_client" => 'clienttypes#new_client_go'
+
       end
     end
 
@@ -40,6 +41,7 @@ GCIMS::Application.routes.draw do
     collection do
       get "/foreign" => 'clients#foreign'
       post "/foreign" => 'clients#foreign_go'
+      get "corporation" => 'clients#corporation'
     end
     resources :projects 
     

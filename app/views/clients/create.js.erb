@@ -1,0 +1,18 @@
+<% if @client.errors.any? %>
+ 
+	 console.log('Error');
+
+	 //$(document).html('<%= j render ('form') %>')
+
+	 $('.loader').fadeOut(200);
+	 $('#frmContainer').html('<%= j render ('form') %>')
+	 $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+
+	 
+
+<% else %>
+	
+  console.log('Created');
+  
+
+<% end  %>

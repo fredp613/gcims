@@ -1,10 +1,9 @@
 
    
-  <div class='loader'>
-  </div>
+  
 
 
-<%= simple_form_for @client, :html=>{id: 'frmClient', class: 'frm'} do |f| %>
+<%= simple_form_for @client, :remote=>true, :html=>{id: 'frmClient', class: 'frm'} do |f| %>
   <%= f.error_notification %>
 
   <%= hidden_field_tag :country_id, @client.country_id %>
@@ -18,8 +17,8 @@
     <% if @client.clienttype_id == 1 %>  
     
         <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
-        <% if @name %>
-          <%= f.input :name, :label=>"First Name", :input_html=>{value: @name}  %>
+        <% if @client.name %>
+          <%= f.input :name, :label=>"First Name", :input_html=>{value: @client.name}  %>
         <% else %>
           <%= f.input :name, :label=>"First Name"  %>
         <% end %>
@@ -27,8 +26,8 @@
     
     <% else %>
       
-          <% if @name  %>
-            <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @name}  %>
+          <% if @client.name  %>
+            <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @client.name}  %>
           <% else %>
             <%= f.input :name, :label=>"Organization Name"  %>
           <% end %>            
@@ -48,10 +47,6 @@
     
       <%= render 'contactfields', :f=>f %>
 
- 
-
-    
-
   <div class="submit form-actions">
     <% if @client.new_record? %>
     <%= f.button :submit, "Finish", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
@@ -62,6 +57,11 @@
 
 </div>
 <% end %>
+
+
+
+
+
 
 
 
