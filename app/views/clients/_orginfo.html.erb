@@ -19,11 +19,7 @@
 		<% else %>
 		<div id='charity_fields' class='section' style='display:none;'>
 		<% end %>
-		  <%= f.simple_fields_for :charity do |charity|  %>
-			   <%= charity.input :registrationnumber %>
-		       <%= charity.input :registrationdate, as: :string,
-		       :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %>    
-		  <% end  %>
+		 <%= render 'charity_fields', :f=>f %>
 		</div>
 	</p>
 
@@ -34,9 +30,7 @@
 	  <% else %>
 	  <div id='band_fields' class='section' style='display:none;'>
 	  <% end %>
-		  <%= f.simple_fields_for :band do |band|  %>
-		    <%= band.input :bandnumber %>
-	    <% end  %>
+		 <%= render 'band_fields', :f=>f %>
 	  </div>
 	</p>
 

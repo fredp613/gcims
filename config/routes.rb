@@ -41,7 +41,7 @@ GCIMS::Application.routes.draw do
     collection do
       get "/foreign" => 'clients#foreign'
       post "/foreign" => 'clients#foreign_go'
-      get "corporation" => 'clients#corporation'
+      get "corporation" => 'clients#corporation'      
     end
     resources :projects 
     

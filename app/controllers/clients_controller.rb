@@ -21,6 +21,19 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     @client = Client.find(params[:id])
+    if !@client.corporation
+      @client.build_corporation
+    end
+
+    if !@client.charity
+      @client.build_charity
+    end
+
+    if !@client.band
+      @client.build_band
+    end
+
+
     #reset_session
     respond_to do |format|
       format.html # show.html.erb
@@ -70,14 +83,7 @@ class ClientsController < ApplicationController
     end
   end
 
-  def corporation
-    @client = Client.new
-    respond_to do |format|
-        format.html # show.html.erb
-        format.js {render :layout => false}  
-    end
-
-  end
+  
 
   # POST /clients
   # POST /clients.json
@@ -193,6 +199,7 @@ class ClientsController < ApplicationController
       @client.country_id = params[:country_id]
     end
 
+    
     @clienttype = @client.clienttype_id
 
     @clienttype_from_change = params[:clienttype]
@@ -208,6 +215,11 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find(params[:id])
     
+    if params[:client][:incorporated] == '1'
+      @client.build_corporation
+      @client.corporation.nested_from_client = 'yes'
+    end
+
 
     if !session[:edit_only]
         @client.current_step = session[:step]
@@ -245,6 +257,11 @@ class ClientsController < ApplicationController
           end
         end
         format.json { head :no_content }
+        if params[:show] = true
+          format.js 
+        else
+          format.js { render :js => "window.location = '#{client_path(@client)}'" }
+        end
 
        # if @last = true
         #  session[:edit_only] = true
@@ -254,6 +271,11 @@ class ClientsController < ApplicationController
           format.html { redirect_to @client, notice: 'Client has been saved' }
         else 
           format.html { redirect_to edit_client_path(@client), notice: 'saved' }
+        if params[:show] = true
+          format.js 
+        else
+          format.js { render :js => "window.location = '#{client_path(@client)}'" }
+        end
           #reset_session
         end
       end
@@ -261,9 +283,12 @@ class ClientsController < ApplicationController
      else
       format.html { render action: "edit" }
       format.json { render json: @client.errors, status: :unprocessable_entity }
+      format.js
       end
     end
   end
+
+
 
    # DELETE /clients/1
   # DELETE /clients/1.json

@@ -10,7 +10,4 @@ class Corporation < ActiveRecord::Base
     nested_from_client == 'yes'
   end
 
-
-  
-
 end

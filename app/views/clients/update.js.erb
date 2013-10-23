@@ -1,0 +1,16 @@
+<% if @client.errors.any? %>
+	 console.log('Error');
+	 $('#corporation_field').html('<%= j render ('form') %>')
+	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+<% else %>	
+  	console.log('updated');
+  	
+  	 <% if params[:client][:corporation_attributes] %>
+  	 $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')
+  	 <% end %>
+
+  	 <% if params[:client][:charity_attributes] %>
+  	 $('#charity').html('<%= j render ("clients/show_sections/ch_fields") %>')
+  	 <% end %>
+
+<% end  %>

@@ -1,0 +1,17 @@
+<%= simple_form_for @client, :input_html=>{:id=>'frmCorp'}, :remote=>true do |f| %>
+  <%= f.error_notification %>
+
+ <div class="form-inputs">
+    <%= f.input :incorporated, as: :string, as: :hidden, :input_html=>{value: '1'} %>
+    <%= f.simple_fields_for :corporation do |corp| %>
+      <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>  
+      <%= corp.input :businessnumber %>
+    <% end %>
+  </div>
+
+  <%= hidden_field_tag 'show', true %>
+  <div class="form-actions">
+    <%= f.button :submit, "Save changes",  :id=>'submitCorp' %>            
+  </div>
+
+<% end %>

@@ -36,6 +36,7 @@ gem 'prawn'
 gem 'state_machine'
 gem 'pg_search'
 gem 'kaminari'
+#gem 'turbolinks'
 
 
 

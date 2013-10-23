@@ -1,0 +1,27 @@
+<% if @client.registeredcharity  %>
+           <h5>Charity Information</h5>
+            <% if !@client.charity.present?  %>
+                  registration number:<% if @client.charity.registrationnumber  %>
+                    <%= @client.charity.registrationnumber %><br>
+                  <% end %>
+                  registration date:<% if @client.charity.registrationdate %>
+                    <%= @client.charity.registrationdate.to_date %><br>
+                  <% end  %>
+                  <%= link_to "edit", edit_client_path(@client, :step=>'charity') %>
+                   <b><%= link_to 'Click here if not a charity', @client.charity, method: :delete, data: { confirm: 'Are you sure you want to delete  all charity information?' } %></b>
+             <% else  %>
+              <%= link_to "click here to add charity information", edit_client_path(@client, :step=>'charity'), :class=>'btn btn-small btn-info btnCharity' %>
+
+
+            <% end %>
+
+        <% else %>
+          <%= link_to "click here to add charity information", edit_client_path(@client, :step=>'charity', :edit=>true), :class=>'btn btn-info btn-small btnCharity', :remote=>true  %>
+
+  <% end  %>
+
+<p>
+   <div id='charity_fields' style='display:none;'>
+     <%= render 'clients/show_sections/charity_fields' %>
+  </div>
+</p>
