@@ -105,6 +105,7 @@ class CorporationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to request.referer }
       format.json { head :no_content }
+      @client.build_corporation
       format.js
     end
   end
