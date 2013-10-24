@@ -116,7 +116,8 @@ class CharitiesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to request.referer }
       format.json { render json: @client }
-      format.js { render :js => "window.location = '#{client_path(@client)}'" }
+      @client.build_charity
+      format.js #{ render :js => "window.location = '#{client_path(@client)}'" }
     end
   end
 end
