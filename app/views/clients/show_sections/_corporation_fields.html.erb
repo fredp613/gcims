@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
  <div class="form-inputs">
-    <%= f.input :incorporated, as: :string, as: :hidden, :input_html=>{value: '1'} %>
+    <%= f.input :incorporated, as: :hidden, :input_html=>{value: '1'} %>
     <%= f.simple_fields_for :corporation do |corp| %>
       <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>  
       <%= corp.input :businessnumber %>

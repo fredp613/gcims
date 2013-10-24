@@ -42,7 +42,7 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :websites
   accepts_nested_attributes_for :phones
   accepts_nested_attributes_for :emails
-  accepts_nested_attributes_for :charity
+  accepts_nested_attributes_for :charity, :allow_destroy=>true
   accepts_nested_attributes_for :band
   accepts_nested_attributes_for :corporation
   accepts_nested_attributes_for :divisions

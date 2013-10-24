@@ -17,10 +17,18 @@
 //= require bootstrap-datepicker
 //= require_tree .
 
-$('.datepicker').datepicker({
+(function() {
+
+$element = $(document).find('.datepicker')
+
+$element.datepicker({
 	autoclose: 'true',
 	format: 'yyyy-mm-dd'
 });
+
+})();
+
+    
 
 
 idleTime = 0;

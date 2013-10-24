@@ -1,0 +1,14 @@
+<% if @corporation.errors.any? %>
+	 console.log('Error');
+
+	 $('#corporation_fields').html('<%= j render ("clients/show_sections/corporation_fields") %>') 
+
+	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+<% else %>	
+  	console.log('updated');
+
+  	 $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')
+  	 
+
+
+<% end  %>

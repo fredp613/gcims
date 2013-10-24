@@ -206,6 +206,11 @@ class ClientsController < ApplicationController
     @clienttype_from_change_display = Clienttype.where(:id=>@clienttype_from_change).first
     @back = session[:return_to] ||= request.referer
 
+    respond_to do |format|
+      format.html { render action: "show" }
+      format.js
+    end
+    
     
   end
 
@@ -215,10 +220,26 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find(params[:id])
     
-    if params[:client][:incorporated] == '1'
-      @client.build_corporation
-      @client.corporation.nested_from_client = 'yes'
-    end
+    #if params[:client][:incorporated] == '1'
+    #  @client.build_corporation
+    #  if params[:client][:corporation_attributes].present?
+    #    @client.corporation.nested_from_client = 'yes'
+    #  end
+    #end
+
+    #if params[:client][:registeredcharity] == '1'
+    #  @client.build_charity
+    #  if params[:client][:charity_attributes].present?
+    #    @client.charity.nested_from_client = 'yes'
+    #  end
+    #end
+
+    #if params[:client][:registeredband] == '1'
+    #  @client.build_charity
+    #  if params[:client][:charity_attributes].present?
+    #    @client.band.nested_from_client = 'yes'
+    #  end
+    #end
 
 
     if !session[:edit_only]

@@ -1,0 +1,25 @@
+ <% if @client.registeredband  %>
+           <h5>Band Information</h5>
+           <div id='band_view'>
+            <% if !@client.band.blank?  %>
+                  Band number:<% if @client.band.bandnumber  %>
+                    <%= @client.band.bandnumber %><br>
+                  <% end %>
+            </div>
+                  <%= link_to "", edit_client_path(@client, :step=>'band'), :class=>'icon-large icon-pencil black btnEditBand' %>
+                   <b><%= link_to '', @client.band, method: :delete, data: { confirm: 'Are you sure you want to delete all band information?' }, :class=>'icon-large icon-remove-sign red btnDelBand', :remote=>true %></b>
+             <% else  %>
+              <%= link_to "click to add band information", edit_client_path(@client, :step=>'band'), :class=>'btn btn-small btn-info btnBand' %>
+
+            <% end %>
+
+        <% else %>
+          <%= link_to "click to add band information", edit_client_path(@client, :step=>'band', :edit=>true), :class=>'btn btn-info btn-small btnBand', :remote=>true  %>
+
+  <% end  %>
+
+<p>
+   <div id='band_fields' style='display:none;'>
+     <%= render 'clients/show_sections/band_fields' %>
+  </div>
+</p>

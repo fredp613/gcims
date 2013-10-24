@@ -113,6 +113,7 @@ class BandsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to request.referer }
       format.json { head :no_content }
+      format.js
     end
   end
 end

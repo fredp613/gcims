@@ -15,7 +15,7 @@
 
 	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
 <% else %>	
-  	console.log('updated');
+  	console.log('deleted');
   	
   	 <% if params[:client][:corporation_attributes] %>
   	 $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')

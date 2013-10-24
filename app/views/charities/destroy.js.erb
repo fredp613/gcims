@@ -1,0 +1,11 @@
+<% if @charity.errors.any? %>
+	 console.log('Error');
+   $('#charity_fields').html('<%= j render ("clients/show_sections/charity_fields") %>')
+
+	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+<% else %>	
+  	console.log('updated');
+  	$('#charity').html('<%= j render ("clients/show_sections/ch_fields") %>')
+  	$(document).reload();
+
+<% end  %>

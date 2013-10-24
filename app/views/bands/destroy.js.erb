@@ -1,0 +1,8 @@
+<% if @band.errors.any? %>
+	 console.log('Error');
+   $('#band_fields').html('<%= j render ("clients/show_sections/band_fields") %>')
+	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+<% else %>	
+  	console.log('deleted'); 	
+     $('#band').html('<%= j render ("clients/show_sections/ba_fields") %>')
+<% end  %>

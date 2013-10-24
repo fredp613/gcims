@@ -1,23 +1,24 @@
 <% if @client.incorporated  %>
           <h5>Corporate Information</h5>
-
-
-            <% if !@client.corporation.present? %>
+          <div id='corporation_view'>
+            <% if !@client.corporation.blank? %>
               Business Number:<% if @client.corporation.businessnumber %>
                <%= @client.corporation.businessnumber %><br>
               <% end %>
               Level:<% if @client.corporation.level %>
                <%= @client.corporation.level %><br>
               <% end %>
-              <%= link_to "edit", edit_client_path(@client, :step=>'corporation') %>
-              <b><%= link_to 'click here to delete corporation information', @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' } %></b>
+            </div>
+              <%= link_to "", edit_client_path(@client, :step=>'corporation'), :class=>'icon-large icon-pencil black btnEditCorp', :remote=>true %>
+              <b><%= link_to "", @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' }, :class=>'icon-large icon-remove-sign red btnDelCorp',
+              :remote=>true%></b>
               <% else  %>
-                <%= link_to "click here to add corporation information", edit_client_path(@client, :step=>'corporation'), :class=>'btn btn-small btn-info btnCorp' %>
+                <%= link_to "click to add corporation information", edit_client_path(@client, :step=>'corporation'), :class=>'btn btn-small btn-info btnCorp' %>
             <% end %> 
 
           <% else %>
 
-          <%= link_to "click here to add corporation information", edit_client_path(@client, :step=>'corporation', :edit=>true), 
+          <%= link_to "click to add corporation information", edit_client_path(@client, :step=>'corporation', :edit=>true), 
           :class=>'btn btn-info btn-small btnCorp', :id=>'btnCorp'  %>
 
 <% end  %>
