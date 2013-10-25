@@ -4,8 +4,9 @@ $(function() {
 
   $('.loader').fadeOut(200);
   $('#frmContainer').fadeIn(300);
-  $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
-
+  if ($('#client_name')) {
+    $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+  }
 });
 
 $('#frmContainer').on('click', '#client_incorporated', function() {

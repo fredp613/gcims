@@ -15,20 +15,10 @@
 //= require twitter/bootstrap
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require turbolinks
 //= require_tree .
 
-(function() {
 
-$element = $(document).find('.datepicker')
-
-$element.datepicker({
-	autoclose: 'true',
-	format: 'yyyy-mm-dd'
-});
-
-})();
-
-    
 
 
 idleTime = 0;
@@ -48,6 +38,18 @@ $(function () {
 
   $(window).bind("popstate", function(){
   	$.getScript(location.href);
+  });
+
+
+  $element = $(document).find('.datepicker')
+
+  $element.datepicker({
+    autoclose: 'true',
+    format: 'yyyy-mm-dd'
+  });
+
+  $(window).load(function() {
+    $(".loader").fadeOut("slow");
   });
 
 });

@@ -70,6 +70,8 @@ $("#myModal").on('hidden', function() {
 
 
 
+
+
 $('.modal-dialog').on('change', '#project_applications_attributes_0_productserviceline',  function() {
   var $psl = $('#project_applications_attributes_0_productserviceline').find(':selected').val();
   filter_ssl('psl', $psl); 
