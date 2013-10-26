@@ -41,7 +41,11 @@ class ClienttypesController < ApplicationController
     #@country = params[:country_id]
     end
 
-    @country = params[:country_id]
+    if params[:country_id]
+      @country = params[:country_id]
+    else
+      @country = 38
+    end
 
     respond_to do |format|
       format.html # new.html.erb

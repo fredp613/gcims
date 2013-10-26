@@ -134,7 +134,7 @@ class ClientsController < ApplicationController
               #  reset_session
               end
               format.json { render json: @client, status: :created, location: @client }
-              format.js { render :js => "window.location = '#{client_path(@client)}'" } 
+              # format.js { render :js => "window.location = '#{client_path(@client)}'" } 
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
