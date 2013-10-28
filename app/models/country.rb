@@ -3,4 +3,9 @@ class Country < ActiveRecord::Base
   has_many :states
   has_many :locations, through: :states
   accepts_nested_attributes_for :states
+
+  def self.sort_list
+  	order :rank
+  end
+
 end

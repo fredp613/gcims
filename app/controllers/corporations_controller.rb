@@ -74,6 +74,7 @@ class CorporationsController < ApplicationController
       else
         format.html { render action: "new" }
         format.json { render json: @corporation.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

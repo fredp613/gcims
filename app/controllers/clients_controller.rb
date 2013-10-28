@@ -45,18 +45,14 @@ class ClientsController < ApplicationController
   # GET /clients/new.json
   def new
 
-    @token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+    
     @stale_form_ts = Time.now.to_i
     @client = Client.new
-    @corporation = Corporation.new 
+    #@corporation = Corporation.new  
     build
-    #@stale_form_ts = Time.now.to_i
-
-    if params[:name]
-      @client.name = params[:name]
-    else
-      @client.name = session[:name]
-    end
+    @client.token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+    
+    
 
     @client.clienttype_id = params[:clienttype_id]
     
@@ -95,11 +91,11 @@ class ClientsController < ApplicationController
         @client.corporation.nested_from_client = 'yes'
       end
 
-      if params[:client][:registeredcharity] == '1'
+      if params[:client][:registeredcharity] == "1"
         @client.charity.nested_from_client = 'yes'
       end
 
-      if params[:client][:registeredband] == '1'
+      if params[:client][:registeredband] == "1"
         @client.band.nested_from_client = 'yes'
       end
 
@@ -112,10 +108,19 @@ class ClientsController < ApplicationController
           if params[:country]
             session[:name] = @client.name
             session[:clienttype] = @client.clienttype_id
-            redirect_to foreign_clients_path
+            
+            respond_to do |format|
+              format.html { redirect_to foreign_clients_path }
+              format.js { render :js => "window.location = '#{foreign_clients_path}'" } 
+            end
+            
           else
             session[:name] = @client.name
-            redirect_to new_client_clienttypes_path(:country_id=>params[:country_id])
+            
+            respond_to do |format|
+              format.html { redirect_to new_client_clienttypes_path(:country_id=>params[:country_id]) }
+              format.js { render :js => "window.location = '#{new_client_clienttypes_path(:country_id=>params[:country_id])}'" } 
+            end
 
           end
         else
@@ -134,10 +139,11 @@ class ClientsController < ApplicationController
               #  reset_session
               end
               format.json { render json: @client, status: :created, location: @client }
-              # format.js { render :js => "window.location = '#{client_path(@client)}'" } 
+               format.js { render :js => "window.location = '#{client_path(@client)}'" } 
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
+              #@client.name = params[:name]           
               
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }

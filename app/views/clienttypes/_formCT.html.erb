@@ -7,11 +7,11 @@
    </div>
 
    <% if @client  %>
-     <%= f.input :client_id, :input_html=>{value: @client} %>
+     <%= f.hidden_input :client_id, :input_html=>{value: @client} %>
    <% end %>
 
 	  
 	    <%= f.button :submit, "Next", :class=>'btn btn-primary btn-small' %>
-	  <%= text_field_tag :country_id, @country %>
+	  <%= hidden_field_tag :country_id, @country %>
  
 <% end %>

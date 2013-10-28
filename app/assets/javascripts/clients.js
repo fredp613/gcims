@@ -7,9 +7,9 @@ $(function() {
   if ($('#client_name')) {
     $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
   }
-});
 
-$('#frmContainer').on('click', '#client_incorporated', function() {
+
+$(document).on('click', '#client_incorporated', function() {
 
 var thisCheck = $(this)
   if (thisCheck.is (':checked')) {
@@ -20,7 +20,7 @@ var thisCheck = $(this)
   }
 })
 
-$('#frmContainer').on('click', '#client_registeredcharity', function() {
+$(document).on('click', '#client_registeredcharity', function() {
 
 var thisCheck = $(this)
   if (thisCheck.is (':checked')) {
@@ -31,7 +31,7 @@ var thisCheck = $(this)
   }
 })
 
-$('#frmContainer').on('click', '#client_registeredband', function() {
+$(document).on('click', '#client_registeredband', function() {
 
 var thisCheck = $(this)
   if (thisCheck.is (':checked')) {
@@ -42,10 +42,13 @@ var thisCheck = $(this)
   }
 })
 
-$('#frmContainer').on('click', '#clientSubmit', function() {
+$(document).on('click', '#clientSubmit', function() {
   $('#frmClient').submit();
-  //return false;
+  return false;
 })
+
+});
+
 
 $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
 $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );

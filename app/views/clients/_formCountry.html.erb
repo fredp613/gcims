@@ -7,8 +7,10 @@
    	<%= text_field_tag "client_id", @client_id %>
    <% end %>
    
-   <%= f.input :country_id, collection: Country.all(order: 'name'),
+   <%= f.input :country_id,  collection: Country.sort_list,
           :label_method => lambda { |cy| "#{cy.name}" }, :input_html=>{name: "country_id"} %>
+
+
 	  <div class="form-actions">
 	    <%= f.button :submit, "Continue", :class=>'btn btn-primary btn-small' %>
 	  </div>

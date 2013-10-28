@@ -4,7 +4,7 @@
 
 	<p>
   	<%= f.input :incorporated, :label=>"Incorporated?" %>  	
-  	 <% if @client.corporation.errors.any? || !@client.corporation.businessnumber.blank? %>
+  	 <% if @client.corporation.errors.any?  %>
   	  <div id='corporation_fields' class='section'>
   	 <% else %>
 	  <div id='corporation_fields' class='section' style='display:none;'>
@@ -14,7 +14,7 @@
   	</p>
   	<p>
 		<%= f.input :registeredcharity, :label =>"Registered charity?"  %>
-		<% if @client.charity.errors.any? || !@client.charity.registrationnumber.blank? %>
+		<% if @client.charity.errors.any?  %>
 		<div id='charity_fields' class='section'>
 		<% else %>
 		<div id='charity_fields' class='section' style='display:none;'>
@@ -25,7 +25,7 @@
 
   	<p>
 	  <%= f.input :registeredband, :label =>"Registered band?"  %><br>
-	  <% if @client.band.errors.any? || !@client.band.bandnumber.blank? %>
+	  <% if @client.band.errors.any?  %>
 	  <div id='band_fields' class='section'>
 	  <% else %>
 	  <div id='band_fields' class='section' style='display:none;'>

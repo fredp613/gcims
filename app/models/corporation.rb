@@ -1,4 +1,7 @@
 class Corporation < ActiveRecord::Base
+  
+  after_create :destroy_corporation
+
   attr_accessible :businessnumber, :client_id, :level
   belongs_to :client
   attr_accessor :nested_from_client
@@ -8,6 +11,12 @@ class Corporation < ActiveRecord::Base
 
   def from_client?
     nested_from_client == 'yes'
+  end
+
+  def destroy_corporation
+  	if businessnumber.blank? || businessnumber == ''
+  	  self.destroy
+  	end
   end
 
 end

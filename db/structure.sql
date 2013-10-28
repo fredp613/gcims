@@ -571,7 +571,8 @@ ALTER SEQUENCE corporations_id_seq OWNED BY corporations.id;
 CREATE TABLE countries (
     id integer NOT NULL,
     iso character varying(255),
-    name character varying(255)
+    name character varying(255),
+    rank integer
 );
 
 
@@ -1965,3 +1966,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131002010216');
 INSERT INTO schema_migrations (version) VALUES ('20131011195405');
 
 INSERT INTO schema_migrations (version) VALUES ('20131011202216');
+
+INSERT INTO schema_migrations (version) VALUES ('20131026210100');

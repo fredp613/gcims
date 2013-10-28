@@ -3,5 +3,8 @@ class Email < ActiveRecord::Base
 
   belongs_to :client
   belongs_to :contact
+
+  validates :email, presence: true
+ # validates :client_id, presence: true
   
 end
