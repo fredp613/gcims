@@ -37,7 +37,7 @@ gem 'state_machine'
 gem 'pg_search'
 gem 'kaminari'
 gem 'turbolinks'
-#gem 'rails_best_practices'
+
 
 
 
