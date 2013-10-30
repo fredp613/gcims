@@ -7,7 +7,7 @@
   <input type='hidden' name='ts' value=<%= Time.now.to_i %> />
   <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @client.token} %>
 
-  <div class="form-inputs" >
+  <div class="form-inputs">
    <fieldset>
         <legend>Main client information</legend>
     
@@ -27,8 +27,10 @@
             <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @client.name}  %>
           <% else %>
             <%= f.input :name, :label=>"Organization Name"  %>
-          <% end %>            
-          <%= render 'orginfo', :f=>f %>       
+          <% end %>
+          
+            <%= render 'orginfo', :f=>f %>       
+          
 
   <% end  %>
     
@@ -54,6 +56,15 @@
 
 </div>
 <% end %>
+
+<script type="text/javascript">
+ element = $(document).find('.datepicker')
+
+  element.datepicker({
+    autoclose: 'true',
+    format: 'yyyy-mm-dd'
+  });
+</script>
 
 
 

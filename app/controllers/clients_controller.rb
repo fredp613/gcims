@@ -143,7 +143,7 @@ class ClientsController < ApplicationController
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
-              #@client.name = params[:name]           
+              
               
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }

@@ -52,7 +52,20 @@ $(function () {
     $(".loader").fadeOut("slow");
   });
 
+ 
+
 });
+
+/**
+ $(document).on('page:fetch', function() {
+    $('#content').fadeOut(200);
+    
+  });
+  
+  $(document).on('page:restore', function() {
+    $('#content').fadeIn(200);
+    
+  }); **/
 
 function timerIncrement() {
   idleTime = idleTime + 1;
@@ -60,6 +73,7 @@ function timerIncrement() {
       window.location.reload();
   }
 }
+
 
 
 

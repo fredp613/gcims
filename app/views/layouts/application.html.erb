@@ -14,7 +14,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -44,6 +44,8 @@
     <script type="text/javascript">
       document.documentElement.className = 'js';
     </script>
+
+    <%= javascript_include_tag "application" %>
 
   </head>
   <body>
@@ -141,7 +143,7 @@
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
+        <div class="span9" id='content'>
           <% flash.each do |name, msg| %>
           	<%= boostrap_flash(name, msg) %>
           <% end %>
@@ -159,7 +161,7 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
+    
 
 
 

@@ -4,9 +4,10 @@ $(function() {
 
   $('.loader').fadeOut(200);
   $('#frmContainer').fadeIn(300);
-  if ($('#client_name')) {
+  //if ($('#client_name')) {
     $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
-  }
+  
+  //}
 
 
 $(document).on('click', '#client_incorporated', function() {
