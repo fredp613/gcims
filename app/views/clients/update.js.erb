@@ -13,6 +13,11 @@
    $('#band_fields').html('<%= j render ("clients/show_sections/band_fields") %>')
    <% end %>
 
+
+   $('.loader').fadeOut(200);
+   $('#frmContainer').html('<%= j render ('form') %>')
+   $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+
 	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
 <% else %>	
   	console.log('updated');

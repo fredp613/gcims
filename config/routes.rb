@@ -30,6 +30,7 @@ GCIMS::Application.routes.draw do
 
 
    resources :clienttypes do
+
       collection do
         get "/new_client" => 'clienttypes#new_client'
         post "/new_client" => 'clienttypes#new_client_go'

@@ -1,82 +1,82 @@
 
 
-$(function() {
+var ready;
+ready = function() {
 
   $('.loader').fadeOut(200);
   $('#frmContainer').fadeIn(300);
   //if ($('#client_name')) {
-    $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
-  
+   $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
   //}
 
+  $(document).on('click', '#client_incorporated', function() {
 
-$(document).on('click', '#client_incorporated', function() {
+  var thisCheck = $(this)
+    if (thisCheck.is (':checked')) {
+      $('#corporation_fields').fadeIn(300);
+    } 
+    else {
+      $('#corporation_fields').fadeOut(300);
+    }
+  })
 
-var thisCheck = $(this)
-  if (thisCheck.is (':checked')) {
-    $('#corporation_fields').fadeIn(300);
-  } 
-  else {
-    $('#corporation_fields').fadeOut(300);
-  }
-})
+  $(document).on('click', '#client_registeredcharity', function() {
 
-$(document).on('click', '#client_registeredcharity', function() {
+  var thisCheck = $(this)
+    if (thisCheck.is (':checked')) {
+      $('#charity_fields').fadeIn(300);
+    } 
+    else {
+      $('#charity_fields').fadeOut(300);
+    }
+  })
 
-var thisCheck = $(this)
-  if (thisCheck.is (':checked')) {
-    $('#charity_fields').fadeIn(300);
-  } 
-  else {
-    $('#charity_fields').fadeOut(300);
-  }
-})
+  $(document).on('click', '#client_registeredband', function() {
 
-$(document).on('click', '#client_registeredband', function() {
+  var thisCheck = $(this)
+    if (thisCheck.is (':checked')) {
+      $('#band_fields').fadeIn(300);
+    } 
+    else {
+      $('#band_fields').fadeOut(300);
+    }
+  })
 
-var thisCheck = $(this)
-  if (thisCheck.is (':checked')) {
-    $('#band_fields').fadeIn(300);
-  } 
-  else {
-    $('#band_fields').fadeOut(300);
-  }
-})
-
-$(document).on('click', '#clientSubmit', function() {
-  $('#frmClient').submit();
-  return false;
-})
-
-});
+  $(document).on('click', '#clientSubmit', function() {
+    $('#frmClient').submit();
+    return false;
+  })
 
 
-$(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
-$(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
-
-$(document).on('click', 'submitCorp', function() {
-  $('#frmCorp').submit();
-  return false;
-})
-
-$(document).on('click', '.btnCharity', {action: 'new'}, charity_click );
-$(document).on('click', '.btnEditCharity', {action: 'edit'}, charity_click );
-
-$(document).on('click', 'submitCharity', function() {
-  $('#frmCharity').submit();
-  return false;
-})
-
-$(document).on('click', '.btnBand', {action: 'new'}, band_click );
-$(document).on('click', '.btnEditBand', {action: 'edit'}, band_click );
 
 
-$(document).on('click', 'submitBand', function() {
-  $('#frmBand').submit();
-  return false;
-})
+  $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
+  $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
+
+  $(document).on('click', 'submitCorp', function() {
+    $('#frmCorp').submit();
+    return false;
+  })
+
+  $(document).on('click', '.btnCharity', {action: 'new'}, charity_click );
+  $(document).on('click', '.btnEditCharity', {action: 'edit'}, charity_click );
+
+  $(document).on('click', 'submitCharity', function() {
+    $('#frmCharity').submit();
+    return false;
+  })
+
+  $(document).on('click', '.btnBand', {action: 'new'}, band_click );
+  $(document).on('click', '.btnEditBand', {action: 'edit'}, band_click );
 
 
+  $(document).on('click', 'submitBand', function() {
+    $('#frmBand').submit();
+    return false;
+  })
+
+
+}
 
 function band_click(event) {
   var arg = event.data.action
@@ -174,6 +174,9 @@ function corp_click(event) {
   return false;
   
 }
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 
 

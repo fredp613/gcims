@@ -157,8 +157,13 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
-    @clienttype = @client.clienttype_id
-    @clienttype_display = Clienttype.where(:id=>@clienttype).first
+
+    if params[:clienttype_id]
+      @client.clienttype_id = params[:clienttype_id]
+    end
+    
+
+    @clienttype_display = Clienttype.where(:id=>@client.clienttype_id).first
 
     if params[:edit]
       @edit = true
@@ -213,8 +218,8 @@ class ClientsController < ApplicationController
     @back = session[:return_to] ||= request.referer
 
     respond_to do |format|
-      format.html { render action: "show" }
-      format.js
+      format.html 
+      format.json { render json: @client}
     end
     
     
@@ -226,28 +231,7 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find(params[:id])
     
-    #if params[:client][:incorporated] == '1'
-    #  @client.build_corporation
-    #  if params[:client][:corporation_attributes].present?
-    #    @client.corporation.nested_from_client = 'yes'
-    #  end
-    #end
-
-    #if params[:client][:registeredcharity] == '1'
-    #  @client.build_charity
-    #  if params[:client][:charity_attributes].present?
-    #    @client.charity.nested_from_client = 'yes'
-    #  end
-    #end
-
-    #if params[:client][:registeredband] == '1'
-    #  @client.build_charity
-    #  if params[:client][:charity_attributes].present?
-    #    @client.band.nested_from_client = 'yes'
-    #  end
-    #end
-
-
+   
     if !session[:edit_only]
         @client.current_step = session[:step]
 
@@ -268,51 +252,56 @@ class ClientsController < ApplicationController
 
         session[:step] = @client.current_step
     end 
+
     respond_to do |format|
      if @client.update_attributes(params[:client])
       @nav = AdditionalInformationNav.new(@client)
       @step = @nav.nav
 
-      if !session[:edit_only]
-        if @new
-        format.html { redirect_to edit_client_path(@client) }
-        else
-          if params[:back_button]
-            format.html { redirect_to edit_client_path(@client, :wizard=>true, :back_button=>true) }
+        if !session[:edit_only]
+          if @new
+          format.html { redirect_to edit_client_path(@client) }
           else
-            format.html { redirect_to edit_client_path(@client, :wizard=>true) }
+            if params[:back_button]
+              format.html { redirect_to edit_client_path(@client, :wizard=>true, :back_button=>true) }
+            else
+              format.html { redirect_to edit_client_path(@client, :wizard=>true) }
+            end
+          end
+          format.json { head :no_content }
+          if params[:show] == true
+            format.js 
+          else
+            format.js { render :js => "window.location = '#{client_path(@client)}'" }
+          end
+
+         # if @last = true
+          #  session[:edit_only] = true
+          #end
+        else
+          if !session[:edit]
+            format.html { redirect_to @client, notice: 'Client has been saved' }
+          else 
+            format.html { redirect_to edit_client_path(@client), notice: 'saved' }
+            if params[:show] == true
+              format.js 
+            else
+              format.js { render :js => "window.location = '#{client_path(@client)}'" }
+            end
+            #reset_session
           end
         end
-        format.json { head :no_content }
-        if params[:show] = true
-          format.js 
-        else
-          format.js { render :js => "window.location = '#{client_path(@client)}'" }
-        end
-
-       # if @last = true
-        #  session[:edit_only] = true
-        #end
-      else
-        if !session[:edit]
-          format.html { redirect_to @client, notice: 'Client has been saved' }
-        else 
-          format.html { redirect_to edit_client_path(@client), notice: 'saved' }
-        if params[:show] = true
-          format.js 
-        else
-          format.js { render :js => "window.location = '#{client_path(@client)}'" }
-        end
-          #reset_session
-        end
-      end
       #reset_session
      else
+      #@nav = AdditionalInformationNav.new(@client)
+      #@step = @nav.nav
+
       format.html { render action: "edit" }
       format.json { render json: @client.errors, status: :unprocessable_entity }
       format.js
       end
     end
+
   end
 
 

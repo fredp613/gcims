@@ -1,8 +1,8 @@
 
-$('.loader').fadeOut(200);
+var ready 
+ready = function () {
 
-$(function() {
-
+    $('.loader').fadeOut(200);
     
     $('#results').fadeIn(300);
 
@@ -110,15 +110,7 @@ $(function() {
   });
   
 
-});
-
-
-
-
-
-
-
-
+}
 
 function filter_ci(paramName, param) {
 
@@ -301,6 +293,9 @@ function filter_psl(paramName, param) {
     });  
 
 }
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 
 

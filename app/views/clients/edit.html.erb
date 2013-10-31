@@ -1,5 +1,9 @@
 <h1>Edit</h1> <br>
 
+
+<div class='loader'>
+  </div>
+
 <% if @mandate_only   %>
 	<%= render 'formMandate' %>
 
@@ -10,11 +14,13 @@
 	<%= render 'formWizard' %>
 <% else %>
 
+ <div id='frmContainer'>
  <%= render 'form' %>
+</div>
 
 <% end  %>
 
-<%= @steps %>
+
 
 <%= link_to 'Show', @client %> |
 <%= link_to 'Back', clients_path %>

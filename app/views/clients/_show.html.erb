@@ -1,7 +1,10 @@
 
 <p id="notice"><%= notice %></p>
 
-<h3><%=link_to @client.adj_name, edit_client_path(@client) %></h3><br>
+<div id="editClient">
+  <h3><%=link_to @client.adj_name, edit_client_path(@client) %></h3><br>
+</div>
+
 
 <ul class="nav nav-tabs" data-tabs="tabs">
   <li class="active">
