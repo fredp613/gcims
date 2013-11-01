@@ -1,17 +1,22 @@
-<%= simple_form_for @client, :input_html=>{:id=>'frmCorp'}, :remote=>true do |f| %>
-  <%= f.error_notification %>
+<div id='cf'>
 
- <div class="form-inputs">
-    <%= f.input :incorporated, as: :hidden, :input_html=>{value: '1'} %>
-    <%= f.simple_fields_for :corporation do |corp| %>
-      <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>  
-      <%= corp.input :businessnumber %>
-    <% end %>
-  </div>
+  <%= simple_form_for @client, :input_html=>{:id=>'frmCorp'}, :remote=>true do |f| %>
+    <%= f.error_notification %>
 
-  <%= hidden_field_tag 'show', true %>
-  <div class="form-actions">
-    <%= f.button :submit, "Save changes",  :id=>'submitCorp' %>            
-  </div>
+   <div class="form-inputs">
+      <%= f.input :incorporated, as: :hidden, :input_html=>{value: '1'} %>
+      <%= f.simple_fields_for :corporation do |corp| %>
+        <%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>  
+        <%= corp.input :businessnumber %>
+        <%= corp.input :nested_from_client, as: :hidden, :input_html=>{value: "yes"} %>
+      <% end %>
+    </div>
 
-<% end %>
+    <%= hidden_field_tag 'show', true %>
+    <div class="form-actions">
+      <%= f.button :submit, "Save changes",  :id=>'submitCorp' %>            
+    </div>
+
+  <% end %>
+
+</div>

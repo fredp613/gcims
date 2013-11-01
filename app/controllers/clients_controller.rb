@@ -269,7 +269,7 @@ class ClientsController < ApplicationController
             end
           end
           format.json { head :no_content }
-          if params[:show] == true
+          if params[:show].present?
             format.js 
           else
             format.js { render :js => "window.location = '#{client_path(@client)}'" }
@@ -283,7 +283,7 @@ class ClientsController < ApplicationController
             format.html { redirect_to @client, notice: 'Client has been saved' }
           else 
             format.html { redirect_to edit_client_path(@client), notice: 'saved' }
-            if params[:show] == true
+            if params[:show].present?
               format.js 
             else
               format.js { render :js => "window.location = '#{client_path(@client)}'" }

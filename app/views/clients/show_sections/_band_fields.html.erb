@@ -5,6 +5,7 @@
     <%= f.input :registeredband, as: :hidden, :input_html=>{value: '1'} %>
     <%= f.simple_fields_for :band do |band| %>
       <%= band.input :bandnumber %>
+      <%= band.input :nested_from_client, as: :hidden, :input_html=>{value: "yes"} %>
     <% end %>
   </div>
 

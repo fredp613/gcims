@@ -2,7 +2,7 @@ class Band < ActiveRecord::Base
   
   after_create :destroy_band
 
-  attr_accessible :bandnumber, :client_id
+  attr_accessible :bandnumber, :client_id, :nested_from_client
   belongs_to :client
 
   attr_accessor :nested_from_client

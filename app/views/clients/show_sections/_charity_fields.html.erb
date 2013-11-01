@@ -7,7 +7,7 @@
       <%= charity.input :registrationnumber %>
       <%= charity.input :registrationdate, as: :string,
            :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %> 
-      
+      <%= charity.input :nested_from_client, as: :hidden, :input_html=>{value: "yes"} %>
     <% end %>
   </div>
 

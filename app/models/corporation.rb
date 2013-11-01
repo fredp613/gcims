@@ -2,7 +2,7 @@ class Corporation < ActiveRecord::Base
   
   after_create :destroy_corporation
 
-  attr_accessible :businessnumber, :client_id, :level
+  attr_accessible :businessnumber, :client_id, :level, :nested_from_client
   belongs_to :client
   attr_accessor :nested_from_client
 

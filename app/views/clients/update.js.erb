@@ -1,22 +1,26 @@
 <% if @client.errors.any? %>
 	 console.log('Error');
 
-   <% if params[:client][:corpoation_attributes] %>
-	 $('#corporation_fields').html('<%= j render ("clients/show_sections/corporation_fields") %>')
-   <% end %>
+   
+   if ($('#corporation_fields').is(':visible')) {
+	   $('#corporation_fields').html('<%= j render ("clients/show_sections/corporation_fields") %>')
+   }
+   
 
-   <% if params[:client][:charity_attributes] %>
-   $('#charity_fields').html('<%= j render ("clients/show_sections/charity_fields") %>')
-   <% end %>
+   if ($('#charity_fields').is(':visible')) {
+    $('#charity_fields').html('<%= j render ("clients/show_sections/charity_fields") %>')
+   }
+   
 
-   <% if params[:client][:band_attributes] %>
-   $('#band_fields').html('<%= j render ("clients/show_sections/band_fields") %>')
-   <% end %>
+   if ($('#band_fields').is(':visible')) {
+    $('#band_fields').html('<%= j render ("clients/show_sections/band_fields") %>')
+   }
 
-
-   $('.loader').fadeOut(200);
-   $('#frmContainer').html('<%= j render ('form') %>')
-   $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+   if ($('#frmContainer')) {
+     $('.loader').fadeOut(200);
+     $('#frmContainer').html('<%= j render ('form') %>')
+     $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+   }
 
 	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
 <% else %>	

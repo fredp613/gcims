@@ -8,7 +8,12 @@
       <div>
          <% @client.contacts.each do |contact| %>
 
+
          <div id='contacts' class='span3 section'>
+          <% if contact.authority == true %>
+              <b>Signing Authority</b>
+          <% end %>
+          <br>
           <%= contact.firstname  %> <br>
           <%= contact.lastname  %><br>
           <%= contact.title  %><br>

@@ -175,6 +175,7 @@ function corp_click(event) {
   
 }
 
+
 $(document).ready(ready);
 $(document).on('page:load', ready);
 

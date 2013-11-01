@@ -2,7 +2,7 @@ class Charity < ActiveRecord::Base
  
   after_create :destroy_charity
 
-  attr_accessible :client_id, :registrationdate, :registrationnumber
+  attr_accessible :client_id, :registrationdate, :registrationnumber, :nested_from_client
   belongs_to :client
 
   attr_accessor :nested_from_client
