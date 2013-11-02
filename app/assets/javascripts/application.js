@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.formatCurrency-1.4.0
 //= require twitter/bootstrap
 //= require bootstrap
 //= require bootstrap-datepicker

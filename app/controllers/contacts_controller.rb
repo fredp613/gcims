@@ -54,6 +54,9 @@ class ContactsController < ApplicationController
     if params[:project_id]
       @project = params[:project_id]
     end
+
+    
+
     @location_filter = LocationFilter.new(@client, @contact.id)
     @location = @location_filter.location 
  
