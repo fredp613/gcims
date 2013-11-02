@@ -15,13 +15,16 @@
                
 
               <% else  %>
+              
                 <%= link_to "click to add corporation information", edit_client_path(@client, :step=>'corporation'), :class=>'btn btn-small btn-info btnCorp' %>
+              
             <% end %> 
 
           <% else %>
-
+          
           <%= link_to "click to add corporation information", edit_client_path(@client, :step=>'corporation', :edit=>true), 
           :class=>'btn btn-info btn-small btnCorp', :id=>'btnCorp'  %>
+
 
 <% end  %>
 

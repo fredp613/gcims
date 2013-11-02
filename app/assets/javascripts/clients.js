@@ -1,7 +1,9 @@
 
 
 var ready;
-ready = function() {
+ready = 
+
+  function() {
 
   $('.loader').fadeOut(200);
   $('#frmContainer').fadeIn(300);
@@ -9,7 +11,13 @@ ready = function() {
    $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
   //}
 
-  $(document).on('click', '#client_incorporated', function() {
+}
+
+
+$(document).on('page:load', ready);
+$(document).ready(ready);
+
+$(document).on('click', '#client_incorporated', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
@@ -47,10 +55,7 @@ ready = function() {
     return false;
   })
 
-
-
-
-  $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
+$(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
   $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
 
   $(document).on('click', 'submitCorp', function() {
@@ -76,9 +81,10 @@ ready = function() {
   })
 
 
-}
+
 
 function band_click(event) {
+  
   var arg = event.data.action
   //alert(arg)
   if ($('#band_fields').is(':visible')) {
@@ -90,11 +96,12 @@ function band_click(event) {
         $('#band_view').show();
 
       } else {
-        $('.btnBand').text("click to add charity information");
+        $('.btnBand').text("click to add band information");
         $('.btnBand').attr('class', 'btn btn-small btn-info btnBand')
       } 
   } 
   else {
+
     $('#band_fields').fadeIn(300);
      if (arg == "edit") {
         $('.btnEditBand').text("cancel");
@@ -102,8 +109,8 @@ function band_click(event) {
         $('.btnDelBand').hide();
         $('#band_view').hide();
       } else {
-        $('.btnBand').text("cancel");
-        $('.btnBand').attr('class', 'btn btn-small btn-danger btnBand')
+        $(this).text("cancel");
+        $(this).attr('class', 'btn btn-small btn-danger btnBand')
       }
   }
   return false;
@@ -174,10 +181,6 @@ function corp_click(event) {
   return false;
   
 }
-
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
 
 
 
