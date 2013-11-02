@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
 
     @mainapplication = Application.where(:project_id=>@project).first
     @contacts = Contact.where(:client_id=>@project.client_id)
-    @existing = Contact.joins(:projectcontacts).where("projectcontacts.project_id = ?", @project )
+    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
 
@@ -32,6 +32,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
+
     end
   end
 
@@ -76,7 +77,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @mainapplication = Application.where(:project_id=>@project).first
     @contacts = Contact.where(:client_id=>@project.client_id)
-    @existing = Contact.joins(:projectcontacts).where("projectcontacts.project_id = ?", @project )
+    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
   end
@@ -85,7 +86,8 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-    @project.created_by = current_user
+    @project.created_by = current_user.id
+    @project.updated_by = current_user.id
     
     
     @client_id = params[:client_id]
@@ -119,7 +121,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
-    @project.updated_by = current_user
+    @project.updated_by = current_user.id
 
     respond_to do |format|
       if @project.update_attributes(params[:project])

@@ -29,7 +29,7 @@ class ProjectcontactsController < ApplicationController
     @project = params[:project_id]
     @client = Project.where(:id=>@project).select(:client_id)
     @contacts = Contact.where(:client_id=>@client)
-    @existing = Contact.joins(:projectcontacts).where("projectcontacts.project_id = ?", @project )
+    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
 

@@ -4,7 +4,7 @@ class Client < ActiveRecord::Base
   attr_accessible :name, :name1, :salutation, :locations_attributes, :clientlocations_attributes, :clienttype_id, 
                   :websites_attributes, :phones_attributes, :emails_attributes, :incorporated, :registeredcharity, 
                   :registeredband, :mandate, :corporation_attributes, :charity_attributes, :band_attributes,
-                  :divisions_attributes, :projects_attributes, :applications_attributes, :token, :country_id
+                  :divisions_attributes, :projects_attributes, :applications_attributes, :token, :country_id, :created_by, :updated_by
   attr_writer :current_step, :ts
   attr_accessor :country_id
 

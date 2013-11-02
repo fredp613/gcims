@@ -85,7 +85,8 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
       @client = Client.new(params[:client])
-      #@client.clienttype_id = params[:clienttype_id]
+      @client.created_by = current_user.id
+      @client.updated_by = current_user.id
 
       if params[:client][:incorporated] == '1'
         @client.corporation.nested_from_client = 'yes'
@@ -157,6 +158,7 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
+
 
     if params[:clienttype_id]
       @client.clienttype_id = params[:clienttype_id]
@@ -230,6 +232,7 @@ class ClientsController < ApplicationController
   # PUT /clients/1.json
   def update
     @client = Client.find(params[:id])
+    @client.updated_by = current_user.id
     
    
     if !session[:edit_only]

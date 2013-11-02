@@ -53,8 +53,13 @@ class ContactsController < ApplicationController
     end
     if params[:project_id]
       @project = params[:project_id]
+
+       if !@contact.projectcontact
+        @contact.build_projectcontact
+      end
     end
 
+   
     
 
     @location_filter = LocationFilter.new(@client, @contact.id)
@@ -80,8 +85,10 @@ class ContactsController < ApplicationController
          if params[:client_id] && !params[:project_id] 
          format.html { redirect_to new_client_contactlocation_path(@client, :contact_id=>@contact), notice: 'Add address information.' }
          elsif params[:project_id] 
-          Projectcontact.create!(:contact_id=>@contact.id, :project_id=>@project)
+         # Projectcontact.create!(:contact_id=>@contact.id, :project_id=>@project)
          format.html { redirect_to new_project_contactlocation_path(@project, :contact_id=>@contact), notice: 'Add address information1.' }
+         else
+         format.html { redirect_to contacts_path(@contact), notice: 'Add address information1.' }
          end
          format.json { render json: @contact, status: :created, location: @contact }
       else

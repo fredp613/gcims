@@ -309,7 +309,9 @@ CREATE TABLE clients (
     registeredband boolean,
     registeredcharity boolean,
     mandate text,
-    token character varying(255)
+    token character varying(255),
+    created_by integer,
+    updated_by integer
 );
 
 
@@ -1968,3 +1970,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131011195405');
 INSERT INTO schema_migrations (version) VALUES ('20131011202216');
 
 INSERT INTO schema_migrations (version) VALUES ('20131026210100');
+
+INSERT INTO schema_migrations (version) VALUES ('20131102202641');

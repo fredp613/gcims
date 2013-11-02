@@ -21,12 +21,17 @@
        <%= f.input :contacttype_id, :label=>"Contact Type",
     collection: Contacttype.all  %>
     
-    <% if @project %>
-      <%= f.simple_fields_for :projectcontacts do |pc| %>
-        <%= pc.input :authority,  :label=>"Project signing authority?" %>
+    <% if !@project.blank? %>
+      
+      <%= f.simple_fields_for :projectcontact do |pc| %>
+        <%= pc.input :project_id, as: :hidden, :input_html=>{value: @project} %> 
+        <%= pc.input :contact_id, as: :hidden, :input_html=>{value: @contact.id} %>    
+        <%= pc.input :authority, as: :boolean, :label=>"Project signing authority?" %>
       <% end %>
+
     <% else %>
       <%= f.input :authority, :label=>"Signing authority?" %>
+
     <% end %>
 
 

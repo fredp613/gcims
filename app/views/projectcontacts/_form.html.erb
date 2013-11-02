@@ -1,8 +1,6 @@
 <%= simple_form_for(@projectcontact, html: {class: 'form-inline'}) do |f| %>
   <%= f.error_notification %>
 
-  
-
   <%= f.input :project_id, as: :hidden,:input_html=>{value: @project} %>
   
   	<%= f.input :contact_id,  collection: @ddl, label_method: lambda { |c| "#{c.fullname}" } %> <br>
