@@ -1,5 +1,5 @@
 <%= link_to ssl.ssl_name, subserviceline_path(ssl), :class=>((ssl.fiscalyear_ids.to_a & @fyArray).size>0 ? "pras_item" : "pras_item red") %>
-          <%= link_to '', edit_subserviceline_path(ssl), :class=>'editSsl icon-pencil black', 'data-target'=>'#myModal'%>   
+          <%= link_to '', edit_subserviceline_path(ssl), :class=>'editSsl icon-pencil black', 'data-target'=>'#myModal', :remote=>true %>   
           <%= link_to '', new_subserviceline_path(:productserviceline_id => ssl.productserviceline_id, 
-          :fiscalyear_ids => ssl.fiscalyear_ids), :class=>'newSsl icon-plus-sign black' %>  
+          :fiscalyear_ids => ssl.fiscalyear_ids), :class=>'newSsl icon-plus-sign black', :remote=>true %>  
           <%= link_to '', ssl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red'%>

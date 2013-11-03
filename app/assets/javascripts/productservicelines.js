@@ -1,6 +1,19 @@
 
 
-$("ul.tree ul").hide();
+
+
+var ready5;
+ready5 = 
+
+  function() {
+
+  $("ul.tree ul").hide();
+
+}
+
+
+$(document).on('page:load', ready5);
+$(document).ready(ready5);
 
 
 var handleClick = function() {
@@ -20,24 +33,66 @@ var handleClick = function() {
     return false;
 }
 
-$('.pras_item').on('click', handleClick);
+$(document).on('click', '.pras_item', handleClick);
 
 
  
- $('.editPsl').on('click', function() {
+ $(document).on('click','.editPsl', function() {
 
       var link = $(this).attr('href') + '?layout="false"';
       createModal(link, 'Edit');
       return false;    
- });
+ })
 
- $('.newPras').on('click', function() {
+  $(document).on('click','.editCi', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Edit');
+      return false;    
+ })
+
+   $(document).on('click','.editSsl', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Edit');
+      return false;    
+ })
+
+ $(document).on('click','.editSc', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Edit');
+      return false;    
+ })
+
+ $(document).on('click','.newPras', function() {
       //e.preventDefault();
       var link = $(this).attr('href') + '?layout="false"';
       createModal(link, 'Create PRAS Branch');
       return false;      
 
- });
+ })
+
+ $(document).on('click','.newCi', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Create Commitment Item');
+      return false;    
+ })
+
+   $(document).on('click','.newSsl', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Create Sub Service Line');
+      return false;    
+ })
+
+ $(document).on('click','.newSc', function() {
+
+      var link = $(this).attr('href') + '?layout="false"';
+      createModal(link, 'Create Summary Commitment');
+      return false;    
+ })
 
  var createModal = function(link, title) {
   $('.modal-title').html(title);
@@ -47,10 +102,10 @@ $('.pras_item').on('click', handleClick);
 } 
 
 
- $('#myModal').on('hidden', function() {
+ $(document).on('hidden','#myModal', function() {
     $('#modalId').remove();
 
- });
+ })
 
  
 

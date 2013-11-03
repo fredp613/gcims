@@ -1,5 +1,5 @@
 <%= link_to sc.sc_name, summarycommitment_path(sc), :class=>((sc.fiscalyear_ids.to_a & @fyArray).size>0 ? "pras_item" : "pras_item red") %>
-             <%= link_to '', edit_summarycommitment_path(sc), :class=>'editSc icon-pencil black' %>
-             <%= link_to '', new_summarycommitment_path(:subserviceline_id=>sc.subserviceline_id,
-             :fiscalyear_ids => sc.fiscalyear_ids), :class=>'newSc icon-plus-sign black' %> 
-             <%= link_to '', sc, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %>
+ <%= link_to '', edit_summarycommitment_path(sc), :class=>'editSc icon-pencil black', :remote=>true %>
+ <%= link_to '', new_summarycommitment_path(:subserviceline_id=>sc.subserviceline_id,
+ :fiscalyear_ids => sc.fiscalyear_ids), :class=>'newSc icon-plus-sign black', :remote=>true %> 
+ <%= link_to '', sc, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %>
