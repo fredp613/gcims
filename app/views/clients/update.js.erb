@@ -2,25 +2,26 @@
 	 console.log('Error');
 
    
-   if ($('#corporation_fields').is(':visible')) {
+   <% if params[:client][:corporation_attributes] %>
 	   $('#corporation_fields').html('<%= j render ("clients/show_sections/corporation_fields") %>')
-   }
+   <% end %>
    
 
-   if ($('#charity_fields').is(':visible')) {
+   <% if params[:client][:charity_attributes] %>
     $('#charity_fields').html('<%= j render ("clients/show_sections/charity_fields") %>')
-   }
+   <% end %>
    
 
-   if ($('#band_fields').is(':visible')) {
+   <% if params[:client][:band_attributes] %>
     $('#band_fields').html('<%= j render ("clients/show_sections/band_fields") %>')
-   }
+   <% end %>
+
 
    if ($('#frmContainer')) {
      $('.loader').fadeOut(200);
      $('#frmContainer').html('<%= j render ('form') %>')
      $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
-   }
+   } 
 
 	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
 <% else %>	

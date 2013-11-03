@@ -28,7 +28,8 @@ class Application < ActiveRecord::Base
   validates :productserviceline, presence: true
 
   validates :requested, presence: :true, :numericality => true,
-            :format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
+            #:format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
+            :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
 
 
   def self.by_official(user)

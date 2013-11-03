@@ -10,13 +10,18 @@ class SearchesController < ApplicationController
  	  @client_page_size = 5
  	 end
 
- 	  if params[:projects_page_size]	
+ 	 if params[:projects_page_size]	
  	  @project_page_size = params[:projects_page_size]
  	 else
  	  @project_page_size = 5
  	 end
 
- 	 @query = params[:search_field]
+ 	 if params[:search_field]
+ 	  @query = params[:search_field]
+ 	 else
+ 	  @query = ""	
+ 	 end
+
  	 @clients = Client.text_search(params[:search_field]).page(params[:client_page]).per(@client_page_size)
 
  	 @client = Client.text_search(params[:search_field]).select(:id)

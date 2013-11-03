@@ -21,6 +21,7 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     @client = Client.find(params[:id])
+    
     if !@client.corporation
       @client.build_corporation
     end
@@ -53,6 +54,7 @@ class ClientsController < ApplicationController
     @client.token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
     
     
+
 
     @client.clienttype_id = params[:clienttype_id]
     
@@ -273,7 +275,7 @@ class ClientsController < ApplicationController
           end
           format.json { head :no_content }
           if params[:show].present?
-            format.js 
+           format.js 
           else
             format.js { render :js => "window.location = '#{client_path(@client)}'" }
           end
@@ -301,7 +303,7 @@ class ClientsController < ApplicationController
 
       format.html { render action: "edit" }
       format.json { render json: @client.errors, status: :unprocessable_entity }
-      format.js
+      format.js 
       end
     end
 

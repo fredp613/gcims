@@ -1,6 +1,7 @@
 
-var ready 
-ready = function () {
+var ready3 
+ready3 = 
+function () {
 
     $('.loader').fadeOut(200);
     
@@ -294,11 +295,21 @@ function filter_psl(paramName, param) {
 
 }
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+$(document).ready(ready3);
+$(document).on('page:load', ready3);
 
 
 
+
+
+$(document).on('blur', '#project_applications_attributes_0_requested', {element: 'project_applications_attributes_0_requested'}, convertCurrency );
+
+/**
+function convertCurrency(event) {
+    //convert number to currency
+    var element = event.data.element
+    $('#' + element).formatCurrency({ symbol:''});
+} **/
 
 
 

@@ -1,7 +1,7 @@
 <% if @client.new_record? %>
-
-	<div class='form-inputs' data-no-turbolink >
-
+<!--
+	<div class='form-inputs' data-no-turbolink > -->
+		<div class='form-inputs'>
 		<p>
 	  	<%= f.input :incorporated, :label=>"Incorporated?" %>  	
 	  	 <% if @client.corporation.errors.any?  %>
@@ -41,7 +41,9 @@
 
 <% else %>
 
-	<div class='fields_inside_tabs' data-no-turbolink>
+<!--
+	<div class='fields_inside_tabs' data-no-turbolink>-->
+		<div class='fields_inside_tabs'>
 
 	  <div class='row'>
 		
@@ -88,7 +90,8 @@
 		  <%= f.simple_fields_for :charity do |charity|  %>
 	  		<%= charity.input :registrationnumber %>
 	  		<%= charity.input :registrationdate, as: :string,
-	  		:input_html=>{ :class=>'datepicker', value: @date.to_date  } %>
+	  		:input_html=>{ :class=>'datepicker' }    %>
+	  		<!-- value: @date.to_date  = this should go next to datepicker above-->
 	  		<%= charity.input :client_id, as: :hidden, :input_html=>{value: @client.id} %>
 		  <% end  %>
 		  </div>

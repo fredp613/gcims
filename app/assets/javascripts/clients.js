@@ -1,7 +1,7 @@
 
 
-var ready;
-ready = 
+var ready2;
+ready2 = 
 
   function() {
 
@@ -14,8 +14,9 @@ ready =
 }
 
 
-$(document).on('page:load', ready);
-$(document).ready(ready);
+$(document).on('page:load', ready2);
+$(document).ready(ready2);
+
 
 $(document).on('click', '#client_incorporated', function() {
 
@@ -28,7 +29,7 @@ $(document).on('click', '#client_incorporated', function() {
     }
   })
 
-  $(document).on('click', '#client_registeredcharity', function() {
+$(document).on('click', '#client_registeredcharity', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
@@ -39,7 +40,7 @@ $(document).on('click', '#client_incorporated', function() {
     }
   })
 
-  $(document).on('click', '#client_registeredband', function() {
+$(document).on('click', '#client_registeredband', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
@@ -55,18 +56,20 @@ $(document).on('click', '#client_incorporated', function() {
     return false;
   })
 
-$(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
+  $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
   $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
 
-  $(document).on('click', 'submitCorp', function() {
+//some issue exists here
+  $(document).on('click', '#submitCorp', function(e) {
+    e.preventDefault();
     $('#frmCorp').submit();
-    return false;
+    //return false;
   })
 
   $(document).on('click', '.btnCharity', {action: 'new'}, charity_click );
   $(document).on('click', '.btnEditCharity', {action: 'edit'}, charity_click );
 
-  $(document).on('click', 'submitCharity', function() {
+  $(document).on('click', '#submitCharity', function() {
     $('#frmCharity').submit();
     return false;
   })
@@ -75,7 +78,7 @@ $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
   $(document).on('click', '.btnEditBand', {action: 'edit'}, band_click );
 
 
-  $(document).on('click', 'submitBand', function() {
+  $(document).on('click', '#submitBand', function() {
     $('#frmBand').submit();
     return false;
   })

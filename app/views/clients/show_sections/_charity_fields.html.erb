@@ -1,4 +1,4 @@
-<%= simple_form_for @client, :input_html=>{:id=>'frmCharity'}, :remote=>true do |f| %>
+<%= simple_form_for @client, :remote=>true, :html=> {:id=>'frmCharity'} do |f| %>
   <%= f.error_notification %>
 
  <div class="form-inputs">
@@ -6,7 +6,7 @@
     <%= f.simple_fields_for :charity do |charity| %>
       <%= charity.input :registrationnumber %>
       <%= charity.input :registrationdate, as: :string,
-           :input_html=>{ :class=>'datepicker', value: @client.charity.registrationdate } %> 
+           :input_html=>{ :class=>'datepicker' } %> 
       <%= charity.input :nested_from_client, as: :hidden, :input_html=>{value: "yes"} %>
     <% end %>
   </div>
@@ -19,7 +19,6 @@
 <% end %>
 
 <script type="text/javascript">
-(function() {
 
 $element = $(document).find('.datepicker')
 

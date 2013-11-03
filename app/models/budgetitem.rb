@@ -5,19 +5,15 @@ class Budgetitem < ActiveRecord::Base
   belongs_to :application 
 
   validate :validate_amounts?
-  validates :forecast, presence: :true, :numericality => true,
-            :format => { :with => /^\d{1,15}(\.\d{0,2})?$/ }
+  validates :forecast, presence: :true, :numericality => true,            
+            :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
         
-
   def validate_amounts?     
+    # not necessarily - revisit
     return if [forecast.blank?, actual.blank?].any?
     if forecast < actual
       errors.add(:actual, 'must be smaller or equal to forecasted amount')
     end
   end
 
-
-
-
-  
 end

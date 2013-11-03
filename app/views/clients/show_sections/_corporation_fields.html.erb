@@ -1,6 +1,6 @@
 <div id='cf'>
 
-  <%= simple_form_for @client, :input_html=>{:id=>'frmCorp'}, :remote=>true do |f| %>
+  <%= simple_form_for @client,  :remote=>true , :html=> {:id=>'frmCorp'} do |f| %>
     <%= f.error_notification %>
 
    <div class="form-inputs">

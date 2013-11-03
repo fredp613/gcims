@@ -23,7 +23,10 @@
 
 
 idleTime = 0;
-$(function () {
+var ready1;
+ready1 = 
+
+  function() {
   //Increment the idle time counter every minute.
   var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
@@ -55,7 +58,10 @@ $(function () {
 
  
 
-});
+}
+
+$(document).on('page:load', ready1);
+$(document).ready(ready1);
 
 /**
  $(document).on('page:fetch', function() {
