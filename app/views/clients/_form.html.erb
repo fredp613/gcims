@@ -8,54 +8,54 @@
   <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @client.token} %>
 
   <div class="form-inputs">
-   <fieldset>
-        <legend>Main client information</legend>
+
+  <div class='tab-content'>
+     <fieldset>
+          <legend>Main client information</legend>
     
-    <% if @client.clienttype_id == 1 %>  
-    
-        <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
-        <% if @client.name %>
-          <%= f.input :name, :label=>"First Name", :input_html=>{value: @client.name}  %>
-        <% else %>
-          <%= f.input :name, :label=>"First Name"  %>
-        <% end %>
-        <%= f.input :name1, :label=>"Last Name" %>
-    
-    <% else %>
+      <% if @client.clienttype_id == 1 %>  
       
-          <% if @client.name  %>
-            <%= f.input :name, :label=>"Organization Name", :input_html=>{value: @client.name}  %>
-          <% else %>
-            <%= f.input :name, :label=>"Organization Name"  %>
-          <% end %>
+          <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>
+         
+            <%= f.input :name, :label=>"First Name"  %>
           
-            <%= render 'orginfo', :f=>f %>       
+          <%= f.input :name1, :label=>"Last Name" %>
+      
+      <% else %>
+        
           
+              <%= f.input :name, :label=>"Organization Name"  %>
+         
+            
+              <%= render 'orginfo', :f=>f %>       
+            
 
-  <% end  %>
+    <% end  %>
+      
+       <p>
+      <%= render 'mandatetype', :f=>f %> 
+    </p><br>
     
-     <p>
-    <%= render 'mandatetype', :f=>f %> 
-  </p><br>
-  
-   </fieldset>
+     </fieldset>
 
-   
-    
-    <%= render 'addressfields', :f=>f, :clienttype=>@client.clienttype_id, :country=>@client.country_id %>
-    
+     
+      
+      <%= render 'addressfields', :f=>f, :clienttype=>@client.clienttype_id, :country=>@client.country_id %>
+      
       <%= render 'contactfields', :f=>f %>
 
-  <div class="submit form-actions">
-    <% if @client.new_record? %>
-    <%= f.button :submit, "Finish", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
-    <% else %>
-    <%= f.button :submit, "Save changes", :class=>"btn btn-success btn-large", :id=>'clientSubmit' %>
-    <% end %>
+    <div class="submit form-actions">
+      <% if @client.new_record? %>
+      <%= f.button :submit, "Finish", :class=>"btn btn-success btn-large submit", :id=>'clientSubmit' %>
+      <% else %>
+      <%= f.button :submit, "Save changes", :class=>"btn btn-success btn-large submit", :id=>'clientSubmit' %>
+      <% end %>
+    </div>
+    
   </div>
-
 </div>
 <% end %>
+
 
 
 

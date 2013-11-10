@@ -1,4 +1,5 @@
-/* Created by jankoatwarpspeed.com */
+/* Created by jankoatwarpspeed.com - modified by Frederick Pearson */
+
 
     $.fn.formToWizard = function(options) {
         options = $.extend({ 
@@ -10,56 +11,86 @@
         var steps = $(element).find("fieldset");
         var count = steps.size();
 
-        var submmitButtonName = "#" + options.submitButton;
-        $(submmitButtonName).hide();
+        var submitButtonName = "#" + options.submitButton;
+        $(submitButtonName).hide();
        
         // 2 
         $(element).before("<ul id='steps' class='nav nav-pills'></ul>");
 
         steps.each(function(i) {
-            $(this).wrap("<div id='step" + i + "'></div>");
+            $(this).wrap("<div id='step" + i + "' class='tab-pane step'></div>");
             $(this).append("<p id='step" + i + "commands' class='span10' style='padding-top:10px;margin-left:0px;'></p>");
 
             // 2
             var name = 'step' + (i+1) //$(this).find("legend").html(); 
-            $("#steps").append("<li id='stepDesc" + i + "'>" + "<a href='#'><span>" + name + "</span></a></li>");
+            $("#steps").append("<li id='stepDesc" + i + "'>" + "<a id='stepLink" + i + "' data-toggle='tab' href='#step" + i + "'>" + name + "</a></li>");
 
             if (i == 0) {
                 createNextButton(i);
-                selectStep(i)
-                
+                selectStep(i);
+                //selectStep(i)
+             //   $(submitButtonName).hide();                
             }
             else if (i == count - 1) {
-                $("#step" + i).hide();
+                
                 createPrevButton(i);
+                
+                //alert(submitButtonName) 
+               // $(submitButtonName).show();
                 
             }
             else {
-                $("#step" + i).hide();
+                
                 createPrevButton(i);
                 createNextButton(i);
                 
+             //   $(submitButtonName).hide();
+                
             }
-            var errors = $(element).find(".help-inline").first();                    
-            if (errors.size() >= 1) { 
-             selectErrorStep(i);
-            }
+
+
+           
            /** else {
              selectStep(i);
             }**/
         });
+
+        var errors = $(element).find(".help-inline").first();                    
+            if (errors.size() >= 1) { 
+             selectErrorStep();
+        }
+
+        //ADD THE BIND CLICK ELEMENTS TO A TAGS IN LI
 
         function createPrevButton(i) {
             var stepName = "step" + i;
             $("#" + stepName + "commands").append("<button id='" + 
                 stepName + "Prev' class='btn btn-small btn-info', style='margin-right:10px;'>Back</button>");
 
-            $("#" + stepName + "Prev").bind("click", function(e) {
-                $("#" + stepName).hide();
-                $("#step" + (i - 1)).fadeIn(280);
-                $(submmitButtonName).hide();
+            $("#" + stepName + "Prev").bind("click", function() {
+                //$("#" + stepName).hide();
+                $("#step" + i).removeClass('active')
+                
+               // $("#step" + (i - 1)).fadeIn(280);
+               // $(submitButtonName).hide();
                 selectStep(i - 1);
                 return false;
+            });
+
+            $("#stepLink" + i).bind("click", function() {
+                //$("#" + stepName).hide();
+              //  $("#step" + i).removeClass('active')
+                
+               // $("#step" + (i - 1)).fadeIn(280);
+               
+               // selectStep(i - 1);
+                if (i == (count - 1)) {
+                   $(submitButtonName).show();
+                } else {
+                   $(submitButtonName).hide();
+                }
+
+                //return false;
             });
         }
 
@@ -68,32 +99,55 @@
             $("#" + stepName + "commands").append("<button id='" + stepName + "Next' class='btn btn-small btn-info'>Next</button>");
 
             $("#" + stepName + "Next").bind("click", function(e) {
-                $("#" + stepName).hide();
-                $("#step" + (i + 1)).fadeIn(300);
-                if (i + 2 == count)
-                    $(submmitButtonName).show();
+              //  $("#" + stepName).hide();
+                $("#step" + i).removeClass('active')
+                
+               // $("#step" + (i + 1)).fadeIn(300);
+                
                 selectStep(i + 1);
                 return false;
+            });
+
+            $("#stepLink" + i).bind("click", function() {
+              //  $("#" + stepName).hide();
+              //  $("#step" + i).removeClass('active')
+                
+               // $("#step" + (i + 1)).fadeIn(300);
+                //selectStep(i + 1);
+              if (i == (count - 1)) {
+                   $(submitButtonName).show();
+                } else {
+                   $(submitButtonName).hide();
+                }
+                //return false;
             });
         }
 
         function selectStep(i) {
-            $("#steps li").removeClass("active current");
-            $("#stepDesc" + i).addClass("active current");
+            $("#steps li").removeClass("active");
+            $("#stepDesc" + i).addClass("active");
+            $("#step" + i).addClass("active")
+
+             if (i == (count - 1)) {
+                   $(submitButtonName).show();
+              }
            
         }
 
-        function selectErrorStep(i) {
+        function selectErrorStep() {
             
-            var errors = $(element).find(".help-inline").first();                                              
-            var parent = errors.closest("div[id]").attr("id").substring(5,4)
-            $("#steps li").removeClass("active current");
-            $("#stepDesc" + parent).addClass("active current");                                                           
-            $("#step" + i).hide();                            
-            $("#step" + parent).show();    
+            var errors = $(element).find(".help-inline").first(); 
+                                                       
+            var parent = errors.closest('div .step').attr("id").substring(5,4)
+            //var test = errors.closest('div .step').attr("id")
+            //alert(test);
+            $("#steps li").removeClass("active"); 
+            $("#stepDesc" + parent).addClass("active");                                                           
+            $(".step").removeClass('active');                            
+            $("#step" + parent).addClass('active');    
 
-            if (parent == count - 1) {
-             $(submmitButtonName).show();                     
+            if (parent == (count - 1)) {
+             $(submitButtonName).show();                     
             }
         }
 

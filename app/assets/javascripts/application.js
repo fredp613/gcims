@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.formatCurrency-1.4.0
 //= require twitter/bootstrap
@@ -18,7 +19,6 @@
 //= require bootstrap-datepicker
 //= require turbolinks
 //= require_tree .
-
 
 
 

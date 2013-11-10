@@ -4,19 +4,25 @@
 
  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
   <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
+  
   <p><h4><%= @client_name %></h4></p>
 
     <%= f.input :client_id, as: :hidden, :input_html=> {name: 'client_id', value: @client_id}  %><br>
   <div class="form-inputs">
 
-	<%= render 'tombstone', :f=>f %>
-	<%= render 'pras', :f=>f %>					
-    
-  </div>
+    <div class='tab-content'>
 
-   <div class="submit">
-    <%= f.button :submit, class: 'pull-right btn-success', id: 'openProjectSubmit', style: 'margin-top:-35px;' %>
- </div>	
+    	<%= render 'tombstone', :f=>f %>
+      <br>
+    	<%= render 'pras', :f=>f %>					
+        
+    </div>
+
+       <div class="submit">
+        <%= f.button :submit, class: 'pull-right btn-success', id: 'openProjectSubmit', style: 'margin-top:-35px;' %>
+     </div>	
+
+  </div>
 
 
 
@@ -24,7 +30,7 @@
 
 <script type="text/javascript">
 
-$("#frmOpenProject").formToWizard();
+$('#frmOpenProject').formToWizard({ submitButton: 'openProjectSubmit' }); 
 
 $('.datepicker').datepicker({
   autoclose: 'true',  

@@ -22,14 +22,15 @@
      $('#frmContainer').html('<%= j render ('form') %>')
      $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
    } 
-
-	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+	 
 <% else %>	
+
   	console.log('updated');
   	
+    
   	 <% if params[:client][:corporation_attributes] %>
-  	 $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')
-  	 <% end %>
+  	   $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')
+     <% end %>
 
   	 <% if params[:client][:charity_attributes] %>
   	 $('#charity').html('<%= j render ("clients/show_sections/ch_fields") %>')
@@ -38,5 +39,5 @@
      <% if params[:client][:band_attributes] %>
      $('#band').html('<%= j render ("clients/show_sections/ba_fields") %>')
      <% end %>
-
+ 
 <% end  %>

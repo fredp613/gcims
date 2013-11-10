@@ -46,17 +46,15 @@ class ClientsController < ApplicationController
   # GET /clients/new.json
   def new
 
-    
-    @stale_form_ts = Time.now.to_i
     @client = Client.new
     #@corporation = Corporation.new  
-    build
+    
     @client.token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
     
+      if @client.clienttype_id.blank?
+        @client.clienttype_id = params[:clienttype_id]
+      end
     
-
-
-    @client.clienttype_id = params[:clienttype_id]
     
     if params[:country_id] && !params[:country_id].blank?
       @client.country_id = params[:country_id]
@@ -67,16 +65,14 @@ class ClientsController < ApplicationController
     #@clienttype_display_name = Clienttype.where(:id=>@clienttype).first.name
 
     #session[:return_to] ||= request.referer
-    
+    build
     respond_to do |format|
-        if params[:layout]
-          format.html { render :layout => false }
-        else
-          format.html # show.html.erb
-        end
-        format.json { render json: @client}
-       
-
+      if params[:layout]
+        format.html { render :layout => false }
+      else
+        format.html # show.html.erb
+      end
+      format.json { render json: @client}       
         
     end
   end
@@ -90,7 +86,7 @@ class ClientsController < ApplicationController
       @client.created_by = current_user.id
       @client.updated_by = current_user.id
 
-      if params[:client][:incorporated] == '1'
+      if params[:client][:incorporated] == "1"
         @client.corporation.nested_from_client = 'yes'
       end
 
@@ -146,11 +142,13 @@ class ClientsController < ApplicationController
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
+              @client.clienttype_id = params[:client][:clienttype_id]
+     
               
               
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }
-              format.js
+              format.js 
             end
           end
         end
@@ -274,27 +272,20 @@ class ClientsController < ApplicationController
             end
           end
           format.json { head :no_content }
-          if params[:show].present?
-           format.js 
-          else
-            format.js { render :js => "window.location = '#{client_path(@client)}'" }
-          end
+          format.js { render :js => "window.location = '#{client_path(@client)}'" }
+          
 
          # if @last = true
           #  session[:edit_only] = true
           #end
-        else
-          if !session[:edit]
-            format.html { redirect_to @client, notice: 'Client has been saved' }
-          else 
-            format.html { redirect_to edit_client_path(@client), notice: 'saved' }
-            if params[:show].present?
-              format.js 
-            else
-              format.js { render :js => "window.location = '#{client_path(@client)}'" }
+          else
+            if !session[:edit]
+              format.html { redirect_to @client, notice: 'Client has been saved' }
+            else 
+              format.html { redirect_to edit_client_path(@client), notice: 'saved' }
+              format.js { render :js => "window.location = '#{client_path(@client)}'" }                      
             end
-            #reset_session
-          end
+        format.js          
         end
       #reset_session
      else

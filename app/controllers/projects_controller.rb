@@ -109,6 +109,7 @@ class ProjectsController < ApplicationController
       else
        # @state_form_ts = Time.now.to_i
         #session[:last_created_at] = @state_form_ts
+        
         format.html { render action: "new"  }
         format.json { render json: @project.errors, status: :unprocessable_entity }
         format.js 

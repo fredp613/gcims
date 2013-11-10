@@ -3,8 +3,10 @@
   	 <%= app.input :corporate_file_number %>
   	 <%= app.input :requested, :wrapper => :prepend do %>
        <%= content_tag :span, "$", :class => "add-on" %>
-       <%= app.input_field :requested %>
+        <%= app.text_field :requested, 
+        :value=> number_with_precision(app.object.requested, :precision => 2, separator: '.', delimiter: ',') || '0.00' %>            
      <% end %>
+
 	  <%= app.input :applicationtype_id, as: :hidden,  :input_html=>{value: 1} %>
   	<%= app.input :productserviceline, as: :hidden, :input_html=> {value: "1"} %>
   	<%= app.input :subserviceline, as: :hidden, :input_html=> {value: "1"} %>

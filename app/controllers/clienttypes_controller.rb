@@ -37,7 +37,7 @@ class ClienttypesController < ApplicationController
     @clienttype = Clienttype.new
     
     if params[:client_id]
-    @client = params[:client_id]
+      @client = params[:client_id]
     #@country = params[:country_id]
     end
 
@@ -56,18 +56,24 @@ class ClienttypesController < ApplicationController
 
   def new_client_go
     @clienttype = Clienttype.new(params[:clienttype])
-    @client = params[:clienttype][:client]
+    
+   # if params[:clienttype][:client].blank?
+   #   @client = params[:clienttype][:client]
+   # end
+
      respond_to do |format|
       if @clienttype.valid? 
         if !@client.blank?
-          format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=>@clienttype.name), notice: 'Client type was successfully updated' }
+          format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=>@clienttype.name), notice: 'Client type was successfully updated' }          
         else
           format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id]), notice: 'Client type was successfully updated' }          
         end
           format.json { render json: @clienttype, status: :created, location: @clienttype }
+          
       else
         format.html { render action: "new_client" }
         format.json { render json: @clienttype.errors, status: :unprocessable_entity }
+        
       end
     end
 

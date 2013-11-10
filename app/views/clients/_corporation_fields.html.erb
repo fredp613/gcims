@@ -1,4 +1,4 @@
 <%= f.simple_fields_for :corporation do |corp|  %>
 	<%= corp.input :businessnumber %>
-	<%= corp.input :level, collection: ['Federal', 'Provincial', 'Municipal/Regional'] %>        	
+	<%= corp.input :level, collection: ['Federal', 'Provincial'] %>        	
 <% end  %>

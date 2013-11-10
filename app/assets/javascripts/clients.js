@@ -10,6 +10,7 @@ ready2 =
   //if ($('#client_name')) {
    $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
   //}
+  
 
 }
 
@@ -60,10 +61,9 @@ $(document).on('click', '#client_registeredband', function() {
   $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
 
 //some issue exists here
-  $(document).on('click', '#submitCorp', function(e) {
-    e.preventDefault();
+  $(document).on('click', '#submitCorp', function() {    
     $('#frmCorp').submit();
-    //return false;
+    return false;
   })
 
   $(document).on('click', '.btnCharity', {action: 'new'}, charity_click );

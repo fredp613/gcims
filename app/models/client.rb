@@ -1,6 +1,9 @@
 class Client < ActiveRecord::Base
   include PgSearch
 
+  #create an after create callback to checks if corp .. info has been created despite inc. not being checked, 
+  #delete the corporation record
+
   attr_accessible :name, :name1, :salutation, :locations_attributes, :clientlocations_attributes, :clienttype_id, 
                   :websites_attributes, :phones_attributes, :emails_attributes, :incorporated, :registeredcharity, 
                   :registeredband, :mandate, :corporation_attributes, :charity_attributes, :band_attributes,
@@ -8,9 +11,8 @@ class Client < ActiveRecord::Base
   attr_writer :current_step, :ts
   attr_accessor :country_id
 
+  after_save :org_info_cleanup
 
-  #before_validation :assign_country
-  
 
   has_many :clientlocations, dependent: :destroy
   has_many :locations, through: :clientlocations, dependent: :destroy
@@ -124,6 +126,26 @@ class Client < ActiveRecord::Base
   def last_step?
     current_step == steps.last
   end
+
+  def org_info_cleanup
+    @corp = Corporation.where(:client_id=>self.id)
+    if self.incorporated == false && !@corp.blank?
+      Corporation.destroy(@corp.first.id)
+    end
+
+    @charity = Charity.where(:client_id=>self.id)
+    if self.registeredcharity == false && !@charity.blank?
+      Charity.destroy(@charity.first.id)
+    end
+
+    @band = Band.where(:client_id=>self.id)
+    if self.registeredband == false && !@band.blank?
+      Band.destroy(@band.first.id)
+    end
+
+  end
+
+  
 
 
   

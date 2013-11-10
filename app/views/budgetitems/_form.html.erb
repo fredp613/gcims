@@ -5,21 +5,26 @@
     <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :forecast, :style=>'width:92%', :value=> (number_with_precision(f.object.forecast, :precision=>2)) %>
+          <%= f.input_field :forecast, :style=>'width:92%', :value=> number_with_precision(f.object.forecast, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
     <%= f.input :actual, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :actual, :style=>'width:92%', :value=> (number_with_precision(f.object.actual, :precision=>2)) %>
+          <%= f.input_field :actual, :style=>'width:92%', :value=> number_with_precision(f.object.actual, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
     
 
     <% if @budgetitem.new_record? %>
+    <div class='control-group budgetitem_fiscalyear_id error'>
+    <span class="help-inline"><%= @budgetitem.errors[:fiscalyear_id].first %></span>
+    </div>
       <% Fiscalyear.all.each do |fy| %>
        <label class="checkbox">
         <%= check_box_tag 'fiscalyear_ids[]', fy.id %>
         <%= h fy.fy %>
       </label>
       <% end %> <br>
+    
+
     <% end %>
 
     
@@ -33,3 +38,5 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+
+
