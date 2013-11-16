@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
-
+      format.js
     end
   end
 
@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
           format.html # show.html.erb
         end
         format.json { render json: @project}
+        format.js
         
     end
     
@@ -94,11 +95,12 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        flash[:notice] = "Project was successfully created."
         @state_form_ts = Time.now.to_i
         session[:last_created_at] = @state_form_ts
-        format.html { redirect_to project_path(@project), notice: 'Project was successfully created.' }        
-        format.json { render json: @project, status: :created, location: @project }
-        format.js { render :js => "window.location = '#{project_path(@project)}'" } 
+        format.html { redirect_to project_path(@project) }        
+        format.json { render json: @project, status: :created, location: @project  }
+        format.js  
 
       else
        # @state_form_ts = Time.now.to_i
@@ -121,10 +123,12 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
+
         if params[:pras]
          format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }
         else
-         format.html { redirect_to project_path(@project), notice: 'Project was successfully updated.' }
+         flash[:notice] = "Project was successfully updated."
+         format.html { redirect_to project_path(@project)}
         end
         format.json { head :no_content }
       else

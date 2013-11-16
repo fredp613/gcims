@@ -134,11 +134,12 @@ class ClientsController < ApplicationController
                 session[:step] = @client.steps.first
                 format.html { redirect_to edit_client_path(@client, :wizard=>true) }
               else
-                format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+                flash[:notice] = "Client was successfully created."
+                format.html { redirect_to @client }
               #  reset_session
               end
               format.json { render json: @client, status: :created, location: @client }
-               format.js { render :js => "window.location = '#{client_path(@client)}'" } 
+              format.js { render :js => "window.location = '#{client_path(@client)}'" } 
               # session.delete(:clienttype)
             else
               @client.country_id = params[:country_id]
@@ -280,10 +281,11 @@ class ClientsController < ApplicationController
           #end
           else
             if !session[:edit]
+              flash[:notice] = "Client was successfully updated."
               format.html { redirect_to @client, notice: 'Client has been saved' }
             else 
               format.html { redirect_to edit_client_path(@client), notice: 'saved' }
-              format.js { render :js => "window.location = '#{client_path(@client)}'" }                      
+              format.js                      
             end
         format.js          
         end

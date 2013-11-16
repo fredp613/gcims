@@ -146,9 +146,12 @@
         </div><!--/span-->
         <div class="span9" id='content'>
           <% flash.each do |name, msg| %>
+            
           	<%= boostrap_flash(name, msg) %>
-          <% end %>
 
+            
+
+            <% end %>
           <%= yield %>
         </div>
       </div><!--/row-->

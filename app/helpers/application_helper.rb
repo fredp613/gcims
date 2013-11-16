@@ -1,13 +1,29 @@
 module ApplicationHelper
+	
 	def boostrap_flash(name,msg)
 	    case name.to_s
 	    when "notice" then
-	      content_tag :div, msg, :class => "alert-message success"
+	      content_tag :div, :id=>'flash', :class => "alert alert-success" do 
+	      	concat msg 
+	      	concat link
+	      end 	       	      	 	      
 	    when "alert" then
-	      content_tag :div, msg, :class => "alert-message warning"
+	      content_tag :div, :id=>'flash', :class => "alert alert-warning" do
+	      	concat msg 
+	      	concat link
+	      end
 	    else
-	      content_tag :div, msg, :class => "alert-message info"
-	    end
+	      content_tag :div, :id=>'flash', :class => "alert alert-info" do
+	      	concat msg 
+	      	concat link
+	      end
+	    end	    			
+	end
+
+	def link 
+		link_to("#", :class=>"close", "data-dismiss"=>"alert") do 
+			"x"
+		end
 	end
 
 	def link_to_add_fields(name, f, value, association)

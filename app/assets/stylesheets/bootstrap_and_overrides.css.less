@@ -1,52 +1,5 @@
 @import "twitter/bootstrap/bootstrap";
 
-/* overrides glafycon color */
-.black
-{
- 	color: black;
-	text-decoration: none;
-}
-
-.red
-{
-	color: red;
-	text-decoration: none;
-}
-
-/**
-fieldset 
-{	
-	margin-top:-20px;
-	padding-left: 20px;
-} 
-
-fieldset legend
-{
-	width:inherit; 
-    padding: 10px; 
-    margin-bottom:-10px;
-    margin-left:-10px;
-
-} 
-**/
-.control-group {
-	margin-top:-5px;
-	
-}
-
-
-.modal-body {
-    max-height: 550px;
-}
-
-#myModal {
-	margin: -20px 0 0 -300px;
-}
-
-.fields_inside_tabs {
-	margin-left: 30px;
-}
-
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
@@ -76,3 +29,19 @@ fieldset legend
 //
 // Example:
 // @linkColor: #ff0000;
+
+@navbarBackground: #999;
+@navbarBackgroundHighlight: #555;
+@navbarText: white;
+@navbarLinkColor: white;
+@navbarLinkColorHover: #eee;
+@navbar-default-link-active-bg: darken(@navbarBackground, 6.5%);
+@navbar-default-link-active-color: white;
+
+.modal-body {
+    max-height: 550px;
+}
+
+#myModal {
+	margin: -20px 0 0 -300px;
+}

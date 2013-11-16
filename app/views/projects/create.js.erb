@@ -8,6 +8,11 @@
 <% else %>
 	
   console.log('Created');
-  $('#myModal').modal('hide');
+  //$('#myModal').modal('hide');
+  //window.location = '#{project_path(@project)}'
+  
+  $(window.location.replace("/projects/<%= @project.id %>"))
+
+	
 
 <% end  %>

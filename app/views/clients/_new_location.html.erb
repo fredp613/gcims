@@ -46,7 +46,7 @@
             <%= builder.input :postal, :label=>"Postal Code / zip code" %>
         <% end %>
 
-        <%= builder.simple_fields_for :clientlocations do |cl| %>
+        <%= builder.simple_fields_for :clientlocation do |cl| %>
           <%= cl.input :addresstype_id, :label=>"Type", 
                    collection: Addresstype.where('id = 1'), 
                     :label_method => lambda { |at| "#{at.name}" }, :selected=>1%>     

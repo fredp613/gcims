@@ -12,3 +12,45 @@
  *= require bootstrap-datepicker
  *= require_tree .
  */
+
+
+/* overrides glafycon color */
+.black
+{
+ 	color: black;
+	text-decoration: none;
+}
+
+.red
+{
+	color: red;
+	text-decoration: none;
+}
+
+/**
+fieldset 
+{	
+	margin-top:-20px;
+	padding-left: 20px;
+} 
+
+fieldset legend
+{
+	width:inherit; 
+    padding: 10px; 
+    margin-bottom:-10px;
+    margin-left:-10px;
+
+} 
+**/
+.control-group {
+	margin-top:-5px;
+	
+}
+
+
+
+
+.fields_inside_tabs {
+	margin-left: 30px;
+}
