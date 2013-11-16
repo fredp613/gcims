@@ -25,12 +25,16 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems/new.json
   def new
     @budgetitem = Budgetitem.new
-    @project = params[:project]
+    if @budgetitem.application_id.blank?
+      @budgetitem.application_id = params[:project]
+    end
 
-    @applications = Application.where(:project_id=>@project)
+    #@applications = Application.where(:project_id=>@budgetitem.project)
 
-    @apptypes = Applicationtype.joins(:applications).select('applications.id, applicationtypes.name').where('applications.id'=>@applications)
-    @app = Application.joins(:applicationtype)
+    @budgetitem.apptypes = 
+    Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
+    .where('applications.id'=>@budgetitem.application_id)
+   
 
 
     respond_to do |format|
@@ -63,6 +67,7 @@ class BudgetitemsController < ApplicationController
     else
       @budgetitem = Budgetitem.new(params[:budgetitem])
     end
+
  
     #redirect_to project_path(@budgetitem.application.project)
     
@@ -72,7 +77,11 @@ class BudgetitemsController < ApplicationController
         format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
         format.json { render json: @budgetitem, status: :created, location: @budgetitem }
       else
-        format.html { render action: "new" }
+        @budgetitem.project = params[:project]
+          @budgetitem.apptypes = 
+            Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
+            .where('applications.id'=>@budgetitem.application_id)
+        format.html { render action: "new", :project=>@budgetitem.project }
         format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
       end
     end

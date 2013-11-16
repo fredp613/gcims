@@ -26,6 +26,14 @@ class DivisionsController < ApplicationController
   def new
     @division = Division.new
 
+    if params[:client_id]
+      @division.client_id = params[:client_id]
+    end
+
+    @filter = LocationFilter.new(@division.client_id)
+    @locations = @filter.location
+
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @division }
@@ -35,6 +43,14 @@ class DivisionsController < ApplicationController
   # GET /divisions/1/edit
   def edit
     @division = Division.find(params[:id])
+
+    if !@division.location_id
+      @division.build_location
+    end
+
+    @filter = LocationFilter.new(@division.client_id)
+    @locations = @filter.location
+
   end
 
   # POST /divisions
@@ -42,11 +58,25 @@ class DivisionsController < ApplicationController
   def create
     @division = Division.new(params[:division])
 
+    if params[:new_address]
+      @division.state = "new_address"          
+    end
+
+    if params[:cancel]
+      redirect_to client_path(@division.client_id)
+    end
+
     respond_to do |format|
       if @division.save
-        format.html { redirect_to @division, notice: 'Division was successfully created.' }
+         if params[:new_address]         
+          format.html { redirect_to edit_client_division_path(@division.client, @division), notice: 'Division was successfully created.' }
+        else
+          @division.update_attribute(:state, "completed")          
+          format.html { redirect_to client_path(@division.client), notice: 'Division was successfully created.' }
+        end
         format.json { render json: @division, status: :created, location: @division }
       else
+        @division.client_id = params[:division][:client_id]
         format.html { render action: "new" }
         format.json { render json: @division.errors, status: :unprocessable_entity }
       end
@@ -58,13 +88,38 @@ class DivisionsController < ApplicationController
   def update
     @division = Division.find(params[:id])
 
-    respond_to do |format|
-      if @division.update_attributes(params[:division])
-        format.html { redirect_to @division, notice: 'Division was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @division.errors, status: :unprocessable_entity }
+    if params[:new_address] || @division.state == "new_address"
+      @division.state = "new_address" 
+      if @division.location_id != nil
+        session[:location_id] = @division.location_id     
+      end              
+    end
+
+    if params[:cancel]
+      if @division.location_id == nil
+        @division.update_attribute(:location_id, session[:location_id])
+        session.delete(:location_id)
+      end
+      @division.update_attribute(:state, 'completed')
+      redirect_to client_path(@division.client_id)
+    else
+      respond_to do |format|
+        if @division.update_attributes(params[:division])
+          if params[:new_address] 
+            if @division.location_id != nil
+              @division.update_attribute(:location_id, nil)
+            end   
+            format.html { redirect_to edit_client_division_path(@division.client, @division), notice: 'Division was successfully created.' }
+          else
+            @division.update_attribute(:state, "completed") 
+            format.html { redirect_to client_path(@division.client), notice: 'Division was successfully updated.' }
+          end
+          format.json { head :no_content }
+
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @division.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

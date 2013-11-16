@@ -1,7 +1,5 @@
 class Application < ActiveRecord::Base
 
-  
- 
 
   attr_accessible :corporate_file_number, :budgetitems_attributes, 
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
@@ -28,7 +26,8 @@ class Application < ActiveRecord::Base
   validates :summarycommitment, presence: true
   validates :productserviceline, presence: true
 
-  validates :requested, presence: :true, :numericality => true#,
+  validates :requested, presence: :true, numericality: {:greater_than=> 0}
+  #:numericality => true#,
             #:format => { :with => /^(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?|\(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\))$/ }
             #:format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
 
@@ -48,8 +47,4 @@ class Application < ActiveRecord::Base
   end
 
 
-
-
-
-  
 end

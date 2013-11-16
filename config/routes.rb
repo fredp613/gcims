@@ -19,7 +19,11 @@ GCIMS::Application.routes.draw do
       post "searches/advanced", :as=>'advancedsearch'
     end
   end
-  resources :divisions
+
+  resources :divisions do
+    resources :locations
+  end
+
   resources :charities
   resources :bands
   resources :websites
@@ -52,6 +56,7 @@ GCIMS::Application.routes.draw do
     end
     resources :contactlocations
     resources :projects
+    resources :divisions
   end
 
 

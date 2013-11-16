@@ -1,12 +1,15 @@
 class Budgetitem < ActiveRecord::Base
-  attr_accessible :application_id, :budgetcategory_id, :fiscalyear_id, :forecast, :actual, :title, :desc
+  attr_accessible :application_id, :budgetcategory_id, :fiscalyear_id, :forecast, :actual, :title, :desc, :project, :apptypes
+  attr_accessor :project, :apptypes
+
+
   belongs_to :budgetcategory
   belongs_to :fiscalyear
   belongs_to :application 
 
   
 
-  validates :forecast, presence: :true, :numericality => true          
+  validates :forecast, presence: :true,numericality: {:greater_than=> 0}
             #:format => { :with => /^\d+??(?:\.\,\d{0,2})?$/ }
             #:format => { :with => /^(?!\(.*[^)]$|[^(].*\)$)\(?\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\)?$/ }
   validate :validate_amounts?  

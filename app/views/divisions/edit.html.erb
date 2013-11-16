@@ -1,4 +1,9 @@
-<h1>Editing division</h1>
+<% if @division.state == "new_address" %>
+<h1>Address information for <%= @division.name %></h1>
+<% else %>
+<h1>Editing <%= @division.name %></h1>
+<% end %>
+<br>
 
 <%= render 'form' %>
 

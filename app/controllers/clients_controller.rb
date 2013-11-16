@@ -213,7 +213,7 @@ class ClientsController < ApplicationController
     end
 
     
-    @clienttype = @client.clienttype_id
+    #@clienttype = @client.clienttype_id
 
     @clienttype_from_change = params[:clienttype]
     @clienttype_from_change_display = Clienttype.where(:id=>@clienttype_from_change).first
@@ -341,7 +341,7 @@ class ClientsController < ApplicationController
   private
 
   def build
-    @client.locations.build.clientlocations.build 
+    @client.locations.build.build_clientlocation 
     @client.build_corporation
     @client.build_charity
     @client.build_band

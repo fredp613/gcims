@@ -44,10 +44,11 @@
          </td>
          </tr>
          <% end %>
+
+      <p>
+       <%= link_to "Add Expense Item", new_budgetitem_path(:application_id=>app.id) %>
+      </p>
       <% end  %>
    	</tbody>
    </table>
 
-<p>
- <%= link_to "Add Expense Item", new_budgetitem_path(:project=>@project) %>
-</p>

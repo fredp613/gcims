@@ -1,11 +1,26 @@
+
+<% if @province == 3 %>
+
+<fieldset>
+	<legend>Choose division/branch</legend>
+		 	
+	<div class='form-inline'>
+            <%= f.input :division_id do %>
+            	<%= f.select :division_id, Division.where(:client_id=>params[:client_id]).map { |d| [d.name, d.id] } %>
+	            <%= link_to "add new division", new_client_division_path(params[:client_id]), :class=> 'btn btn-small btn-success' %>
+	        <% end %> 	   	
+	         
+	 </div>
+     				 	
+</fieldset>
+
+<% end %>
+
 <fieldset>
 <div class='content'>
 	 <legend class='proj_legend'>Project Details</legend>
 
-
 	 	<%= render 'project_fields', :f=>f %>
-	
-
 </div>
 
 </fieldset>

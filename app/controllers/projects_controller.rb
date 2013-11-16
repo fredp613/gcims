@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   before_filter :authenticate_user!
-
+  before_filter :set_instance_variables, only: [:new, :create]
 
   def index
     @projects = Project.all
@@ -41,8 +41,9 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.client_id = params[:client_id]
+    #@project.client_id = params[:client_id]
     @project.applications.build
+    @project.client_id = params[:client_id]
 
     @token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
     @stale_form_ts = Time.now.to_i
@@ -51,14 +52,7 @@ class ProjectsController < ApplicationController
       session[:new] = true
     end
 
-    if params[:client_id]
-      @client_id = params[:client_id]
-      @client_name = Client.where(:id=>@client_id).first.name
-    end
-
-
-
-
+  
     respond_to do |format|
         if params[:layout]
           format.html { render :layout => false }
@@ -109,7 +103,8 @@ class ProjectsController < ApplicationController
       else
        # @state_form_ts = Time.now.to_i
         #session[:last_created_at] = @state_form_ts
-        
+        #@client_name = Client.where(:id=>@client_id).first.name      
+        #@province = Client.where(:id=>params[:client_id]).first.clienttype_id
         format.html { render action: "new"  }
         format.json { render json: @project.errors, status: :unprocessable_entity }
         format.js 
@@ -159,6 +154,11 @@ class ProjectsController < ApplicationController
 
   def build
     @project.projectcontacts.build
+  end
+
+  def set_instance_variables
+    @client_name = Client.where(:id=>params[:client_id]).first.name      
+    @province = Client.where(:id=>params[:client_id]).first.clienttype_id
   end
 
 

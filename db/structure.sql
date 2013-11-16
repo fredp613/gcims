@@ -609,7 +609,8 @@ CREATE TABLE divisions (
     client_id integer,
     location_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    state character varying(255)
 );
 
 
@@ -1001,7 +1002,8 @@ CREATE TABLE projects (
     token character varying(255),
     state character varying(255),
     created_by integer,
-    updated_by integer
+    updated_by integer,
+    division_id integer
 );
 
 
@@ -1972,3 +1974,7 @@ INSERT INTO schema_migrations (version) VALUES ('20131011202216');
 INSERT INTO schema_migrations (version) VALUES ('20131026210100');
 
 INSERT INTO schema_migrations (version) VALUES ('20131102202641');
+
+INSERT INTO schema_migrations (version) VALUES ('20131114033903');
+
+INSERT INTO schema_migrations (version) VALUES ('20131115233929');

@@ -36,7 +36,7 @@
             :label_method => lambda { |se| "#{se.name}" } %>   
         <%= f.input :postal %>
         <% if @client && !@contact %>
-            <%= f.simple_fields_for :clientlocations do |builder| %>
+            <%= f.simple_fields_for :clientlocation do |builder| %>
                   <% if @location.new_record? %>
                   <%= builder.input :client_id, as: :hidden, :input_html=>{value: @client} %>
                   <% end %>
@@ -56,7 +56,7 @@
         <% end %>
 
         <% if @contact %>
-          <%= f.simple_fields_for :contactlocations do |builder| %>
+          <%= f.simple_fields_for :contactlocation do |builder| %>
           <% if @location.new_record?  %>
               <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @contact} %>
           <% end %>

@@ -27,9 +27,12 @@
 
     <% end %>
 
+    <%= hidden_field_tag :project, @budgetitem.project %>
+
     
     <%= f.input :application_id, :label=>"Application", 
-    collection: @apptypes, :label_method => lambda { |type| "#{type.name}" }  %>
+    collection: @budgetitem.apptypes, :label_method => lambda { |type| "#{type.name}" },
+    :selected_method=>@budgetitem.application_id, :include_blank=>false %>
 
     <%= f.input :budgetcategory_id, :label=>"Expense Category", collection: Budgetcategory.all , :label_method => lambda { |cat| "#{cat.name}" } %>
   </div>

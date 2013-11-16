@@ -130,7 +130,9 @@
 
              if (i == (count - 1)) {
                    $(submitButtonName).show();
-              }
+                } else {
+                   $(submitButtonName).hide();
+                }
            
         }
 

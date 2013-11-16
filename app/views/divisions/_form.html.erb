@@ -5,11 +5,51 @@
     <%= f.input :name %>
     <%= f.input :name1 %>
     <%= f.input :name2 %>
-    <%= f.input :client_id %>
-    <%= f.input :location_id %>
+    <%= f.input :client_id, as: :hidden %>
+
+
+    <% if @division.state != "new_address" %>
+    
+      <div class='controls row-fluid'>
+        <% if @division.new_record? %>
+        <%= f.input :location_id, :label=>"Select existing location", 
+        collection: Location.where(:id => @locations), 
+        :label_method => lambda { |at| "#{at.addressline1}" } %>      
+        <% else %>
+          <%= f.input :location_id, :label=>"Location", 
+          collection: Location.where(:id => @locations), 
+          :label_method => lambda { |at| "#{at.addressline1}" }, :selected_method=> @division.location_id %>      
+        <% end %>
+        <%= f.button :submit, "add new address", :class=>'btn btn-info btn-small', :name=>"new_address"  %>
+      </div>
+
+    <% else %>
+
+      <%= f.simple_fields_for :location do |location| %>
+        <%= location.input :addressline1 %>
+        <%= location.input :addressline2 %>
+        <%= location.input :addressline3 %>
+        <%= location.input :addressline4 %>
+        <%= location.input :city %>
+
+        
+        <%= location.input :state_id, :label=>"Province", 
+           collection: State.where(:id=>@division.client.clientlocations.first.location.state_id), 
+            :label_method => lambda { |se| "#{se.name}" }, :include_blank=>false %>   
+        
+        <%= location.input :postal %>
+         <%= location.input :country_id, as: :hidden, :input_html=>{value: 38} %> 
+
+      <% end %>
+
+    <% end %>
+    
+
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class=>'btn btn-primary btn-small' %>
+    <%= f.button :submit, "cancel", :name=>'cancel', :class=>'btn btn-danger btn-small' %>
   </div>
 <% end %>

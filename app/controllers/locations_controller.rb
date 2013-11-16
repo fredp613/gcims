@@ -69,7 +69,7 @@ class LocationsController < ApplicationController
 
     if params[:client_id]
       @client = params[:client_id]
-      if params[:edit]
+      if params[:edit_location]
         session[:edit] = true
       end
       #session[:client] = @client
@@ -217,10 +217,10 @@ class LocationsController < ApplicationController
         if @location.update_attributes(params[:location])
 
           if @client && !@contact && !@project
-            if !session[:edit] == true
-              format.html { redirect_to client_path(@client) , notice: 'Location was successfully updated.' }
+            if session[:edit] != true
+              format.html { redirect_to client_path(@client) , notice: 'Location was successfully updated.' }              
             else
-              format.html { redirect_to edit_client_path(@client) , notice: 'Location was successfully updated.' }
+              format.html { redirect_to edit_client_path(@client) , notice: 'Location was successfully updated.' }              
             end
           elsif @contact && @client && !@project        
              format.html { redirect_to edit_client_contact_path(@client, @contact), notice: 'Location was successfully updated.' }
@@ -228,6 +228,7 @@ class LocationsController < ApplicationController
             format.html { redirect_to edit_project_contact_path(@project, @contact), notice: 'Location was successfully updated.' }
           end
           format.json { head :no_content }
+          session.delete(:edit)
         else
           format.html { render action: "edit" }
           format.json { render json: @location.errors, status: :unprocessable_entity }
@@ -318,8 +319,8 @@ class LocationsController < ApplicationController
   private
 
   def build
-     @location.clientlocations.build
-     @location.contactlocations.build
+     @location.build_clientlocation
+     @location.build_contactlocation
   end
 
   def filter_type  
