@@ -65,7 +65,8 @@ class CharitiesController < ApplicationController
             when 'band'
              format.html { redirect_to new_band_path(:client_id=>@client) }
             else
-             format.html { redirect_to @client, notice: 'saved.' }
+              flash[:notice] = 'Charity information saved'
+             format.html { redirect_to @client }
             end
             format.json { render json: @charity, status: :created, location: @charity }
           else
@@ -96,7 +97,8 @@ class CharitiesController < ApplicationController
     @client = @charity.client
     respond_to do |format|
       if @charity.update_attributes(params[:charity])
-        format.html { redirect_to client_path(@client), notice: 'Charity was successfully updated.' }
+        flash[:notice] = 'Charity information saved'
+        format.html { redirect_to client_path(@client) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -114,6 +116,7 @@ class CharitiesController < ApplicationController
     @client.update_attributes(:registeredcharity=>false)
     
     respond_to do |format|
+      flash.now[:notice] = 'Charity information successfully deleted'
       format.html { redirect_to request.referer }
       format.json { render json: @client }
       @client.build_charity

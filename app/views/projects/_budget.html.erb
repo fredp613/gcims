@@ -1,6 +1,8 @@
  <h3>Budget</h3>
 
-   <table class='table table-bordered'>
+
+
+   <table class='table table-bordered table-striped table-hover'>
    	<thead>
    		<tr>
    			<th>Funder</th>
@@ -44,10 +46,10 @@
          </td>
          </tr>
          <% end %>
-
-      <p>
-       <%= link_to "Add Expense Item", new_budgetitem_path(:application_id=>app.id) %>
-      </p>
+         <p>
+       <%= link_to "Add Expense", new_application_budgetitem_path(app), :class=>'btn btn-success bth-small' %>        
+       <%= link_to "Add Expense from Other Funding Source", new_application_budgetitem_path(app, :other_funder=>true), :class=>'btn btn-info bth-small' %>        
+      </p>      
       <% end  %>
    	</tbody>
    </table>

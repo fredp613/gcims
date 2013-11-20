@@ -16,12 +16,15 @@ class Project < ActiveRecord::Base
   has_many :productservicelines, through: :subservicelines
   
   belongs_to :client
+  belongs_to :division
 
   accepts_nested_attributes_for :applications
   accepts_nested_attributes_for :projectcontacts
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :client
   accepts_nested_attributes_for :budgetitems
+  accepts_nested_attributes_for :division
+  
 
   validates :projectname, presence: true
   validates :startdate, presence: true

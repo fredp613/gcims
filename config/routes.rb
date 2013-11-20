@@ -113,12 +113,8 @@ GCIMS::Application.routes.draw do
   resources :commitmentitems
   resources :summarycommitments 
   resources :subservicelines  
-  resources :productservicelines do
-    get 'pras', to: 'productservicelines#index', as: :pras
-    collection do
-      get 'pras_index' => 'productservicelines#pras_index'
-    end
-  end
+  resources :productservicelines, path: 'pras'
+    
   
  
   resources :fincodes

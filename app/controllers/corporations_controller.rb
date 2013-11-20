@@ -63,8 +63,8 @@ class CorporationsController < ApplicationController
              format.html { redirect_to new_band_path(:client_id=>@client, :from=>'corporation') }
             when 'charity'
              format.html { redirect_to new_charity_path(:client_id=>@client, :from=>'corporation') }
-            else
-             format.html { redirect_to @client, notice: 'Saved' }
+            else             
+             format.html { redirect_to @client }
             end
             format.json { render json: @corporation, status: :created, location: @corporation }
           else
@@ -72,6 +72,7 @@ class CorporationsController < ApplicationController
           end
 
       else
+        flash[:notice] = 'Incorporation information saved'
         format.html { render action: "new" }
         format.json { render json: @corporation.errors, status: :unprocessable_entity }
         format.js
@@ -86,11 +87,14 @@ class CorporationsController < ApplicationController
     @client = @corporation.client
     respond_to do |format|
       if @corporation.update_attributes(params[:corporation])
-        format.html { redirect_to client_path(@client), notice: 'Corporation was successfully updated.' }
+        flash[:notice] = 'Incorporation information saved'        
+        format.html { redirect_to client_path(@client) }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @corporation.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -104,6 +108,7 @@ class CorporationsController < ApplicationController
     @client.update_attributes(:incorporated=>false)
 
     respond_to do |format|
+      flash.now[:notice] = 'Corporation information successfully deleted'
       format.html { redirect_to request.referer }
       format.json { head :no_content }
       @client.build_corporation

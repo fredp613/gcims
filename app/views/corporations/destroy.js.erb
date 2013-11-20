@@ -9,6 +9,6 @@
 
   	 $('#corp').html('<%= j render ("clients/show_sections/corp_fields") %>')
   	 
-
-
+  	 $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+  	 
 <% end  %>

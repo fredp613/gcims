@@ -5,4 +5,6 @@
 <% else %>	
   	console.log('deleted'); 	
      $('#band').html('<%= j render ("clients/show_sections/ba_fields") %>')
+
+    $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
 <% end  %>

@@ -64,9 +64,9 @@ class ClienttypesController < ApplicationController
      respond_to do |format|
       if @clienttype.valid? 
         if !@client.blank?
-          format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=>@clienttype.name), notice: 'Client type was successfully updated' }          
+          format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=>@clienttype.name) }          
         else
-          format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id]), notice: 'Client type was successfully updated' }          
+          format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id])}          
         end
           format.json { render json: @clienttype, status: :created, location: @clienttype }
           
@@ -95,7 +95,7 @@ class ClienttypesController < ApplicationController
 
     respond_to do |format|
       if @clienttype.save
-        format.html { redirect_to @clienttype, notice: 'Clienttype was successfully created.' }
+        format.html { redirect_to @clienttype }
         format.json { render json: @clienttype, status: :created, location: @clienttype }
       else
         format.html { render action: "new" }
@@ -111,7 +111,7 @@ class ClienttypesController < ApplicationController
 
     respond_to do |format|
       if @clienttype.update_attributes(params[:clienttype])
-        format.html { redirect_to @clienttype, notice: 'Clienttype was successfully updated.' }
+        format.html { redirect_to @clienttype }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

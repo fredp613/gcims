@@ -261,7 +261,9 @@ class ClientsController < ApplicationController
      if @client.update_attributes(params[:client])
       @nav = AdditionalInformationNav.new(@client)
       @step = @nav.nav
-
+      
+        flash.now[:notice] = 'Client changes saved'
+      
         if !session[:edit_only]
           if @new
           format.html { redirect_to edit_client_path(@client) }
@@ -281,7 +283,7 @@ class ClientsController < ApplicationController
           #end
           else
             if !session[:edit]
-              flash[:notice] = "Client was successfully updated."
+              flash.now[:notice] = "Client was successfully updated."
               format.html { redirect_to @client, notice: 'Client has been saved' }
             else 
               format.html { redirect_to edit_client_path(@client), notice: 'saved' }

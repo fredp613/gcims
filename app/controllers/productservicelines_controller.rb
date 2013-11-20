@@ -1,6 +1,9 @@
 class ProductservicelinesController < ApplicationController
   # GET /productservicelines
   # GET /productservicelines.json
+  
+  before_filter :authenticate_user!
+  
   def index
     @fiscalyear1 = params[:fy1]
     @fiscalyear2 = params[:fy2]

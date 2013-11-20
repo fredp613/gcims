@@ -1,7 +1,8 @@
 <% if @client.new_record? %>
 <!--
 	<div class='form-inputs' data-no-turbolink > -->
-		<div class='form-inputs' data-no-turbolink>
+		<div class='form-inputs'>
+		
 		<p>
 	  	<%= f.input :incorporated, :label=>"Incorporated?" %>  	
 	  	 <% if @client.corporation.errors.any? || @client.incorporated  %>
@@ -12,6 +13,7 @@
 		  	<%= render 'corporation_fields', :f=>f %>
 		  </div>
 	  	</p>
+	  	
 	  	<p>
 			<%= f.input :registeredcharity, :label =>"Registered charity?"  %>
 			<% if @client.charity.errors.any? || @client.registeredcharity   %>

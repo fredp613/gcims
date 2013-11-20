@@ -6,6 +6,8 @@
 <% else %>	
   	console.log('updated');
   	$('#charity').html('<%= j render ("clients/show_sections/ch_fields") %>')
-  	$(document).reload();
+  	//$(document).reload();
+
+  	$('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
 
 <% end  %>

@@ -39,5 +39,10 @@
      <% if params[:client][:band_attributes] %>
      $('#band').html('<%= j render ("clients/show_sections/ba_fields") %>')
      <% end %>
+
+     //$('#flash_message_ujs').html("Saved.").slideDown(200)
+     $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+     bind_datepicker();
  
 <% end  %>

@@ -16,7 +16,7 @@ class DeviseController < Devise.parent_controller.constantize
   def resource
     instance_variable_get(:"@#{resource_name}")
   end
-
+ 
   # Proxy to devise map name
   def resource_name
     devise_mapping.name

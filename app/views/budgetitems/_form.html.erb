@@ -2,6 +2,16 @@
   <%= f.error_notification %>
 <br>
   <div class="form-inputs">
+
+    
+
+    <% if @budgetitem.funding_source != "Justice Canada" %>
+      <%= f.input :funding_source,  :label=>"Funding source" %>
+    <% else %>
+      <%= f.input :funding_source, as: :hidden, :input_html=>{value: "Justice Canada"} %>
+      <%= text_field_tag :funding_tag,  "Justice Canada", :disabled=>true %>
+    <% end %>
+
     <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
@@ -17,12 +27,22 @@
     <div class='control-group budgetitem_fiscalyear_id error'>
     <span class="help-inline"><%= @budgetitem.errors[:fiscalyear_id].first %></span>
     </div>
+
+
       <% Fiscalyear.all.each do |fy| %>
        <label class="checkbox">
-        <%= check_box_tag 'fiscalyear_ids[]', fy.id %>
+
+        <% if !@budgetitem.fiscalyears.blank? && @budgetitem.fiscalyears.include?(fy.id) %>
+          <%= check_box_tag 'fiscalyear_ids[]', fy.id, value: 1%>
+        <% else %>
+          <%= check_box_tag 'fiscalyear_ids[]', fy.id %>
+        <% end %>
         <%= h fy.fy %>
+
       </label>
       <% end %> <br>
+
+    
     
 
     <% end %>

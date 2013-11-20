@@ -2,6 +2,7 @@ class Division < ActiveRecord::Base
   attr_accessible :client_id, :location_id, :name, :name1, :name2, :location_attributes
   belongs_to :client 
   belongs_to :location
+  has_many :projects
 
   validates :name, presence: :true
   #validates :location_id, presence: :true

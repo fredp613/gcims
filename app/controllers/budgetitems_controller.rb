@@ -1,6 +1,9 @@
 class BudgetitemsController < ApplicationController
   # GET /budgetitems
   # GET /budgetitems.json
+
+  #before_filter :set_instance_variables, only: [:new, :create]
+
   def index
     @budgetitems = Budgetitem.all
 
@@ -26,8 +29,20 @@ class BudgetitemsController < ApplicationController
   def new
     @budgetitem = Budgetitem.new
     if @budgetitem.application_id.blank?
-      @budgetitem.application_id = params[:project]
+      @budgetitem.application_id = params[:application_id]
     end
+
+    if @budgetitem.funding_source.blank?
+
+      if params[:other_funder].present?
+        @budgetitem.funding_source = nil   
+      else
+        @budgetitem.funding_source = "Justice Canada"
+      end
+
+    end
+
+ 
 
     #@applications = Application.where(:project_id=>@budgetitem.project)
 
@@ -46,7 +61,9 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems/1/edit
   def edit
     @budgetitem = Budgetitem.find(params[:id])
-    @apptypes = Applicationtype.joins(:applications).select('applications.id, applicationtypes.name').where('applications.id'=>@budgetitem.application_id)
+    @budgetitem.apptypes = 
+    Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
+    .where('applications.id'=>@budgetitem.application_id)
 
   end
 
@@ -77,10 +94,14 @@ class BudgetitemsController < ApplicationController
         format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
         format.json { render json: @budgetitem, status: :created, location: @budgetitem }
       else
-        @budgetitem.project = params[:project]
+              
+        @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) 
+
+         @budgetitem.project = params[:project]
           @budgetitem.apptypes = 
-            Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-            .where('applications.id'=>@budgetitem.application_id)
+          Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
+          .where('applications.id'=>@budgetitem.application_id)   
+
         format.html { render action: "new", :project=>@budgetitem.project }
         format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
       end
@@ -115,5 +136,10 @@ class BudgetitemsController < ApplicationController
       format.html { redirect_to project_path(@budgetitem.application.project) }
       format.json { head :no_content }
     end
+  end
+
+  def set_instance_variables
+    
+    
   end
 end

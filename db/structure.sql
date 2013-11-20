@@ -237,7 +237,8 @@ CREATE TABLE budgetitems (
     application_id integer,
     budgetcategory_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    funding_source character varying(255)
 );
 
 
@@ -1978,3 +1979,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131102202641');
 INSERT INTO schema_migrations (version) VALUES ('20131114033903');
 
 INSERT INTO schema_migrations (version) VALUES ('20131115233929');
+
+INSERT INTO schema_migrations (version) VALUES ('20131118214242');

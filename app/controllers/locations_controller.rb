@@ -85,9 +85,7 @@ class LocationsController < ApplicationController
     end
 
     if params[:country_id]
-      @country_id = params[:country_id]
-    else
-      @country_id = @location.country_id
+      @location.country_id = params[:country_id]    
     end
 
     filter_type
@@ -143,24 +141,24 @@ class LocationsController < ApplicationController
 
       respond_to do |format|
         if @location.save    
-          if @contact 
-            if @client && @contact && !@project
-            format.html { redirect_to edit_client_contact_path(@client, @contact) , notice: 'Location was successfully created.' } 
-            elsif @project && @contact && @client
-
+         if !@contact.blank? 
+          
+            if @client && !@project
+            format.html { redirect_to edit_client_contact_path(@client, @contact) , notice: 'Location was successfully created.' }             
+            elsif @project && @client
             format.html { redirect_to project_path(@project) , notice: 'Location was successfully created.' } 
             else
             format.html { redirect_to edit_contact_path(@contact) , notice: 'Location was successfully created.' }   
             end
-          else
-            if @client && !@project 
-            format.html { redirect_to client_path(@client) , notice: 'Location was successfully created.' } 
-            else #project
-            format.html { redirect_to project_path(@project) , notice: 'Location was successfully created.' } 
-            end
-          end
-
-            format.json { render json: @location, status: :created, location: @location }
+          
+        elsif !@project.blank?
+          format.html { redirect_to project_path(@project) , notice: 'Location was successfully created.' } 
+        else 
+          format.html { redirect_to client_path(@client), notice: 'Location was successfully created.' } 
+          
+        end
+        
+        format.json { render json: @location, status: :created, location: @location }
 
         else
           format.html { render action: "new" }
@@ -168,6 +166,7 @@ class LocationsController < ApplicationController
         end
       end
       
+
     end
   end
 

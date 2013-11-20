@@ -1,6 +1,7 @@
 module ApplicationHelper
 	
-	def boostrap_flash(name,msg)
+	def bootstrap_flash
+	 flash.each do |name, msg|
 	    case name.to_s
 	    when "notice" then
 	      content_tag :div, :id=>'flash', :class => "alert alert-success" do 
@@ -17,7 +18,8 @@ module ApplicationHelper
 	      	concat msg 
 	      	concat link
 	      end
-	    end	    			
+	    end	 
+	  end   			
 	end
 
 	def link 

@@ -4,13 +4,13 @@
 <div class='loader'>
   </div>
 
-<% if @mandate_only   %>
+<% if !@mandate_only.blank?   %>
 	<%= render 'formMandate' %>
 
-<% elsif @step   %>
+<% elsif !@step.blank?   %>
 	<%= render "clients/additional_info_forms/form_#{@step}" %>
 
-<% elsif @wizard %>
+<% elsif !@wizard.blank? %>
 	<%= render 'formWizard' %>
 <% else %>
 

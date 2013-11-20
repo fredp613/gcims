@@ -23,10 +23,10 @@ $(document).on('click', '#client_incorporated', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
-      $('#corporation_fields').fadeIn(300);
+      $('#corporation_fields').fadeIn(100);
     } 
     else {
-      $('#corporation_fields').fadeOut(300);
+      $('#corporation_fields').fadeOut(100);
     }
   })
 
@@ -34,10 +34,10 @@ $(document).on('click', '#client_registeredcharity', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
-      $('#charity_fields').fadeIn(300);
+      $('#charity_fields').fadeIn(100);
     } 
     else {
-      $('#charity_fields').fadeOut(300);
+      $('#charity_fields').fadeOut(100);
     }
   })
 
@@ -45,10 +45,10 @@ $(document).on('click', '#client_registeredband', function() {
 
   var thisCheck = $(this)
     if (thisCheck.is (':checked')) {
-      $('#band_fields').fadeIn(300);
+      $('#band_fields').fadeIn(100);
     } 
     else {
-      $('#band_fields').fadeOut(300);
+      $('#band_fields').fadeOut(100);
     }
   })
 
@@ -91,7 +91,7 @@ function band_click(event) {
   var arg = event.data.action
   //alert(arg)
   if ($('#band_fields').is(':visible')) {
-    $('#band_fields').fadeOut(150);
+    $('#band_fields').fadeOut(100);
      if (arg == 'edit') {
         $('.btnEditBand').text("");
         $('.btnEditBand').attr('class', 'icon-large icon-pencil black btnEditBand')
@@ -125,7 +125,7 @@ function charity_click(event) {
   var arg = event.data.action
   //alert(arg)
   if ($('#charity_fields').is(':visible')) {
-    $('#charity_fields').fadeOut(150);
+    $('#charity_fields').fadeOut(100);
      if (arg == 'edit') {
         $('.btnEditCharity').text("");
         $('.btnEditCharity').attr('class', 'icon-large icon-pencil black btnEditCharity')
@@ -138,7 +138,7 @@ function charity_click(event) {
       } 
   } 
   else {
-    $('#charity_fields').fadeIn(200);
+    $('#charity_fields').fadeIn(100);
      if (arg == "edit") {
         $('.btnEditCharity').text("cancel");
         $('.btnEditCharity').attr('class', 'btn btn-small btn-danger btnEditCharity');
@@ -157,7 +157,7 @@ function corp_click(event) {
   var arg = event.data.action
   //alert(arg)
   if ($('#corporation_fields').is(':visible')) {
-    $('#corporation_fields').fadeOut(150);
+    $('#corporation_fields').fadeOut(100);
      if (arg == 'edit') {
         $('.btnEditCorp').text("");
         $('.btnEditCorp').attr('class', 'icon-large icon-pencil black btnEditCorp')
@@ -170,7 +170,7 @@ function corp_click(event) {
       } 
   } 
   else {
-    $('#corporation_fields').fadeIn(200);
+    $('#corporation_fields').fadeIn(100);
      if (arg == "edit") {
         $('.btnEditCorp').text("cancel");
         $('.btnEditCorp').attr('class', 'btn btn-small btn-danger btnEditCorp');

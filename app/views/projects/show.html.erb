@@ -1,9 +1,60 @@
 <div><h4><%= link_to @project.client.name, client_path(@project.client) %></h4><br></div>
  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
   
-  <div id='test'></div>
-  <div class="form-inputs">
-	 <%= render 'form_show_core' %>
-	 <%= render 'pre-assessment'  %>
-  	 <%= render 'budget' %>
-  </div>
+ 
+ <div id='at_a_glance'>
+ 	<!-- this div will include the project state, title, client name, corporate file number and PRAS -->
+
+ </div>
+
+
+ <ul class="nav nav-tabs">
+  <li class="active">
+    <a data-toggle="tab" href="#tombstone">Tombstone</a>
+  </li>
+   <li>
+    <a data-toggle="tab" href="#program">Program Specific</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#approval">Approval</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#financial">Financial</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#client">Client Information</a>
+  </li>
+  <li>
+    <a data-toggle="tab" href="#attachement">Information Management</a>
+  </li>
+      
+</ul>
+
+
+<div class="form-inputs">
+	<div class="tab-content">
+	  
+
+	 <div class="tab-pane active" id="tombstone"> 	  
+		 <%= render 'form_show_core' %>
+		 <%= render 'pre-assessment'  %>
+	</div>
+	<div class="tab-pane" id="program">
+	  	 program specific (i.e. objectives etc. - specific fields)
+	</div>
+	<div class="tab-pane" id="approval">
+	  	 approval tab-should show at a glance what is required for a approval - i.e. budget summary
+	  	 risk score - who should be approving
+	</div>
+	<div class="tab-pane" id="financial">
+	  	 <%= render 'budget' %>
+	</div>
+	<div class="tab-pane" id="client">
+	  	 Client information
+	</div>
+	<div class="tab-pane" id="attachement">
+	  	 Information Management
+	</div>
+
+	</div>
+ </div>

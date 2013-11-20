@@ -1,7 +1,11 @@
 <% @applications.each do |a| %>
   	<tr>
   		<td><%= a.corporate_file_number %></td>
-  		<td><%= a.project.client.adj_name %></td>
+  		<td><%= a.project.client.adj_name %> 
+        <% if a.project.division_id %>
+          <%= a.project.division.name %>
+        <% end %>
+      </td>
   		<td><%= a.project.projectname %></td>
   		<td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></td>
   		<td><%= a.commitmentitem.summarycommitment.subserviceline.ssl_name %></td>

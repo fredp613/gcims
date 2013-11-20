@@ -56,6 +56,8 @@ ready1 =
     $(".loader").fadeOut("slow");
   });
 
+  bind_datepicker();
+
  
 
 }
@@ -76,10 +78,20 @@ $(document).ready(ready1);
 
 function timerIncrement() {
   idleTime = idleTime + 1;
-  if (idleTime > 31) { // 31 minutes
+  if (idleTime > 16) { // 16 minutes
       window.location.reload();
   }
 }
+
+function bind_datepicker() {
+  $element = $(document).find('.datepicker')
+
+  $element.datepicker({
+    autoclose: 'true',
+   format: 'yyyy-mm-dd'
+  });
+}
+
 
 
 

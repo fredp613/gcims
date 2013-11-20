@@ -32,7 +32,7 @@
         <%= f.input :addressline4 %>
         <%= f.input :city %>
         <%= f.input :state_id, :label=>"Province", 
-           collection: State.where(:country_id=>@country_id), 
+           collection: State.where(:country_id=>@location.country_id), 
             :label_method => lambda { |se| "#{se.name}" } %>   
         <%= f.input :postal %>
         <% if @client && !@contact %>
