@@ -77,7 +77,7 @@ class ClientlocationsController < ApplicationController
   # DELETE /clientlocations/1.json
   def destroy
     @clientlocation = Clientlocation.find(params[:id])
-    @client = @clientlocation.client_id
+    #@client = @clientlocation.client_id
     @clientlocation.destroy
 
     redirect_to :back

@@ -1,0 +1,17 @@
+<% if @location.client.clientlocations.count != 1  %>
+
+   <% if !@check_for_primary.blank? && @primarycheck != 1 %>
+     <%= builder.input :addresstype_id, :label=>"Type", 
+       collection: Addresstype.where('id != 1'), 
+        :label_method => lambda { |at| "#{at.name}" } %>      
+  <% else %>
+     <%= builder.input :addresstype_id, :label=>"Type", 
+       collection: Addresstype.all(order: 'name'), 
+        :label_method => lambda { |at| "#{at.name}" } %>           
+  <% end %>
+
+<% else %>
+
+  <%= builder.input :addresstype_id, as: :hidden, :input_html=>{value: 1} %> 
+
+<% end %>

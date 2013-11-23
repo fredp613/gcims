@@ -6,9 +6,9 @@
   </div>
 
   <% if !@phone.new_record? %>
-  <%= f.input :client_id, as: :hidden %>
+    <%= f.input :client_id, as: :hidden %>
   <% else  %>
-  <%= f.input :client_id, as: :hidden, :input_html=>{value: @client} %>
+    <%= f.input :client_id, as: :hidden, :input_html=>{value: @client} %>
   <% end  %>
 
   <div class="form-actions">

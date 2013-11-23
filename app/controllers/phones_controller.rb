@@ -25,7 +25,7 @@ class PhonesController < ApplicationController
   # GET /phones/new.json
   def new
     @phone = Phone.new
-    @client = params[:client]
+    @client = params[:client_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,6 +48,7 @@ class PhonesController < ApplicationController
         format.html { redirect_to client_path(@phone.client), notice: 'Phone was successfully created.' }
         format.json { render json: @phone, status: :created, location: @phone }
       else
+        @client = @phone.client_id
         format.html { render action: "new" }
         format.json { render json: @phone.errors, status: :unprocessable_entity }
       end
@@ -64,6 +65,7 @@ class PhonesController < ApplicationController
         format.html { redirect_to client_path(@phone.client), notice: 'Phone was successfully updated.' }
         format.json { head :no_content }
       else
+        
         format.html { render action: "edit" }
         format.json { render json: @phone.errors, status: :unprocessable_entity }
       end

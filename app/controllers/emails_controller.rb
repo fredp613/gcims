@@ -26,7 +26,7 @@ class EmailsController < ApplicationController
   # GET /emails/new.json
   def new
     @email = Email.new
-    @client = params[:client]
+    @client = params[:client_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +37,7 @@ class EmailsController < ApplicationController
   # GET /emails/1/edit
   def edit
     @email = Email.find(params[:id])
+    @client = params[:client_id]
   end
 
   # POST /emails
@@ -49,6 +50,7 @@ class EmailsController < ApplicationController
         format.html { redirect_to client_path(@email.client), notice: 'Email was successfully created.' }
         format.json { render json: @email, status: :created, location: @email }
       else
+        @client = @client.email_id
         format.html { render action: "new" }
         format.json { render json: @email.errors, status: :unprocessable_entity }
       end
@@ -65,6 +67,7 @@ class EmailsController < ApplicationController
         format.html { redirect_to client_path(@email.client), notice: 'Email was successfully updated.' }
         format.json { head :no_content }
       else
+        
         format.html { render action: "edit" }
         format.json { render json: @email.errors, status: :unprocessable_entity }
       end

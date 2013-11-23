@@ -21,38 +21,35 @@
        <%= builder.input :city, :label => "City" %> 
 
        <% if @client.new_record? %>
-         <% if @client.country_id == 38 %>
-          <%= builder.input :state_id, :label=>"Province", 
-          collection: State.where(:country_id=>38), 
-           :label_method => lambda { |se| "#{se.name}" } %>   
-          <%= builder.input :postal, :label=>"Postal Code" %>   
-         <% else %>
-         <%= builder.input :state_id, :label=>"State/Region", 
-          collection: State.where(:country_id=>@client.country_id), 
-           :label_method => lambda { |se| "#{se.name}" } %>   
-          <%= builder.input :postal, :label=>"Postal Code / zip code" %> 
-         <% end  %>
+           <% if @client.country_id == 38 %>
+            <%= builder.input :state_id, :label=>"Province", 
+            collection: State.where(:country_id=>38), 
+             :label_method => lambda { |se| "#{se.name}" } %>   
+            <%= builder.input :postal, :label=>"Postal Code" %>   
+           <% else %>
+           <%= builder.input :state_id, :label=>"State/Region", 
+            collection: State.where(:country_id=>@client.country_id), 
+             :label_method => lambda { |se| "#{se.name}" } %>   
+            <%= builder.input :postal, :label=>"Postal Code / zip code" %> 
+           <% end  %>
 
         <% else %>
-          <% if @client.country_id  %>
-            <%= builder.input :state_id, :label=>"Province", 
-            collection: State.where(:country_id=>@client.country_id),
-            :label_method=>lambda { |se| "#{se.name}" } %>
-          <% else %>
-            <%= builder.input :state_id, :label=>"Province", 
-            collection: State.where(:country_id=>:country_id),
-            :label_method=>lambda { |se| "#{se.name}" } %>
-          <% end %>
-            <%= builder.input :postal, :label=>"Postal Code / zip code" %>
-        <% end %>
+            <% if @client.country_id  %>
+              <%= builder.input :state_id, :label=>"Province", 
+              collection: State.where(:country_id=>@client.country_id),
+              :label_method=>lambda { |se| "#{se.name}" } %>
+            <% else %>
+              <%= builder.input :state_id, :label=>"Province", 
+              collection: State.where(:country_id=>:country_id),
+              :label_method=>lambda { |se| "#{se.name}" } %>
+            <% end %>
+              <%= builder.input :postal, :label=>"Postal Code / zip code" %>
+        <% end %>        
 
         <%= builder.simple_fields_for :clientlocation do |cl| %>
-          <%= cl.input :addresstype_id, :label=>"Type", 
-                   collection: Addresstype.where('id = 1'), 
-                    :label_method => lambda { |at| "#{at.name}" }, :selected=>1%>     
+          <%= cl.input :addresstype_id, as: :hidden,  :input_html=>{value: 1} %>              
         <% end %>
 
+<%end%>
 
-     
 
-     <%end%>

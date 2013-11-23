@@ -130,6 +130,7 @@ class ClientsController < ApplicationController
               #reset_session
               @nav = AdditionalInformationNav.new(@client)
               @step = @nav.nav
+
               if (@step == 'corporation' || @step == 'band' || @step == 'charity') && @client.clienttype_id !=1
                 session[:step] = @client.steps.first
                 format.html { redirect_to edit_client_path(@client, :wizard=>true) }
@@ -144,7 +145,18 @@ class ClientsController < ApplicationController
             else
               @client.country_id = params[:country_id]
               @client.clienttype_id = params[:client][:clienttype_id]
-     
+
+                if @client.websites.blank?
+                  @client.websites.build
+                end
+
+                if @client.emails.blank?
+                  @client.emails.build
+                end
+
+                if @client.phones.blank?
+                  @client.phones.build
+                end
               
               
               format.html { render action: "new" }
@@ -345,7 +357,7 @@ class ClientsController < ApplicationController
   private
 
   def build
-    @client.locations.build.build_clientlocation 
+    @client.locations.build.build_clientlocation    
     @client.build_corporation
     @client.build_charity
     @client.build_band

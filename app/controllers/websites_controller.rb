@@ -1,6 +1,7 @@
 class WebsitesController < ApplicationController
   # GET /websites
   # GET /websites.json
+  before_filter :authenticate_user!
   def index
     @websites = Website.all
 
@@ -25,7 +26,7 @@ class WebsitesController < ApplicationController
   # GET /websites/new.json
   def new
     @website = Website.new
-    @client = params[:client]
+    @client = params[:client_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,6 +37,7 @@ class WebsitesController < ApplicationController
   # GET /websites/1/edit
   def edit
     @website = Website.find(params[:id])
+
   end
 
   # POST /websites
@@ -48,6 +50,7 @@ class WebsitesController < ApplicationController
         format.html { redirect_to client_path(@website.client), notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
       else
+        @client = @client.website_id
         format.html { render action: "new" }
         format.json { render json: @website.errors, status: :unprocessable_entity }
       end
@@ -64,6 +67,7 @@ class WebsitesController < ApplicationController
         format.html { redirect_to client_path(@website.client), notice: 'Website was successfully updated.' }
         format.json { head :no_content }
       else
+        
         format.html { render action: "edit" }
         format.json { render json: @website.errors, status: :unprocessable_entity }
       end

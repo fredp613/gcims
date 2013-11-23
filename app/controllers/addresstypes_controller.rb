@@ -1,6 +1,7 @@
 class AddresstypesController < ApplicationController
   # GET /addresstypes
   # GET /addresstypes.json
+  before_filter :authenticate_user!
   def index
     @addresstypes = Addresstype.all
 

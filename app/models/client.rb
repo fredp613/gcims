@@ -12,6 +12,8 @@ class Client < ActiveRecord::Base
   attr_accessor :country_id
 
   after_save :org_info_cleanup
+  after_save :update_clientlocation
+  
 
 
   has_many :clientlocations, dependent: :destroy
@@ -41,7 +43,7 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :locations
   accepts_nested_attributes_for :clientlocations
   accepts_nested_attributes_for :clienttype
-  accepts_nested_attributes_for :websites
+  accepts_nested_attributes_for :websites, reject_if: lambda { |w| w[:website].blank? }
   accepts_nested_attributes_for :phones
   accepts_nested_attributes_for :emails
   accepts_nested_attributes_for :charity, :allow_destroy=>true
@@ -59,7 +61,8 @@ class Client < ActiveRecord::Base
     },
   associated_against: {projects: [:projectname, :projectdesc], applications: :corporate_file_number,
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
-  locations: [:addressline1, :addressline2, :city, :postal], states: :name, contacts: [:firstname, :lastname] }
+  locations: [:addressline1, :addressline2, :city, :postal], states: :name, contacts: [:firstname, :lastname],
+  websites: :website, emails: :email, phones: :phone, divisions: [:name, :name1, :name2] }
 
   def self.text_search(query)
     if query.present?
@@ -145,6 +148,16 @@ class Client < ActiveRecord::Base
 
   end
 
+  def update_clientlocation
+    @clientlocation = Clientlocation.where(:client_id=>self.id)
+    if @clientlocation.count == 1
+      @cl = Clientlocation.find(@clientlocation.first.id)
+      @cl.update_attributes(:addresstype_id=>1) 
+    end   
+
+  end
+
+  
   
 
 

@@ -4,9 +4,11 @@ class Location < ActiveRecord::Base
 
   attr_accessible :addressline1, :addressline2, :addressline3, :addressline4, :city, :state_id, :country_id, :postal, 
   :contactlocation_attributes, :clientlocation_attributes, :contacts_attributes, :clients_attributes, 
-  :addresstypes_attributes, :divisions_attributes
+  :addresstypes_attributes, :divisions_attributes, :client, :contact
 
-  has_one :clientlocation, :dependent => :destroy
+  attr_accessor :client, :contact
+
+  has_one :clientlocation, :dependent => :delete
   has_one :contactlocation, :dependent => :destroy
   has_many :clients, through: :clientlocations
   has_many :addresstypes, through: :clientlocations

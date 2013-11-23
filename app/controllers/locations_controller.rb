@@ -1,6 +1,8 @@
 class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
+  before_filter :authenticate_user!
+  
   def index
     @locations = Location.all
 
@@ -31,18 +33,18 @@ class LocationsController < ApplicationController
     build
     
     if params[:client_id]
-      @client = params[:client_id]
+      @location.client = params[:client_id]
     end
 
     if params[:contact_id]
-      @contact = params[:contact_id]
-      @client = Contact.where(:id=>@contact).first.client_id
+      @location.contact = params[:contact_id]
+      @location.client = Contact.where(:id=>@location.contact).first.client_id
     end
 
     if params[:country_id]
-      @country_id = params[:country_id]
+      @location.country_id = params[:country_id]
     else
-      @country_id = 38
+      @location.country_id = 38
     end
 
     if params[:project_id]
@@ -68,7 +70,7 @@ class LocationsController < ApplicationController
     end
 
     if params[:client_id]
-      @client = params[:client_id]
+      @location.client = params[:client_id]
       if params[:edit_location]
         session[:edit] = true
       end
@@ -76,7 +78,7 @@ class LocationsController < ApplicationController
     end
 
     if params[:contact_id]
-      @contact = params[:contact_id]
+      @location.contact = params[:contact_id]
       #session[:contact] = @contact
     end
 
@@ -240,8 +242,8 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
-    @client = Client.find(@location.client_ids)
-    @contact = Contact.find(@location.contact_ids)
+    #@client = Client.find(@location.client_ids)
+    #@contact = Contact.find(@location.contact_ids)
     
     @location.destroy
 
@@ -326,9 +328,9 @@ class LocationsController < ApplicationController
    # if params[:client_id]
      # @client = params[:client]
       @newrecord = Clientlocation.where(:location_id=>@location.id)
-      @check_for_primary = Clientlocation.where(:client_id=>@client, :addresstype_id=>1).first
+      @check_for_primary = Clientlocation.where(:client_id=>@location.client, :addresstype_id=>1).first
       if  !@newrecord.blank?
-        @check_current_primary = Clientlocation.where(:client_id=>@client, :location_id=>@location.id).first
+        @check_current_primary = Clientlocation.where(:client_id=>@location.client, :location_id=>@location.id).first
         @primarycheck = @check_current_primary.addresstype_id
       else
         @primarycheck = 0

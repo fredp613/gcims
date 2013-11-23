@@ -5,19 +5,19 @@
   <% if @project %>
   <%= hidden_field_tag "project_id", @project %>
   <% end  %>
-  <% if @client  %>
-  <%= hidden_field_tag "client_id", @client %>
+  <% if @location.client  %>
+  <%= hidden_field_tag "client_id", @location.client %>
   <% end  %>
 
-  <% if @contact  %>
-  <%= hidden_field_tag "contact_id", @contact %>
+  <% if @location.contact  %>
+  <%= hidden_field_tag "contact_id", @location.contact %>
   <% end  %>
 
         
         <div id='countries'>
         <% if @location.new_record? %>
            <%= f.input :country_id, collection: Country.all(order: 'name'),
-           :selected => @country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
+           :selected => @location.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
         <% else %>
            <%= f.input :country_id, collection: Country.all(order: 'name'),
            :label_method => lambda { |cy| "#{cy.name}" } %> 
@@ -35,30 +35,34 @@
            collection: State.where(:country_id=>@location.country_id), 
             :label_method => lambda { |se| "#{se.name}" } %>   
         <%= f.input :postal %>
-        <% if @client && !@contact %>
+
+
+         <% if !@location.client.blank? && @location.contact.blank? %>
+            
             <%= f.simple_fields_for :clientlocation do |builder| %>
-                  <% if @location.new_record? %>
-                  <%= builder.input :client_id, as: :hidden, :input_html=>{value: @client} %>
-                  <% end %>
 
-               <% if !@check_for_primary.blank? && @primarycheck != 1 %>
-                 <%= builder.input :addresstype_id, :label=>"Type", 
-                   collection: Addresstype.where('id != 1'), 
-                    :label_method => lambda { |at| "#{at.name}" } %>      
-              <% else %>
-                 <%= builder.input :addresstype_id, :label=>"Type", 
-                   collection: Addresstype.all(order: 'name'), 
-                    :label_method => lambda { |at| "#{at.name}" } %>           
+              <% if @location.new_record? %>
+                <%= builder.input :client_id, as: :hidden, :input_html=>{value: @location.client} %>
               <% end %>
-                
-            <% end %>
 
+              <% if Clientlocation.where(:client_id=>params[:client_id]).to_a.size >=  1 %>
+                  <%= builder.input :addresstype_id,:label=>"Type", 
+                   collection: Addresstype.all, 
+                    :label_method => lambda { |at| "#{at.name}" } %>
+              <% else %>
+                  <%= builder.input :addresstype_id, as: :hidden, :input_html=>{ value: 1 } %>
+              <% end %>
+
+            <% end %>
+        <% else %>    
+        something is wrong
+           
         <% end %>
 
-        <% if @contact %>
+        <% if @location.contact %>
           <%= f.simple_fields_for :contactlocation do |builder| %>
           <% if @location.new_record?  %>
-              <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @contact} %>
+              <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @location.contact_id} %>
           <% end %>
           
 

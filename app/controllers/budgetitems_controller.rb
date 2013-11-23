@@ -28,8 +28,15 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems/new.json
   def new
     @budgetitem = Budgetitem.new
-    if @budgetitem.application_id.blank?
-      @budgetitem.application_id = params[:application_id]
+      
+    if params[:application_id].present?
+      if @budgetitem.application_id.blank?
+        @budgetitem.application_id = params[:application_id]
+      end
+    
+    elsif params[:project_id].present?
+      @project = Project.find(params[:project_id])
+      @budgetitem.application_id = @project.applications.first.id
     end
 
     if @budgetitem.funding_source.blank?
@@ -94,13 +101,17 @@ class BudgetitemsController < ApplicationController
         format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
         format.json { render json: @budgetitem, status: :created, location: @budgetitem }
       else
-              
-        @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) 
-
+         if !@budgetitem.fiscalyears.blank?     
+           @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) 
+          end
          @budgetitem.project = params[:project]
           @budgetitem.apptypes = 
           Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
           .where('applications.id'=>@budgetitem.application_id)   
+
+        if params[:project_id]
+          @project = Project.where(:id=>params[:project_id])
+        end
 
         format.html { render action: "new", :project=>@budgetitem.project }
         format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
