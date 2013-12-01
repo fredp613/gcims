@@ -55,14 +55,14 @@
 
             <% end %>
         <% else %>    
-        something is wrong
+        
            
         <% end %>
 
         <% if @location.contact %>
           <%= f.simple_fields_for :contactlocation do |builder| %>
           <% if @location.new_record?  %>
-              <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @location.contact_id} %>
+              <%= builder.input :contact_id, as: :hidden, :input_html=>{ value: @location.contact} %>
           <% end %>
           
 

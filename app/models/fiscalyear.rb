@@ -27,4 +27,30 @@ class Fiscalyear < ActiveRecord::Base
     end
   end
 
+
+  def self.year_range(start_date='', end_date='')
+    @start_date = start_date
+    @end_date = end_date
+
+    #get month from start_date and end_date
+    @start_month = @start_date.month.to_i
+    @end_month = @end_date.month.to_i
+    @start_year = @start_date.year
+    @end_year = @end_date.year
+
+    if @start_month.between?(4,12)
+      @start_year = @start_date.year.to_i + 1    
+    end
+
+    if @end_month.between?(4,12)
+      @end_year = @end_date.year.to_i + 1    
+    end
+        
+    @range = self.where('SUBSTRING(fy from 6 for 4) between ? AND ?', @start_year.to_s, @end_year.to_s).order(:fy)
+
+    @range
+    
+  end
+
+
 end

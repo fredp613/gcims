@@ -1,6 +1,9 @@
 class ProjectcontactsController < ApplicationController
   # GET /projectcontacts
   # GET /projectcontacts.json
+
+  before_filter :set_form_variables, :only => :show
+
   def index
     @projectcontacts = Projectcontact.all
 
@@ -27,13 +30,6 @@ class ProjectcontactsController < ApplicationController
     @projectcontact = Projectcontact.new
     
     @project = params[:project_id]
-    @client = Project.where(:id=>@project).select(:client_id)
-    @contacts = Contact.where(:client_id=>@client)
-    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
-    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
-    @ddl = Contact.where(:id=>@contacts_clean)
-
-   
     
     respond_to do |format|
       format.html # new.html.erb
@@ -98,8 +94,18 @@ class ProjectcontactsController < ApplicationController
     @projectcontact.destroy
 
     respond_to do |format|
-      format.html { redirect_to edit_project_path(@project) }
+      format.html { redirect_to project_path(@project) }
       format.json { head :no_content }
     end
   end
+
+  def set_form_variables
+    @client = Project.where(:id=>@project).select(:client_id)
+    @contacts = Contact.where(:client_id=>@client)
+    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
+    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
+    @ddl = Contact.where(:id=>@contacts_clean)
+  end
+
+
 end

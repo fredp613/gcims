@@ -48,7 +48,15 @@
                 </tr>
            <% end %>
            <p>
-         <%= link_to "Add Expense", new_application_budgetitem_path(app), :class=>'btn btn-success bth-small' %>        
+         
+         <% if !(@project.budgetitems.sum(:forecast) == @project.applications.sum(:requested)) %>
+          <%= link_to "Add Expense", new_application_budgetitem_path(app), 
+          :class=>'btn btn-primary bth-small' %> 
+         <% else %>
+          <h3 class='balance alert alert-success'>Budget balanced <i class="icon-ok"></i>
+          </h3>       
+         <% end %>
+
          <%= link_to "Add Expense from Other Funding Source", new_application_budgetitem_path(app, :other_funder=>true), :class=>'btn btn-info bth-small' %>        
         </p>      
         <% end  %>

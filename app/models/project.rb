@@ -29,8 +29,7 @@ class Project < ActiveRecord::Base
   validates :projectname, presence: true
   validates :startdate, presence: true
   validates :enddate, presence: true
-   validates :division_id, presence: true,
-    if: Proc.new { |p| p.client.clienttype_id == 3 }
+  validates :division_id, presence: true,if: Proc.new { |p| p.client.clienttype_id == 3 }
   
   
   

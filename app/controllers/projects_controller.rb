@@ -17,14 +17,17 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     #@project.applications.build
+    
 
-    @mainapplication = Application.where(:project_id=>@project).first
+    @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)
+
+    @mainapplication = @project.applications.first
     @contacts = Contact.where(:client_id=>@project.client_id)
     @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
 
-    @no_contact = Contact.where(:client_id=>@project.client_id)
+    
 
     @total_estimate = @mainapplication.budgetitems.sum(&:forecast)
     @total_actual = @mainapplication.budgetitems.sum(&:actual)
@@ -87,6 +90,7 @@ class ProjectsController < ApplicationController
     
     @client_id = params[:client_id]
     @project.client_id = @client_id
+    #@project.division_id = params[:project][:division_id]
 
     #if session[:last_created_at].to_i > params[:ts].to_i
     #  @existing_project = Project.where(:token=>@project.token).first
@@ -103,6 +107,7 @@ class ProjectsController < ApplicationController
         format.js  
 
       else
+        @project.division_id = 2
        # @state_form_ts = Time.now.to_i
         #session[:last_created_at] = @state_form_ts
         #@client_name = Client.where(:id=>@client_id).first.name      
@@ -132,7 +137,7 @@ class ProjectsController < ApplicationController
         end
         format.json { head :no_content }
       else
-        format.html { render action: "show" }
+        format.html { render action: "edit" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end

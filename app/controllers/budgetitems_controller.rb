@@ -2,7 +2,7 @@ class BudgetitemsController < ApplicationController
   # GET /budgetitems
   # GET /budgetitems.json
 
-  #before_filter :set_instance_variables, only: [:new, :create]
+ # before_filter :set_instance_variables, only: [:create]
 
   def index
     @budgetitems = Budgetitem.all
@@ -49,15 +49,16 @@ class BudgetitemsController < ApplicationController
 
     end
 
- 
+    @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
+    
 
-    #@applications = Application.where(:project_id=>@budgetitem.project)
 
     @budgetitem.apptypes = 
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
     .where('applications.id'=>@budgetitem.application_id)
-   
 
+    
+   
 
     respond_to do |format|
       format.html # new.html.erb
@@ -72,6 +73,8 @@ class BudgetitemsController < ApplicationController
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
     .where('applications.id'=>@budgetitem.application_id)
 
+    
+
   end
 
   # POST /budgetitems
@@ -79,15 +82,17 @@ class BudgetitemsController < ApplicationController
   def create
 
     @fys = params[:fiscalyear_ids]
-
+    @fiscalyears = Array.new
 
     if @fys 
 
       @fys.each do |fy|
         @budgetitem = Budgetitem.new(params[:budgetitem])
-        @budgetitem.fiscalyear_id = fy
-        @budgetitem.save
+        @budgetitem.fiscalyear_id = fy        
+        @fiscalyears.push(fy)
       end
+
+
     else
       @budgetitem = Budgetitem.new(params[:budgetitem])
     end
@@ -97,13 +102,40 @@ class BudgetitemsController < ApplicationController
     
 
     respond_to do |format|
-      if @budgetitem.save
-        format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
-        format.json { render json: @budgetitem, status: :created, location: @budgetitem }
-      else
-         if !@budgetitem.fiscalyears.blank?     
-           @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) 
-          end
+      if @budgetitem.balanced_budget(@fiscalyears.count, 'new') 
+       if @fys 
+        @fys.each do |fy|
+            @budgetitem = Budgetitem.new(params[:budgetitem])
+            @budgetitem.fiscalyear_id = fy    
+            @budgetitem.save 
+        end    
+      end  
+            if @budgetitem.save
+              
+                format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
+                format.json { render json: @budgetitem, status: :created, location: @budgetitem }                
+            
+            else
+              
+             @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) unless params[:fiscalyear_ids].blank?      
+             @budgetitem.project = params[:project]
+              @budgetitem.apptypes = 
+              Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
+              .where('applications.id'=>@budgetitem.application_id)   
+
+              if params[:project_id]
+                @project = Project.where(:id=>params[:project_id])
+              end
+             
+              
+              @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
+
+              format.html { render action: "new" }
+              format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+              format.js
+            end
+      else     
+         @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) unless params[:fiscalyear_ids].blank?      
          @budgetitem.project = params[:project]
           @budgetitem.apptypes = 
           Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
@@ -112,12 +144,14 @@ class BudgetitemsController < ApplicationController
         if params[:project_id]
           @project = Project.where(:id=>params[:project_id])
         end
+        @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
 
         format.html { render action: "new", :project=>@budgetitem.project }
         format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+        format.js
       end
     end
-  end
+  end 
 
 
 
@@ -125,16 +159,29 @@ class BudgetitemsController < ApplicationController
   # PUT /budgetitems/1.json
   def update
     @budgetitem = Budgetitem.find(params[:id])
-
     respond_to do |format|
-      if @budgetitem.update_attributes(params[:budgetitem])
-        format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully updated.' }
-        format.json { head :no_content }
+
+      @budgetitem.forecast_will_change!
+      @budgetitem.forecast = params[:budgetitem][:forecast]
+
+      @before_value = @budgetitem.forecast_was
+      @after_value = @budgetitem.forecast
+
+      if @budgetitem.balanced_budget(0, 'edit', @before_value, @after_value) 
+        if @budgetitem.update_attributes(params[:budgetitem]) 
+          format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully updated.' }
+          format.json { head :no_content }
+        else
+         
+          format.html { render action: "edit" }
+          format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+          format.html { render action: "edit" }
+          format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # DELETE /budgetitems/1
@@ -150,7 +197,8 @@ class BudgetitemsController < ApplicationController
   end
 
   def set_instance_variables
-    
+     @budgetitem = Budgetitem.find(params[:id])
+    # @fiscalyears = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
     
   end
 end

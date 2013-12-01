@@ -41,6 +41,11 @@ class Application < ActiveRecord::Base
     where("responsible_official in (?)", user.id)
   end
 
+  def remaining_balance
+    @balance = self.requested - self.budgetitems.sum(:forecast)    
+    @balance
+  end
+
   def official_email(user)
     @user = User.where("id = (?)", user.id).first.email
     @user

@@ -1,5 +1,5 @@
 class Division < ActiveRecord::Base
-  attr_accessible :client_id, :location_id, :name, :name1, :name2, :location_attributes
+  attr_accessible :client_id, :location_id, :name, :name1, :name2, :location_attributes, :projects_attributes
   belongs_to :client 
   belongs_to :location
   has_many :projects
@@ -9,6 +9,7 @@ class Division < ActiveRecord::Base
   validates :client_id, presence: :true
 
   accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :projects
 
 
 end
