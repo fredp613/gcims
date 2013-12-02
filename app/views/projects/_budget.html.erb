@@ -64,7 +64,7 @@
      </table>
 
 <% else %>
-    <%= link_to "Add Expense", new_project_budgetitem_path(@project), :class=>'btn btn-success bth-small' %>        
+    <%= link_to "Add Expense", new_project_budgetitem_path(@project), :class=>'btn btn-primary bth-small' %>        
          <%= link_to "Add Expense from Other Funding Source", new_project_budgetitem_path(@project, :other_funder=>true), :class=>'btn btn-info bth-small' %>  
 
 <% end %>

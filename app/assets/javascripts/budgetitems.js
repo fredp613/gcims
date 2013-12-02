@@ -30,7 +30,11 @@ function refreshBalance() {
 
 	var bal = $('#remaining_balance').val();
 
-	var increment = $('#budgetitem_forecast').val() - $('#original_forecast').val()
+	if ($('#original_forecast').val() != null ) {
+		increment = $('#budgetitem_forecast').val() - $('#original_forecast').val()
+	} else {
+		increment = $('#budgetitem_forecast').val() 
+	}
 	
 
 	var new_bal  = bal -  (increment*checkedCount.length) 
@@ -42,8 +46,9 @@ function refreshBalance() {
 		$('.balance').removeClass('alert-success')
 		$('.balance').removeClass('alert-warning')		
 		$('.balance').addClass('alert-error')		
-		$('#txtBalanceIndicator').text("Current balance")
-		$('.icon-ok').hide();
+		$('#txtBalanceIndicator').text("Current balance:")
+		$('.ok').hide()
+		
 	} 
 	else if (new_bal == 0) {
 		$('#balance_number').hide();	
@@ -51,8 +56,10 @@ function refreshBalance() {
 		$('.balance').removeClass('alert-error')
 		$('.balance').removeClass('alert-warning')	
 		$('.balance').addClass('alert-success')	
-		$('#txtBalanceIndicator').text("Budget balanced")	
-		$('.icon-ok').show();
+		$('#txtBalanceIndicator').text("Budget balanced")
+		// fix the code below	
+		$('.ok').append($('i').attr('class', 'icon-ok'))	
+		$('.ok').show()
 
 	}
 	else {
@@ -61,8 +68,9 @@ function refreshBalance() {
 		$('.balance').removeClass('alert-error')
 		$('.balance').removeClass('alert-success')		
 		$('.balance').addClass('alert-warning')	
-		$('#txtBalanceIndicator').text("Current balance")
-		$('.icon-ok').hide();
+		$('#txtBalanceIndicator').text("Current balance:")
+		$('.ok').hide()
+		
 	}
 
 
