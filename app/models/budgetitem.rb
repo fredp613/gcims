@@ -23,7 +23,7 @@ class Budgetitem < ActiveRecord::Base
   validate :has_fiscalyear
 
   #around_update :verify_budget_constaint
-
+  default_scope order('created_at ASC')
 
   def has_fiscalyear
     errors.add(:fiscalyear_id, 'must choose at least one fiscal year') if self.fiscalyear_id.blank?

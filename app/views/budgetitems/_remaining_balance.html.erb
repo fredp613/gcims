@@ -2,24 +2,30 @@
 
   <% if @budgetitem.forecast %>
         <% if @budgetitem.application.remaining_balance - @budgetitem.forecast == 0 %>
-          <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span><span class='ok'><i class="icon-ok"></i><span> <span id='balance_number'>
+          <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span>
+            <i class="icon-ok" ></i> 
+            <span id='balance_number'>
             </span>       
           </h3>
           <% elsif @budgetitem.application.remaining_balance - @budgetitem.forecast > 0 %>
-          <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance - @budgetitem.forecast, :precision=>2, separator: '.', delimiter: ',') %></span>       
+          <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance - @budgetitem.forecast, :precision=>2, separator: '.', delimiter: ',') %></span>
+          <i class="icon-ok" style='display:none;' ></i>       
           </h3>
           <% else %>
           <h3 class='balance alert alert-error'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>
-            $<%= number_with_precision(@budgetitem.application.remaining_balance - @budgetitem.forecast, :precision=>2, separator: '.', delimiter: ',') %></span>       
+            $<%= number_with_precision(@budgetitem.application.remaining_balance - @budgetitem.forecast, :precision=>2, separator: '.', delimiter: ',') %></span>  
+            <i class="icon-ok" style='display:none;' ></i>     
           </h3>      
+                 
         <% end %>
     <% else %>
        <% if @budgetitem.application.remaining_balance == 0 %>
-        <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span><span class='ok'><i class="icon-ok"></i><span> <span id='balance_number'>
+        <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span><i class="icon-ok" ></i> <span id='balance_number'>
             </span>       
           </h3>
         <% else %>
-         <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance, :precision=>2, separator: '.', delimiter: ',') %></span>       
+         <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance, :precision=>2, separator: '.', delimiter: ',') %></span> 
+         <i class="icon-ok" style='display:none;' ></i>                  
           </h3>
         <% end %>
     <% end %>
@@ -27,19 +33,21 @@
 <% else %>  
            
           <% if @budgetitem.application.remaining_balance - (!@budgetitem.forecast_was.blank? && @budgetitem.errors.any? ? @budgetitem.forecast : 0) == 0 %>
-                <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span><span class='ok'><i class="icon-ok"></i><span> <span id='balance_number'>
+                <h3 class='balance alert alert-success'><span id='txtBalanceIndicator'>Budget balanced</span>
+                  <i class="icon-ok" ></i>  <span id='balance_number'>
                   </span>       
                 </h3>
           <% elsif @budgetitem.application.remaining_balance - (!@budgetitem.forecast_was.blank? && @budgetitem.errors.any? ? @budgetitem.forecast : 0)  > 0 %>
     
-                <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance - (!@budgetitem.forecast_was.blank? ? (@budgetitem.forecast_was-@budgetitem.forecast).abs : 0), :precision=>2, separator: '.', delimiter: ',') %></span>       
+                <h3 class='balance alert alert-warning'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>$<%= number_with_precision(@budgetitem.application.remaining_balance - (!@budgetitem.forecast_was.blank? ? (@budgetitem.forecast_was-@budgetitem.forecast).abs : 0), :precision=>2, separator: '.', delimiter: ',') %></span>  
+                <i class="icon-ok" style='display:none;' ></i>          
                 </h3>
           <% else %>
                  <h3 class='balance alert alert-error'><span id='txtBalanceIndicator'>Current balance:</span> <span id='balance_number'>
-
                   $<%= number_with_precision(@budgetitem.application.remaining_balance - (!@budgetitem.forecast_was.blank? ? 
                   (@budgetitem.forecast_was-@budgetitem.forecast).abs : 0), :precision=>2, separator: '.', delimiter: ',') %>
-                </span>       
+                </span>   
+                <i class="icon-ok" style='display:none;' ></i>      
                 </h3>      
           <% end %> 
       

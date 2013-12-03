@@ -1,0 +1,14 @@
+<% if @budgetitem.errors.any? %>
+ 
+	 console.log('Error');
+	 
+<% else %>
+	
+  console.log('deleted');
+  $('#financial').html('<%= j render ('projects/budget') %>')
+
+ 
+  	
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+<% end  %>

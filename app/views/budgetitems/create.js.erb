@@ -1,0 +1,16 @@
+<% if @budgetitem.errors.any? %>
+ 
+	 console.log('Error');
+	 $('#modalId').remove();
+	 $('.modal-body').html('<div id="modalId"></div>')
+	 $('#modalId').html('<%= j render ('form') %>')
+
+<% else %>
+	
+  console.log('Created');
+  $('#myModal').modal('hide');
+  $('#financial').html('<%= j render ('projects/budget') %>')
+   
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+<% end  %>

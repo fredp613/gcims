@@ -61,8 +61,14 @@ class BudgetitemsController < ApplicationController
    
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @budgetitem }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @budgetitem}
+        format.js
+        
     end
   end
 
@@ -73,6 +79,15 @@ class BudgetitemsController < ApplicationController
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
     .where('applications.id'=>@budgetitem.application_id)
 
+    respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @project}
+        format.js        
+    end
     
 
   end
@@ -97,23 +112,26 @@ class BudgetitemsController < ApplicationController
       @budgetitem = Budgetitem.new(params[:budgetitem])
     end
 
+    @project = Project.find(@budgetitem.application.project_id)
+
  
     #redirect_to project_path(@budgetitem.application.project)
     
 
     respond_to do |format|
       if @budgetitem.balanced_budget(@fiscalyears.count, 'new') 
-       if @fys 
-        @fys.each do |fy|
-            @budgetitem = Budgetitem.new(params[:budgetitem])
-            @budgetitem.fiscalyear_id = fy    
-            @budgetitem.save 
-        end    
-      end  
+         if @fys 
+          @fys.each do |fy|
+              @budgetitem = Budgetitem.new(params[:budgetitem])
+              @budgetitem.fiscalyear_id = fy    
+              @budgetitem.save 
+          end    
+        end  
             if @budgetitem.save
-              
+                flash[:notice] = 'Expense item updated'
                 format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
-                format.json { render json: @budgetitem, status: :created, location: @budgetitem }                
+                format.json { render json: @budgetitem, status: :created, location: @budgetitem }  
+                format.js              
             
             else
               
@@ -159,6 +177,9 @@ class BudgetitemsController < ApplicationController
   # PUT /budgetitems/1.json
   def update
     @budgetitem = Budgetitem.find(params[:id])
+
+    @project = Project.find(@budgetitem.application.project_id)
+
     respond_to do |format|
 
       @budgetitem.forecast_will_change!
@@ -169,16 +190,20 @@ class BudgetitemsController < ApplicationController
 
       if @budgetitem.balanced_budget(0, 'edit', @before_value, @after_value) 
         if @budgetitem.update_attributes(params[:budgetitem]) 
-          format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully updated.' }
+          flash[:notice] = 'Expense item updated'
+          format.html { redirect_to project_path(@budgetitem.application.project) }
           format.json { head :no_content }
+          format.js
         else
-         
+          flash[:notice] = 'Expense item updated'
           format.html { render action: "edit" }
           format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+          format.js
         end
       else
           format.html { render action: "edit" }
           format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+          format.js
       end
     end
 
@@ -188,12 +213,16 @@ class BudgetitemsController < ApplicationController
   # DELETE /budgetitems/1.json
   def destroy
     @budgetitem = Budgetitem.find(params[:id])
+    
     @budgetitem.destroy
-
+    @project = Project.find(@budgetitem.application.project_id)
+    flash[:notice] = 'Expense item deleted'
     respond_to do |format|
       format.html { redirect_to project_path(@budgetitem.application.project) }
       format.json { head :no_content }
+      format.js
     end
+    
   end
 
   def set_instance_variables

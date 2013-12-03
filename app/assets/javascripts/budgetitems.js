@@ -14,6 +14,12 @@ function convertCurrency(event) {
 $(document).on('keyup', '#budgetitem_forecast',  refreshBalance );
 $(document).on('focus', '#budgetitem_forecast',  modifyNumber );
 $(document).on('click', 'input[type=checkbox]',  refreshBalance);
+$(document).on('click', '#submit_budgetitem', submitForm);
+
+function submitForm() {
+	$('#frmBudgetItem').submit();
+	return false
+}
 
 
 
@@ -47,7 +53,7 @@ function refreshBalance() {
 		$('.balance').removeClass('alert-warning')		
 		$('.balance').addClass('alert-error')		
 		$('#txtBalanceIndicator').text("Current balance:")
-		$('.ok').hide()
+		$('.icon-ok').hide()
 		
 	} 
 	else if (new_bal == 0) {
@@ -58,8 +64,10 @@ function refreshBalance() {
 		$('.balance').addClass('alert-success')	
 		$('#txtBalanceIndicator').text("Budget balanced")
 		// fix the code below	
-		$('.ok').append($('i').attr('class', 'icon-ok'))	
-		$('.ok').show()
+		//if (!($('.ok')) {
+			
+		$('.icon-ok').show()
+		//}
 
 	}
 	else {
@@ -69,7 +77,7 @@ function refreshBalance() {
 		$('.balance').removeClass('alert-success')		
 		$('.balance').addClass('alert-warning')	
 		$('#txtBalanceIndicator').text("Current balance:")
-		$('.ok').hide()
+		$('.icon-ok').hide()
 		
 	}
 
