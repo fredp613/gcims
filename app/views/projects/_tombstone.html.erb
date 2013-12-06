@@ -6,9 +6,14 @@
 		 	
 	<div class='form-inline'>
             	
-            	<%= f.select :division_id, Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
+				
+
+            	<%= f.input :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
+
 
 	            <%= link_to "add new division", new_client_division_path(params[:client_id]), :class=> 'btn btn-small btn-success' %>
+
+
 	        
 	         
 	 </div>

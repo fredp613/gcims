@@ -29,8 +29,11 @@ class ProjectsController < ApplicationController
 
     
 
-    @total_estimate = @mainapplication.budgetitems.sum(&:forecast)
-    @total_actual = @mainapplication.budgetitems.sum(&:actual)
+    @total_estimate = @mainapplication.budgetitems.this_funder.sum(&:forecast)
+    @total_actual = @mainapplication.budgetitems.this_funder.sum(&:actual)
+
+    @total_estimate_other = @mainapplication.budgetitems.other_funder.sum(&:forecast)
+    @total_actual_other = @mainapplication.budgetitems.other_funder.sum(&:actual)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -78,6 +81,8 @@ class ProjectsController < ApplicationController
     @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
+
+    
   end
 
   # POST /projects
@@ -107,7 +112,7 @@ class ProjectsController < ApplicationController
         format.js  
 
       else
-        @project.division_id = 2
+       # @project.division_id = 2
        # @state_form_ts = Time.now.to_i
         #session[:last_created_at] = @state_form_ts
         #@client_name = Client.where(:id=>@client_id).first.name      
@@ -123,24 +128,30 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
+    
+
     @project = Project.find(params[:id])
     @project.updated_by = current_user.id
 
-    respond_to do |format|
-      if @project.update_attributes(params[:project])
+   
 
-        if params[:pras]
-         format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }
-        else
-         flash[:notice] = "Project was successfully updated."
-         format.html { redirect_to project_path(@project)}
+        respond_to do |format|
+          if @project.update_attributes(params[:project])
+
+            if params[:pras]
+             format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }        
+            else
+             flash[:notice] = "Project was successfully updated."
+             format.html { redirect_to project_path(@project)}
+            end
+            format.json { head :no_content }
+          else
+            format.html { render action: "edit" }
+            format.json { render json: @project.errors, status: :unprocessable_entity }
+          end
         end
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
+
+    
   end
 
   # DELETE /projects/1

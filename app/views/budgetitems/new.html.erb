@@ -1,2 +1,7 @@
-<%= render 'form' %>
+
+<% if params[:header] %>
+ <%= render 'form_header' %>
+<% else %>
+ <%= render 'form' %>
+<% end %>
 

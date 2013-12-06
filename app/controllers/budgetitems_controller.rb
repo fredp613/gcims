@@ -119,7 +119,7 @@ class BudgetitemsController < ApplicationController
     
 
     respond_to do |format|
-      if @budgetitem.balanced_budget(@fiscalyears.count, 'new') 
+      if (@budgetitem.funding_source != 'Justice Canada') ? @budgetitem.balanced_budget(@fiscalyears.count, 'new', 0, 0, true) : @budgetitem.balanced_budget(@fiscalyears.count, 'new') 
          if @fys 
           @fys.each do |fy|
               @budgetitem = Budgetitem.new(params[:budgetitem])
@@ -129,7 +129,7 @@ class BudgetitemsController < ApplicationController
         end  
             if @budgetitem.save
                 flash[:notice] = 'Expense item updated'
-                format.html { redirect_to project_path(@budgetitem.application.project), notice: 'Budgetitem was successfully created.' }
+                format.html { redirect_to project_path(@budgetitem.application.project) }
                 format.json { render json: @budgetitem, status: :created, location: @budgetitem }  
                 format.js              
             
@@ -188,7 +188,7 @@ class BudgetitemsController < ApplicationController
       @before_value = @budgetitem.forecast_was
       @after_value = @budgetitem.forecast
 
-      if @budgetitem.balanced_budget(0, 'edit', @before_value, @after_value) 
+      if (@budgetitem.funding_source != 'Justice Canada') ? @budgetitem.balanced_budget(0, 'edit', @before_value, @after_value, true) : @budgetitem.balanced_budget(0, 'edit', @before_value, @after_value) 
         if @budgetitem.update_attributes(params[:budgetitem]) 
           flash[:notice] = 'Expense item updated'
           format.html { redirect_to project_path(@budgetitem.application.project) }

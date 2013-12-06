@@ -1,0 +1,10 @@
+<br>
+<%= simple_form_for @budgetitem,:remote=>true do |f| %>
+
+<div id='balance'>
+<%= hidden_field_tag "remaining_balance", (params[:other_funder] ? @budgetitem.application.remaining_balance(true) : 
+          @budgetitem.application.remaining_balance ) %>
+<%= render 'remaining_balance' %>
+</div>
+
+<% end %>

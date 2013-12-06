@@ -3,35 +3,45 @@ var ready10
 ready10 = 
 function () {
 
-  //$(document).on('click', '.newProject', function(e){
-$('#financial').on('click', '.btnAddBudgetItem', function() { 
-      var link = $(this).attr('href') + '?layout="false"';
-      createModal(link, $(this).data('dialog-title'));
-      return false;
-}); 
- $('#financial').on('click','.btnEditBudgetItem', function() { 
-      var link = $(this).attr('href') + '?layout="false"';
-      createModal(link, $(this).data('dialog-title'));
-      return false;
-});
-$('#financial').on('click', '.btnAddBudgetItem_other', function() { 
-      var link = $(this).attr('href') + '&layout="false"';
-      createModal(link, $(this).data('dialog-title'));
-      return false;
-}); 
+    //$(document).on('click', '.newProject', function(e){
+  $('#financial').on('click', '.btnAddBudgetItem', showModal ); 
+   $('#financial').on('click','.btnEditBudgetItem', showModal );
+  $('#financial').on('click', '.btnAddBudgetItem_other', showModal ); 
 
-var createModal = function(link, title) {
-      $('.modal-title').html(title);
-      $('<div id="modalId" />').appendTo('.modal-body');
-      $('#modalId').load(link);
-      $("#myModal").modal();  
-      //psls = $('#project_applications_attributes_0_subserviceline').html();
-      //console.log(psls)
-  } 
+  function showModal() { 
+      var link = ''
+      var header_link = ''
+      var klass = $(this).attr('class')
 
-$('#myModal').on('hidden', function() {
-  $("#modalId").remove();
-});
+      if (klass == 'btnAddBudgetItem_other btn btn-info btn-small') {
+        link = $(this).attr('href') + '&layout="false"';
+        header_link = $(this).attr('href') + '&layout="false&header=true"';
+      } else {
+        link = $(this).attr('href') + '?layout="false"';
+        header_link = $(this).attr('href') + '?layout="false&header=true"';
+      }
+      
+      createModal(link, header_link, $(this).data('dialog-title'));
+      return false;
+  }
+
+  var createModal = function(link, header_link, title) {
+        $('.modal-title').html(title);
+        $('<div id="dynamic_header_content" />').appendTo('.modal-header');
+        $('<div id="modalId" />').appendTo('.modal-body');
+        $('#dynamic_header_content').load(header_link);
+        $('#modalId').load(link);
+        $("#myModal").modal();  
+        //psls = $('#project_applications_attributes_0_subserviceline').html();
+        //console.log(psls)
+    } 
+
+  $('#myModal').on('hidden', function() {
+    $("#modalId").remove();
+    $('#dynamic_header_content').remove();
+  });
+
+  
 
 
 }

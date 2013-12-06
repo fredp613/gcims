@@ -3,7 +3,9 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   attr_accessible :projectdesc, :projectname, :startdate, :enddate, :created_by, :updated_by, :applications_attributes, 
-  :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, :division_id
+  :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, :division_id, :other_funding
+
+  attr_accessor :other_funding
 
   has_many :projectcontacts, :dependent=>:destroy
   has_many :contacts, through: :projectcontacts
@@ -29,19 +31,20 @@ class Project < ActiveRecord::Base
   validates :projectname, presence: true
   validates :startdate, presence: true
   validates :enddate, presence: true
-  validates :division_id, presence: true,if: Proc.new { |p| p.client.clienttype_id == 3 }
+  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 }
   
   
   
   validate :validate_date_fields?
-
-
 
   pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate],
   using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
   associated_against: { applications: :corporate_file_number,
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   client: [:name, :name1], division: [:name, :name1, :name2] }
+
+  
+  
 
   def self.text_search(query)
     if query.present?

@@ -106,7 +106,8 @@ CREATE TABLE applications (
     created_by integer,
     updated_by integer,
     decision_by integer,
-    responsible_official integer
+    responsible_official integer,
+    requested_other integer
 );
 
 
@@ -822,6 +823,39 @@ ALTER SEQUENCE locations_id_seq OWNED BY locations.id;
 
 
 --
+-- Name: otherfunders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE otherfunders (
+    id integer NOT NULL,
+    name character varying(255),
+    requested integer,
+    application_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: otherfunders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE otherfunders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: otherfunders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE otherfunders_id_seq OWNED BY otherfunders.id;
+
+
+--
 -- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1360,6 +1394,13 @@ ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY otherfunders ALTER COLUMN id SET DEFAULT nextval('otherfunders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
 
 
@@ -1599,6 +1640,14 @@ ALTER TABLE ONLY fiscalyears
 
 ALTER TABLE ONLY locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: otherfunders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY otherfunders
+    ADD CONSTRAINT otherfunders_pkey PRIMARY KEY (id);
 
 
 --
@@ -1981,3 +2030,11 @@ INSERT INTO schema_migrations (version) VALUES ('20131114033903');
 INSERT INTO schema_migrations (version) VALUES ('20131115233929');
 
 INSERT INTO schema_migrations (version) VALUES ('20131118214242');
+
+INSERT INTO schema_migrations (version) VALUES ('20131204205446');
+
+INSERT INTO schema_migrations (version) VALUES ('20131204205843');
+
+INSERT INTO schema_migrations (version) VALUES ('20131204205926');
+
+INSERT INTO schema_migrations (version) VALUES ('20131204210956');

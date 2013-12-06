@@ -8,7 +8,11 @@
             <%= button_tag(:class=>'close', :type=>'button', 'data-dismiss'=>"modal", 'aria-hidden'=>"true") do %>
               &times;
             <% end  %>
-            <%= tag(:h4, :class=>'modal-title') %>
+            <%= tag(:h3, :class=>'modal-title') do %>
+              
+            <% end %>
+            
+                 
           <% end %>
 
           <%= content_tag(:div, :class=>'modal-body') do %>

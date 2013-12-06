@@ -1,1 +1,2 @@
 $(document).on('blur', '#project_applications_attributes_0_requested', {element: 'project_applications_attributes_0_requested'}, convertCurrency );
+$(document).on('blur', '#project_applications_attributes_0_requested_other', {element: 'project_applications_attributes_0_requested_other'}, convertCurrency );

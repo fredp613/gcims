@@ -1,0 +1,15 @@
+<%= simple_form_for(@application)  do |f| %>
+ 
+	
+	<div class="form-inputs">
+
+	<%= f.input :other_funding, :input_html=>{name: 'other_funding'} %>
+	<%= f.input :requested_other %>
+
+	<br>
+
+ <div class="submit">
+        <%= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
+ </div>
+</div>
+<% end %>

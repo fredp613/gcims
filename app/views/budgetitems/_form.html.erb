@@ -1,17 +1,8 @@
 <%= simple_form_for @budgetitem,:remote=>true, :html => { :id => "frmBudgetItem"} do |f| %>
   <%= f.error_notification %>
-<br>
+
   <div class="form-inputs">
-    <div id='balance'>
     
-   
-      <%= hidden_field_tag "remaining_balance", @budgetitem.application.remaining_balance %>
-    
-    
-    <%= render 'remaining_balance' %>
-
-
-    </div>
     <% if !@budgetitem.new_record? %>
       <h3 id='fy_indicator'><%= h @budgetitem.fiscalyear.fy %></h3>
       <%= hidden_field_tag "original_forecast", @budgetitem.forecast_was ? @budgetitem.forecast_was : @budgetitem.forecast %><br>
@@ -25,50 +16,19 @@
     <% end %><br>
     
     <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
+    
+    <%= render 'budgetitem_fiscalyears' %>
+
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
           <%= f.input_field :forecast, :style=>'width:92%', :value=> number_with_precision(f.object.forecast, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
+
     <%= f.input :actual, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
           <%= f.input_field :actual, :style=>'width:92%', :value=> number_with_precision(f.object.actual, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
 
-
-     
-    
-
-    <% if @budgetitem.new_record? %>
-      
-    <div class='control-group budgetitem_fiscalyear_id error'>
-    <span class="help-inline"><%= @budgetitem.errors[:fiscalyear_id].first %></span>
-    </div>
-
-      <% @budgetitem.fiscalyear_range.each do |fy| %>
-         <label class="checkbox">
-
-          <% if !@budgetitem.fiscalyears.blank? && @budgetitem.fiscalyears.include?(fy.id) %>            
-              <%= check_box_tag 'fiscalyear_ids[]', fy.id, value: 1 %>           
-          <% else %>           
-            <% if @budgetitem.fiscalyear_range.count == 1 %>
-              <%= check_box_tag 'fiscalyear_ids[]', fy.id, true %>
-            <% else %>
-              <%= check_box_tag 'fiscalyear_ids[]', fy.id %>
-            <% end %>
-           <% end %>
-          
-          <%= h fy.fy %>
-
-        </label>
-      <% end %> <br>
-
-    <% else %>
-    <div style='display:none;'>
-      <%= check_box_tag 'fiscalyear_id',  @budgetitem.fiscalyear_id, value: 1 %>  
-      <%= h @budgetitem.fiscalyear.fy %>         
-    </div>
-
-    <% end %>
 
     <%= hidden_field_tag :project, @budgetitem.project %>
 

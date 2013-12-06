@@ -3,34 +3,43 @@ class Application < ActiveRecord::Base
 
   attr_accessible :corporate_file_number, :budgetitems_attributes, 
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
-  :productserviceline, :requested, 
+  :productserviceline, :requested, :requested_other, :otherfunders_attributes,
   #user columns
-  :updated_by, :created_by, :decision_by, :responsible_official
+  :updated_by, :created_by, :decision_by, :responsible_official, :other_funding, :updating_unique_attribute
 
-  attr_accessor :summarycommitment, :subserviceline, :productserviceline 
+  attr_accessor :summarycommitment, :subserviceline, :productserviceline, :other_funding, :updating_unique_attribute
 
 
   has_many :budgetitems, :dependent => :destroy
+  has_many :otherfunders, :dependent => :destroy
   belongs_to :applicationtype
   belongs_to :project
   belongs_to :commitmentitem
 
   
   accepts_nested_attributes_for :budgetitems
+  accepts_nested_attributes_for :otherfunders
   #accepts_nested_attributes_for :applicationtype
   
 
-  validates :corporate_file_number, presence: :true
-  validates :commitmentitem_id, presence: true
-  validates :subserviceline, presence: true
-  validates :summarycommitment, presence: true
-  validates :productserviceline, presence: true
+  validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?
+  validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?
+  validates :subserviceline, presence: true, :if => :unique_attributes_update?
+  validates :summarycommitment, presence: true, :if => :unique_attributes_update?
+  validates :productserviceline, presence: true, :if => :unique_attributes_update?
 
-  validates :requested, presence: :true, numericality: {:greater_than=> 0}
+  validates :requested, presence: :true, numericality: {:greater_than=> 0}, :if => :unique_attributes_update?
   #:numericality => true#,
             #:format => { :with => /^(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?|\(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\))$/ }
             #:format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
 
+  scope :other_funding, lambda { 
+    where('applications.requested_other > ?', 0)
+  }
+
+  def unique_attributes_update?
+    !updating_unique_attribute
+  end
 
   def requested=(num)
     num.gsub!(',','') if num.is_a?(String)
@@ -41,9 +50,15 @@ class Application < ActiveRecord::Base
     where("responsible_official in (?)", user.id)
   end
 
-  def remaining_balance
-    @balance = self.requested - self.budgetitems.sum(:forecast)    
-    @balance
+  def remaining_balance(other_funder=false)
+    @other_funder = other_funder
+   
+    if @other_funder == true
+      @balance = self.requested_other - self.budgetitems.other_funder.sum(:forecast)    
+    else
+      @balance = self.requested - self.budgetitems.this_funder.sum(:forecast)    
+    end
+    @balance.to_i
   end
 
   def official_email(user)

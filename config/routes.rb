@@ -3,6 +3,9 @@ GCIMS::Application.routes.draw do
 
  
 
+  resources :otherfunders
+
+
   resources :applicationtypes
 
 

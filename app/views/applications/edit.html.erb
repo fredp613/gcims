@@ -1,4 +1,8 @@
 <h1>Editing application</h1> <br>
 
-<%= render 'form' %>
+<% if params[:other_funding] || @application.other_funding.present?  %>
+ <%= render 'formOtherFunding' %>
+<% else %>
+ <%= render 'form' %>
+<% end %>
 

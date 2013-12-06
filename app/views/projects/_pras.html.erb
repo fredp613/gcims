@@ -7,10 +7,14 @@
 		<%= application.input :corporate_file_number %>
 		<%= application.input :applicationtype_id, as: :hidden, :input_html=>{value: 1} %>
 		<%= application.input :requested, :wrapper => :prepend do %>
-	    <%= content_tag :span, "$", :class => "add-on" %>
-	    <%= application.input_field :requested, :style=>'width:180px;' %>
-	    <%= application.input :responsible_official, as: :hidden, :input_html=>{value: current_user.id } %>
-	 <% end %>
+	      <%= content_tag :span, "$", :class => "add-on" %>
+	      <%= application.input_field :requested, :style=>'width:180px;' %>	    
+	 	<% end %>
+	 	<%= application.input :requested_other, :wrapper => :prepend do %>
+	      <%= content_tag :span, "$", :class => "add-on" %>
+	      <%= application.input_field :requested_other, :style=>'width:180px;' %>	    
+	 	<% end %>
+	 <%= application.input :responsible_official, as: :hidden, :input_html=>{value: current_user.id } %>
 
 </fieldset>
 

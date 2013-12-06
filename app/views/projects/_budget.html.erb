@@ -1,72 +1,14 @@
- <h3>Justice Canada Budget</h3>
+<%= render 'projects/this_funding' %>
 
-<div id='tblBudgetItems'>
- <% if !@project.budgetitems.blank? %>
-     <table class='table table-bordered table-striped table-hover'>
-     	<thead>
-     		<tr>
-     			<th>Funder</th>
-     			<th>Expense Category</th>
-     			<th>Expense Description</th>
-     			<th>Fiscal Year</th>
-     			<th>Estimated Amount</th> 
-              <th>Actual Amount</th> <!-- check for status after approval before showing this -->  		
-              <th>Application</th>
-              <th>Edit</th>
-              <th>Delete</th>
-     		</tr>
-     	</thead>
-     	<tfoot>
-  	 <tr>
-  	 	<th>Total</th>
-  	 	<th></td>
-  	 	<th></td>
-  	 	<th></td>
-  	 	<th><%= number_to_currency(@total_estimate) %></th>
-        <th><%= number_to_currency(@total_actual) %></th>
-        <th></td>
-        <th></td>
-  	 </tr>
-  	</tfoot>
-     	<tbody>
-        <% @project.applications.each do |app| %>
-           <% app.budgetitems.each do |budget| %>
+<% if @project.applications.other_funding.present? %>
 
-             		<tr>
-             			<td>Justice Canada</td>
-             			<td><%= budget.budgetcategory.name %></td>
-             			<td><%= budget.desc %></td>
-             			<td><%= budget.fiscalyear.fy %></td>
-             			<td><%= number_to_currency(budget.forecast.to_s.to_d) %></td>
-                      <td><%= number_to_currency(budget.actual.to_s.to_d) %></td> <!-- check for status after approval before showing this -->              
-                    <td><%= app.applicationtype.name %></td>
-                    <td><%= link_to '', edit_budgetitem_path(budget), :remote=>true, :class=>'btnEditBudgetItem icon-pencil', 
-                    'data-dialog-title'=>'Edit Budget Item' %></td>
-                    <td>
-                      <%= link_to '', budget, :remote=>true, method: :delete, data: { confirm: 'Are you sure?' }, 
-                      :class=>'btnDelBudgetItem icon-minus-sign red'  %>
-                   </td>
-                </tr>
-           <% end %>
-           <p>
-         
-         <% if !(@project.budgetitems.sum(:forecast) == @project.applications.sum(:requested)) %>
-          <%= link_to "Add Expense", new_application_budgetitem_path(app), :remote=>true, 
-          :class=>'btnAddBudgetItem btn btn-primary bth-small','data-dialog-title'=>'Add Budget Item' %> 
-         <% else %>
-          <h3 class='balance alert alert-success'>Budget balanced <i class="icon-ok"></i>
-          </h3>       
-         <% end %>
-
-         <%= link_to "Add Expense from Other Funding Source", new_application_budgetitem_path(app, :other_funder=>true), :class=>'btnAddBudgetItem_other btn btn-info bth-small', 'data-dialog-title'=>'Add budget item from other funder' %>        
-        </p>      
-        <% end  %>
-     	</tbody>
-     </table>
+	<%= render 'projects/other_funding' %>
 
 <% else %>
-    <%= link_to "Add Expense", new_project_budgetitem_path(@project), :class=>'btnAddBudgetItem btn btn-primary bth-small' %>        
-         <%= link_to "Add Expense from Other Funding Source", new_project_budgetitem_path(@project, :other_funder=>true), :class=>'btnAddBudgetItem_other btn btn-info bth-small', 'data-dialog-title'=>'Add budget item from other funder' %>  
+
+	<% @project.applications.each do |app| %>
+		<%= link_to 'Click here if this client is receiving funding from another source for the xx application',
+		edit_application_path(app.id, :other_funding=>true) %>
+	<% end %>
 
 <% end %>
-</div>

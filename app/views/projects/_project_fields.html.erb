@@ -2,12 +2,21 @@
 
   <%= f.simple_fields_for :applications do |app| %>  	 
   	 <%= app.input :corporate_file_number %>
-  	 <%= app.input :requested, :wrapper => :prepend do %>
+  	 
+     <%= app.input :requested, :wrapper => :prepend do %>
        <%= content_tag :span, "$", :class => "add-on" %>
-        <%= app.text_field :requested, 
+        <%= app.text_field :requested, label: 'Requested (Justice Canada)', 
         :value=> number_with_precision(app.object.requested, 
         :precision => 2, separator: '.', delimiter: ',') || '0.00' %>            
      <% end %>
+
+     <%= app.input :requested_other, :wrapper => :prepend do %>
+       <%= content_tag :span, "$", :class => "add-on" %>
+        <%= app.text_field :requested_other, label: 'Requested (other funders)',
+        :value=> number_with_precision(app.object.requested_other, 
+        :precision => 2, separator: '.', delimiter: ',') || '0.00' %>            
+     <% end %>
+
 	  <%= app.input :applicationtype_id, as: :hidden,  :input_html=>{value: 1} %>
   	<%= app.input :productserviceline, as: :hidden, :input_html=> {value: "1"} %>
   	<%= app.input :subserviceline, as: :hidden, :input_html=> {value: "1"} %>
@@ -16,7 +25,8 @@
 <% end  %>
 
 <% if @project.client.clienttype_id == 3 %>
-  <%= f.input :division_id, as: :hidden %>
+  <%= f.input :division_id, collection:  Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, 
+  label:'Division / Branch' %>
 <% end %>
 
 <% end %>

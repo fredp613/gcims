@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @otherfunder.name %>
+</p>
+
+<p>
+  <b>Requested:</b>
+  <%= @otherfunder.requested %>
+</p>
+
+<p>
+  <b>Application:</b>
+  <%= @otherfunder.application_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_otherfunder_path(@otherfunder) %> |
+<%= link_to 'Back', otherfunders_path %>

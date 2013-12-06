@@ -15,7 +15,13 @@
         $(submitButtonName).hide();
        
         // 2 
-        $(element).before("<ul id='steps' class='nav nav-pills'></ul>");
+        if ($('.modal-header').length != 0) {
+          $stepsHtml = $("<br><ul id='steps' class='nav nav-pills' style='margin-bottom:-10px;'></ul>")
+          $('#paging').empty();
+          $('#paging').append($stepsHtml);
+        } else {
+          $(element).before("<ul id='steps' class='nav nav-pills'></ul>");
+        }
 
         steps.each(function(i) {
             $(this).wrap("<div id='step" + i + "' class='tab-pane step'></div>");
@@ -55,8 +61,11 @@
             }**/
         });
 
+      
+
+
         var errors = $(element).find(".help-inline").first();                    
-            if (errors.size() >= 1) { 
+            if (errors.length > 0) { 
              selectErrorStep();
         }
 
@@ -137,10 +146,9 @@
         }
 
         function selectErrorStep() {
-            
+                      
             var errors = $(element).find(".help-inline").first(); 
-                                                       
-            var parent = errors.closest('div .step').attr("id").substring(5,4)
+            var parent = errors.closest('div .step').attr("id").substring(5,4)            
             //var test = errors.closest('div .step').attr("id")
             //alert(test);
             $("#steps li").removeClass("active"); 

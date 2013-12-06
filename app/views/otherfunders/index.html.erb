@@ -1,0 +1,27 @@
+<h1>Listing otherfunders</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Requested</th>
+    <th>Application</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @otherfunders.each do |otherfunder| %>
+  <tr>
+    <td><%= otherfunder.name %></td>
+    <td><%= otherfunder.requested %></td>
+    <td><%= otherfunder.application_id %></td>
+    <td><%= link_to 'Show', otherfunder %></td>
+    <td><%= link_to 'Edit', edit_otherfunder_path(otherfunder) %></td>
+    <td><%= link_to 'Destroy', otherfunder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Otherfunder', new_otherfunder_path %>
