@@ -68,6 +68,13 @@
 
           <% end %>
         <% end %>
+
+
+        <% if params[:project_id] %>
+        <label class'checkbox'>
+          <%= check_box_tag "project_signing_autority"%> Project signing authority?
+        </label>
+        <% end %>
            
   </div>
   

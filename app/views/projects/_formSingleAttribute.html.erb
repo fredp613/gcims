@@ -1,0 +1,24 @@
+<%= simple_form_for(@project)  do |f| %>
+ 
+	
+	<div class="form-inputs">
+
+	<%= f.input :updating_unique_attribute, as: :hidden %>
+	
+	<% if @project.updating_unique_attribute == "projectname" %>
+		<%= f.input :projectname %> 
+	<% elsif @project.updating_unique_attribute == "projectdesc"  %>
+		<%= f.input :projectdesc %>
+	<% elsif @project.updating_unique_attribute == "startdate"  %>
+		<%= f.input :startdate %>
+	<% else%>
+		<%= f.input :enddate %>
+	<% end %>
+
+	<br>
+
+ <div class="submit">
+        <%= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
+ </div>
+</div>
+<% end %>

@@ -12,4 +12,9 @@ class Division < ActiveRecord::Base
   accepts_nested_attributes_for :projects
 
 
+  def full_name
+  	"#{name} #{name1} #{name2}"
+  end
+
+
 end

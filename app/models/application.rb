@@ -5,9 +5,9 @@ class Application < ActiveRecord::Base
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
   :productserviceline, :requested, :requested_other, :otherfunders_attributes,
   #user columns
-  :updated_by, :created_by, :decision_by, :responsible_official, :other_funding, :updating_unique_attribute
+  :updated_by, :created_by, :decision_by, :responsible_official, :updating_unique_attribute
 
-  attr_accessor :summarycommitment, :subserviceline, :productserviceline, :other_funding, :updating_unique_attribute
+  attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
 
 
   has_many :budgetitems, :dependent => :destroy
@@ -44,6 +44,11 @@ class Application < ActiveRecord::Base
   def requested=(num)
     num.gsub!(',','') if num.is_a?(String)
     self[:requested] = num.to_d
+  end
+
+  def requested_other=(num)
+    num.gsub!(',','') if num.is_a?(String)
+    self[:requested_other] = num.to_d
   end
 
   def self.by_official(user)

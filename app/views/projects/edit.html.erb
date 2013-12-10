@@ -2,9 +2,13 @@
 
 <% if params[:contacts] %>
  <%= render 'formContacts' %>
+<% elsif params[:updating_unique_attribute] %>
+ <%= render 'formSingleAttribute' %>
 <% else %>
  <%= render 'formEdit' %>
 <% end  %>
+
+
 
 <%= link_to 'Show', @project %> |
 <%= link_to 'Back', projects_path %>

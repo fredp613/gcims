@@ -1,8 +1,6 @@
 GCIMS::Application.routes.draw do
   
 
- 
-
   resources :otherfunders
 
 
@@ -117,6 +115,7 @@ GCIMS::Application.routes.draw do
 
   resources :fiscalyears
   devise_for :users
+
   resources :commitmentitems
   resources :summarycommitments 
   resources :subservicelines  
@@ -126,6 +125,7 @@ GCIMS::Application.routes.draw do
  
   resources :fincodes
 
+  
 
    as :user do
     get '/register', to: 'devise/registrations#new', as: :register

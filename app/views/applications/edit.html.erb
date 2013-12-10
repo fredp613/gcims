@@ -1,7 +1,7 @@
 <h1>Editing application</h1> <br>
 
-<% if params[:other_funding] || @application.other_funding.present?  %>
- <%= render 'formOtherFunding' %>
+<% if params[:updating_unique_attribute]   %>
+ <%= render 'formSingleAttribute' %>
 <% else %>
  <%= render 'form' %>
 <% end %>

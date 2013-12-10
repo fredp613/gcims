@@ -5,4 +5,6 @@ class Projectcontact < ActiveRecord::Base
  belongs_to :project
  belongs_to :contact
  belongs_to :contacttype
+
+ accepts_nested_attributes_for :contact
 end

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
+  skip_before_filter :authorize
   prepend_before_filter :current_user, :only => :exhibit
+
   before_filter :authenticate_user!, :except => [:accept, :exhibit]
+  
+  
   respond_to :html, :xml
 
   def index

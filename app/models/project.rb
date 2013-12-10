@@ -3,9 +3,10 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   attr_accessible :projectdesc, :projectname, :startdate, :enddate, :created_by, :updated_by, :applications_attributes, 
-  :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, :division_id, :other_funding
+  :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, 
+  :division_id, :other_funding, :updating_unique_attribute
 
-  attr_accessor :other_funding
+  attr_accessor :other_funding, :updating_unique_attribute
 
   has_many :projectcontacts, :dependent=>:destroy
   has_many :contacts, through: :projectcontacts
@@ -28,10 +29,11 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :division
   
 
-  validates :projectname, presence: true
-  validates :startdate, presence: true
-  validates :enddate, presence: true
-  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 }
+  validates :projectname, presence: :true, :if => :unique_attributes_update?
+  validates :startdate, presence: :true, :if => :unique_attributes_update?
+  validates :enddate, presence: :true, :if => :unique_attributes_update?
+  # need to fix this validation for the unique attribute
+  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :unique_attributes_update?
   
   
   
@@ -43,7 +45,9 @@ class Project < ActiveRecord::Base
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   client: [:name, :name1], division: [:name, :name1, :name2] }
 
-  
+  def unique_attributes_update?
+    !updating_unique_attribute
+  end
   
 
   def self.text_search(query)

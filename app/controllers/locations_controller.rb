@@ -148,6 +148,11 @@ class LocationsController < ApplicationController
             if @client && !@project
             format.html { redirect_to edit_client_contact_path(@client, @contact) , notice: 'Location was successfully created.' }             
             elsif @project && @client
+              if params[:project_signing_authority] == 1
+              Projectcontact.create!(:project_id=>@project, :contact_id=>@contact ) 
+              else
+              Projectcontact.create!(:project_id=>@project, :contact_id=>@contact, :authority=>true) 
+              end
             format.html { redirect_to project_path(@project) , notice: 'Location was successfully created.' } 
             else
             format.html { redirect_to edit_contact_path(@contact) , notice: 'Location was successfully created.' }   

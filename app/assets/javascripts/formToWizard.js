@@ -16,7 +16,7 @@
        
         // 2 
         if ($('.modal-header').length != 0) {
-          $stepsHtml = $("<br><ul id='steps' class='nav nav-pills' style='margin-bottom:-10px;'></ul>")
+          $stepsHtml = $("<br><ul id='steps' class='nav nav-pills' style='margin-bottom: -3px;'></ul>")
           $('#paging').empty();
           $('#paging').append($stepsHtml);
         } else {

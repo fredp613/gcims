@@ -5,7 +5,7 @@
  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
   <%= f.input :token, as: :hidden, :name=>'token', :input_html=>{value: @token} %>
   
-  <p><h4><%= @client_name %></h4></p>
+  <p style='margin-bottom:-5px;'><h4><%= @client_name %></h4></p>
 
     <%= f.input :client_id, as: :hidden, :input_html=> {name: 'client_id'}  %><br>
   <div class="form-inputs">

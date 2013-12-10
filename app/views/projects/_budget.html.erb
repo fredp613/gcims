@@ -4,11 +4,4 @@
 
 	<%= render 'projects/other_funding' %>
 
-<% else %>
-
-	<% @project.applications.each do |app| %>
-		<%= link_to 'Click here if this client is receiving funding from another source for the xx application',
-		edit_application_path(app.id, :other_funding=>true) %>
-	<% end %>
-
 <% end %>

@@ -72,7 +72,7 @@ class ContactlocationsController < ApplicationController
         
         if params[:project_id]
           @project = params[:project_id]
-          #Projectcontact.create!(:project_id=>@project, :contact_id=>@contact)
+          Projectcontact.create!(:project_id=>@project, :contact_id=>@contact)
           format.html { redirect_to project_path(@project), notice: 'contacts location was successfully created.' }
         elsif params[:client_id]
           @client = params[:client_id]

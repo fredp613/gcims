@@ -12,8 +12,11 @@
                 <% end %>
               </div>
                 <%= link_to "", edit_client_path(@client, :step=>'corporation'), :class=>'icon-large icon-pencil black btnEditCorp', :remote=>true %>
-                <b><%= link_to "", @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' }, :class=>'icon-large icon-remove-sign red btnDelCorp',
-                :remote=>true%></b>
+
+                <% if allow? :corporations, :destroy  %>
+                  <b><%= link_to "", @client.corporation, method: :delete, data: { confirm: 'Are you sure you want to delete  all corporation information?' }, :class=>'icon-large icon-remove-sign red btnDelCorp',
+                  :remote=>true%></b>
+                <% end %>
                
             <% else  %>
               

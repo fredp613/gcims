@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_instance_variables, only: [:new, :create]
+  
 
   def index
     @projects = Project.all
@@ -82,6 +83,9 @@ class ProjectsController < ApplicationController
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
 
+    if params[:updating_unique_attribute]      
+      @project.updating_unique_attribute = params[:updating_unique_attribute]
+    end
     
   end
 
@@ -169,6 +173,9 @@ class ProjectsController < ApplicationController
   #custom actions
 
 
+  def current_resource
+    @current_resource ||= Project.find(params[:id]) if params[:id]
+  end
 
   private
 
@@ -180,6 +187,10 @@ class ProjectsController < ApplicationController
     @client_name = Client.where(:id=>params[:client_id]).first.name      
     @province = Client.where(:id=>params[:client_id]).first.clienttype_id
   end
+
+
+
+
 
 
 

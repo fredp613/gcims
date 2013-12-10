@@ -40,8 +40,8 @@ class ApplicationsController < ApplicationController
       session[:pras] = true
     end
 
-    if params[:other_funding]      
-      @application.other_funding = true
+    if params[:updating_unique_attribute]      
+      @application.updating_unique_attribute = params[:updating_unique_attribute]
     end
   end
 
@@ -71,15 +71,14 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @application.updated_by = current_user.id
     
-    if params[:other_funding]
-      @application.other_funding = params[:other_funding]
-      @application.updating_unique_attribute = true
+    if params[:updating_unique_attribute]      
+      @application.updating_unique_attribute = self
     end
     
 
     respond_to do |format|
       if @application.update_attributes(params[:application])
-        if session[:pras] || @application.other_funding.present?
+        if session[:pras] || @application.updating_unique_attribute.present?
           format.html { redirect_to project_path(@application.project), notice: 'Application was successfully updated.' }
         else
           format.html { redirect_to @application, notice: 'Application was successfully updated.' }
@@ -105,4 +104,11 @@ class ApplicationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def current_resource
+    @current_resource ||= Application.find(params[:id]) if params[:id]
+  end
+
+
 end

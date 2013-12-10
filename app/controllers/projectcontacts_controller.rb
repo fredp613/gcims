@@ -1,8 +1,8 @@
 class ProjectcontactsController < ApplicationController
   # GET /projectcontacts
   # GET /projectcontacts.json
-
-  before_filter :set_form_variables, :only => :show
+  
+  before_filter :set_form_variables, :only => [:show, :new, :edit]
 
   def index
     @projectcontacts = Projectcontact.all
@@ -28,8 +28,7 @@ class ProjectcontactsController < ApplicationController
   # GET /projectcontacts/new.json
   def new
     @projectcontact = Projectcontact.new
-    
-    @project = params[:project_id]
+        
     
     respond_to do |format|
       format.html # new.html.erb
@@ -75,7 +74,7 @@ class ProjectcontactsController < ApplicationController
 
     respond_to do |format|
       if @projectcontact.update_attributes(params[:projectcontact])
-        format.html { redirect_to @projectcontact, notice: 'Projectcontact was successfully updated.' }
+        format.html { redirect_to project_path(@projectcontact.project), notice: 'Projectcontact was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -99,7 +98,10 @@ class ProjectcontactsController < ApplicationController
     end
   end
 
+  
+
   def set_form_variables
+    @project = params[:project_id]
     @client = Project.where(:id=>@project).select(:client_id)
     @contacts = Contact.where(:client_id=>@client)
     @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
