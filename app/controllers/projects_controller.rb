@@ -86,6 +86,17 @@ class ProjectsController < ApplicationController
     if params[:updating_unique_attribute]      
       @project.updating_unique_attribute = params[:updating_unique_attribute]
     end
+
+     respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @project}
+        format.js
+        
+    end
     
   end
 
@@ -143,15 +154,17 @@ class ProjectsController < ApplicationController
           if @project.update_attributes(params[:project])
 
             if params[:pras]
-             format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }        
+             format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }                
             else
              flash[:notice] = "Project was successfully updated."
-             format.html { redirect_to project_path(@project)}
+             format.html { redirect_to project_path(@project)}             
             end
             format.json { head :no_content }
+            format.js
           else
             format.html { render action: "edit" }
             format.json { render json: @project.errors, status: :unprocessable_entity }
+            format.js
           end
         end
 

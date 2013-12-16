@@ -1,4 +1,7 @@
-<h1>Editing project</h1>
+
+<% if !params[:layout] %>
+	<h1>Editing project</h1>
+<% end %>
 
 <% if params[:contacts] %>
  <%= render 'formContacts' %>
@@ -9,6 +12,7 @@
 <% end  %>
 
 
-
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<% if !params[:layout] %>
+	<%= link_to 'Show', @project %> |
+	<%= link_to 'Back', projects_path %>
+<% end %>

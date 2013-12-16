@@ -2,52 +2,49 @@
 
     <b>Type</b>
     <%= @client.clienttype.name %><br>
-    <p class='contact_info'>
-    <b>Email(s) <%= link_to "add new", new_client_email_path(@client) %></b><br>
+<p class='contact_info'>
+  <b>Email(s) <%= link_to "", new_client_email_path(@client), :class=>'icon icon-plus-sign black' %></b><br>
     
-       
-      <% @client.emails.each do |email| %>
-        <%= email.email %>
-        <%= email.type %>
-        <%= link_to "edit", edit_client_email_path(@client, email) %>
-        <%= link_to 'delete', email, method: :delete, data: { confirm: 'Are you sure?' }%><br>
-      <% end %>
-  
-
+    <% @client.emails.each do |email| %>
+      <%= email.email %>
+      <%= email.type %>
+      <%= link_to '', edit_client_email_path(@client, email), :class=>'icon icon-pencil black' %>
+      <%= link_to '', email, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon icon-remove-sign red'%><br>
+    <% end %>
   </p>
   
     <p class='contact_info'>    
-    <b>Website(s) <%= link_to "add new", new_client_website_path(@client) %></b><br>    
+    <b>Website(s) <%= link_to '', new_client_website_path(@client), :class=>'icon icon-plus-sign black' %></b><br>    
     <% @client.websites.each do |website| %>
       <%= website.website %>
-       <%= link_to "edit", edit_client_website_path(@client, website) %>
-       <%= link_to 'delete', website, method: :delete, data: { confirm: 'Are you sure?' }%><br>
+       <%= link_to '', edit_client_website_path(@client, website), :class=>'icon icon-pencil black' %>
+       <%= link_to '', website, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon icon-remove-sign red'%><br>
     <% end %>  
     </p>
   
 
   <p class='contact_info'>
-  <b>Phone Number(s) <%= link_to "add new", new_client_phone_path(@client) %></b><br>
+  <b>Phone Number(s) <%= link_to '', new_client_phone_path(@client), :class=>'icon icon-plus-sign black' %></b><br>
   <% @client.phones.each do |phone| %>
     <%= phone.phone %>
     <%= phone.type %>
-      <%= link_to "edit", edit_client_phone_path(@client, phone) %>
-    <%= link_to 'delete', phone, method: :delete, data: { confirm: 'Are you sure?' }%><br>
+      <%= link_to '', edit_client_phone_path(@client, phone), :class=>'icon icon-pencil black' %>
+    <%= link_to '', phone, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon icon-remove-sign red'%><br>
   <% end  %>
   </p>
 
 
 
-<div id='address-fields'>
+
 
    <fieldset>
     <legend>Address information   
     <%= link_to "Add address", new_client_location_path(@client), :class=> "btn btn-primary btn-small"%>
       </legend>
 
-    <div>
-    <% @client.clientlocations.each do |cl| %>
-      <div class='span3 section'>
+   
+    <% @client.clientlocations.order_by_addresstype.each do |cl| %>
+      <div class='well span3' >
     	 <% if cl.addresstype %>
         <h4><%= cl.addresstype.name %></h4>
        <% end  %>
@@ -85,6 +82,6 @@
     	</div>
     <% end %> 
 
-    </div>
+    
     </fieldset>         
-  </div>
+  

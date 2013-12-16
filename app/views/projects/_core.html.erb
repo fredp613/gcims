@@ -1,43 +1,75 @@
 <div class='span6'>
 
 <h4>Title 
-
 	<% if allow? :projects, :edit  %> 
-	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectname'), :class=>'editProjectSingleField icon-pencil' %></h4>
+	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectname'), :class=>'editProjectSingleField icon-pencil', 
+		:title=>'Edit Project Title', 
+		'data-placement'=>'right',
+		'data-placeholder' => 'Required', 		
+		:rel=>'popover',
+		:id=>'projectName',				
+		:remote=>true %></h4>
 	<% end %>
-	<h4 style='color:#797979;'><%= @project.projectname %>
-	
-</h4>
+	<h5 style='color:#797979;'><%= @project.projectname %>
+	<div id='popover_container'></div>
+</h5>
+	<%#= link_to "popover test", '#', :class=>'btn btn-large btn-danger', :rel=>'popover', :title=>'this is a test', 
+	'data-content'=> "<input type='text id='test' />", 'data-placement' => 'right', 'data-html' => true,
+	'data-placeholder' => 'Required' %>
+
 	<div style='width:90%;word-wrap: break-word;'>
 		 <h4>Description 
  		<%# if allow_param? :projects, :projectdesc %>
  		<% if allow? :projects, :edit  %> 
-		 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil' %>
-		 <% end %>
+		 	
+ 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil', 
+		:title=>'Edit Project Description', 
+		'data-placement'=>'right',
+		'data-placeholder' => 'Required', 		
+		:rel=>'popover',
+		:id=>'projectDesc',				
+		:remote=>true %>
+		<% end %>
 		 </h4>
-		 <h4 style='color:#797979;'><%= @project.projectdesc %>
+		 <h5 style='color:#797979;'><%= @project.projectdesc %>
 		 
-		</h4>
+		</h5>
 	</div>
 
  <h4>Start date 
  	<% if allow? :projects, :edit  %> 
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil' %>
+ 	
+ 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil', 
+		:title=>'Edit Start Date', 
+		'data-placement'=>'right',
+		'data-placeholder' => 'Required', 		
+		:rel=>'popover',
+		:id=>'projectStart',				
+		:remote=>true %>
+
  	<% end %>
  </h4>
 
- <h4 style='color:#797979;'><%= @project.startdate.to_date %>
+ <h5 style='color:#797979;'><%= @project.startdate.to_date %>
  
-</h4>
+</h5>
  <h4>End date 
  <% if allow? :projects, :edit  %> 
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil' %>
+ 	
+ 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil', 
+		:title=>'Edit End Date', 
+		'data-placement'=>'right',
+		'data-placeholder' => 'Required', 		
+		:rel=>'popover',
+		:id=>'projectEnd',				
+		:remote=>true %>
+
  <% end %>
  </h4>
  
- <h4 style='color:#797979;'><%= @project.enddate.to_date %>
+ <h5 style='color:#797979;'><%= @project.enddate.to_date %>
  
-</h4>
+</h5>
 
  <% @project.applications.each do |app| %>
  	<h4>Corporate file number	
@@ -46,26 +78,37 @@
  		<% end %>
  	</h4>
  
- 	<h4 style='color:#797979;'><%= app.corporate_file_number %>
+ 	<h5 style='color:#797979;'><%= app.corporate_file_number %>
  	 
- </h4>
+ </h5>
  	<h4>Requested amount 
  		<% if allow? :projects, :edit  %> 
  		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested'), :class=>'editAppSingleField icon-pencil' %>
  		<% end %>
  	</h4>
 
- 	<h4 style='color:#797979;'>$<%= number_with_precision(app.requested, 
+ 	<h5 style='color:#797979;'>$<%= number_with_precision(app.requested, 
         :precision => 2, separator: '.', delimiter: ',') || 0.00 %>        
-    </h4>
+    </h5>
  	<h4>Requested amount from other source(s) 
  		<% if allow? :projects, :edit  %> 
  		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested_other'), :class=>'editAppSingleField icon-pencil' %></h4>
  		<% end %>
  	
- 	<h4 style='color:#797979;'>$<%= number_with_precision(app.requested_other, 
+ 	<h5 style='color:#797979;'>$<%= number_with_precision(app.requested_other, 
         :precision => 2, separator: '.', delimiter: ',') || 0.00 %>
            
-    </h4>			 			 	
+    </h5>			 			 	
  <% end %>
 </div>
+
+
+<script type="text/javascript">
+$(document).on('click', '.editProjectSingleField', function() {
+	//$(this).popover('show');
+	//return false;
+	var link = this.href + '&layout="false"'
+	$('.popover-content').load(link);
+	//this.popover('show');
+})
+</script>

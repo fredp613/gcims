@@ -15,54 +15,23 @@
 
 	<% end %>
 
- </fieldset><br>
+</fieldset>
+<br>
 
  <% if !@project.projectcontacts.blank?  %>
- <fieldset>
- 	<legend>Project contact and signing authority</legend>	 	
-	 	 <table class='table table-hover'>
-	 	 	<thead>
-	 	 	 <tr>
-	 	 		<th>Contact Name</th>
-	 	 		<th>Authority?</th>
-	 	 		<% if allow? :projects, :edit  %> 
-		 	 		<th>Edit</th>
-		 	 		<th>Remove</th>
-	 	 		<% end %>
-	 	 	 </tr>
-	 	 	</thead>
-	 	 	<tbody>
-	 	 	 <% @project.projectcontacts.each do |pc| %>
-	 	 	 <tr>
-	 	 		<td><%= pc.contact.fullname %></td>
-	 	 		<td>
-	 	 			<% if pc.authority == true %>
-	 	 				<span class='icon-ok'></span>
-	 	 			<% end %>
-	 	 		</td>
-	 	 		<% if allow? :projects, :edit  %> 
-		 	 		<td><%= link_to '', edit_project_projectcontact_path(@project,pc), :class=>'icon-pencil' %></td>
-		 	 		<td><%= link_to '', pc, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> </td>
-	 	 		<% end %>
-	 	 	</tr>
-	 	 	 <% end  %>
-	 	 	</tbody>
-	 	 </table>
- 	<br>
+ 
 
- <% if allow? :projects, :edit  %> 	
-	<% if !@ddl.blank?  %>
-		 	<%= link_to "Click here to add additional project contact(s)", new_project_projectcontact_path(@project), :class=>'btn btn-info btn-small' %>
-		 	<% else %>
-		 	<%= link_to "Click here to add new contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
-		 	<% end  %>
-	 <% else  %>
-	 	<% if @contacts.blank? %>
-	 		<%= link_to "Click here to add new client/project contact", new_project_contact_path(@project, :client_id=>@project.client_id), :class=>'btn btn-info btn-small' %>
-	 	<% else %>
-	 	<%= link_to "Click here to add project contact", new_project_projectcontact_path(:project_id=>@project), :class=>'btn btn-info btn-small' %>
-	 	<% end %>
-	 <% end  %>
+	 <fieldset>
+
+	 	<legend>Project contact and signing authority</legend>	 	
+		 	 <%= render 'project_contact_table' %>	  
+	 </fieldset>	 	
+
+<% else %>	
+
+	<fieldset>
+		 	<%= render 'add_projectcontact_fields' %>		 
+	</fieldset>  
 <% end %>
 
- </fieldset>
+ 

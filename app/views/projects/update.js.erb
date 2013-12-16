@@ -1,0 +1,21 @@
+<% if @project.errors.any? %>
+ 
+	 console.log('Error');
+	 $('.popover-content').remove();
+	 $('.popover').html('<div class="popover-content"></div>')
+	 $('.popover-content').append('<%= j render ('formSingleAttribute') %>')
+
+<% else %>
+	
+  console.log('Updated');
+  //$('#projectName').popover('destroy');
+  $('#core').html('<%= j render ("projects/core") %>')
+  
+  $('#projectName').popover();
+  $('#projectDesc').popover();
+  $('#projectStart').popover();
+  $('#projectEnd').popover();
+
+	
+
+<% end  %>

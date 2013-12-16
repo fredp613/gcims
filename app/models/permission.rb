@@ -1,13 +1,13 @@
 class Permission 
 
  def initialize(user)
- 	allow :users, [:new, :create]
- 	allow :sessions, [:new, :create, :destroy]
+ 	allow :users, [:edit, :update, :new, :create]
+ 	allow :sessions, [:new, :create, :destroy, :edit, :update]
  	allow :home, [:index]
 
  	if user 
  		allow :users, [:edit, :update, :new, :create]
- 		allow :sessions, [:new, :create, :destroy]
+ 		allow :sessions, [:new, :create, :destroy, :edit, :update]
  		allow :productservicelines, [:index, :show, :new, :edit]
  		allow :subservicelines, [:index, :show, :new, :edit]
  		allow :summarycommitments, [:index, :show, :new, :edit]

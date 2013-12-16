@@ -42,9 +42,13 @@
 
 		 <div class="tab-pane active" id="tombstone"> 	  
 			 <%#= render 'form_show_core' %>
-			 <%= render 'core' %>
+			 <div id='core'>
+			 	<%= render 'core' %>
+			 </div>
 
-			 <%= render 'pre-assessment'  %>
+			 <div id='pre-assessment'>
+			 	<%= render 'pre-assessment'  %>
+			 </div>
 		</div>
 		<div class="tab-pane" id="program">
 		  	 program specific (i.e. objectives etc. - specific fields)
