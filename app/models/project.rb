@@ -29,9 +29,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :division
   
 
-  validates :projectname, presence: :true, :if => :unique_attributes_update?
-  validates :startdate, presence: :true, :if => :unique_attributes_update?
-  validates :enddate, presence: :true, :if => :unique_attributes_update?
+  validates :projectname, presence: :true, :if => :not_unique_attributes_update?
+  validates :startdate, presence: :true, :if => :not_unique_attributes_update?
+  validates :enddate, presence: :true, :if => :not_unique_attributes_update?
   # need to fix this validation for the unique attribute
   validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :unique_attributes_update?
   
@@ -45,8 +45,8 @@ class Project < ActiveRecord::Base
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   client: [:name, :name1], division: [:name, :name1, :name2] }
 
-  def unique_attributes_update?
-    !updating_unique_attribute
+  def not_unique_attributes_update?
+    !updating_unique_attribute 
   end
   
 
@@ -62,6 +62,7 @@ class Project < ActiveRecord::Base
     return if [enddate.blank?, startdate.blank?].any?
     if enddate < startdate
       errors.add(:startdate, 'must be smaller than end date')
+      errors.add(:enddate, 'must be greater than start date')
     end
   end
 

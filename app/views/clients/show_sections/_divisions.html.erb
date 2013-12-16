@@ -8,7 +8,7 @@
         
         
           <% @client.divisions.each do |division| %>
-          <div class='span3 section' style='margin-left: 10px'>
+          <div class='well span3'>
             <b><%= division.name %></b><br>
             <% if division.name1? %>
               <%= division.name1 %><br>

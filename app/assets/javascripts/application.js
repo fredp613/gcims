@@ -58,6 +58,10 @@ ready1 =
 
   bind_datepicker();
 
+  if ($('body:contains("not authorized")').length>0) {
+    window.location.replace("/login");
+  }
+
  
 
 }
@@ -79,7 +83,7 @@ $(document).ready(ready1);
 function timerIncrement() {
   idleTime = idleTime + 1;
   if (idleTime > 16) { // 16 minutes
-      window.location.reload();
+      window.location.replace("/")            
   }
 }
 

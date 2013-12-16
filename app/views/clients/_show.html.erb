@@ -6,51 +6,76 @@
 </div>
 
 
-<ul class="nav nav-tabs">
+ <ul class="nav nav-tabs">
   <li class="active">
-    <a data-toggle="tab" href="#main">Main information</a>
+    <a data-toggle="tab" href="#main1"><h4 style='color:#4e80b6'>Main Information</h4></a>
   </li>
-  <li>
-    <a data-toggle="tab" href="#contact">Contact(s)</a>
+   <li>
+    <a data-toggle="tab" href="#contact"><h4 style='color:#4e80b6'>Contacts</h4></a>
   </li>
-  <li>
-    <% if @client.clienttype_id != 1 %>
-      <% if @client.clienttype_id != 3 %>
-        <a data-toggle="tab" href="#additional_info">Additional Information</a>
-      <% else %>
-        <a data-toggle="tab" href="#divisions">Division(s)</a>
-      <% end %>
+  <% if @client.clienttype_id != 1 %>
+    <% if @client.clienttype_id != 3 %>
+      <li>
+        <a data-toggle="tab" href="#additional_info"><h4 style='color:#4e80b6'>Additional Information</h4></a>
+      </li>
+    <% else %>
+        <li>
+        <a data-toggle="tab" href="#divisions"><h4 style='color:#4e80b6'>Divisions</h4></a>
+      </li>
     <% end %>
-  </li>
+  <% end %>
   <li>
-    <a data-toggle="tab" href="#history">History</a>
-  </li>
+    <a data-toggle="tab" href="#history"><h4 style='color:#4e80b6'>History</h4></a>
+  </li>  
+  
 </ul>
 
 <div class="tab-content">
+    
 
-  <div class="tab-pane active" id="main">
-  <%= render 'clients/show_sections/main' %>
-  </div>
+     <div class="tab-pane active" id="main1">     
+       <%= render 'clients/show_sections/main' %>
+    </div>
 
-  <div class="tab-pane" id="contact">
-  <%= render 'clients/show_sections/contact' %>
-  </div>
+     <div class="tab-pane" id="contact">     
+       <%= render 'clients/show_sections/contact' %>
+    </div>
 
-  <% if @client.clienttype_id != 1 %>
+    <% if @client.clienttype_id != 1 %>
       <% if @client.clienttype_id != 3 %>
-          <div class="tab-pane" id="additional_info">
-          <%= render 'clients/show_sections/additional_info' %>
-          </div>
+       <div class="tab-pane" id="additional_info">     
+         <%= render 'clients/show_sections/additional_info' %>
+      </div>
       <% else %>
-          <div class="tab-pane" id="divisions">
-          <%= render 'clients/show_sections/divisions' %>
-          </div>
+       <div class="tab-pane" id="divisions">     
+         <%= render 'clients/show_sections/divisions' %>
+      </div>
       <% end %>
-  <% end %>
+    <% end %>
 
-  <div class="tab-pane" id="history">
-  <%= render 'clients/show_sections/history' %>
-  </div>
+     <div class="tab-pane" id="history">     
+       <%= render 'clients/show_sections/history' %>
+    </div>
+
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

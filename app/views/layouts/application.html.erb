@@ -137,44 +137,46 @@
     </div>  <!-- navbar end -->
 
 
-    <div class="container-fluid">
+<div id='wrap'>
+
+    <div id='main' class="container-fluid">
+      
       <div class="row-fluid">
         <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Side Menu</li>
+              <li class="nav-header">Quick Menu</li>
               <li><%= link_to "My files", "/path1"  %></li>
               <li><%= link_to "Search", "/path2"  %></li>
               <li><%= link_to "Preferences", "/path3"  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" id='content'>
-                    
-          <div id='flash_message'>
-                    
-          	<%= bootstrap_flash %>          
-         
-        </div>
-          <%= yield %>
-        </div>
+        <div class="span10" id='content'>                    
+              <div id='flash_message'>                    
+              	<%= bootstrap_flash %>                      
+            </div> 
+            <div>
+            <%= yield %>
+            </div>         
+       </div>
       </div><!--/row-->
 
-     
+    
 
     </div> <!-- /container -->
+
+</div>
 
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
+  <footer class='footer'></footer>
 
 
+</body>
 
 
-
-
-
-  </body>
 
 </html>

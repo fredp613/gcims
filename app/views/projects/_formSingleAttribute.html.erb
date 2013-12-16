@@ -1,24 +1,37 @@
-<%= simple_form_for(@project)  do |f| %>
+<%= simple_form_for(@project, :remote=>true)  do |f| %>
  
 	
-	<div class="form-inputs">
+
 
 	<%= f.input :updating_unique_attribute, as: :hidden %>
 	
 	<% if @project.updating_unique_attribute == "projectname" %>
-		<%= f.input :projectname %> 
+		<%= f.input :projectname, :label=>false %> 
 	<% elsif @project.updating_unique_attribute == "projectdesc"  %>
-		<%= f.input :projectdesc %>
-	<% elsif @project.updating_unique_attribute == "startdate"  %>
-		<%= f.input :startdate %>
+		<%= f.input :projectdesc, :input_html=>{:rows=>'8', :style=>'width:500px'} %>
+	<% elsif @project.updating_unique_attribute == "startdate"  %>		
+		
+		<%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors, 'under' %>
+		
 	<% else%>
-		<%= f.input :enddate %>
+		<%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors,'under' %>
 	<% end %>
 
 	<br>
 
- <div class="submit">
-        <%= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
- </div>
-</div>
+ 
+        <%= f.button :submit, "save", class: 'btn-small btn-success', style: 'margin-top:-35px;' %>
+ 
+
 <% end %>
+
+<script type="text/javascript">
+
+$element = $(document).find('.datepicker')
+
+  $element.datepicker({
+    autoclose: 'true',
+   format: 'yyyy-mm-dd'
+  });
+
+</script>

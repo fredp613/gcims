@@ -6,4 +6,6 @@ class Clientlocation < ActiveRecord::Base
   belongs_to :location
   belongs_to :addresstype
 
+  scope :order_by_addresstype, order(:addresstype_id)
+
 end
