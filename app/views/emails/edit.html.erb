@@ -1,6 +1,11 @@
+<% if !params[:layout].present? %>
 <h1>Editing email</h1>
+<% end %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @email %> |
-<%= link_to 'Back', emails_path %>
+
+<% if !params[:layout].present? %>
+	<%= link_to 'Show', @email %> |
+	<%= link_to 'Back', emails_path %>
+<% end %>

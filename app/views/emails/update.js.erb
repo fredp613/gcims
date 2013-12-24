@@ -1,0 +1,17 @@
+<% if @email.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#'+<%= @email.id %>+'_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Updated');
+  
+  $('#email_'+<%= @email.id %>+'_container').html('<%= j render 'clients/email_record', :email=>@email %>')
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>
+

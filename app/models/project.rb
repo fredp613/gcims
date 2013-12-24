@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 
   include PgSearch
+  include ActiveModel::Dirty
 
   attr_accessible :projectdesc, :projectname, :startdate, :enddate, :created_by, :updated_by, :applications_attributes, 
   :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, 
@@ -28,12 +29,12 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :budgetitems
   accepts_nested_attributes_for :division
   
-
-  validates :projectname, presence: :true, :if => :not_unique_attributes_update?
-  validates :startdate, presence: :true, :if => :not_unique_attributes_update?
-  validates :enddate, presence: :true, :if => :not_unique_attributes_update?
+#also add || is in state create
+  validates :projectname, presence: :true, :if => :projectname_changed? 
+  validates :startdate, presence: :true, :if => :startdate_changed? 
+  validates :enddate, presence: :true, :if => :enddate_changed? 
   # need to fix this validation for the unique attribute
-  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :unique_attributes_update?
+  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :division_id_changed?
   
   
   
@@ -60,9 +61,9 @@ class Project < ActiveRecord::Base
 
   def validate_date_fields?     
     return if [enddate.blank?, startdate.blank?].any?
-    if enddate < startdate
-      errors.add(:startdate, 'must be smaller than end date')
-      errors.add(:enddate, 'must be greater than start date')
+    if enddate < startdate               
+        errors.add(:startdate, 'must be smaller than end date')         
+        errors.add(:enddate, 'must be greater than start date')                 
     end
   end
 

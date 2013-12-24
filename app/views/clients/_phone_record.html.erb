@@ -1,0 +1,7 @@
+<%= phone.phone %>
+      <%= phone.type %>
+       <%= link_to '', edit_client_phone_path(@client, phone), 
+:class=>'edit_main_info icon icon-pencil black',
+'data-attribute_name' => 'phone',
+'data-attribute_id'=>phone.id  %> 
+  <%= link_to '', phone, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon icon-remove-sign red', :remote=>true%>

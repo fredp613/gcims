@@ -1,0 +1,18 @@
+<% if @website.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#add_website_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Created');
+  
+  $('#website_container').html('<%= j render 'clients/website' %>')
+  $('#add_website_container').empty();
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>
+

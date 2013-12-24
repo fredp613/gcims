@@ -29,15 +29,30 @@ class WebsitesController < ApplicationController
     @client = params[:client_id]
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @website }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @phone}
+        format.js
+        
     end
   end
 
   # GET /websites/1/edit
   def edit
     @website = Website.find(params[:id])
-
+    respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @website}
+        format.js
+        
+    end
   end
 
   # POST /websites
@@ -47,12 +62,15 @@ class WebsitesController < ApplicationController
 
     respond_to do |format|
       if @website.save
+        @client = Client.find(@website.client_id)
         format.html { redirect_to client_path(@website.client), notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
+        format.js
       else
-        @client = @client.website_id
+        @client = @email.client_id
         format.html { render action: "new" }
         format.json { render json: @website.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -61,15 +79,18 @@ class WebsitesController < ApplicationController
   # PUT /websites/1.json
   def update
     @website = Website.find(params[:id])
-
+    @client = params[:client_id]
     respond_to do |format|
       if @website.update_attributes(params[:website])
+        @client = Client.find(@website.client_id)
         format.html { redirect_to client_path(@website.client), notice: 'Website was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
-        
+        @client = Client.find(@website.client_id)
         format.html { render action: "edit" }
         format.json { render json: @website.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -84,6 +105,7 @@ class WebsitesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to client_path(@website.client) }
       format.json { head :no_content }
+      format.js
     end
   end
 end

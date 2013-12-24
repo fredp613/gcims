@@ -58,7 +58,7 @@ ready1 =
 
   bind_datepicker();
 
-  if ($('body:contains("not authorized")').length>0) {
+  if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
     window.location.replace("/login");
   }
 

@@ -1,18 +1,17 @@
-<div class='span6'>
+<div id='core_container' class='span6'>
 
 <h4>Title 
 	<% if allow? :projects, :edit  %> 
 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectname'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project Title', 
-		'data-placement'=>'right',
-		'data-placeholder' => 'Required', 		
-		:rel=>'popover',
-		:id=>'projectName',				
+		:title=>'Edit Project Title', 							
+		'data-attribute'=>'projectname',					
 		:remote=>true %></h4>
 	<% end %>
-	<h5 style='color:#797979;'><%= @project.projectname %>
-	<div id='popover_container'></div>
-</h5>
+	<div class='projectname_container'>
+	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
+	</div>
+
+
 	<%#= link_to "popover test", '#', :class=>'btn btn-large btn-danger', :rel=>'popover', :title=>'this is a test', 
 	'data-content'=> "<input type='text id='test' />", 'data-placement' => 'right', 'data-html' => true,
 	'data-placeholder' => 'Required' %>
@@ -23,53 +22,44 @@
  		<% if allow? :projects, :edit  %> 
 		 	
  	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project Description', 
-		'data-placement'=>'right',
-		'data-placeholder' => 'Required', 		
-		:rel=>'popover',
-		:id=>'projectDesc',				
+		:title=>'Edit Project Description', 							
+		'data-attribute'=>'projectdesc',					
 		:remote=>true %>
-		<% end %>
-		 </h4>
-		 <h5 style='color:#797979;'><%= @project.projectdesc %>
-		 
-		</h5>
+	<% end %>
+	</h4>
+	<div class='projectdesc_container'>
+	<h5 id='projectdesc' style='color:#797979;'><%= @project.projectdesc %></h5>
+	</div>
 	</div>
 
  <h4>Start date 
  	<% if allow? :projects, :edit  %> 
- 	
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Start Date', 
-		'data-placement'=>'right',
-		'data-placeholder' => 'Required', 		
-		:rel=>'popover',
-		:id=>'projectStart',				
+	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil', 
+		:title=>'Edit Project Start Date', 							
+		'data-attribute'=>'projectstart',					
 		:remote=>true %>
-
- 	<% end %>
+	<% end %>
  </h4>
 
- <h5 style='color:#797979;'><%= @project.startdate.to_date %>
- 
-</h5>
+	<div class='projectstart_container'>
+	<h5 id='projectstart' style='color:#797979;'><%= @project.startdate.to_date %></h5>
+	</div>
+
+
+
  <h4>End date 
  <% if allow? :projects, :edit  %> 
  	
  	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit End Date', 
-		'data-placement'=>'right',
-		'data-placeholder' => 'Required', 		
-		:rel=>'popover',
-		:id=>'projectEnd',				
+		:title=>'Edit Project End Date', 							
+		'data-attribute'=>'projectend',					
 		:remote=>true %>
+	<% end %>
+	</h4>
+	<div class='projectend_container'>
+	<h5 id='projectend' style='color:#797979;'><%= @project.enddate.to_date %></h5>
+</div>
 
- <% end %>
- </h4>
- 
- <h5 style='color:#797979;'><%= @project.enddate.to_date %>
- 
-</h5>
 
  <% @project.applications.each do |app| %>
  	<h4>Corporate file number	
@@ -103,12 +93,18 @@
 </div>
 
 
+
 <script type="text/javascript">
 $(document).on('click', '.editProjectSingleField', function() {
-	//$(this).popover('show');
-	//return false;
-	var link = this.href + '&layout="false"'
-	$('.popover-content').load(link);
-	//this.popover('show');
+
+	var attribute = $(this).attr('data-attribute')	
+	//$('#'+attribute).css('display', 'none');
+
+	var link = this.href + '&layout="false"'	
+	$('.'+attribute+'_container').load(link);
+	//$('.edit_container').appendTo('.'+attribute+'_container')
+	return false;
+		
 })
+
 </script>

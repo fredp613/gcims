@@ -1,0 +1,6 @@
+<% @client.websites.each do |website| %>
+ 	<div id='website_<%= website.id %>_container'>
+        <%= render 'clients/website_record', :website=>website %>
+         <br>
+     </div>
+<% end %>

@@ -37,6 +37,10 @@ class Application < ActiveRecord::Base
     where('applications.requested_other > ?', 0)
   }
 
+  scope :original_application, lambda {
+    self.first
+  }
+
   def unique_attributes_update?
     !updating_unique_attribute
   end

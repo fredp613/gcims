@@ -1,6 +1,10 @@
+<% if !params[:layout].present? %>
 <h1>Editing phone</h1>
+<% end %>
 
 <%= render 'form' %>
 
+<% if !params[:layout].present? %>
 <%= link_to 'Show', @phone %> |
 <%= link_to 'Back', phones_path %>
+<% end %>

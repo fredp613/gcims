@@ -1,5 +1,9 @@
+<% unless params[:layout] %>
 <h1>New website</h1>
+<% end %>
 
 <%= render 'form' %>
 
+<% unless params[:layout] %>
 <%= link_to 'Back', websites_path %>
+<% end %>

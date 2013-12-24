@@ -1,0 +1,16 @@
+<% if @website.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#'+<%= @website.id %>+'_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Deleted');
+  
+  $('#website_container').html('<%= j render 'clients/website' %>')
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>

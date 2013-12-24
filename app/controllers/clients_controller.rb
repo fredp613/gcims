@@ -3,6 +3,7 @@ class ClientsController < ApplicationController
   #before_filter :set_cache_buster, only:["new", "create"]
   
   before_filter :authenticate_user!
+  before_filter :set_instance_variables, :only=>[:show, :edit]
 
   # GET /clients
   # GET /clients.json
@@ -20,7 +21,7 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.find(params[:id])
+    
     
     if !@client.corporation
       @client.build_corporation
@@ -170,7 +171,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
-    @client = Client.find(params[:id])
+    
 
 
     if params[:clienttype_id]
@@ -370,6 +371,11 @@ class ClientsController < ApplicationController
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
+  def set_instance_variables
+    @client = Client.find(params[:id])
+
   end
 
 
