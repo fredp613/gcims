@@ -52,28 +52,37 @@ module ApplicationHelper
 		end
 	     	
 			#error(@name,object,label) +
-		content_tag(:div, :class=>'control-group string required ' + object + ' ' + @error_ind) do		 
-	      	if position !='under'
-	      		concat content_tag(:label, label, :class=>"string required control-label", :for=>object)
-	  		end
-	     	concat field(@name,object,value,@error, @position) 
-   		 end
+		if position !='under'			
+			content_tag(:div, :class=>'control-group string required ' + object + ' ' + @error_ind) do		 	      	
+		      	concat content_tag(:label, label, :class=>"string required control-label", :for=>object)
+		      	concat field(@name,object,value,@error, @position) 
+		    end
+	  	else
+	     	 field(@name,object,value,@error, @position) 
+	     
+   		end
    		
    	end
 
    	def field(name, object,value, error, position)
    		
-   		content_tag(:div, :class=>'controls') do
-	     		concat content_tag :input,"", :class=>"string required datepicker", 
-	       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value
-	       	  	
-	       	  	if !(error.blank? || error == "")	       	  		
-		  			if position == 'under'
-		  				concat tag('br')
-		  			end		 			
-		     		concat content_tag(:span, error.first, :class=>'help-inline') 
-		     	end
+   		if position != 'under'
+	   		content_tag(:div, :class=>'controls') do
+		     		concat content_tag :input,"", :class=>"string required datepicker", 
+		       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
+		       	  	if !(error.blank? || error == "")	       	  				  				 			
+			     		concat content_tag(:span, error.first, :class=>'help-inline') 
+			     	end
+	    	end
+    	else
+    		concat content_tag :input,"", :class=>"string required datepicker", 
+       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
+       	  	if !(error.blank? || error == "")	       	  				  				 			
+	     		concat content_tag(:span, error.first, :class=>'help-inline') 
+	     	end
     	end
+
+
    	end
 
    	

@@ -12,9 +12,7 @@
 	</div>
 
 
-	<%#= link_to "popover test", '#', :class=>'btn btn-large btn-danger', :rel=>'popover', :title=>'this is a test', 
-	'data-content'=> "<input type='text id='test' />", 'data-placement' => 'right', 'data-html' => true,
-	'data-placeholder' => 'Required' %>
+	
 
 	<div style='width:90%;word-wrap: break-word;'>
 		 <h4>Description 
@@ -47,18 +45,24 @@
 
 
 
+
  <h4>End date 
  <% if allow? :projects, :edit  %> 
- 	
+  	
  	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil', 
 		:title=>'Edit Project End Date', 							
 		'data-attribute'=>'projectend',					
 		:remote=>true %>
 	<% end %>
-	</h4>
+	
+</h4>
 	<div class='projectend_container'>
 	<h5 id='projectend' style='color:#797979;'><%= @project.enddate.to_date %></h5>
 </div>
+
+
+
+
 
 
  <% @project.applications.each do |app| %>

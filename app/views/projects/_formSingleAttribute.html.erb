@@ -1,20 +1,43 @@
 <%= simple_form_for(@project, :remote=>true)  do |f| %>
- 
-	
-
+ 	 
 
 	<%= f.input :updating_unique_attribute, as: :hidden %>
 	
 	<% if @project.updating_unique_attribute == "projectname" %>
-		<%= f.input :projectname, :label=>false %> 
+	  
+		 
+		<div class='input-append'>
+   			<%= f.input_field :projectname %>
+    		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      			<i class='icon-ok'></i>  		
+   			<% end %>
+   		</div>
+		     
 	<% elsif @project.updating_unique_attribute == "projectdesc"  %>
-		<%= f.input :projectdesc, :label=>false, :input_html=>{:rows=>'8', :style=>'width:500px'} %>
+		
+	<div class='input-append'>
+		<%= f.input_field :projectdesc,  :rows=>'8', :style=>'width:500px' %>
+		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+			<i class='icon-ok'></i>
+		<% end %>
+   	 </div>
 	<% elsif @project.updating_unique_attribute == "startdate"  %>		
 		
+		<div class='input-append'>
 		<%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors, 'under' %>
+		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+			<i class='icon-ok'></i>
+		<% end %>
+		</div>
 		
 	<% elsif @project.updating_unique_attribute == "enddate" %>
+	 <div class='input-append'>
 		<%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors,'under' %>
+		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+			<i class='icon-ok'></i>
+		<% end %>
+	</div>
+
 	<% else %>
 	error
 	<% end %>
@@ -22,7 +45,7 @@
 	<br>
 
  
-        <%= f.button :submit, "save", class: 'btn-small btn-success', style: 'margin-top:-35px;' %>
+        <%#= f.button :submit, "save", class: 'btn-small btn-success', style: 'margin-top:-35px;' %>
  
 
 <% end %>
