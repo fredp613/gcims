@@ -1,0 +1,8 @@
+<%= email.email %>
+<%= email.type %>
+<%= link_to '', edit_client_email_path(@client, email), 
+:class=>'edit_main_info icon icon-pencil black',
+'data-attribute_name' => 'email',
+'data-attribute_id'=>email.id  %> 
+<%= link_to '', email, method: :delete, data: { confirm: 'Are you sure?' },
+:class=>'icon icon-remove-sign red', :remote=>true%>

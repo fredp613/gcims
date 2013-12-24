@@ -1,6 +1,5 @@
 
 
-
 <div id="editClient">
   <h3><%=link_to @client.adj_name, edit_client_path(@client) %></h3><br>
 </div>
@@ -34,7 +33,7 @@
     
 
      <div class="tab-pane active" id="main1">     
-       <%= render 'clients/show_sections/main' %>
+       <%= render 'clients/show_sections/main', :client=>@client %>
     </div>
 
      <div class="tab-pane" id="contact">     

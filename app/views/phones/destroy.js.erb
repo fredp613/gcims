@@ -1,0 +1,16 @@
+<% if @phone.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#'+<%= @phone.id %>+'_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Updated');
+  
+  $('#phone_container').html('<%= j render 'clients/phone' %>')
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>

@@ -1,0 +1,18 @@
+<% if @email.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#add_email_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Created');
+  
+  $('#email_container').html('<%= j render 'clients/email' %>')
+  $('#add_email_container').empty();
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>
+

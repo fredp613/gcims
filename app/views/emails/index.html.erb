@@ -1,4 +1,22 @@
+
+<% if params[:layout] %>
+
+<% @emails.each do |email| %>
+<div id="<%= email.id %>_container">
+       <%= email.email %>
+       <%= email.type %>
+       <%= link_to '', edit_client_email_path(email.client_id, email), 
+       :class=>'edit_main_info icon icon-pencil black',
+       'data-attribute'=>email.id  %> 
+       <%= link_to '', email, method: :delete, data: { confirm: 'Are you sure?' },
+        :class=>'icon icon-remove-sign red', :remote=>true%><br>
+</div>
+<% end %>
+
+
+<% else %>
 <h1>Listing emails</h1>
+
 
 <table>
   <tr>
@@ -21,3 +39,6 @@
 <br />
 
 <%= link_to 'New Email', new_email_path %>
+<% end %>
+
+

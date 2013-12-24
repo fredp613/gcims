@@ -1,0 +1,18 @@
+<% if @phone.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#add_phone_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Created');
+  
+  $('#phone_container').html('<%= j render 'clients/phone' %>')
+  $('#add_phone_container').empty();
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>
+

@@ -17,17 +17,17 @@
      		</tr>
      	</thead>
      	<tfoot>
-  	 <tr>
-  	 	<th>Total</th>
-  	 	<th></td>
-  	 	<th></td>
-  	 	<th></td>
-  	 	<th><%= number_to_currency(@total_estimate) %></th>
-        <th><%= number_to_currency(@total_actual) %></th>
-        <th></td>
-        <th></td>
-  	 </tr>
-  	</tfoot>
+      	 <tr>
+      	 	<th>Total</th>
+      	 	<th></td>
+      	 	<th></td>
+      	 	<th></td>
+      	 	<th><%= number_to_currency(@project.applications.first.budgetitems.this_funder.sum(&:forecast)) %></th>
+            <th><%= number_to_currency(@project.applications.first.budgetitems.this_funder.sum(&:actual)) %></th>
+            <th></td>
+            <th></td>
+      	 </tr>
+      	</tfoot>
      	<tbody>
         <% @project.applications.each do |app| %>
            <% app.budgetitems.this_funder.each do |budget| %>

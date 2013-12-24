@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_instance_variables, only: [:new, :create]
-  
+  before_filter :set_show_variables, only: [:show, :edit]
 
   def index
     @projects = Project.all
@@ -22,24 +22,12 @@ class ProjectsController < ApplicationController
 
     @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)
 
-    @mainapplication = @project.applications.first
-    @contacts = Contact.where(:client_id=>@project.client_id)
-    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
-    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
-    @ddl = Contact.where(:id=>@contacts_clean)
-
     
-
-    @total_estimate = @mainapplication.budgetitems.this_funder.sum(&:forecast)
-    @total_actual = @mainapplication.budgetitems.this_funder.sum(&:actual)
-
-    @total_estimate_other = @mainapplication.budgetitems.other_funder.sum(&:forecast)
-    @total_actual_other = @mainapplication.budgetitems.other_funder.sum(&:actual)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
-      format.js
+      format.js { render "show", :locals => {:total_estimate=>@total_estimate}}
     end
   end
 
@@ -76,12 +64,12 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
-    @mainapplication = Application.where(:project_id=>@project).first
-    @contacts = Contact.where(:client_id=>@project.client_id)
-    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
-    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
-    @ddl = Contact.where(:id=>@contacts_clean)
+    #@project = Project.find(params[:id])
+    # @mainapplication = Application.where(:project_id=>@project).first
+    # @contacts = Contact.where(:client_id=>@project.client_id)
+    # @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
+    # @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
+    # @ddl = Contact.where(:id=>@contacts_clean)
 
     if params[:updating_unique_attribute]      
       @project.updating_unique_attribute = params[:updating_unique_attribute]
@@ -152,11 +140,10 @@ class ProjectsController < ApplicationController
 
         respond_to do |format|
           if @project.update_attributes(params[:project])
-
+            flash[:notice] = "Project was successfully updated."
             if params[:pras]
              format.html { redirect_to edit_application_path(@project.applications.first, :pras=>true) }                
-            else
-             flash[:notice] = "Project was successfully updated."
+            else             
              format.html { redirect_to project_path(@project)}             
             end
             format.json { head :no_content }
@@ -197,8 +184,29 @@ class ProjectsController < ApplicationController
   end
 
   def set_instance_variables
+    
+
     @client_name = Client.where(:id=>params[:client_id]).first.name      
     @province = Client.where(:id=>params[:client_id]).first.clienttype_id
+
+  end
+
+  def set_show_variables
+    @project = Project.find(params[:id])
+
+    @mainapplication = @project.applications.first
+    @contacts = Contact.where(:client_id=>@project.client_id)
+    @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
+    @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
+    @ddl = Contact.where(:id=>@contacts_clean)
+
+    
+
+    @total_estimate = @project.applications.first.budgetitems.this_funder.sum(&:forecast)
+    @total_actual = @project.applications.first.budgetitems.this_funder.sum(&:actual)
+
+    @total_estimate_other = @project.applications.first.budgetitems.other_funder.sum(&:forecast)
+    @total_actual_other = @project.applications.first.budgetitems.other_funder.sum(&:actual)
   end
 
 

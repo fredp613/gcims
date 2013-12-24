@@ -1,0 +1,17 @@
+<% if @website.errors.any? %>
+ 
+  
+	 console.log('Error');
+   $('#'+<%= @website.id %>+'_container').html('<%= j render ('form') %>')
+
+
+<% else %>
+	
+  console.log('Updated');
+  
+  
+  $('#website_'+<%= @website.id %>+'_container').html('<%= j render 'clients/website_record', :website=>@website %>')
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>

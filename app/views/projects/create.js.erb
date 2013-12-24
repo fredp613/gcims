@@ -12,7 +12,7 @@
   //window.location = '#{project_path(@project)}'
   
   $(window.location.replace("/projects/<%= @project.id %>"))
-
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
 	
 
 <% end  %>

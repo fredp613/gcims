@@ -1,5 +1,11 @@
+
+<% unless params[:layout] %>
 <h1>New email</h1>
+<% end %>
 
 <%= render 'form' %>
 
+
+<% unless params[:layout] %>
 <%= link_to 'Back', emails_path %>
+<% end %>

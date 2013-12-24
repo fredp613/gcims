@@ -1,0 +1,5 @@
+<% @client.phones.each do |phone| %>
+   <div id='phone_<%= phone.id %>_container'>
+      <%= render 'clients/phone_record', :phone=>phone %><br>
+      </div>
+   <% end  %>

@@ -1,8 +1,12 @@
-<%= simple_form_for @email do |f| %>
-  <%= f.error_notification %>
+<p>
+<%= simple_form_for @email, :remote=>true, :html=>{:class=> 'form-inline'}  do |f| %>
+  
 
-  <div class="form-inputs">
-    <%= f.input :email %>
+  <div class="input-append">
+    <%= f.input :email,as: :string,:label=>false %>     
+     <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      <i class='icon-ok'></i>
+  <% end %>
   </div>
 
   <% if !@email.new_record? %>
@@ -11,7 +15,10 @@
   <%= f.input :client_id, as: :hidden, :input_html=>{value: @client} %>
   <% end  %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  
+   
+  
 <% end %>
+</p>
+
+ 	

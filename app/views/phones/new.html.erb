@@ -1,5 +1,10 @@
+<% unless params[:layout] %>
 <h1>New phone</h1>
+<% end %>
 
 <%= render 'form' %>
 
+
+<% unless params[:layout] %>
 <%= link_to 'Back', phones_path %>
+<% end %>

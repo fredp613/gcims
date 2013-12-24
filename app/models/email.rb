@@ -6,5 +6,6 @@ class Email < ActiveRecord::Base
 
   validates :email, presence: true
  # validates :client_id, presence: true
-  
+	
+  default_scope order('created_at ASC')	  
 end

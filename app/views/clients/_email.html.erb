@@ -1,0 +1,6 @@
+<% @client.emails.each do |email| %>
+<div id="email_<%= email.id %>_container">	   	
+     <%= render 'clients/email_record', :email=>email %>
+<br>
+</div>
+<% end %>

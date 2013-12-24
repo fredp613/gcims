@@ -1,0 +1,6 @@
+<%= website.website %>
+         <%= link_to '', edit_client_website_path(@client, website), 
+         :class=>'edit_main_info icon icon-pencil black',
+         'data-attribute_id'=>website.id,
+         'data-attribute_name'=>'website' %>
+         <%= link_to '', website, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon icon-remove-sign red', :remote=>true%>

@@ -8,13 +8,15 @@
 	<% if @project.updating_unique_attribute == "projectname" %>
 		<%= f.input :projectname, :label=>false %> 
 	<% elsif @project.updating_unique_attribute == "projectdesc"  %>
-		<%= f.input :projectdesc, :input_html=>{:rows=>'8', :style=>'width:500px'} %>
+		<%= f.input :projectdesc, :label=>false, :input_html=>{:rows=>'8', :style=>'width:500px'} %>
 	<% elsif @project.updating_unique_attribute == "startdate"  %>		
 		
 		<%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors, 'under' %>
 		
-	<% else%>
+	<% elsif @project.updating_unique_attribute == "enddate" %>
 		<%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors,'under' %>
+	<% else %>
+	error
 	<% end %>
 
 	<br>

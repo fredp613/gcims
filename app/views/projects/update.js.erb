@@ -1,9 +1,25 @@
 <% if @project.errors.any? %>
  
+  var attribute = ''
+  if ($('#project_projectname').length > 0) {
+    attribute = 'projectname';
+  }
+  if ($('#project_projectdesc').length >0) {
+    attribute = 'projectdesc';
+  }
+  if ($('#project_startdate').length > 0) {
+    attribute = 'projectstart';
+  }
+  if ($('#project_enddate').length > 0) {
+    attribute = 'projectend';
+  }
+  
 	 console.log('Error');
-	 $('.popover-content').remove();
-	 $('.popover').html('<div class="popover-content"></div>')
-	 $('.popover-content').append('<%= j render ('formSingleAttribute') %>')
+   $('.'+attribute+'_container').html('<%= j render ('formSingleAttribute') %>')
+
+   //$('.popover-content').remove();
+	 //$('.popover').html('<div class="popover-content"></div>')
+	 //$('.popover-content').append('<%= j render ('formSingleAttribute') %>')
 
 <% else %>
 	
@@ -11,11 +27,11 @@
   //$('#projectName').popover('destroy');
   $('#core').html('<%= j render ("projects/core") %>')
   
-  $('#projectName').popover();
-  $('#projectDesc').popover();
-  $('#projectStart').popover();
-  $('#projectEnd').popover();
-
+  //$('#projectName').popover();
+  //$('#projectDesc').popover();
+  //$('#projectStart').popover();
+  //$('#projectEnd').popover();
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
 	
 
 <% end  %>
