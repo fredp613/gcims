@@ -3,16 +3,22 @@ var ready3
 ready3 = 
 function () {
 
-    $('.loader').fadeOut(200);
-    
-    $('#results').fadeIn(300);
+  $('.loader').fadeOut(200);
+
+  $('#results').fadeIn(300);
 
 
-    $('#table_container').on('click', '.pagination a', function() {
-      $.getScript(this.href);
-      history.pushState(null,"",this.href)
-      return false;
-    })
+  $('#table_container').on('click', '.pagination a', function() {
+    $.getScript(this.href);
+    history.pushState(null,"",this.href)
+    return false;
+  })
+
+  $(document).on('click', '#newCT', function() {
+    var link = $(this).attr('href') + '?layout=false'
+    createModal(link, 'Create Client Wizard');
+    return false;
+  })
 
   var createModal = function(link, title) {
     $('.modal-title').html(title);

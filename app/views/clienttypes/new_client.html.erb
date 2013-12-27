@@ -1,5 +1,8 @@
-<h1>Choose client type</h1><br>
+
 
 <%= render 'formCT' %>
 
-<%= link_to 'Cancel', clienttypes_path %>
+<% unless params[:layout] %>
+<%= link_to 'Cancel', clienttypes_path, :remote=>true %>
+<% end %>
+

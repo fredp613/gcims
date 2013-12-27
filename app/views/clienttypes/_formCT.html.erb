@@ -1,4 +1,6 @@
-<%= simple_form_for @clienttype, :url => { :action => :new_client } do |f| %>
+<h4>Choose client type</h4><br>
+
+<%= simple_form_for @clienttype, :remote=>true, :url => { :action => :new_client } do |f| %>
  
 
   <div class="form-inputs">
@@ -11,7 +13,15 @@
    <% end %>
 
 	  
-	    <%= f.button :submit, "Next", :class=>'btn btn-primary btn-small submitCT'%>
+      <% if params[:layout] %>
+        <%= link_to 'Next', new_client_path(:layout=>false),:class=>'btn btn-success btn-small',
+         :remote=>true, :id=>'clientCT' %>
+      <% else %>
+	     <%= f.button :submit, "Next", :class=>'btn btn-primary btn-small submitCT', :remote=>true%>
+      <% end %>
+      
+      
+
 	  <%= hidden_field_tag :country_id, @country %>
  
 <% end %>

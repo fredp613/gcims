@@ -1,0 +1,15 @@
+<% if @clienttype.errors.any? %>
+ 
+	 console.log('Error');
+	 $('#modalId').remove();
+	 $('.modal-body').html('<div id="modalId"></div>')
+	 $('#modalId').html('<%= j render ('formCT') %>')
+
+<% else %>
+	
+  console.log('Client type sucessfully chosen');
+  
+  $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+<% end  %>

@@ -48,8 +48,14 @@ class ClienttypesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @clienttype }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @clienttype}
+        format.js
+        
     end
 
   end
@@ -63,16 +69,19 @@ class ClienttypesController < ApplicationController
 
      respond_to do |format|
       if @clienttype.valid? 
-        if !@client.blank?
+        if !@clienttype.client.blank?
           format.html { redirect_to edit_client_path(:id=>@client, :clienttype_id=>@clienttype.name) }          
         else
+          #@client = Client.find(26)
           format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id])}          
         end
           format.json { render json: @clienttype, status: :created, location: @clienttype }
+          format.js
           
       else
         format.html { render action: "new_client" }
         format.json { render json: @clienttype.errors, status: :unprocessable_entity }
+        format.js
         
       end
     end
