@@ -68,12 +68,13 @@ class ClientsController < ApplicationController
     #session[:return_to] ||= request.referer
     build
     respond_to do |format|
-      if params[:layout]
-        format.html { render :layout => false }
-      else
-        format.html # show.html.erb
-      end
-      format.json { render json: @client}       
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @client}
+        format.js
         
     end
   end

@@ -1,11 +1,14 @@
-<h1>Create client</h1> <br>
+<h4>Create client</h4> <br>
 
+
+<% unless params[:layout] %>
 <div class='loader'>
   </div>
+<% end %>
 
-<div id='frmContainer'>
+
  <%= render 'form' %>
-</div>
+
 
 
 

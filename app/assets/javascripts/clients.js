@@ -5,11 +5,11 @@ ready2 =
 
   function() {
 
-  $('.loader').fadeOut(200);
-  $('#frmContainer').fadeIn(300);
-  //if ($('#client_name')) {
+  //$('.loader').fadeOut(200);
+  //$('#frmContainer').fadeIn(300);
+  
    $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
-  //}
+  
   
 
 }
