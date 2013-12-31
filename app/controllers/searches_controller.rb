@@ -1,23 +1,21 @@
 class SearchesController < ApplicationController
   
-  before_filter :authenticate_user!
+  
 
   def index
   	
-  	
- 	
  	if params[:search_field]
  	 	
  	 if params[:clients_page_size]	
  	  @client_page_size = params[:clients_page_size]
  	 else
- 	  @client_page_size = 5
+ 	  @client_page_size = 10
  	 end
 
  	 if params[:projects_page_size]	
  	  @project_page_size = params[:projects_page_size]
  	 else
- 	  @project_page_size = 5
+ 	  @project_page_size = 10
  	 end
 
  	 if params[:search_field]

@@ -13,14 +13,14 @@
     <a data-toggle="tab" href="#contact"><h4 style='color:#4e80b6'>Contacts</h4></a>
   </li>
   <% if @client.clienttype_id != 1 %>
-    <% if @client.clienttype_id != 3 %>
+  <% if @client.clienttype_id != 3 %>    
       <li>
         <a data-toggle="tab" href="#additional_info"><h4 style='color:#4e80b6'>Additional Information</h4></a>
       </li>
     <% else %>
         <li>
         <a data-toggle="tab" href="#divisions"><h4 style='color:#4e80b6'>Divisions</h4></a>
-      </li>
+      </li>    
     <% end %>
   <% end %>
   <li>
@@ -40,16 +40,16 @@
        <%= render 'clients/show_sections/contact' %>
     </div>
 
-    <% if @client.clienttype_id != 1 %>
-      <% if @client.clienttype_id != 3 %>
+    <% if @client.clienttype_id != 1 && @client.clienttype_id != 3 %>
+      
        <div class="tab-pane" id="additional_info">     
          <%= render 'clients/show_sections/additional_info' %>
       </div>
-      <% else %>
+    <% else %>
        <div class="tab-pane" id="divisions">     
          <%= render 'clients/show_sections/divisions' %>
       </div>
-      <% end %>
+      
     <% end %>
 
      <div class="tab-pane" id="history">     

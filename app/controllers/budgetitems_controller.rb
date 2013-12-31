@@ -128,6 +128,7 @@ class BudgetitemsController < ApplicationController
           end    
         end  
             if @budgetitem.save
+               
                 flash[:notice] = 'Expense item updated'
                 format.html { redirect_to project_path(@budgetitem.application.project) }
                 format.json { render json: @budgetitem, status: :created, location: @budgetitem }  

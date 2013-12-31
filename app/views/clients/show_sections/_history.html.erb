@@ -3,29 +3,35 @@
       <legend>Application History</legend>
 
     	<% if !@client.projects.blank? %>
-			<table class='table table-bordered table-condensed'>
+			<table class='table table-bordered table-striped table-hover table-condensed'>
 			 <thead>
 			  <tr>
+			  	<% if @client.clienttype_id==3%>
+			  	  <th>Division</th>
+			  	<% end %>
 			  	<th>RIMS</th>		  	
-			  	<th>Title</th>
+			  	<th>Title</th>			  		
 			  	<th>Product Service Line</th>
 			  	<th>Sub Service Line</th>
-			  	<th>Summary Commitment</th>
-			  	<th>Commitment Item</th>
+			  	<th>Summary Commitment</th>			  	
 			    <th></th>
 			  </tr>
 			 </thead>
-			 <tbody id='project_records'>
+			 <tbody class='project_records'>
 			 	<% @client.applications.each do |a| %>
+		  		
 		  		<tr>
+		  			<% if @client.clienttype_id==3%>
+			  	  		<td><%= a.project.division.name %></td>
+			  		<% end %>
 			  		<td><%= a.corporate_file_number %></td>
 			  		<td><%= a.project.projectname %></td>
-			  		<td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></td>
+			  	<td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name %></td>
 			  		<td><%= a.commitmentitem.summarycommitment.subserviceline.ssl_name %></td>
-			  		<td><%= a.commitmentitem.summarycommitment.sc_name %></td>
-			  		<td><%= a.commitmentitem.ci_name %></td>		  				  		
+			  		<td><%= a.commitmentitem.summarycommitment.sc_name %></td>			  			  			  		
 		      	<td><%= link_to "details", a.project, :class=>'btn btn-small btn-info' %></td>
 		  		</tr>
+
 	  		  <% end %>
 			 </tbody>
 

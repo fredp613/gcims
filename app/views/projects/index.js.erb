@@ -1,0 +1,5 @@
+
+$("#project_records").html('<%= j render("projects/project_records") %>');
+$("#project_paginator").html('<%= j(paginate(@applications, :param_name=>"project_page", :remote=>true).to_s) %>');
+
+

@@ -1,0 +1,32 @@
+<% if @application.errors.any? %>
+ 
+  var attribute = ''
+  if ($('#application_requested').length > 0) {
+    attribute = 'requested';
+  }
+  if ($('#application_requested_other').length >0) {
+    attribute = 'requested_other';
+  }
+  if ($('#application_corporate_file_number').length > 0) {
+    attribute = 'corporate_file_number';
+  }
+  
+  
+	 console.log('Error');
+   $('.'+attribute+'_container').html('<%= j render ('formSingleAttribute') %>')
+
+   //$('.popover-content').remove();
+	 //$('.popover').html('<div class="popover-content"></div>')
+	 //$('.popover-content').append('<%= j render ('formSingleAttribute') %>')
+
+<% else %>
+	
+  console.log('Updated');
+
+  $('#core').html('<%= j render ("projects/core"), :project=>@project %>')
+  $('#budget_tables').html('<%= j render ("projects/budget_tables"), :project=>@project %>')
+
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+	
+
+<% end  %>

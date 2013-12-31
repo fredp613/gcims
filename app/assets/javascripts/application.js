@@ -58,9 +58,9 @@ ready1 =
 
   bind_datepicker();
 
-  if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
-    window.location.replace("/login");
-  }
+  // if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
+  //   window.location.replace("/login");
+  // }
 
  
 
@@ -80,12 +80,12 @@ $(document).ready(ready1);
     
   }); **/
 
-function timerIncrement() {
+ function timerIncrement() {
   idleTime = idleTime + 1;
-  if (idleTime > 16) { // 16 minutes
-      window.location.replace("/")            
+  if (idleTime > 17) { // 16 minutes
+      window.location.replace("/login")            
   }
-}
+ }
 
 function bind_datepicker() {
   $element = $(document).find('.datepicker')

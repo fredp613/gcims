@@ -10,6 +10,7 @@
 
 
          <div class='well span3'>
+          
           <% if contact.authority == true %>
               <b>Signing Authority</b>
           <% end %>
@@ -39,16 +40,16 @@
         	<%= location.country.name %> <br>
           <% end %>
 
-      <% end %>
-       <%= link_to "edit contact", edit_client_contact_path(@client, contact), :class=>'btn btn-info btn-small' %>
+        
 
-      <%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
-      </p>
+     <%= link_to "edit contact", edit_client_contact_path(@client, contact), :class=>'btn btn-info btn-small' %>
 
-            </div>
-
-       <% end %>
+    <%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-small'%>
     </div>
+     <% end %>
+    </div>
+     <% end %>
+    
 
 </fieldset>
 

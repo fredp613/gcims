@@ -1,32 +1,53 @@
-<%= simple_form_for(@application)  do |f| %>
- 
+
+<%= simple_form_for(@application, :remote=>true)  do |f| %>
+
 	
 	<div class="form-inputs">
 
 	<%= f.input :updating_unique_attribute, as: :hidden %>
 	
 	<% if @application.updating_unique_attribute == "requested_other" %>
-		 <%= f.input :requested_other, :wrapper => :prepend do %>
+		 <%= f.input :requested_other,label: false, :wrapper => :prepend do %>
 	       <%= content_tag :span, "$", :class => "add-on" %>
-	        <%= f.text_field :requested_other, label: 'Requested (other funders)',
-	        :value=> number_with_precision(f.object.requested_other, 
-	        :precision => 2, separator: '.', delimiter: ',') || '0.00' %>            
+	        <div class='input-append'>
+		        <%= f.input_field :requested_other, label: 'Requested (other funders)',
+		        :value=> number_with_precision(f.object.requested_other, 
+		        :precision => 2, separator: '.', delimiter: ',') || '0.00' %> 
+		        <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      			<i class='icon-ok'></i>  		
+   			<% end %>           
+	        </div>
      <% end %>
+
+
 	<% elsif @application.updating_unique_attribute == "requested"  %>
-		 <%= f.input :requested, :wrapper => :prepend do %>
+		 <%= f.input :requested,label: false, :wrapper => :prepend do %>
 	       <%= content_tag :span, "$", :class => "add-on" %>
-	        <%= f.text_field :requested, label: 'Requested',
-	        :value=> number_with_precision(f.object.requested, 
-	        :precision => 2, separator: '.', delimiter: ',') || '0.00' %>            
+	        <div class='input-append'>
+		        <%= f.input_field :requested, label: 'Requested',
+		        :value=> number_with_precision(f.object.requested, 
+		        :precision => 2, separator: '.', delimiter: ',') || '0.00' %> 
+		        <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      			<i class='icon-ok'></i>  		
+   			<% end %>           
+	        </div>            
      <% end %>
 	<% else%>
-		<%= f.input :corporate_file_number %>
+		<div class='input-append'>
+   			<%= f.input_field :corporate_file_number %>
+    		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      			<i class='icon-ok'></i>  		
+   			<% end %>
+   		</div>
 	<% end %>
 
 	<br>
 
- <div class="submit">
-        <%= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
- </div>
+ <!--<div class="submit">
+        <%#= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
+ </div> -->
 </div>
+
 <% end %>
+</p>
+

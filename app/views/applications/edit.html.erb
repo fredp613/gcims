@@ -1,4 +1,6 @@
+<% unless params[:layout] %>
 <h1>Editing application</h1> <br>
+<% end %>
 
 <% if params[:updating_unique_attribute]   %>
  <%= render 'formSingleAttribute' %>

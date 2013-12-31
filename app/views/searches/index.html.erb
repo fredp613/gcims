@@ -16,13 +16,8 @@
 
   <% if !params[:create] %>
 
-  <ul class="nav nav-pills" data-tabs="tabs">
-    <li class="active">
-      <a data-toggle="tab" href="#clients">Clients (<%= @client.count %>)</a>
-    </li>
-    <li>
-      <a data-toggle="tab" href="#projects">Projects (<%= @project_final.count %>)</a>
-    </li>
+  <ul id='result_pills_container' class="nav nav-pills" data-tabs="tabs">
+   <%= render 'result_pills' %>
     
   </ul>
 

@@ -27,8 +27,14 @@ class ApplicationsController < ApplicationController
     @application = Application.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @application }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @application}
+        format.js
+        
     end
   end
 
@@ -43,6 +49,17 @@ class ApplicationsController < ApplicationController
     if params[:updating_unique_attribute]      
       @application.updating_unique_attribute = params[:updating_unique_attribute]
     end
+
+    respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @application}
+        format.js
+        
+    end
   end
 
   # POST /applications
@@ -56,11 +73,14 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.save
+        @project = Project.find(@application.project_id)
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
         format.json { render json: @application, status: :created, location: @application }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @application.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -78,16 +98,19 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.update_attributes(params[:application])
+        @project = Project.find(@application.project_id)
         if session[:pras] || @application.updating_unique_attribute.present?
           format.html { redirect_to project_path(@application.project), notice: 'Application was successfully updated.' }
         else
           format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         end
         format.json { head :no_content }
+        format.js
       else
 
         format.html { render action: "edit" }
         format.json { render json: @application.errors, status: :unprocessable_entity }
+        format.js
       end
     end
     
@@ -102,6 +125,7 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to applications_url }
       format.json { head :no_content }
+      format.js
     end
   end
 

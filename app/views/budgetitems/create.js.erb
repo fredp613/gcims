@@ -9,7 +9,7 @@
 	
   console.log('Created');
   $('#myModal').modal('hide');
-  $('#financial').html('<%= j render ('projects/budget') %>')
+  $('#budget_tables').html('<%= j render ('projects/budget_tables') %>')
    
   $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
 

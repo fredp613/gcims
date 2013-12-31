@@ -1,0 +1,30 @@
+<div class='input-append'>	
+	
+	<% if params[:controller]=='searches' %>
+		<%= form_tag searches_path, :action=>'searches/index', :remote=>true, :method=>'get',
+		 :html => { :id=>params[:controller].singularize, :class => 'form-inline' } do |f|  %>
+			<%= hidden_field_tag :search_field, @query %>
+			
+			<% if resource=='clients' %>
+			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@client_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
+			<% else %>
+			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
+			<% end %>
+			
+			<%= submit_tag "per page", :class=>'btn btn-info' %>
+		<% end %>
+	
+
+	<% else %>
+
+
+	<%= form_tag params[:controller], :action=>'/index', :remote=>true, :method=>'get', 
+	:html => { :id=>params[:controller].singularize, :class => 'form-inline' } do |f|  %>
+			<%= hidden_field_tag :search_field, @query %>
+			<%= select_tag params[:controller]+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :name=>params[:controller] + "_page_size" %>			
+			<%= submit_tag "per page", :class=>'btn btn-info' %>
+		<% end %>
+	<% end %>
+
+
+</div>

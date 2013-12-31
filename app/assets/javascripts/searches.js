@@ -96,24 +96,7 @@ function () {
 
 
 
-    /**$(this).parent('form').submit(function() {
-      $.ajax({
-            url: this.action,
-            type: this.method,
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(data){
-              $('#client_records').html(data);
-              //location.reload(true)
-            },
-            error: function(xhr){
-                var errors = $.parseJSON(xhr.responseText)
-               
-                $('#myModal').modal('toggle');
-            }
-          });
-      return false;
-    }); **/
+   
   });
   
 
@@ -303,6 +286,9 @@ function filter_psl(paramName, param) {
 
 $(document).ready(ready3);
 $(document).on('page:load', ready3);
+
+
+
 
 //$(document).on('blur', '#project_applications_attributes_0_requested', {element: 'project_applications_attributes_0_requested'}, convertCurrency );
 

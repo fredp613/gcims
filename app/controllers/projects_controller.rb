@@ -1,15 +1,37 @@
 class ProjectsController < ApplicationController
   
-  before_filter :authenticate_user!
+  
   before_filter :set_instance_variables, only: [:new, :create]
   before_filter :set_show_variables, only: [:show, :edit]
 
   def index
-    @projects = Project.all
+    @projects = Project.where(:created_by=>current_user.id)
+
+    if params[:projects_page_size]  
+     @project_page_size = params[:projects_page_size]
+      else
+     @project_page_size = 10
+    end
     
+    if params[:search_field]
+      @query = params[:search_field]
+    else
+      @query = "" 
+    end
+
+    if params[:reset]
+      @query = ""
+    end
+
+    @projects_search = @projects.text_search(@query).map(&:id) 
+
+    @total_applications = Application.where(:project_id=>@projects_search)
+    @applications = Application.where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @projects }
+      format.js
     end
   end
 
@@ -135,8 +157,6 @@ class ProjectsController < ApplicationController
 
     @project = Project.find(params[:id])
     @project.updated_by = current_user.id
-
-   
 
         respond_to do |format|
           if @project.update_attributes(params[:project])

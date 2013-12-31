@@ -33,6 +33,9 @@ class Application < ActiveRecord::Base
             #:format => { :with => /^(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?|\(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\))$/ }
             #:format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
 
+
+  validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? } 
+
   scope :other_funding, lambda { 
     where('applications.requested_other > ?', 0)
   }
@@ -40,6 +43,26 @@ class Application < ActiveRecord::Base
   scope :original_application, lambda {
     self.first
   }
+
+  def budget_verification
+
+
+    @total_budget = self.budgetitems.this_funder.sum(:forecast) unless self.requested.blank? 
+    @total_budget_other = self.budgetitems.other_funder.sum(:forecast) unless self.requested_other.blank?
+
+    if !self.requested.blank?
+      if self.requested < @total_budget
+        errors.add(:requested, 'the requested amount must be equal to or greater than the total budget') 
+      end
+    end
+
+    if !self.requested_other.blank?
+      if self.requested_other  < @total_budget_other  
+        errors.add(:requested_other, 'the requested amount from other sources must be equal to or greater than the total budget from other sources') 
+      end
+    end 
+
+  end
 
   def unique_attributes_update?
     !updating_unique_attribute

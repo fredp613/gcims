@@ -1,12 +1,12 @@
 <p>
 <%= simple_form_for @phone, :remote=>true, :class=>'form-inline' do |f| %>
 
-    <div class='input-append'>
-	<%= f.input :phone,as: :string,:label=>false %>  
+   <%= f.input :phone, :label=>false, :wrapper => :append do %>                   
+      <%= f.input_field :phone, label: false %> 
       <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
-       <i class='icon-ok'></i>
-  	  <% end %>
-    </div>
+      <i class='icon-ok'></i>     
+  <% end %> 
+  <% end %>
 
   <% if !@phone.new_record? %>
     <%= f.input :client_id, as: :hidden %>
