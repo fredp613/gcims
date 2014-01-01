@@ -76,7 +76,7 @@ class CommitmentitemsController < ApplicationController
         @updatetree = UpdateTree.new(current_user, @productserviceline, @subserviceline, @summarycommitment, @commitmentitem,"ci", "update", params)  
         @updatetree.update_tree_instances
 
-        format.html { redirect_to @commitmentitem, notice: 'Commitmentitem was successfully created.' }
+        format.html { redirect_to commitmentitem_path(@commitmentitem), notice: 'Commitmentitem was successfully created.' }
         format.json { render json: @commitmentitem, status: :created, location: @commitmentitem }
       else
         format.html { render action: "new" }

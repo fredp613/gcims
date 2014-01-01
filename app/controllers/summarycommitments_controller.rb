@@ -79,7 +79,7 @@ class SummarycommitmentsController < ApplicationController
         @updatetree.update_tree_instances
 
 
-        format.html { redirect_to @summarycommitment, notice: 'Summarycommitment was successfully created.' }
+        format.html { redirect_to summarycommitment_path(@summarycommitment), notice: 'Summarycommitment was successfully created.' }
         format.json { render json: @summarycommitment, status: :created, location: @summarycommitment }
       else
         format.html { render action: "new" }

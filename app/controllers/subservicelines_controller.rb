@@ -78,7 +78,7 @@ class SubservicelinesController < ApplicationController
         @updatetree.update_tree_instances
 
 
-        format.html { redirect_to @subserviceline, notice: 'Subserviceline was successfully created.' }
+        format.html { redirect_to subserviceline_path(@subserviceline), notice: 'Subserviceline was successfully created.' }
         format.json { render json: @subserviceline, status: :created, location: @subserviceline }
       else
         format.html { render action: "new" }

@@ -55,7 +55,7 @@ class BudgetitemsController < ApplicationController
 
     @budgetitem.apptypes = 
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-    .where('applications.id'=>@budgetitem.application_id)
+    .where('applications.id = (?)', @budgetitem.application_id)
 
     
    
@@ -77,7 +77,7 @@ class BudgetitemsController < ApplicationController
     @budgetitem = Budgetitem.find(params[:id])
     @budgetitem.apptypes = 
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-    .where('applications.id'=>@budgetitem.application_id)
+    .where('applications.id = (?)', @budgetitem.application_id)
 
     respond_to do |format|
         if params[:layout]
@@ -139,7 +139,7 @@ class BudgetitemsController < ApplicationController
              @budgetitem.project = params[:project]
               @budgetitem.apptypes = 
               Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-              .where('applications.id'=>@budgetitem.application_id)   
+              .where('applications.id = (?)', @budgetitem.application_id)   
 
               if params[:project_id]
                 @project = Project.where(:id=>params[:project_id])
@@ -157,7 +157,7 @@ class BudgetitemsController < ApplicationController
          @budgetitem.project = params[:project]
           @budgetitem.apptypes = 
           Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-          .where('applications.id'=>@budgetitem.application_id)   
+          .where('applications.id = (?)', @budgetitem.application_id)
 
         if params[:project_id]
           @project = Project.where(:id=>params[:project_id])

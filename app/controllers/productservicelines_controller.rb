@@ -106,7 +106,7 @@ class ProductservicelinesController < ApplicationController
         @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
         @updatetree.update_tree_instances
         
-        format.html { redirect_to @productserviceline, notice: 'Productserviceline was successfully created.' }
+        format.html { redirect_to productserviceline_path(@productserviceline), notice: 'Productserviceline was successfully created.' }
         format.json { render json: @productserviceline, status: :created, location: @productserviceline }
       else
         format.html { render action: "new" }
