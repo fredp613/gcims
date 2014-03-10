@@ -1,0 +1,22 @@
+
+<% if user_signed_in? %>
+
+<h2>Client dashboard</h2>
+
+<% else %>
+
+<h2>To apply for funding - please sign in or sign up to use our online portal that will guide you through
+the application process</h2>
+
+<h3>Are you a returning user?</h3>
+<h4>If yes, please <%= link_to "login", login_path %></h4>
+<h4>If no, please <%= link_to "register", register_path %></h4>
+
+<% end %>
+
+
+
+
+
+
+

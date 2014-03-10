@@ -1,6 +1,9 @@
 
+    <% unless params[:layout] || @remote==true %>
     <fieldset>
       <legend>Primary Contact information</legend>
+    <% end %>
+
       <%= f.simple_fields_for :emails do |builder| %>
          <%= builder.input :email, label: 'email' %>
       <% end %>
@@ -13,4 +16,6 @@
          <%= builder.input :phone, label: 'phone number' %>
       <% end %>
 
+      <% unless params[:layout] || @remote==true %>
      </fieldset>
+     <% end %>

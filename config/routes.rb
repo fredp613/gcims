@@ -93,47 +93,27 @@ GCIMS::Application.routes.draw do
     resources :contactlocations
     resources :clientlocations
   end
-
-
-  
-
   resources :addresstypes
   resources :contacttypes
-  
   resources :contacttypes
   resources :countries
   resources :states
-
-
-
-
   resources :clientlocations
-
   resources :contactlocations
-
-
-
   resources :fiscalyears
-  devise_for :users
-
   resources :commitmentitems
   resources :summarycommitments 
   resources :subservicelines  
-  resources :productservicelines, path: 'pras'
-    
-  
- 
+  resources :productservicelines, path: 'pras' 
   resources :fincodes
 
-  
-
-   as :user do
+  as :user do
     get '/register', to: 'devise/registrations#new', as: :register
     get '/login', to: 'devise/sessions#new', as: :login
     get '/logout', to: 'devise/sessions#destroy', as: :logout
   end
 
-  devise_for :users, skip: [:sessions]
+  devise_for :users, skip: [:sessions], :controllers => {:registrations => "registrations"}
 
   as :user do
     get "/login" => 'devise/sessions#new', as: :new_user_session
@@ -142,8 +122,10 @@ GCIMS::Application.routes.draw do
   end
 
   namespace :frontend do
-    root to: "home#index"
-    #resources :wizard
+     
+    resources :application 
+    root to: "application#index"
+    
   end
 
   

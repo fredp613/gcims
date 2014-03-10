@@ -1,13 +1,20 @@
-<h4>Create client</h4> <br>
 
+<% unless params[:layout] %>
+<h4>Create client</h4> <br>
+<% end %>
 
 <% unless params[:layout] %>
 <div class='loader'>
   </div>
 <% end %>
 
-
- <%= render 'form' %>
+<div class='form_container'>
+<% if params[:layout] || @remote==true %>
+ <%= render 'wizardForm' %>
+<% else %>
+<%= render 'form' %>
+<% end %>
+</div>
 
 
 

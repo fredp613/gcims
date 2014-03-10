@@ -1,14 +1,18 @@
-
+<div class='row-fluid'>
     <fieldset>
       <legend>Divisions 
-        <%= link_to "add division", new_client_division_path(@client), :class=>'btn btn-primary btn-small' %>
+        <%= link_to "add division", new_client_division_path(@client), :id=>'add_division', :class=>'btn btn-primary btn-small' %>
       </legend>
 
         <% if @client.divisions.present? %>
         
-          <div>
-            <% @client.divisions.each do |division| %>
-            <div class='well span3'>
+        <div>
+            <% @client.divisions.each_with_index do |division, i| %>
+              <% if i == 0 %>
+                <p class='well span3' style='margin-left:33px;'>
+              <% else %>
+                <p class='well span3'> 
+            <% end %>
                   <b><%= division.name %></b><br>
                   <% if division.name1? %>
                     <%= division.name1 %><br>
@@ -35,8 +39,8 @@
                   <% if division.location.postal? %>
                     <%= division.location.postal %> <br>
                   <% end %>  
-                <%= link_to "edit division", edit_client_division_path(@client, division), :class=>'btn btn-info btn-small' %> 
-              </div> <!-- well -->                   
+                <%= link_to "edit division", edit_client_division_path(@client, division), :class=>'btn btn-info btn-small', :id=>'btnEditDivision', 'data-title'=>'Edit Division' %> 
+              </p> <!-- well -->                   
           
         <% end %>
       </div><!-- container -->        
@@ -47,6 +51,6 @@
         <% end %>
 
     </fieldset>
-   
+</div>
 
   

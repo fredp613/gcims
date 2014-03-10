@@ -36,6 +36,8 @@
   </head>
   <body>
 
+
+  <% if user_signed_in? %>
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -44,32 +46,49 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">GCIMS</a>
+          <a class="brand" href="#">Department of Justice Canada</a>
           <div class="container-fluid nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
+            
+
+            <ul class='nav pull-right'>
+
+              <li class='dropdown'>               
+                  <% if user_signed_in? %>  
+                      <%= link_to edit_user_registration_path, :id=> "drop4", :role=>"button", :class=>"dropdown-toggle", "data-toggle"=>"dropdown" do %>
+                        <i class='icon-user'></i> <%= current_user.full_name %>
+                        <b class='caret'></b>
+                      <% end %>
+                  <% else %>
+                    <%= link_to "#", :id=> "drop4", :role=>"button", :class=>"dropdown-toggle", "data-toggle"=>"dropdown" do %>
+                        <i class='icon-user'></i>  sign in / register
+                        <b class='caret'></b>
+                      <% end %>
+                  <% end %>                        
+              
+               <!-- Log in/out -->
+              <ul class='dropdown-menu' role='menu' aria-labelledby='dLabel'>
+                <% if user_signed_in? %>            
+                  <li><%= link_to "logout", logout_path %></li>
+                  <% else %>
+                  <li><%= link_to "sign in", login_path %></li>
+                  <li><%= link_to "register", register_path %></li>
+                <% end %>
+              </ul>  
+            </li> <!-- Log in/out end -->
+          </ul><!-- log in/out nav end -->
+
+
+          
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
+  <% end %>
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-         
+        
+        <div class="span9">         
           <%= yield %>
         </div>
       </div><!--/row-->

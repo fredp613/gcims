@@ -69,7 +69,7 @@ function submitSearchForm(){
   // }
   $.get(action, formData, null, 'script');
 
-  history.replaceState(null, document.title, action + "?" + formData);
+  history.pushState(null, document.title, action + "?" + formData);
   
   
 }
@@ -88,7 +88,9 @@ function resetSearchForm(){
     return false;
   })
 
-
+$(window).bind("popstate", function(){
+    $.getScript(location.href);
+  });
 
 
  

@@ -1,0 +1,60 @@
+<%= simple_form_for @client, :remote=>true  do |f| %>
+  <%= f.error_notification %>
+
+<div class="form-inputs">
+
+<div class='tab-content'>
+
+	
+	 <%= f.input :clienttype_id, as: :hidden %>
+	
+
+	<fieldset>
+	<legend>Main Information</legend>
+	  
+	  <% if @client.clienttype_id == 1 %>       
+       <%= f.input :salutation, :label=>"Salutation", collection: ['Mr', 'Ms'] %>         
+       <%= f.input :name, :label=>"First Name"  %>          
+       <%= f.input :name1, :label=>"Last Name" %>      
+      <% else %>                  
+       <% if @client.clienttype_id != 3 %>
+       	<%= f.input :name, :label=>"Organization Name"  %>
+       <% else %>
+       	<%= f.input :name, :label=>"Division Name"  %>
+       <% end %>
+       
+       <% if @client.clienttype_id != 3 %>
+	       <div id='legal_info'>
+		  	<%= render 'clients/orginfo', :f=>f %>
+		  </div>     
+	  <% end %>
+       <% end %>  
+
+	</fieldset>
+
+	<fieldset>
+	<legend>Primary Address Information</legend>
+		<%= render 'clients/new_location', :f=>f %>
+		
+	</fieldset>
+
+	<fieldset>
+		<legend>Primary Contact Information</legend>
+		<%= render 'clients/contactfields', :f=>f %>
+	</fieldset>
+
+</div>
+
+<div class="submit">
+<%= f.button :submit, :id=>'submitWizard', class: 'pull-right btn-success', style: 'margin-top:-35px;' %>
+</div>	
+
+</div>
+
+<% end %>
+
+<script type="text/javascript">
+ $('#new_client').formToWizard({ submitButton: 'submitWizard' });
+</script>
+
+

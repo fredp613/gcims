@@ -1,16 +1,16 @@
 <% if @client.new_record? %>
 <!--
 	<div class='form-inputs' data-no-turbolink > -->
-		<div class='form-inputs'>
+		
 		
 		<p>
 	  	<%= f.input :incorporated, :label=>"Incorporated?" %>  	
 	  	 <% if @client.corporation.errors.any? || @client.incorporated  %>
 	  	  <div id='corporation_fields' class='section'>
-	  	 <% else %>
+	  	 <% else %>	  	 
 		  <div id='corporation_fields' class='section' style='display:none;'>
 		 <% end %>
-		  	<%= render 'corporation_fields', :f=>f %>
+		  	<%= render 'clients/corporation_fields', :f=>f %>
 		  </div>
 	  	</p>
 	  	
@@ -21,7 +21,7 @@
 			<% else %>
 			<div id='charity_fields' class='section' style='display:none;'>
 			<% end %>
-			 <%= render 'charity_fields', :f=>f %>
+			 <%= render 'clients/charity_fields', :f=>f %>
 			</div>
 		</p>
 
@@ -32,14 +32,14 @@
 		  <% else %>
 		  <div id='band_fields' class='section' style='display:none;'>
 		  <% end %>
-			 <%= render 'band_fields', :f=>f %>
+			 <%= render 'clients/band_fields', :f=>f %>
 		  </div>
 		</p>
 
 
 	
 
-	</div>
+	
 
 <% else %>
 

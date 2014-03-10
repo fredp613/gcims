@@ -87,6 +87,17 @@ module ApplicationHelper
 
    	end
 
+   	def sortable(object, column, title = nil)
+	    title ||= column.titleize
+	    if sort_direction == 'asc'
+	     css_class = column == sort_column(object) ? "icon-arrow-up small" : nil 
+	 	else
+	 	 css_class = column == sort_column(object) ? "icon-arrow-down small" : nil 	
+	 	end
+	    direction = column == sort_column(object) && sort_direction == "asc" ? "desc" : "asc"	    
+	    link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class} #, :remote=>true}
+	end
+
    	
 end
 

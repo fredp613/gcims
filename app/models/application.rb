@@ -98,5 +98,8 @@ class Application < ActiveRecord::Base
     @user
   end
 
+  def self.search_columns
+    %w(corporate_file_number projects.projectname commitmentitems.ci_name)
+  end
 
 end

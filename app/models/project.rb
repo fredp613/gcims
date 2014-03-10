@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
   :token, :projectcontacts_attributes, :contacts_attributes, :budgetitems_attributes, :client_id, 
   :division_id, :other_funding, :updating_unique_attribute
 
+
+
   attr_accessor :other_funding, :updating_unique_attribute
 
   has_many :projectcontacts, :dependent=>:destroy
@@ -90,7 +92,7 @@ class Project < ActiveRecord::Base
 
     @fy_dates = Fiscalyear.year_range(startdate, enddate).map(&:id)
 
-    @difference = @fy_budgetitems - @fy_dates
+   # @difference = @fy_budgetitems - @fy_dates
     @diff = @fy_budgetitems.reject{ |f| @fy_dates.include? f }
 
     #@ssl.fiscalyear_ids.reject{ |e| @psl.fiscalyear_ids.include? e}

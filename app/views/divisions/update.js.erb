@@ -1,0 +1,20 @@
+<% if @division.errors.any? %>
+ 
+	 console.log('Error');
+	 $('#modalId').remove();
+	 $('.modal-body').html('<div id="modalId"></div>')
+	 $('#modalId').html('<%= j render ('form') %>')
+
+<% else %>
+	
+  console.log('updated');
+  $('#myModal').modal('hide');
+  
+  $('#divisions').html('<%= j render ('clients/show_sections/divisions') %>')
+
+    
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+  	
+
+
+<% end  %>

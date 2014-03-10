@@ -11,7 +11,6 @@
 	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
 	</div>
 
-
 	
 
 	<div style='width:90%;word-wrap: break-word;'>
@@ -119,8 +118,8 @@ $(document).on('click', '.editProjectSingleField', function() {
 	$('.'+attribute+'_container').load(link);
 	//$('.edit_container').appendTo('.'+attribute+'_container')
 	//return false;
-	// $('.editProjectSingleField').attr('style', 'display:none;')
-	// $('.editAppSingleField').attr('style', 'display:none;')
+	 $('.editProjectSingleField').hide();
+	 $('.editAppSingleField').hide();
 		
 })
 
@@ -133,6 +132,8 @@ $(document).on('click', '.editAppSingleField', function() {
 	$('.'+attribute+'_container').load(link);
 	//$('.edit_container').appendTo('.'+attribute+'_container')
 	//return false;
+	$('.editProjectSingleField').hide();
+	 $('.editAppSingleField').hide();
 	// $('.editProjectSingleField').attr('style', 'display:none;')
 	// $('.editAppSingleField').attr('style', 'display:none;')
 		

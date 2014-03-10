@@ -61,11 +61,11 @@ class ClienttypesController < ApplicationController
   end
 
   def new_client_go
+    
     @clienttype = Clienttype.new(params[:clienttype])
     
-   # if params[:clienttype][:client].blank?
-   #   @client = params[:clienttype][:client]
-   # end
+   
+    
 
      respond_to do |format|
       if @clienttype.valid? 
@@ -75,6 +75,19 @@ class ClienttypesController < ApplicationController
           #@client = Client.find(26)
           format.html { redirect_to new_client_path(:clienttype_id=> @clienttype.name, :country_id=>params[:country_id])}          
         end
+          
+          @client = Client.new    
+          @client.clienttype_id = @clienttype.name 
+          @client.locations.build.build_clientlocation    
+          @client.build_corporation
+          @client.build_charity
+          @client.build_band
+          @client.emails.build
+          @client.websites.build
+          @client.country_id = 38
+          @client.phones.build
+          @remote=true
+
           format.json { render json: @clienttype, status: :created, location: @clienttype }
           format.js
           
@@ -140,4 +153,9 @@ class ClienttypesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def build_client
+    
+  end
+
 end

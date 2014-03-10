@@ -112,12 +112,7 @@
                       <%= link_to edit_user_registration_path, :id=> "drop4", :role=>"button", :class=>"dropdown-toggle", "data-toggle"=>"dropdown" do %>
                         <i class='icon-user'></i> <%= current_user.full_name %>
                         <b class='caret'></b>
-                      <% end %>
-                  <% else %>
-                    <%= link_to "#", :id=> "drop4", :role=>"button", :class=>"dropdown-toggle", "data-toggle"=>"dropdown" do %>
-                        <i class='icon-user'></i>  sign in / register
-                        <b class='caret'></b>
-                      <% end %>
+                      <% end %>                 
                   <% end %>                        
               
                <!-- Log in/out -->
@@ -125,8 +120,7 @@
                 <% if user_signed_in? %>            
                   <li><%= link_to "logout", logout_path %></li>
                   <% else %>
-                  <li><%= link_to "sign in", login_path %></li>
-                  <li><%= link_to "register", register_path %></li>
+                  <li><%= link_to "sign in", login_path %></li>                  
                 <% end %>
               </ul>  
             </li> <!-- Log in/out end -->
@@ -142,16 +136,9 @@
     <div id='main' class="container-fluid">
       
       <div class="row-fluid">
-        <div class="span2">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Quick Menu</li>
-              <li><%= link_to "My files", "/path1"  %></li>
-              <li><%= link_to "Search", "/path2"  %></li>
-              <li><%= link_to "Preferences", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        
+        
+
         <div class="span10 offset 2" id='content'>                    
               <div id='flash_message'>                    
               	<%= bootstrap_flash %>                      

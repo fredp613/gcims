@@ -2,16 +2,17 @@ class ApplicationController < ActionController::Base
 
 # include ApplicationHelper
   protect_from_forgery
-  before_filter :authorize
-  before_filter :authenticate_user!
-  
-
+#  before_filter :authorize
+  before_filter :authenticate_user! 
   delegate :allow?, to: :current_permission
   helper_method :allow?
-
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
 
+
+# def after_sign_in_path_for(resource)
+#   redirect_to '/frontend/application'
+# end
 
 private
 
