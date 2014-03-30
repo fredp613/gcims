@@ -8,11 +8,23 @@ class ApplicationController < ActionController::Base
   helper_method :allow?
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
+#  layout :layout_by_resource
 
 
-# def after_sign_in_path_for(resource)
-#   redirect_to '/frontend/application'
+# protected 
+
+# def layout_by_resource
+#     if devise_controller?
+#       "application_fluid"
+#     else
+#       "application"
+#     end
 # end
+def after_sign_in_path_for(resource)    
+  if !current_user.admin?
+    "/frontend"   
+  end
+end
 
 private
 

@@ -1,5 +1,6 @@
-class Frontend::ApplicationController < ApplicationController
-layout "application_fluid"
+class Frontend::ClientApplicationController < Frontend::BaseFrontendController
+
+# layout "application_fluid"
 
 skip_before_filter :authorize
 skip_before_filter :authenticate_user!
@@ -25,3 +26,4 @@ skip_before_filter :authenticate_user!
   end
 
 end
+

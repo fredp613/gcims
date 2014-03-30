@@ -122,9 +122,23 @@ GCIMS::Application.routes.draw do
   end
 
   namespace :frontend do
-     
-    resources :application 
-    root to: "application#index"
+    resources :client_application 
+    root to: "ClientApplication#index"
+    #resources :users
+
+    devise_for :users, :controllers => {:registrations => :registrations, :sessions=>:sessions}
+
+    as :user do
+      get '/register', to: 'registrations#new', as: :register
+      get '/login', to: 'sessions#new', as: :login
+      get '/logout', to: 'sessions#destroy', as: :logout
+    end
+
+    as :user do
+      get "/login" => 'sessions#new', as: :new_user_session
+      post "/login" => 'sessions#create', as: :user_session
+      delete "/logout" => 'sessions#destroy', as: :destroy_user_session
+    end
     
   end
 

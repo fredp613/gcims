@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+ #layout "application_fluid"
   def new
-    super   
+    super       
   end
 
   def create
@@ -17,12 +18,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 
-protected
+# protected
 
-   def after_sign_up_path_for(resource)
-    unless current_user.admin?
-    '/frontend'
-    end
-  end
+#    def after_sign_up_path_for(resource)
+#     unless current_user.admin?
+#     '/frontend'
+#     end
+#   end
 
 end 
