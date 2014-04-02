@@ -100,7 +100,7 @@ GCIMS::Application.routes.draw do
   end
 
 
-  devise_for :user, :controllers => { :registrations => "registrations" }
+  devise_for :user
 
   as :user do
     get '/register', to: 'devise/registrations#new', as: :register
@@ -109,11 +109,11 @@ GCIMS::Application.routes.draw do
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
     get '/logout', to: 'devise/sessions#destroy', as: :logout
 
-    get '/frontend/register', to: 'devise/registrations#new', as: :register
-    get '/frontend/login', to: 'devise/sessions#new', as: :login
-    post "/frontend/login" => 'devise/sessions#create', as: :user_session
-    delete "/frontend/logout" => 'devise/sessions#destroy', as: :destroy_user_session
-    get '/frontend/logout', to: 'devise/sessions#destroy', as: :logout
+    get '/frontend/register', to: 'devise/registrations#new', as: :frontend_register
+    get '/frontend/login', to: 'devise/sessions#new', as: :frontend_login
+    post "/frontend/login" => 'devise/sessions#create', as: :frontend_user_session
+    delete "/frontend/logout" => 'devise/sessions#destroy', as: :frontend_destroy_user_session
+    get '/frontend/logout', to: 'devise/sessions#destroy', as: :frontend_logout
 
     
   end

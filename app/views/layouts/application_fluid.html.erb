@@ -68,10 +68,10 @@
                <!-- Log in/out -->
               <ul class='dropdown-menu' role='menu' aria-labelledby='dLabel'>
                 <% if user_signed_in? %>            
-                  <li><%= link_to "logout", logout_path %></li>
+                  <li><%= link_to "logout", frontend_logout_path %></li>
                   <% else %>
-                  <li><%= link_to "sign in", login_path %></li>
-                  <li><%= link_to "register", register_path %></li>
+                  <li><%= link_to "sign in", frontend_login_path %></li>
+                  <li><%= link_to "register", frontend_register_path %></li>
                 <% end %>
               </ul>  
             </li> <!-- Log in/out end -->
