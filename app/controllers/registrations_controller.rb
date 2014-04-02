@@ -1,29 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
- #layout "application_fluid"
-  def new
-    super       
+  
+ 
+
+  protected
+
+  def after_sign_up_path_for(resource)
+    if current_user.admin?
+      "/"
+    else
+      "/frontend"
+    end  
   end
-
-  def create
-    # add custom create logic here
-    super
-  end
-
-  def edit
-  	super
-  end
-
-  def update
-    super
-  end
-
-
-# protected
-
-#    def after_sign_up_path_for(resource)
-#     unless current_user.admin?
-#     '/frontend'
-#     end
-#   end
-
-end 
+end

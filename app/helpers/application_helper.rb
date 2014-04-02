@@ -98,6 +98,8 @@ module ApplicationHelper
 	    link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class} #, :remote=>true}
 	end
 
+	
+
    	
 end
 

@@ -9,6 +9,13 @@ class ProductservicelinesController < ApplicationController
     @fiscalyear2 = params[:fy2]
     @fyArray = []
 
+    if params[:startdate] && params[:enddate]
+     # @productserviceline.startdate = params[:startdate]
+     # @productserviceline.enddate = params[:enddate]
+      @fy1 = params[:startdate].to_date
+      @fy2 = params[:enddate].to_date
+      @fys = FiscalYear.new(@fy1, @fy2).fiscalyear
+    end
 
     @productservicelines = Productserviceline.all
     #@pslFiltered = Productserviceline.search(@fiscalyear1, @fiscalyear2)
@@ -56,7 +63,7 @@ class ProductservicelinesController < ApplicationController
   
       #render :layout => false
     
-      respond_to do |format|
+    respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @productserviceline }
       format.pdf do

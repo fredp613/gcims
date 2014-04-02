@@ -1,7 +1,10 @@
 class Productserviceline < ActiveRecord::Base
+
+  include ActiveModel::Dirty
+
   set_table_name "productservicelines"
-  attr_accessible :psl_name, :active, :fiscalyear_ids, :subservicelines_attributes, 
-  :summarycommitments_attributes, :commitmentitems_attributes
+  attr_accessible :psl_name, :active, :subservicelines_attributes, 
+  :summarycommitments_attributes, :commitmentitems_attributes, :startdate, :enddate,:fiscalyear_ids
 
   has_many :subservicelines, :dependent => :destroy
   has_many :summarycommitments, through: :subservicelines
@@ -18,6 +21,25 @@ class Productserviceline < ActiveRecord::Base
   accepts_nested_attributes_for :commitmentitems
 
   validates :psl_name, presence: true
+  validates :startdate, presence: true
+  validates :enddate, presence: true
+  validate :startdate_comparison
+  validate :enddate_comparison
+
+
+   def startdate_comparison     
+    return if !startdate_changed? || startdate.blank?
+    if enddate < startdate               
+        errors.add(:startdate, 'must be smaller than end date')                
+    end
+  end
+
+  def enddate_comparison     
+    return if !enddate_changed? || enddate.blank?
+    if enddate < startdate                       
+        errors.add(:enddate, 'must be greater than start date')                 
+    end
+  end
 
 
     

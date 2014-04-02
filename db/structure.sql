@@ -964,7 +964,9 @@ CREATE TABLE productservicelines (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    active boolean
+    active boolean,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -2041,3 +2043,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131204205926');
 INSERT INTO schema_migrations (version) VALUES ('20131204210956');
 
 INSERT INTO schema_migrations (version) VALUES ('20131209170950');
+
+INSERT INTO schema_migrations (version) VALUES ('20140330171954');

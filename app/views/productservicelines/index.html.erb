@@ -19,6 +19,33 @@
   <% end %>
 </div> 
 
+<div>
+
+<% if @fys %>
+  <% @fys.each do |fy| %>
+    <h3><%= fy %></h3>
+  <% end %>
+<% end %>
+
+</div>
+
+<div id='fy_search'>
+  <%= simple_form_for productservicelines_path, :method => 'get', :html => { :class => 'form-inline' } do |f|  %>
+    
+  start:<%= f.input :startdate, 
+  input_html: { class: "datepicker", name: 'startdate', value: @fy1 } %>
+
+  end:<%= f.input :enddate, 
+  input_html: { class: "datepicker", name: 'enddate', value: @fy2 } %>
+
+    
+  <%= f.submit "Search", :class=>'btn btn-primary' %>
+   
+  <% end %>
+</div> 
+
+
+
 
 <ul class='tree'>
 <% @productservicelines.each do |psl| %> 
