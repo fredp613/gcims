@@ -9,12 +9,16 @@ class ProductservicelinesController < ApplicationController
     @fiscalyear2 = params[:fy2]
     @fyArray = []
 
-    if params[:startdate] && params[:enddate]
-     # @productserviceline.startdate = params[:startdate]
-     # @productserviceline.enddate = params[:enddate]
-      @fy1 = params[:startdate].to_date
-      @fy2 = params[:enddate].to_date
-      @fys = FiscalYear.new(@fy1, @fy2).fiscalyear
+    # if params[:startdate] && params[:enddate]
+    #   @fy1 = params[:startdate].to_date
+    #   @fy2 = params[:enddate].to_date
+    #   @fys = FiscalYear.new(@fy1, @fy2).fiscalyear_by_date_range
+    # end
+
+    if params[:start_year] && params[:end_year]
+      @fy1 = params[:start_year]
+      @fy2 = params[:end_year]
+      @fys = FiscalYear.new(@fy1.to_i, @fy2.to_i).fiscalyear_by_year_range_single
     end
 
     @productservicelines = Productserviceline.all
@@ -106,13 +110,12 @@ class ProductservicelinesController < ApplicationController
   # POST /productservicelines
   # POST /productservicelines.json
   def create
-    @productserviceline = current_user.productservicelines.new(params[:productserviceline])
-
+    @productserviceline = current_user.productservicelines.new(params[:productserviceline])    
     respond_to do |format|
       if @productserviceline.save
-        @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
-        @updatetree.update_tree_instances
-        
+        # @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
+        # @updatetree.update_tree_instances
+    
         format.html { redirect_to productserviceline_path(@productserviceline), notice: 'Productserviceline was successfully created.' }
         format.json { render json: @productserviceline, status: :created, location: @productserviceline }
       else

@@ -15,7 +15,7 @@ class AddresstypesController < ApplicationController
   # GET /addresstypes/1.json
   def show
     @addresstype = Addresstype.find(params[:id])
-
+    #test
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @addresstype }

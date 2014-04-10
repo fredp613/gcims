@@ -6,39 +6,46 @@
 		  
 		 </fieldset>
 
-		 <% if @productserviceline.new_record? %>
-			  <%= f.simple_fields_for :subservicelines do |builder| %>
-				  	<fieldset>
-				  		<legend>Sub Service Line</legend>
-				  		<%= builder.input :ssl_name, :label => "Sub Service Line (EN)" %>
-				  	</fieldset>
-
-				  	<%= builder.simple_fields_for :summarycommitments do |builder| %>
-				  		<fieldset>
-				  		<legend>Summary commitment</legend>
-				  		<%= builder.input :sc_name, :label => "Summary Commitment (EN)" %>
-				  	</fieldset>
-
-				  		<%= builder.simple_fields_for :commitmentitems do |builder| %>
-				  		<fieldset>
-				  		<legend>Commitment Item</legend>
-				  		<%= builder.input :ci_name, :label => "Commitment Item (EN)" %>
-				  	</fieldset>
-				  		<% end %>
-				  	<% end %>
-			<% end %>
+		 <% if @productserviceline.new_record? %>			 
+		  	<fieldset>
+		  		<legend>Sub Service Line</legend>
+		  		<%= f.input :ssl_name, :label => "Sub Service Line (EN)" %>
+		  	</fieldset>				  
+		  		<fieldset>
+		  		<legend>Summary commitment</legend>
+		  		<%= f.input :sc_name, :label => "Summary Commitment (EN)" %>
+		  	</fieldset>				  		
+		  		<fieldset>
+		  		<legend>Commitment Item</legend>
+		  		<%= f.input :ci_name, :label => "Commitment Item (EN)" %>
+		  	</fieldset>
+				  	
 		  <% end %>
 
-		  <fieldset>
-		  	<legend>Fiscal Years</legend>
-		   <%= f.association :fiscalyears, :label=>"Select fiscal year(s)", collection: Fiscalyear.all(order: 'fy'), :label_method => lambda { |fy| "#{fy.fy}" }, as: :check_boxes %>
-		   </fieldset>
+		 <fieldset>
+		    <legend>Fiscal Years</legend>
 
-		   <%= f.input :active, :label=>"Activate on Save" %>
+		       <%= date_picker :startdate, f,  @productserviceline.startdate, "Start Date", @productserviceline.errors %>
+  				<%= date_picker :enddate, f,  @productserviceline.enddate, "End Date", @productserviceline.errors %>
 
+		  </fieldset>
+
+		  
 		  <div class="form-actions">
 		    <%= f.button :submit, :class => 'btn-primary' %>
 		    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-		                productservicelines_path, :class => 'btn' %>
+		                commitmentitems_path, :class => 'btn' %>
 		  </div>
-		<% end %>
+
+	<% end %>
+
+
+<script type="text/javascript">
+
+$('.datepicker').datepicker({
+  autoclose: 'true',  
+  format: 'yyyy-mm-dd'
+});
+
+
+</script>		

@@ -18,6 +18,8 @@ class CommitmentitemsController < ApplicationController
       @commitmentitems = Commitmentitem.where(:id=>params[:sc])
     end
 
+    #@commitmentitems = Commitmentitem.all
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @commitmentitems }
@@ -39,10 +41,9 @@ class CommitmentitemsController < ApplicationController
   # GET /commitmentitems/new.json
   def new
 
-    @commitmentitem = current_user.commitmentitems.new(:summarycommitment_id => params[:summarycommitment_id],
-      :fiscalyear_ids => params[:fiscalyear_ids])
+    @commitmentitem = current_user.commitmentitems.new
     @layout = params[:layout]
-    if @layout='false'   
+    if @layout=='false'   
       render :layout => false    
     else
       respond_to do |format|

@@ -7,8 +7,55 @@ class FiscalYear
   
  end
 
-#returns a list of fiscal years based on full date
-def fiscalyear
+#returns a list of fiscal years based on year
+def fiscalyear_by_year_range
+  
+  @fy1_start = @start_date - 1
+  @fy1_end = @start_date
+
+  @fy2_start = @end_date - 1
+  @fy2_end = @end_date 
+  
+  @fiscalyears = Array.new
+
+  @fy_count = @end_date - @start_date
+
+  i = 0
+    loop do
+      @fiscalyears.push((@fy1_start + i).to_s + "-" + (@fy1_end + i).to_s)
+      i += 1 
+      break if i > @fy_count
+    end
+
+  @fiscalyears
+
+end
+
+def fiscalyear_by_year_range_single
+  
+  @fy1_start = @start_date - 1
+  @fy1_end = @start_date
+
+  @fy2_start = @end_date - 1
+  @fy2_end = @end_date 
+  
+  @fiscalyears = Array.new
+
+  @fy_count = @end_date - @start_date
+
+  i = 0
+    loop do
+      @fiscalyears.push(@fy1_start + i).to_s
+      i += 1 
+      break if i > @fy_count
+    end
+
+  @fiscalyears
+
+end
+
+#returns a list of fiscal years based on full date range
+def fiscalyear_by_date_range
 
   @start_month = @start_date.month.to_i
   @end_month = @end_date.month.to_i
@@ -17,18 +64,15 @@ def fiscalyear
 
 
   @fiscalyears = Array.new
-  @fy1_start = ''
-  @fy1_end = ''
-  # @fy2_start = nil
-  # @fy2_end = nil
-  @year1 = ''
-  @year2 = ''
-  @one = 1
+  @fy1_start = 0
+  @fy1_end = 0
+
+  
   #2008
   if @start_month < 4 
   	@fy1_start = @start_year - 1 #2007
   	@fy1_end = @start_year #2008
-  elsif @start_month > 4
+  else
   	@fy1_start = @start_year #2008
   	@fy1_end = @start_year + 1 #2009
   end
@@ -44,12 +88,13 @@ def fiscalyear
 
   if @fy2_end - @fy1_end > 0
    
-    @fy_count = @fy2_end - @fy1_end 
-  	
-    
-    @fys = 0..@fy_count.to_i
-    @fys.each do |i|
-      @fiscalyears.push((@fy1_start + i).to_s + " " + (@fy1_start + i + 1).to_s)
+    @fy_count = @fy2_end - @fy1_end   	
+      
+    i = 0
+    loop do
+      @fiscalyears.push((@fy1_start + i).to_s + "-" + (@fy1_start + i + 1).to_s)
+      i += 1 
+      break if i > @fy_count
     end
     
   else
@@ -59,6 +104,12 @@ def fiscalyear
 
  @fiscalyears  
  end
+
+
+def fiscal_year_by_year_range
+
+end
+
 
 
 

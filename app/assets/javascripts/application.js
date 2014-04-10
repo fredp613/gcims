@@ -57,6 +57,7 @@ ready1 =
   });
 
   bind_datepicker();
+  bind_datepicker_year();
 
   // if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
   //   window.location.replace("/login");
@@ -93,6 +94,17 @@ function bind_datepicker() {
   $element.datepicker({
     autoclose: 'true',
    format: 'yyyy-mm-dd'
+  });
+}
+
+function bind_datepicker_year() {
+  $element = $(document).find('.datepicker_year')
+
+  $element.datepicker({
+    autoclose: 'true',
+    format: 'yyyy',
+    viewMode: 'years',
+    minViewMode: 'years'
   });
 }
 
