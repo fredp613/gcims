@@ -19,5 +19,5 @@
 #ignore secret token
 /config/initializers/secret_token.rb
 
-/vendor/bundle
+
 .DS_Store
