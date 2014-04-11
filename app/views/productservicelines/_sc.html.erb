@@ -1,4 +1,7 @@
-<%= link_to sc.sc_name, summarycommitment_path(sc), :class=>(sc.enddate >= Date.today ? "pras_item" : "pras_item red") %>
+<%= link_to sc.sc_name, summarycommitment_path(sc), :name=>sc, :value=>sc.id, 
+:class=>(
+	(FiscalYear.new(sc.startdate, sc.enddate).fiscalyear_by_date_range.to_a & 
+	FiscalYear.new(params[:start_year] ||= Date.today.year, params[:end_year] ||= Date.today.year).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red")%>
  <%= link_to '', edit_summarycommitment_path(sc), :class=>'editSc icon-pencil black', :remote=>true %>
  <%= link_to '', new_summarycommitment_path(:subserviceline_id=>sc.subserviceline_id,
  :fiscalyear_ids => sc.fiscalyears), :class=>'newSc icon-plus-sign black', :remote=>true %> 

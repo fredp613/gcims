@@ -1,6 +1,6 @@
 class Subserviceline < ActiveRecord::Base
   attr_accessible :active, :ssl_name, :productserviceline_id, :summarycommitments_attributes, :commitmentitems_attributes,
-  :startdate, :enddate,:fiscalyear_ids
+  :startdate, :enddate,:fiscalyear_ids, :user_id
   belongs_to :productserviceline
   belongs_to :user
   has_many :subservicelines
@@ -36,7 +36,7 @@ class Subserviceline < ActiveRecord::Base
   end
 
   def fiscalyears
-    @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_year_range
+    @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
     @fys
   end
 

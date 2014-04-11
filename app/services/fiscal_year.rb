@@ -10,15 +10,15 @@ class FiscalYear
 #returns a list of fiscal years based on year
 def fiscalyear_by_year_range
   
-  @fy1_start = @start_date - 1
-  @fy1_end = @start_date
+  @fy1_start = (@start_date.to_i - 1).to_i
+  @fy1_end = @start_date.to_i
 
-  @fy2_start = @end_date - 1
-  @fy2_end = @end_date 
+  @fy2_start = (@end_date.to_i - 1).to_i
+  @fy2_end = @end_date.to_i
   
   @fiscalyears = Array.new
 
-  @fy_count = @end_date - @start_date
+  @fy_count = @end_date.to_i - @start_date.to_i
 
   i = 0
     loop do
@@ -106,9 +106,7 @@ def fiscalyear_by_date_range
  end
 
 
-def fiscal_year_by_year_range
 
-end
 
 
 

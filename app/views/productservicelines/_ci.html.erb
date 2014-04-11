@@ -1,4 +1,7 @@
-<%= link_to ci.ci_name, commitmentitem_path(ci), :class=>(ci.enddate >= Date.today ? "pras_item" : "pras_item red") %>
+<%= link_to ci.ci_name, commitmentitem_path(ci), :name=>ci, :value=>ci.id, 
+:class=>(
+	(FiscalYear.new(ci.startdate, ci.enddate).fiscalyear_by_date_range.to_a & 
+	FiscalYear.new(params[:start_year] ||= Date.today.year, params[:end_year] ||= Date.today.year).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red")%>
  <%= link_to '', edit_commitmentitem_path(ci), :class=>'editCi icon-pencil black', :remote=>true %>
  <%= link_to '', new_commitmentitem_path(:subserviceline_id=>ci.summarycommitment_id,
  :fiscalyear_ids => ci.fiscalyears), :class=>'newSc icon-plus-sign black', :remote=>true %> 

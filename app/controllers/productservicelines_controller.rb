@@ -5,26 +5,7 @@ class ProductservicelinesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @fiscalyear1 = params[:fy1]
-    @fiscalyear2 = params[:fy2]
-    @fyArray = []
-
-    # if params[:startdate] && params[:enddate]
-    #   @fy1 = params[:startdate].to_date
-    #   @fy2 = params[:enddate].to_date
-    #   @fys = FiscalYear.new(@fy1, @fy2).fiscalyear_by_date_range
-    # end
-
-    if params[:start_year] && params[:end_year]
-      @fy1 = params[:start_year]
-      @fy2 = params[:end_year]
-      @fys = FiscalYear.new(@fy1.to_i, @fy2.to_i).fiscalyear_by_year_range_single
-    end
-
     @productservicelines = Productserviceline.all
-    #@pslFiltered = Productserviceline.search(@fiscalyear1, @fiscalyear2)
-    @fiscalyears = Fiscalyear.search(@fiscalyear1, @fiscalyear2).select(:id).to_a
-    @fyArray = @fiscalyears.map{ |x| x[:id] }
 
     respond_to do |format|
       format.html 
@@ -133,10 +114,9 @@ class ProductservicelinesController < ApplicationController
 
     respond_to do |format|
       if @productserviceline.update_attributes(params[:productserviceline]) 
-        @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
-        @updatetree.update_tree_instances
-  
-        
+        # @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
+        # @updatetree.update_tree_instances
+          
         format.html { redirect_to @productserviceline, notice: 'Productserviceline was successfully updated.' }
         format.json { head :no_content }
       else

@@ -1,5 +1,5 @@
 class Commitmentitem < ActiveRecord::Base
-  attr_accessible :active, :ci_name, :summarycommitment_id, :startdate, :enddate, :fiscalyear_ids
+  attr_accessible :active, :ci_name, :summarycommitment_id, :startdate, :enddate, :fiscalyear_ids, :user_id
   has_many :fyci, :dependent => :delete_all
   #has_many :fiscalyears, through: :fyci
   has_many :applications

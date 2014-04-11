@@ -1,5 +1,5 @@
 class Summarycommitment < ActiveRecord::Base
-  attr_accessible :active, :sc_name, :subserviceline_id, :commitmentitems_attributes, :startdate, :enddate, :fiscalyear_ids
+  attr_accessible :active, :sc_name, :subserviceline_id, :commitmentitems_attributes, :startdate, :enddate, :fiscalyear_ids, :user_id
 
   has_many :commitmentitems, :dependent => :destroy
   has_many :applications, through: :commitmentitems
@@ -34,7 +34,7 @@ class Summarycommitment < ActiveRecord::Base
   end
 
   def fiscalyears
-    @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_year_range
+    @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
     @fys
   end
   

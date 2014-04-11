@@ -1,6 +1,9 @@
 <%= link_to psl.psl_name, productserviceline_path(psl), :name=>psl, :value=>psl.id, 
-:class=>(psl.enddate >= Date.today ? "pras_item" : "pras_item red")%>
+:class=>(
+	(FiscalYear.new(psl.startdate, psl.enddate).fiscalyear_by_date_range.to_a & 
+	FiscalYear.new(params[:start_year] ||= Date.today.year, params[:end_year] ||= Date.today.year).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red")%>
 
 <%= link_to '', edit_productserviceline_path(psl), :class=>'editPsl icon-pencil black', :remote=>true %>
 <%= link_to '', new_productserviceline_path, :class=>'newPras icon-plus-sign black', :remote=>true %> 
 <%= link_to '', psl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> 
+

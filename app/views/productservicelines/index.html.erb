@@ -10,15 +10,16 @@
     
   start year:
   <div class='datepicker_year input-append date' data-date-format='yyyy' data-date-viewmodel='months'>
-    <input class='span10' type='text' readonly='' name='start_year' />
+
+    <input class='span10' type='text' readonly='' name='start_year' value=<%= params[:start_year] %>  >
     <span class='add-on'>
       <i class='icon-calendar'></i>
     </span>
   </div> 
 
   end year:
-  <div class='datepicker_year input-append date' data-date-format='yyyy' data-date-viewmodel='months'>
-    <input class='span10' type='text' readonly='' name='end_year' />
+  <div class='datepicker_year input-append date' data-date-format='yyyy' data-date-viewmodel='months' >
+    <input class='span10' type='text' readonly='' name='end_year' value=<%= params[:end_year] %> >
     <span class='add-on'>
       <i class='icon-calendar'></i>
       
@@ -64,7 +65,7 @@
 
 <br><br>
 
-<%= link_to 'Add Branch', new_productserviceline_path, :class=>'newPras btn btn-success' %>
+<%= link_to 'Add Branch', new_productserviceline_path, :class=>'newPras btn btn-info' %>
 
 <div class="modal fade" id="myModal" style='display:none;'>
     <div class="modal-dialog">
