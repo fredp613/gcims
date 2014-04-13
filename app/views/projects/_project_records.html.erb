@@ -1,0 +1,16 @@
+<% @applications.each do |a| %>
+    <tr>
+      <td><%= a.corporate_file_number %></td>
+      <td><%= a.project.projectname %></td>      
+      <td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name + "-" + a.commitmentitem.summarycommitment.sc_name  %></td>
+      <td><%= a.official_email(current_user) %></td>
+      <td style='width:40px'><%= link_to a.project do %>
+            <i class='icon-pencil icon-large black'></i>  
+          <% end  %>
+          <%= link_to a.project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class='icon-remove-sign icon-large red'></i> 
+          <% end  %>
+      </td>
+
+    </tr>
+  <% end %>

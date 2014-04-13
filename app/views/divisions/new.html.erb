@@ -1,5 +1,11 @@
+
+<% unless params[:layout] %>
 <h1>Add division for <%= Client.where(:id=>@division.client_id).first.name  %> </h1><br>
+<% end %>
 
 <%= render 'form' %>
 
+
+<% unless params[:layout] %>
 <%= link_to 'Back', divisions_path %>
+<% end %>

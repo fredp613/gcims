@@ -411,7 +411,9 @@ CREATE TABLE commitmentitems (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    summarycommitment_id integer
+    summarycommitment_id integer,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -964,7 +966,9 @@ CREATE TABLE productservicelines (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    active boolean
+    active boolean,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -1112,7 +1116,9 @@ CREATE TABLE subservicelines (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    productserviceline_id integer
+    productserviceline_id integer,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -1146,7 +1152,9 @@ CREATE TABLE summarycommitments (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     user_id integer,
-    subserviceline_id integer
+    subserviceline_id integer,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -2041,3 +2049,11 @@ INSERT INTO schema_migrations (version) VALUES ('20131204205926');
 INSERT INTO schema_migrations (version) VALUES ('20131204210956');
 
 INSERT INTO schema_migrations (version) VALUES ('20131209170950');
+
+INSERT INTO schema_migrations (version) VALUES ('20140330171954');
+
+INSERT INTO schema_migrations (version) VALUES ('20140409172234');
+
+INSERT INTO schema_migrations (version) VALUES ('20140409172242');
+
+INSERT INTO schema_migrations (version) VALUES ('20140409172249');

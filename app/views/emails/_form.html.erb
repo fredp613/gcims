@@ -2,12 +2,21 @@
 <%= simple_form_for @email, :remote=>true, :html=>{:class=> 'form-inline'}  do |f| %>
   
 
+<<<<<<< HEAD
   <div class="input-append">
     <%= f.input :email,as: :string,:label=>false %>     
      <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
       <i class='icon-ok'></i>
   <% end %>
   </div>
+=======
+  <%= f.input :email, :label=>false, :wrapper => :append do %>                   
+      <%= f.input_field :email, label: false %> 
+      <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+      <i class='icon-ok'></i>     
+  <% end %> 
+  <% end %>                    
+>>>>>>> fy_refactor
 
   <% if !@email.new_record? %>
   <%= f.input :client_id, as: :hidden %>

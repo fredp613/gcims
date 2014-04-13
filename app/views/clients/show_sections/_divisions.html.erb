@@ -1,12 +1,15 @@
-<div id='divisions'>
+<div class='row-fluid'>
     <fieldset>
       <legend>Divisions 
-        <%= link_to "add division", new_client_division_path(@client), :class=>'btn btn-primary btn-small' %>
+        <%= link_to "add division", new_client_division_path(@client), :id=>'add_division', :class=>'btn btn-primary btn-small' %>
       </legend>
+
+        <div>
 
         <% if @client.divisions.present? %>
         
         
+<<<<<<< HEAD
           <% @client.divisions.each do |division| %>
           <div class='well span3'>
             <b><%= division.name %></b><br>
@@ -38,13 +41,53 @@
           <%= link_to "edit division", edit_client_division_path(@client, division), :class=>'btn btn-info btn-small' %> </div>                    
           <% end %>
           
+=======
+            <% @client.divisions.each_with_index do |division, i| %>
 
+                  <% if i == 0 %>
+                    <p class='well span3' style='margin-left:33px;'>
+                  <% else %>
+                    <p class='well span3'> 
+                <% end %>
+>>>>>>> fy_refactor
+
+                  <b><%= division.name %></b><br>
+                  <% if division.name1? %>
+                    <%= division.name1 %><br>
+                  <% end %>
+                  <% if division.name2? %>
+                    <%= division.name2 %><br>
+                  <% end %>
+                   <%= division.location.addressline1 %> <br>
+                  <% if division.location.addressline2? %>
+                    <%= division.location.addressline2 %> <br>
+                  <% end %>
+                  <% if division.location.addressline3? %>
+                    <%= division.addressline3 %> <br>
+                  <% end %>
+                  <% if division.location.addressline4? %>
+                    <%= division.addressline4 %> <br>
+                  <% end %>
+                  <% if division.location.city? %>
+                    <%= division.location.city %> <br>
+                  <% end %>
+                  <% if division.location.state_id? %>
+                    <%= division.location.state.name %> <br>
+                  <% end %>
+                  <% if division.location.postal? %>
+                    <%= division.location.postal %> <br>
+                  <% end %>  
+                <%= link_to "edit division", edit_client_division_path(@client, division), :class=>'btn btn-info btn-small', :id=>'btnEditDivision', 'data-title'=>'Edit Division' %> 
+              </p> <!-- well -->                   
+      
+      
+        <% end %>
         <% else %>  
           There are no division(s) yet for this province <br>
           
         <% end %>
-
+      </div><!-- container -->            
     </fieldset>
-    
+</div>
 
-  </div>
+  

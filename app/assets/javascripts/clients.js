@@ -14,6 +14,34 @@ ready2 =
 
 }
 
+$(document).on('hidden',"#myModal", function() {
+    $("#modalId").remove();
+});
+
+ $(document).on('click', '#btnEditDivision', function() { 
+     // $.getScript(this.href);
+        //e.preventDefault();  
+        var link = $(this).attr('href') + '?layout="false"';
+        var title = $(this).attr('data-title');
+        createModal(link, title);
+        return false;
+  }); 
+
+ $(document).on('click', '#add_division', function() {
+    var link = $(this).attr('href') + '?layout=false'
+    createModal(link, 'Create Division Wizard');
+    return false;
+  })
+
+  var createModal = function(link, title) {
+    $('.modal-title').html(title);
+    $('<div id="modalId" />').appendTo('.modal-body');
+    $('#modalId').load(link);
+    $("#myModal").modal();  
+  } 
+
+    
+
 
 $(document).on('page:load', ready2);
 $(document).ready(ready2);
@@ -57,6 +85,11 @@ $(document).on('click', '#client_registeredband', function() {
     return false;
   })
 
+  $(document).on('click', '#clientWizardSubmit', function() {
+    $('#new_client').submit();
+    return false;
+  })
+
   $(document).on('click', '.btnCorp', {action: 'new'}, corp_click );
   $(document).on('click', '.btnEditCorp', {action: 'edit'}, corp_click );
 
@@ -83,6 +116,7 @@ $(document).on('click', '#client_registeredband', function() {
     return false;
   })
 
+ 
 
 
 

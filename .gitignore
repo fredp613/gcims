@@ -18,3 +18,10 @@
 
 #ignore secret token
 /config/initializers/secret_token.rb
+
+.DS_Store
+
+# Environment normalisation:
+/.bundle
+/vendor/bundle
+

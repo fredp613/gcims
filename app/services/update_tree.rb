@@ -40,17 +40,17 @@ class UpdateTree
 		psl = @psl.subservicelines.find(:all)
 			psl.each do |ssl|
 				#ssl.active = @psl.active
-				ssl.fiscalyear_ids = @psl.fiscalyear_ids
+				ssl.fiscalyears_save(@psl.fiscalyears)
 				ssl.user = @psl.user
 				ssl.update_attributes(@params[:subserviceline])
 				ssl.summarycommitments.each do |sc|
 					#sc.active = @psl.active
-					sc.fiscalyear_ids = @psl.fiscalyear_ids
+					sc.fiscalyears_save(@psl.fiscalyears)
 					sc.user = @psl.user
 					sc.update_attributes(@params[:summarycommitment])
 					sc.commitmentitems.each do |ci|
 						#ci.active = @psl.active
-						ci.fiscalyear_ids = @psl.fiscalyear_ids
+						ci.fiscalyears_save(@psl.fiscalyears)
 						ci.user = @psl.user
 						ci.update_attributes(@params[:commitmentitem])
 					end
@@ -62,12 +62,12 @@ class UpdateTree
 		ssl = @ssl.summarycommitments.find(:all)
 		  ssl.each do |sc| 
 			#sc.active = @ssl.active
-			sc.fiscalyear_ids = @ssl.fiscalyear_ids
+			sc.fiscalyears_save(@ssl.fiscalyears)
 			sc.user = @ssl.user
 			sc.update_attributes(@params[:summarycommitment])
 			sc.commitmentitems.find(:all).each do |ci|
 				#ci.active = @ssl.active
-				ci.fiscalyear_ids = @ssl.fiscalyear_ids
+				ci.fiscalyear_save(@ssl.fiscalyears)
 				ci.user = @ssl.user
 				ci.update_attributes(@params[:commitmentitem])
 			end
@@ -78,7 +78,7 @@ class UpdateTree
 		sc = @sc.commitmentitems.find(:all)
 		sc.each do |ci|
 		 #ci.active = @sc.active
-		 ci.fiscalyear_ids = @sc.fiscalyear_ids
+		 ci.fiscalyear_save(@sc.fiscalyears)
 		 ci.user = @sc.user
 		 ci.update_attributes(@params[:commitmentitem])
 		end
@@ -89,7 +89,7 @@ class UpdateTree
 		@cifys = Fyci.find(:all, :conditions => ['commitmentitem_id in (?)', @sc.commitmentitems.map(&:id)]).count
 		#current branch has no active leafs OR current branch only has 1 leaf 
 		if @cifys == 0 
-			@sc.fiscalyear_ids = @ci.fiscalyear_ids
+			@sc.fiscalyears_save(@ci.fiscalyear_ids)
 			@sc.user = @ci.user
 			@sc.update_attributes(@params[:summarycommitment])
 		else
@@ -101,12 +101,12 @@ class UpdateTree
 		@scfys = Fysc.find(:all, :conditions => ['summarycommitment_id in (?)', @ssl.summarycommitments.map(&:id)]).count
 
 		if @scfys == 0 
-			@ssl.fiscalyear_ids = @ci.fiscalyear_ids
+			@ssl.fiscalyears_save(@ci.fiscalyear_ids)
 			@ssl.user = @ci.user
 			@ssl.update_attributes(@params[:subserviceline])
 		else
-			@fy_ssl = @ci.fiscalyear_ids.reject{ |e| @ssl.fiscalyear_ids.include? e}
-			@ssl.fiscalyear_ids = @fy_ssl + @ssl.fiscalyear_ids
+			@fy_ssl = @ci.fiscalyears.reject{ |e| @ssl.fiscalyears.include? e}
+			@ssl.fiscalyears_save = @fy_ssl + @ssl.fiscalyear_ids
 			@ssl.user = @ci.user
 			@ssl.update_attributes(@params[:subserviceline])
 		end

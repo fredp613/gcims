@@ -1,18 +1,15 @@
 
 
-
-<h3>Projects</h3>
-
 <table class='table table-bordered table-striped table-hover table-condensed'>
  <thead>
   <tr>
-  	<th>RIMS</th>
-  	<th>Client</th>
-  	<th>Title</th>
-  	<th>Product Service Line</th>
-  	<th>Sub Service Line</th>
-  	<th>Summary Commitment</th>
-  	<th>Commitment Item</th>
+  	<th><%= sortable "app", "corporate_file_number", "RIMS" %></th>
+  	<th><%= sortable "app", "client_applications.name", "Client" %></th>
+  	<th><%= sortable "app", "projects.projectname", "Title" %></th>
+  	<th><%= sortable "app", "Product Service Line" %></th>
+  	<th><%= sortable "app", "Sub Service Line" %></th>
+  	<th><%= sortable "app", "Summary Commitment" %></th>
+  	<th><%= sortable "app", "commitmentitems.ci_name", "Commitment Item" %></th>
   	<th></th>
     <th></th>
   </tr>
@@ -29,7 +26,7 @@
 <%= paginate @applications, :param_name=>'project_page', :remote=>true %>
 </div>
 
-<% if @projects.count > 5 %>
-  <%= render 'pageSize', :id=>'projects' %>
+<% if @projects.count > 10 %>
+  <%= render 'shared/pageSize', :resource=>'projects' %>
 <% end %>
 

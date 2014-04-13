@@ -2,15 +2,29 @@ GCIMS::Application.routes.draw do
   
 
   resources :otherfunders
-
-
   resources :applicationtypes
-
-
   resources :budgetcategories
-
-
+  resources :users
   resources :budgetitems
+  resources :charities
+  resources :bands
+  resources :websites
+  resources :phones
+  resources :emails
+  resources :corporations
+  resources :addresstypes
+  resources :contacttypes
+  resources :contacttypes
+  resources :countries
+  resources :states
+  resources :clientlocations
+  resources :contactlocations
+  resources :fiscalyears
+  resources :commitmentitems
+  resources :summarycommitments 
+  resources :subservicelines  
+  resources :productservicelines, path: 'pras' 
+  resources :fincodes
 
   resources :searches do
     collection do
@@ -24,15 +38,6 @@ GCIMS::Application.routes.draw do
   resources :divisions do
     resources :locations
   end
-
-  resources :charities
-  resources :bands
-  resources :websites
-  resources :phones
-  resources :emails
-
-  resources :corporations
-
 
    resources :clienttypes do
 
@@ -95,56 +100,30 @@ GCIMS::Application.routes.draw do
   end
 
 
-  
-
-  resources :addresstypes
-  resources :contacttypes
-  
-  resources :contacttypes
-  resources :countries
-  resources :states
-
-
-
-
-  resources :clientlocations
-
-  resources :contactlocations
-
-
-
-  resources :fiscalyears
-  devise_for :users
-
-  resources :commitmentitems
-  resources :summarycommitments 
-  resources :subservicelines  
-  resources :productservicelines, path: 'pras'
-    
-  
- 
-  resources :fincodes
-
-  
-
-   as :user do
-    get '/register', to: 'devise/registrations#new', as: :register
-    get '/login', to: 'devise/sessions#new', as: :login
-    get '/logout', to: 'devise/sessions#destroy', as: :logout
-  end
-
-  devise_for :users, skip: [:sessions]
+  devise_for :user
 
   as :user do
-    get "/login" => 'devise/sessions#new', as: :new_user_session
+    get '/register', to: 'devise/registrations#new', as: :register
+    get '/login', to: 'devise/sessions#new', as: :login
     post "/login" => 'devise/sessions#create', as: :user_session
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
+    get '/logout', to: 'devise/sessions#destroy', as: :logout
+
+    get '/frontend/register', to: 'devise/registrations#new', as: :frontend_register
+    get '/frontend/login', to: 'devise/sessions#new', as: :frontend_login
+    post "/frontend/login" => 'devise/sessions#create', as: :frontend_user_session
+    delete "/frontend/logout" => 'devise/sessions#destroy', as: :frontend_destroy_user_session
+    get '/frontend/logout', to: 'devise/sessions#destroy', as: :frontend_logout
+
+    
   end
 
   namespace :frontend do
-    root to: "home#index"
-    #resources :wizard
+    resources :client_application 
+    root to: "ClientApplication#index"    
   end
+
+ 
 
   
   #get 'edit_psl', to: "productserviceline/edit/:id/layout/:layout"

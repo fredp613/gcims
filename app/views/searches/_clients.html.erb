@@ -1,18 +1,22 @@
 
 
 
-<h3>Clients</h3>
 <div id='client_table'>
-
-
 
 <table class='table table-bordered table-striped table-hover table-condensed'>
  <thead>
  	<tr>
+<<<<<<< HEAD
  	 <th>name</th> 	 
  	 <th>email</th>
  	 <th>phone</th>
  	 <th>website</th>
+=======
+ 	 <th><%= sortable "client", "name" %></th> 	 
+ 	 <th><%= sortable "client", "emails_clients.email", "email" %></th>
+ 	 <th><%= sortable "client", "phones_clients.phone", "phone" %></th>
+ 	 <th><%= sortable "client", "websites_clients.website", "website" %></th>
+>>>>>>> fy_refactor
  	 <th style='width:15%'></th>
  	</tr>
  </thead>
@@ -27,8 +31,8 @@
 <%= paginate @clients, :param_name=>'client_page', :remote=>true %>
 </div>
 
-<% if @client.count > 5 %>
-	<%= render 'pageSize', :id=>'clients' %>
+<% if @client.count > 10 %>
+	<%= render 'shared/pageSize', :resource=>'clients' %>
 <% end %>
 
 

@@ -41,7 +41,9 @@ function () {
     $('#dynamic_header_content').remove();
   });
 
-  
+  $(window).bind('popstate', function() {
+    $.getScript(location.href);
+  }) 
 
 
 }
@@ -49,5 +51,46 @@ function () {
 
 $(document).ready(ready10);
 $(document).on('page:load', ready10);
+
+
+
+$(document).on('keyup', '.search_project',submitSearchForm)
+$(document).on('click', '.search_project_submit',submitSearchForm)
+$(document).on('change', '#projects_page_size',submitSearchForm)
+$(document).on('click', '.reset_project_submit',resetSearchForm)
+
+function submitSearchForm(){
+  
+  var form = $('#project_search_form')
+  var action = form.attr('action');
+  var formData = form.serialize();
+  // if ($('.search_project').val("")) {
+  //   $('#projects_page_size').val(5);
+  // }
+  $.get(action, formData, null, 'script');
+
+  history.pushState(null, document.title, action + "?" + formData);
+  
+  
+}
+
+function resetSearchForm(){
+ 
+  $('#projects_page_size').val(10);
+  $('.search_project').val("");
+  $('#project_search_form').submit();
+  
+}
+
+ $('#table_container').on('click', '.pagination a', function() {
+    $.getScript(this.href);
+    history.pushState(null,"",this.href)
+    return false;
+  })
+
+$(window).bind("popstate", function(){
+    $.getScript(location.href);
+  });
+
 
  

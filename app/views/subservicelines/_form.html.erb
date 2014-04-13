@@ -1,37 +1,47 @@
-<%= simple_form_for @subserviceline, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :ssl_name, label: 'Sub Service Line (EN)' %>
-  <%= f.input :active %>  
-  <%= f.input :productserviceline_id, :as => :hidden  %> 
+<%= simple_form_for @subserviceline, :html => { :class => 'form-horizontal' }, :remote=>true do |f| %>
+  <fieldset>
+        <legend>Sub Service Line</legend>
+      <%= f.input :productserviceline_id, as: :hidden %>  
+      <%= f.input :ssl_name, :label => "Sub Service line (EN)" %>
+      
+     </fieldset>
 
-
-  <% if @subserviceline.new_record? %>
-        <%= f.simple_fields_for :summarycommitments do |builder| %>
-            <fieldset>
-              <legend>Summary Commitment (EN)</legend>
-              <%= builder.input :sc_name, :label => "Sub Service Line (EN)" %>
-            </fieldset>
-
-            <%= builder.simple_fields_for :commitmentitems do |builder| %>
-              <fieldset>
-              <legend>Commitment Item (EN)</legend>
-              <%= builder.input :ci_name, :label => "Commitment Item (EN)" %>
-            </fieldset>              
-            <% end %>
+     <% if @subserviceline.new_record? %>              
+          <fieldset>
+          <legend>Summary commitment</legend>
+          <%= f.input :sc_name, :label => "Summary Commitment (EN)" %>
+        </fieldset>             
+          <fieldset>
+          <legend>Commitment Item</legend>
+          <%= f.input :ci_name, :label => "Commitment Item (EN)" %>
+        </fieldset>
+            
       <% end %>
+
+     <fieldset>
+        <legend>Fiscal Years</legend>
+
+           <%= date_picker :startdate, f,  @subserviceline.startdate, "Start Date", @subserviceline.errors %>
+          <%= date_picker :enddate, f,  @subserviceline.enddate, "End Date", @subserviceline.errors %>
+
+      </fieldset>
+
+      
+      <div class="form-actions">
+        <%= f.button :submit, :class => 'btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    commitmentitems_path, :class => 'btn' %>
+      </div>
+
   <% end %>
 
- 
 
-      <fieldset>
-    <legend>Fiscal Years</legend>
-  <%= f.input :fiscalyear_ids, :label=>"Select fiscal year(s)", collection: Fiscalyear.all(order: 'fy'), :selected =>
-  :fiscalyear_ids, :label_method => lambda { |fy| "#{fy.fy}" }, as: :check_boxes %>
-  </fieldset>
+<script type="text/javascript">
+
+$('.datepicker').datepicker({
+  autoclose: 'true',  
+  format: 'yyyy-mm-dd'
+});
 
 
-  <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                productservicelines_path, :class => 'btn' %>
-  </div>
-<% end %>
+</script>   

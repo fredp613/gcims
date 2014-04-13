@@ -75,15 +75,37 @@ module ApplicationHelper
 			     	end
 	    	end
     	else
+<<<<<<< HEAD
     		concat content_tag :input,"", :class=>"string required datepicker", 
        		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
        	  	if !(error.blank? || error == "")	       	  				  				 			
 	     		concat content_tag(:span, error.first, :class=>'help-inline') 
+=======
+    		concat content_tag :input,"", :class=>"string optional datepicker", 
+       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
+       	  	if !(error.blank? || error == "")	 
+       	  		error.each do |e|       	  				  				 			
+	     			concat content_tag(:span, e, :class=>'help-inline') 
+	     		end
+>>>>>>> fy_refactor
 	     	end
     	end
 
 
    	end
+
+   	def sortable(object, column, title = nil)
+	    title ||= column.titleize
+	    if sort_direction == 'asc'
+	     css_class = column == sort_column(object) ? "icon-arrow-up small" : nil 
+	 	else
+	 	 css_class = column == sort_column(object) ? "icon-arrow-down small" : nil 	
+	 	end
+	    direction = column == sort_column(object) && sort_direction == "asc" ? "desc" : "asc"	    
+	    link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class} #, :remote=>true}
+	end
+
+	
 
    	
 end

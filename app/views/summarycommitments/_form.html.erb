@@ -1,29 +1,44 @@
-<%= simple_form_for @summarycommitment, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :sc_name, label: 'Summary Commitment (EN)' %>
-  <%= f.input :active %>
-  <%= f.input :subserviceline_id, :as => :hidden %>
+<%= simple_form_for @summarycommitment, :html => { :class => 'form-horizontal' }, :remote=>true do |f| %>
+  <fieldset>
+        <legend>Summary Commitment</legend>
+      <%= f.input :subserviceline_id, as: :hidden %>  
+      <%= f.input :sc_name, :label => "Summary Commitment (EN)" %>
+      
+     </fieldset>
 
-    <% if @summarycommitment.new_record? %>
-      <%= f.simple_fields_for :commitmentitems do |builder| %>
+     <% if @summarycommitment.new_record? %>              
+                 
           <fieldset>
           <legend>Commitment Item</legend>
-          <%= builder.input :ci_name, :label => "Commitment Item (EN)" %>
-      </fieldset>
+          <%= f.input :ci_name, :label => "Commitment Item (EN)" %>
+        </fieldset>
+            
       <% end %>
-    <% end %>
+
+     <fieldset>
+        <legend>Fiscal Years</legend>
+
+           <%= date_picker :startdate, f,  @summarycommitment.startdate, "Start Date", @summarycommitment.errors %>
+          <%= date_picker :enddate, f,  @summarycommitment.enddate, "End Date", @summarycommitment.errors %>
+
+      </fieldset>
+
+      
+      <div class="form-actions">
+        <%= f.button :submit, :class => 'btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    commitmentitems_path, :class => 'btn' %>
+      </div>
+
+  <% end %>
 
 
+<script type="text/javascript">
 
-      <fieldset>
-    <legend>Fiscal Years</legend>
-  <%= f.input :fiscalyear_ids, :label=>"Select fiscal year(s)", collection: Fiscalyear.all(order: 'fy'), :selected =>
-  :fiscalyear_ids, :label_method => lambda { |fy| "#{fy.fy}" }, as: :check_boxes %>
-  </fieldset>
+$('.datepicker').datepicker({
+  autoclose: 'true',  
+  format: 'yyyy-mm-dd'
+});
 
-    
-    <div class="form-actions">
-      <%= f.button :submit, :class => 'btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  summarycommitments_path, :class => 'btn' %>
-    </div>
-<% end %>
+
+</script>   

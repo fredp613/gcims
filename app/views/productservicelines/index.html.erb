@@ -1,57 +1,48 @@
-<%- model_class = Productserviceline -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => "PRAS" %></h1>
-</div>
+<h3> PRAS Tree</h3>
 
-<h2>Filter by fiscal years</h2>
+<fieldset>
+<legend>Filter by fiscal years</legend>
 
 
 
-<div id='fiscalYearFilter'>
-  <%= form_for productservicelines_path, :method => 'get', :html => { :class => 'form-inline' } do |f|  %>
-      
-  
-    From: <%= f.collection_select(:fiscalyears, Fiscalyear.all,:id, :fy, {:include_blank => true}, { :name => 'fy1'}) %>
-    To: <%= f.collection_select(:fiscalyears, Fiscalyear.all,:id, :fy, {:include_blank => true}, { :name => 'fy2'}) %>
+<div id='fy_search'>
+<%= simple_form_for productservicelines_path, :method => 'get', :html => { :class => 'form-horizontal' } do |f|  %>
     
-    <%= f.submit "Search", :class=>'btn btn-primary' %>
+  start year:
+  <div class='datepicker_year input-append date' data-date-format='yyyy' data-date-viewmodel='months'>
+
+    <input class='span10' type='text' readonly='' name='start_year' value=<%= params[:start_year] %>  >
+    <span class='add-on'>
+      <i class='icon-calendar'></i>
+    </span>
+  </div> 
+
+  end year:
+  <div class='datepicker_year input-append date' data-date-format='yyyy' data-date-viewmodel='months' >
+    <input class='span10' type='text' readonly='' name='end_year' value=<%= params[:end_year] %> >
+    <span class='add-on'>
+      <i class='icon-calendar'></i>
+      
+    </span>            
+
+  </div>
+  <%= f.submit "Search", :class=>'btn btn-primary' %>
+  </div>
+
+    
+  
    
   <% end %>
 </div> 
+</fieldset>
 
+<div id='pras_tree'>
+  <%= render 'pras_tree', :productservicelines => @productservicelines %>
+</div>
 
-<ul class='tree'>
-<% @productservicelines.each do |psl| %> 
-  <li class='icon-folder-close'><%= render 'psl', :psl=>psl %><br>
-    <ul style='display:none;'><% psl.subservicelines.each do |ssl|%>
-      <li class='icon-folder-close'><%= render 'ssl', :ssl=>ssl %><br> 
-        <ul><% ssl.summarycommitments.each do |sc|%>  
-           <li class='icon-folder-close'><%= render 'sc', :sc=>sc %><br>
-              <ul><% sc.commitmentitems.each do |ci|%>
-                <li class='icon-folder-close'><%= render 'ci', :ci=>ci %><br></li>
-              <% end %>
-              </ul>
-           </li>
-           <% end %> 
-        </ul>
-      </li>  
-      <% end %>           
-  </ul>
- </li>
- <% end %>
-</ul>
+<br><br>
 
-
-    
-
-
- 
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_productserviceline_path,
-            :class => 'newPras btn btn-primary' %>
-
-
+<%= link_to 'Add Branch', new_productserviceline_path, :class=>'newPras btn btn-info' %>
 
 <div class="modal fade" id="myModal" style='display:none;'>
     <div class="modal-dialog">
@@ -69,4 +60,7 @@
         </div> -->
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->            
+  </div><!-- /.modal -->   
+
+
+       

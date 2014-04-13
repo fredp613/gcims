@@ -2,7 +2,9 @@ class SubservicelinesController < ApplicationController
   # GET /subservicelines
   # GET /subservicelines.json
   def index
-    if params[:psl]
+
+#for ajax cal
+     if params[:psl]
       @subservicelines = Subserviceline.where(:productserviceline_id=>params[:psl])
     end
 
@@ -16,6 +18,8 @@ class SubservicelinesController < ApplicationController
       @ssl_id = Summarycommitment.where(:id=>@sc_id).first.subserviceline_id
       @subservicelines = Subserviceline.where(:id=>@ssl_id)
     end
+ ##########
+    # @subservicelines = Subserviceline.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,14 +41,13 @@ class SubservicelinesController < ApplicationController
 
   # GET /subservicelines/new
   # GET /subservicelines/new.json
-  def new(layout='true')
+  def new
     
     @subserviceline = Subserviceline.new(:productserviceline_id => params[:productserviceline_id],
-      :fiscalyear_ids => params[:fiscalyear_ids])
+      :startdate => params[:startdate], :enddate=>params[:enddate])
     build
 
-    @layout = params[:layout]
-    if @layout='false'   
+    if params[:layout]
       render :layout => false
     else
       respond_to do |format|
@@ -57,10 +60,14 @@ class SubservicelinesController < ApplicationController
   # GET /subservicelines/1/edit
   def edit
     @subserviceline = Subserviceline.find(params[:id])
-    @layout = params[:layout]
-
-    if @layout='false'
+    
+    if params[:layout]
       render :layout => false
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @subserviceline }
+      end
     end
   end
 
@@ -68,9 +75,10 @@ class SubservicelinesController < ApplicationController
   # POST /subservicelines.json
   def create
     @subserviceline = current_user.subservicelines.new(params[:subserviceline])
-
+    
     respond_to do |format|
       if @subserviceline.save
+<<<<<<< HEAD
 
         @productserviceline = @subserviceline.productserviceline
 
@@ -79,10 +87,16 @@ class SubservicelinesController < ApplicationController
 
 
         format.html { redirect_to subserviceline_path(@subserviceline), notice: 'Subserviceline was successfully created.' }
+=======
+        @productservicelines = Productserviceline.all
+        format.html { redirect_to productservicelines_path, notice: 'Subserviceline was successfully created.' }
+>>>>>>> fy_refactor
         format.json { render json: @subserviceline, status: :created, location: @subserviceline }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @subserviceline.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -92,19 +106,19 @@ class SubservicelinesController < ApplicationController
   def update
     @subserviceline = Subserviceline.find(params[:id])
     @subserviceline.user = current_user
+    @productservicelines = Productserviceline.all    
     respond_to do |format|
-      if @subserviceline.update_attributes(params[:subserviceline])
-        
-        @productserviceline = @subserviceline.productserviceline
+      if @subserviceline.update_attributes(params[:subserviceline]) 
 
-        @updatetree = UpdateTree.new(current_user, @productserviceline, @subserviceline, nil, nil, "ssl", "update", params)  
-        @updatetree.update_tree_instances
+        @productservicelines = Productserviceline.all
 
-        format.html { redirect_to @subserviceline, notice: 'Subserviceline was successfully updated.' }
+        format.html { redirect_to productservicelines_path, notice: 'Subserviceline was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @subserviceline.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -114,10 +128,16 @@ class SubservicelinesController < ApplicationController
   def destroy
     @subserviceline = Subserviceline.find(params[:id])
     @subserviceline.destroy
-
+    if @subserviceline.errors.any?
+      flash[:error] = @subserviceline.errors.full_messages
+    else
+      flash[:notice] = 'Sub service line item deleted'
+    end
+    @productservicelines = Productserviceline.all
     respond_to do |format|
       format.html { redirect_to productservicelines_url }
       format.json { head :no_content }
+      format.js
     end
   end
 

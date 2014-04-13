@@ -1,0 +1,7 @@
+<%= render 'projects/this_funding' %>
+
+<% if @project.applications.other_funding.present? %>
+
+<%= render 'projects/other_funding' %>
+
+<% end %>

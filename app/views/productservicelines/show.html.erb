@@ -5,15 +5,11 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:psl_name) %>:</strong></dt>
-  <dd><%= @productserviceline.psl_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
-  <dd><%= @productserviceline.active %></dd>
-  <dt><strong>Last updated by:</strong></dt>
-  <dd><%= @productserviceline.user.full_name %></dd>
-  
+  <dd><%= @productserviceline.psl_name %></dd>    
   <dt><strong>subservicelines:</strong></dt>
   <% @productserviceline.subservicelines.each do |ssl| %>
   <dd><%= ssl.ssl_name %></dd>
+
   <% end %>
 
   <dt><strong>summary commitments:</strong></dt>
@@ -21,16 +17,21 @@
   <dd><%= sc.sc_name %></dd>
   <% end %>
 
-    <dt><strong>commitments:</strong></dt>
+   <dt><strong>commitments:</strong></dt>
   <% @productserviceline.commitmentitems.each do |ci| %>
   <dd><%= ci.ci_name %></dd>
   <% end %>
 
    <dt><strong>Fiscal Years:</strong></dt>
-  <% @productserviceline.fiscalyears.each do |fy| %>
-  <dd><%= fy.fy %></dd>
-  <% end %>
-
+   <dd><% @productserviceline.fiscalyears.each do |fy| %>
+      <%= fy %>
+      <% end %>
+   </dd>
+  
+  <dd></dd>
+  
+  <dt><strong>Last updated by:</strong></dt>
+  <dd><%= @productserviceline.user.full_name %></dd>
 </dl>
 
 <div class="form-actions">

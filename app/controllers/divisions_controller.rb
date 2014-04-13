@@ -30,13 +30,36 @@ class DivisionsController < ApplicationController
       @division.client_id = params[:client_id]
     end
 
+    if params[:name]
+      @division.name = params[:name]
+    end
+
+    if params[:name1]
+      @division.name1 = params[:name1]
+    end
+
+    if params[:name2]
+      @division.name2 = params[:name2]
+    end
+
+    if params[:state]
+      @division.state = "new address"
+      @division.build_location
+    end
+
     @filter = LocationFilter.new(@division.client_id)
     @locations = @filter.location
 
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @division }
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @division}
+        format.js
+        
     end
   end
 
@@ -51,6 +74,17 @@ class DivisionsController < ApplicationController
     @filter = LocationFilter.new(@division.client_id)
     @locations = @filter.location
 
+    respond_to do |format|
+        if params[:layout]
+          format.html { render :layout => false }
+        else
+          format.html # show.html.erb
+        end
+        format.json { render json: @division}
+        format.js
+        
+    end
+
   end
 
   # POST /divisions
@@ -59,26 +93,39 @@ class DivisionsController < ApplicationController
     @division = Division.new(params[:division])
 
     if params[:new_address]
-      @division.state = "new_address"          
-    end
 
-    if params[:cancel]
-      redirect_to client_path(@division.client_id)
-    end
+        respond_to do |format|
+          format.html {redirect_to new_client_division_path(@division.client_id, 
+              :name=>@division.name, 
+              :name1=>@division.name1,
+              :name2=>@division.name2,
+              :state=>"new_address")}
+          format.json { render json: @division, status: :created, location: @division}
+          format.js
+        end                
+    else
 
-    respond_to do |format|
-      if @division.save
-         if params[:new_address]         
-          format.html { redirect_to edit_client_division_path(@division.client, @division), notice: 'Division was successfully created.' }
+      if params[:cancel]
+        redirect_to client_path(@division.client_id)
+      end
+
+      respond_to do |format|
+        
+        if @division.save
+           if params[:new_address]         
+            format.html { redirect_to edit_client_division_path(@division.client_id, @division), notice: 'Division was successfully created.' }
+          else
+            @division.update_attribute(:state, "completed")          
+            format.html { redirect_to client_path(@division.client_id), notice: 'Division was successfully created.' }
+          end
+          format.js
+          format.json { render json: @division, status: :created, location: @division }
         else
-          @division.update_attribute(:state, "completed")          
-          format.html { redirect_to client_path(@division.client), notice: 'Division was successfully created.' }
+          @division.client_id = params[:division][:client_id]
+          format.html { render action: "new" }
+          format.json { render json: @division.errors, status: :unprocessable_entity }
+          format.js
         end
-        format.json { render json: @division, status: :created, location: @division }
-      else
-        @division.client_id = params[:division][:client_id]
-        format.html { render action: "new" }
-        format.json { render json: @division.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -113,12 +160,15 @@ class DivisionsController < ApplicationController
           else
             @division.update_attribute(:state, "completed") 
             format.html { redirect_to client_path(@division.client), notice: 'Division was successfully updated.' }
+            format.js
           end
           format.json { head :no_content }
+          format.js
 
         else
           format.html { render action: "edit" }
           format.json { render json: @division.errors, status: :unprocessable_entity }
+          format.js
         end
       end
     end

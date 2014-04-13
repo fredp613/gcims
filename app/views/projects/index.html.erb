@@ -1,43 +1,94 @@
-<h1>My Projects</h1>
+
+<div class='row'>
+<h1 class='span3'>My Projects 
+</h1>
+
+<%= link_to "Create project", searches_path(:create=>true), :class=>'btn btn-primary pull-right',
+:style=>"margin-top:10px;" %>
+</div>
+<br>
+
+
+<div class='row'>
+  <%= form_tag projects_path, :action=>'projects/index', :remote=>true, :method=>'get', :id=>'project_search_form', :class => 'form-inline'  do |f|  %>
+    
+    <div class='input-append'>
+
+    <% if !@query.blank? %>
+    <%= text_field_tag :search_field, @query, :class=>'search_project'%>  
+     <% else %>
+    <%= text_field_tag :search_field, "", placeholder: 'Search projects', :class=>'search_project'%>  
+      <% end  %>
+    
+
+    <%= button_tag(:type=>:submit, :class=>'btn btn-info search_project_submit', :style=>'margin-bottom:5px') do %>
+        <i class='icon-search'></i>
+    <% end %>
+
+    <%= button_tag(:type=>:submit, :name=>'reset', :class=>'btn btn-danger reset_project_submit', :style=>'margin-bottom:5px') do %>
+        <i class='icon-remove'></i>
+    <% end %>
+    
+    </div>    
+
+  
+  <%#= text_field_tag :project_page_size, @project_page_size  %>
+
+  
+</div>
+
+<div class='row pills'>
+<%= render 'result_pills' %>
+</div>
 
 
 
+<div class='row'>
 <% if !@projects.blank? %>
-  <table class='table'>
+  <table class='table table-bordered table-striped table-hover table-condensed'
+  style='table-layout:fixed;word-wrap:break-word;'>
     <tr>
-      <th>Project Title</th>
-      <th>Project Description</th>
-      <th>Commitment Item</th>
+      <th>Corporate File Number</th>
+      <th>Project Title</th>      
+      <th>Program/Sub-Program</th>
       <th>Official</th>
-      <th></th>
-      <th></th>
+      <th style='width:40px'></th>
     </tr>
 
-  <% @projects.each do |project| %>
-    <% project.applications.by_official(current_user).each do |a| %>
-    <tr>
-      <td><%= a.project.projectname %></td>
-      <td><%= a.project.projectdesc %></td>
-      <td><%= a.commitmentitem_id %></td>
-      <td><%= a.official_email(current_user) %></td>
-      <td><%= link_to a.project do %>
-            <i class='icon-pencil icon-large black'></i>  
-          <% end  %>
-      </td>
-      <td><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %>
-          <i class='icon-remove-sign icon-large red'></i> 
-        <% end  %>
-
-      </td>
-    </tr>
-  <% end %>
-  <% end %>
+    <tbody id='project_records'>
+  
+    <%= render 'projects/project_records' %>
+    </tbody>
+  
+  
   </table>
+
+
+<div id='project_paginator'>
+<%= paginate @applications, :param_name=>'project_page', :remote=>true %>
+</div>
+
+
+<% if @total_applications.count > 10 %>
+  <%= select_tag "projects_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :name=>"projects_page_size" %>
+<% end %>
+
+
+
+
 
 <% else %>
 <p><strong>You have no projects</strong></p>
 <% end %>
 
-<br />
+</div>
 
-<%= link_to "Create project", searches_path(:create=>true), :class=>'btn btn-primary btn-small' %>
+<% end %>
+
+
+<%= render 'shared/modal_html' %>
+
+
+
+
+

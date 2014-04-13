@@ -1,0 +1,8 @@
+
+$('.pills').html('<%= j render("projects/result_pills") %>')
+$("#project_records").html('<%= j render("projects/project_records") %>');
+$("#project_paginator").html('<%= j(paginate(@applications, :param_name=>"project_page", :remote=>true).to_s) %>');
+
+document.title = "<%= escape_javascript("#{params[:search_field].to_s.titleize} Projects by #{(params[:sort] || 'name').titleize} - Page #{params[:page] || 1}") %>";
+
+

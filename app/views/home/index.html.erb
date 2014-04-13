@@ -1,5 +1,7 @@
 
 
+<% if user_signed_in? %>
+
 <div class='row-fluid'>
 	<div class='span9'>
 		<h2>My Dashboard</h2>
@@ -22,3 +24,9 @@
 	</div>
 
 </div>
+
+<% else %>
+
+<h3>Please <%= link_to "sign in", login_path %> in to access GCIMS</h3>
+
+<% end %>

@@ -1,6 +1,23 @@
-<%= link_to ci.ci_name, commitmentitem_path(ci), :class=>((ci.fiscalyear_ids.to_a & @fyArray).size>0 ? 
-    "pras_item" : "pras_item red")%>
-    <%= link_to '', edit_commitmentitem_path(ci), :class=>'editCi icon-pencil black', :remote=>true %>
-    <%= link_to '', new_commitmentitem_path(:summarycommitment_id => ci.summarycommitment_id,
-    :fiscalyear_ids => ci.fiscalyear_ids), :class=>'newCi icon-plus-sign black', :remote=>true %> 
-    <%= link_to '', ci, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> 
+<%= link_to ci.ci_name, commitmentitem_path(ci), :name=>ci, :value=>ci.id, 
+
+:class=>(
+
+if params[:start_year] || params[:end_year]
+
+(FiscalYear.new(ci.startdate, ci.enddate).fiscalyear_by_date_range.to_a & 
+FiscalYear.new(params[:start_year] ||= Date.today, params[:end_year] ||= Date.today).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red"
+else
+	ci.enddate > Date.today ? "pras_item" : "pras_item red"
+end
+
+) %>
+
+
+<%= link_to '', edit_commitmentitem_path(ci, :layout=>false), :class=>'editCi icon-pencil black', 
+:remote=>true %>
+<%= link_to '', new_commitmentitem_path(:layout=>false, :summarycommitment_id=>ci.summarycommitment_id,
+:startdate=>ci.startdate, :enddate=>ci.enddate), :class=>'newPras icon-plus-sign black', :remote=>true %>
+
+ <% unless ci.applications.count > 0 %>
+ <%= link_to '', ci, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red', :remote=>true %>
+ <% end %>

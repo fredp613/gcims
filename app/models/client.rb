@@ -12,9 +12,7 @@ class Client < ActiveRecord::Base
   attr_accessor :country_id
 
   after_save :org_info_cleanup
-  after_save :update_clientlocation
-  
-
+  #after_save :update_clientlocation, if: Proc.new { |c| c.clienttype_id==1 }
 
   has_many :clientlocations, dependent: :destroy
   has_many :locations, through: :clientlocations, dependent: :destroy
@@ -35,7 +33,8 @@ class Client < ActiveRecord::Base
   has_many :productservicelines, through: :subservicelines
 
   validates :name, presence: true
-  #validates :name1, presence: true
+  validates :clienttype_id, presence: true
+  validates :name1, presence: true, if: Proc.new { |c| c.clienttype_id==1 } 
 
 
   belongs_to :clienttype
@@ -155,6 +154,10 @@ class Client < ActiveRecord::Base
       @cl.update_attributes(:addresstype_id=>1) 
     end   
 
+  end
+
+  def self.search_columns
+    %w(name emails_clients.email phones_clients.phone websites_clients.website)
   end
 
   

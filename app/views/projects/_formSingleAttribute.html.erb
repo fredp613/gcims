@@ -6,6 +6,7 @@
 	<% if @project.updating_unique_attribute == "projectname" %>
 	  
 		 
+<<<<<<< HEAD
 		<div class='input-append'>
    			<%= f.input_field :projectname %>
     		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
@@ -37,6 +38,44 @@
 			<i class='icon-ok'></i>
 		<% end %>
 	</div>
+=======
+		
+   			<%= f.input :projectname, :label=>false, :wrapper=>:append do %>
+   				<%= f.input_field :projectname %>
+	    		<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+	      			<i class='icon-ok'></i>  		
+	   			<% end %>
+   			<% end %>
+   		
+		     
+	<% elsif @project.updating_unique_attribute == "projectdesc"  %>
+		
+		<%= f.input :projectdesc, :label=>false, :wrapper=>:append do %>
+			<%= f.input_field :projectdesc,  :rows=>'8', :style=>'width:500px' %>
+			<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+				<i class='icon-ok'></i>
+			<% end %>
+		<% end %>
+   	
+	<% elsif @project.updating_unique_attribute == "startdate"  %>		
+		
+		<%= f.input :startdate, :label=>false, :wrapper=>:append do %>
+			<%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors, 'under' %>
+			<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+				<i class='icon-ok'></i>
+			<% end %>
+		<% end %>
+		
+	<% elsif @project.updating_unique_attribute == "enddate" %>
+	 	
+	 	<%= f.input :enddate, :label=>false, :wrapper=>:append do %>
+			<%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors,'under' %>
+			<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+				<i class='icon-ok'></i>
+			<% end %>
+		<% end %>
+	
+>>>>>>> fy_refactor
 
 	<% else %>
 	error

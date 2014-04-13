@@ -3,6 +3,7 @@ class SummarycommitmentsController < ApplicationController
   # GET /summarycommitments.json
   def index
    
+    #ajax calls
     if params[:psl]
       @ssls = Subserviceline.where(:productserviceline_id=>params[:psl])
       @summarycommitments = Summarycommitment.where(:subserviceline_id=>@ssls)
@@ -16,6 +17,7 @@ class SummarycommitmentsController < ApplicationController
       @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
       @summarycommitments = Summarycommitment.where(:id=>@sc_id)
     end
+    ###########
 
 
     respond_to do |format|
@@ -39,12 +41,11 @@ class SummarycommitmentsController < ApplicationController
   # GET /summarycommitments/new.json
   def new
     @summarycommitment = Summarycommitment.new(:subserviceline_id => params[:subserviceline_id],
-      :fiscalyear_ids => params[:fiscalyear_ids])
+      :startdate => params[:startdate], :enddate=>params[:enddate])
     build
 
-    @layout = params[:layout]
-    if @layout='false'   
-      render :layout => false    
+    if params[:layout]
+      render :layout => false
     else
       respond_to do |format|
         format.html # show.html.erb
@@ -58,9 +59,13 @@ class SummarycommitmentsController < ApplicationController
 
     @summarycommitment = Summarycommitment.find(params[:id])
 
-    @layout = params[:layout]
-    if @layout='false'
+    if params[:layout]
       render :layout => false
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @subserviceline }
+      end
     end
   end
 
@@ -72,6 +77,7 @@ class SummarycommitmentsController < ApplicationController
     respond_to do |format|
       if @summarycommitment.save
 
+<<<<<<< HEAD
         @subserviceline = @summarycommitment.subserviceline
         @productserviceline = @subserviceline.productserviceline
 
@@ -80,10 +86,16 @@ class SummarycommitmentsController < ApplicationController
 
 
         format.html { redirect_to summarycommitment_path(@summarycommitment), notice: 'Summarycommitment was successfully created.' }
+=======
+        @productservicelines = Productserviceline.all
+        format.html { redirect_to productservicelines_path, notice: 'Summarycommitment was successfully created.' }
+>>>>>>> fy_refactor
         format.json { render json: @summarycommitment, status: :created, location: @summarycommitment }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @summarycommitment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -94,20 +106,16 @@ class SummarycommitmentsController < ApplicationController
     @summarycommitment = Summarycommitment.find(params[:id])
     @summarycommitment.user = current_user
     respond_to do |format|
-      if @summarycommitment.update_attributes(params[:summarycommitment])
-        
-        @subserviceline = @summarycommitment.subserviceline
-        @productserviceline = @subserviceline.productserviceline
+      if @summarycommitment.update_attributes(params[:summarycommitment])        
+        @productservicelines = Productserviceline.all
 
-        @updatetree = UpdateTree.new(current_user, @productserviceline, @subserviceline, @summarycommitment, nil, "sc", "update", params)  
-        @updatetree.update_tree_instances
-
-
-        format.html { redirect_to @summarycommitment, notice: 'Summarycommitment was successfully updated.' }
+        format.html { redirect_to productservicelines_path, notice: 'Summarycommitment was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @summarycommitment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -118,6 +126,13 @@ class SummarycommitmentsController < ApplicationController
     @summarycommitment = Summarycommitment.find(params[:id])
     @summarycommitment.destroy
 
+    if @subserviceline.errors.any?
+      flash[:error] = @subserviceline.errors.full_messages
+    else
+      flash[:notice] = 'Sub service line item deleted'
+    end
+    @productservicelines = Productserviceline.all
+    
     respond_to do |format|
       format.html { redirect_to productservicelines_url }
       format.json { head :no_content }

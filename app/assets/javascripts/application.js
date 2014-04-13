@@ -57,6 +57,11 @@ ready1 =
   });
 
   bind_datepicker();
+  bind_datepicker_year();
+
+  // if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
+  //   window.location.replace("/login");
+  // }
 
   if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
     window.location.replace("/login");
@@ -80,12 +85,17 @@ $(document).ready(ready1);
     
   }); **/
 
-function timerIncrement() {
+ function timerIncrement() {
   idleTime = idleTime + 1;
+<<<<<<< HEAD
   if (idleTime > 16) { // 16 minutes
       window.location.replace("/")            
+=======
+  if (idleTime > 17) { // 16 minutes
+      window.location.replace("/login")            
+>>>>>>> fy_refactor
   }
-}
+ }
 
 function bind_datepicker() {
   $element = $(document).find('.datepicker')
@@ -93,6 +103,17 @@ function bind_datepicker() {
   $element.datepicker({
     autoclose: 'true',
    format: 'yyyy-mm-dd'
+  });
+}
+
+function bind_datepicker_year() {
+  $element = $(document).find('.datepicker_year')
+
+  $element.datepicker({
+    autoclose: 'true',
+    format: 'yyyy',
+    viewMode: 'years',
+    minViewMode: 'years'
   });
 }
 

@@ -13,14 +13,22 @@
     <a data-toggle="tab" href="#contact"><h4 style='color:#4e80b6'>Contacts</h4></a>
   </li>
   <% if @client.clienttype_id != 1 %>
+<<<<<<< HEAD
     <% if @client.clienttype_id != 3 %>
+=======
+  <% if @client.clienttype_id != 3 %>    
+>>>>>>> fy_refactor
       <li>
         <a data-toggle="tab" href="#additional_info"><h4 style='color:#4e80b6'>Additional Information</h4></a>
       </li>
     <% else %>
         <li>
         <a data-toggle="tab" href="#divisions"><h4 style='color:#4e80b6'>Divisions</h4></a>
+<<<<<<< HEAD
       </li>
+=======
+      </li>    
+>>>>>>> fy_refactor
     <% end %>
   <% end %>
   <li>
@@ -31,6 +39,7 @@
 
 <div class="tab-content">
     
+<<<<<<< HEAD
 
      <div class="tab-pane active" id="main1">     
        <%= render 'clients/show_sections/main', :client=>@client %>
@@ -76,5 +85,59 @@
 
 
 
+=======
+
+     <div class="tab-pane active" id="main1">     
+       <%= render 'clients/show_sections/main', :client=>@client %>
+    </div>
+
+     <div class="tab-pane" id="contact">     
+       <%= render 'clients/show_sections/contact' %>
+    </div>
+
+    <% if @client.clienttype_id != 1 && @client.clienttype_id != 3 %>
+      
+       <div class="tab-pane" id="additional_info">     
+         <%= render 'clients/show_sections/additional_info' %>
+      </div>
+    <% else %>
+       <div class="tab-pane" id="divisions">     
+         <%= render 'clients/show_sections/divisions' %>
+      </div>
+      
+    <% end %>
+
+     <div class="tab-pane" id="history">     
+       <%= render 'clients/show_sections/history' %>
+    </div>
+
+
+</div>
+
+
+<%= render 'shared/modal_html' %>
+
+
+
+<script type="text/javascript">
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> fy_refactor
 
 

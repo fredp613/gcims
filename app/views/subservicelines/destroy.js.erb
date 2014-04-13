@@ -1,0 +1,15 @@
+<% if @subserviceline.errors.any? %>
+	console.log('Error');
+   // $('#productserviceline_fields').html('<%= j render ("clients/show_sections/productserviceline_fields") %>')
+   $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+
+	 //$('#frmClient').formToWizard({ submitButton: 'clientSubmit' });
+<% else %>	
+  console.log('deleted'); 	
+    
+  $('#pras_tree').html('<%= j render ("productservicelines/pras_tree"), :productservicelines=>@productservicelines %>')    
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
+
+
+<% end  %>

@@ -1,11 +1,17 @@
-<% if @division.state == "new_address" %>
-<h1>Address information for <%= @division.name %></h1>
-<% else %>
-<h1>Editing <%= @division.name %></h1>
+
+<% unless params[:layout] %>
+	<% if @division.state == "new_address" %>
+		<h1>Address information for <%= @division.name %></h1>
+		<% else %>
+		<h1>Editing <%= @division.name %></h1>
+		<% end %>
+	<br>
 <% end %>
-<br>
 
 <%= render 'form' %>
 
+
+<% unless params[:layout] %>
 <%= link_to 'Show', @division %> |
 <%= link_to 'Back', divisions_path %>
+<% end %>

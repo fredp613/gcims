@@ -1,12 +1,12 @@
 <% if @client.errors.any? %>
  
-	 console.log('Error');
-
-	 //$(document).html('<%= j render ('form') %>')
-
-	 $('.loader').fadeOut(200);	 	 
-	 $('#frmContainer').html('<%= j render ('form') %>')
-	 $('#frmClient').formToWizard()
+	 console.log('Error');	
+	 
+	 // $('#modalId').remove();
+	 // $('.modal-body').html('<div id="modalId"></div>')
+	 // $('#modalId').html('<div class=".form_container"></div>')
+	 $('.form_container').html('<%= j render ('clients/wizardForm') %>')
+	 
 
 	 
 

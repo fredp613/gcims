@@ -1,27 +1,32 @@
-<%= simple_form_for(@division) do |f| %>
+<%= simple_form_for(@division, :remote=>true) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+    <div class='tab-content'>
+    <fieldset>
+      <legend>Division Name(s)</legend>
     <%= f.input :name %>
     <%= f.input :name1 %>
     <%= f.input :name2 %>
-    <%= f.input :client_id, as: :hidden %>
+    <%= f.input :client_id %>
+    </fieldset>
 
+    <fieldset>
+      <legend>Division Address</legend>
 
-    <% if @division.state != "new_address" %>
-    
-      <div class='controls row-fluid'>
-        <% if @division.new_record? %>
-        <%= f.input :location_id, :label=>"Select existing location", 
-        collection: Location.where(:id => @locations), 
-        :label_method => lambda { |at| "#{at.addressline1}" } %>      
-        <% else %>
-          <%= f.input :location_id, :label=>"Location", 
-          collection: Location.where(:id => @locations), 
-          :label_method => lambda { |at| "#{at.addressline1}" }, :selected_method=> @division.location_id %>      
+    <% if params[:state] != "new_address" %>
+      <div class='input-append'>
+        
+        <%= f.input :location_id, :label=>false, :wrapper=>:append do %> 
+            <%= f.input_field :location_id, collection: Location.where(:id => @locations), 
+            :label_method => lambda { |at| "#{at.addressline1}" } %> 
+             <%= button_tag "add new", :type=>:submit,  :class=>'btn btn-info', :style=>'margin-bottom:5px' %>                            
         <% end %>
-        <%= f.button :submit, "add new address", :class=>'btn btn-info btn-small', :name=>"new_address"  %>
+       
       </div>
+
+   
 
     <% else %>
 
@@ -44,12 +49,23 @@
 
     <% end %>
     
-
+    </fieldset>
 
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, :class=>'btn btn-primary btn-small' %>
+    <%= f.button :submit, :class=>'btn btn-primary btn-small', :id=>'submitDivision' %>
     <%= f.button :submit, "cancel", :name=>'cancel', :class=>'btn btn-danger btn-small' %>
   </div>
+</div>
 <% end %>
+
+<script type="text/javascript">
+
+$('#new_division').formToWizard({submitButton: 'submitDivision'})
+
+</script>
+
+
+
+

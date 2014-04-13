@@ -52,12 +52,14 @@ class ClientsController < ApplicationController
     
     @client.token = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
     
-      if @client.clienttype_id.blank?
+      if @client.clienttype_id.blank? && @remote != true
         @client.clienttype_id = params[:clienttype_id]
+      else
+        @client.clienttype_id = 3
       end
     
     
-    if params[:country_id] && !params[:country_id].blank?
+    if params[:country_id] && @remote != true #&& !params[:country_id].blank?
       @client.country_id = params[:country_id]
     else
       @client.country_id = 38
@@ -69,6 +71,10 @@ class ClientsController < ApplicationController
     build
     respond_to do |format|
         if params[:layout]
+<<<<<<< HEAD
+=======
+          @remote = true
+>>>>>>> fy_refactor
           format.html { render :layout => false }
         else
           format.html # show.html.erb
@@ -145,7 +151,7 @@ class ClientsController < ApplicationController
               format.js { render :js => "window.location = '#{client_path(@client)}'" } 
               # session.delete(:clienttype)
             else
-              @client.country_id = params[:country_id]
+              @client.country_id = params[:country_id] ||= 38
               @client.clienttype_id = params[:client][:clienttype_id]
 
                 if @client.websites.blank?
@@ -160,7 +166,7 @@ class ClientsController < ApplicationController
                   @client.phones.build
                 end
               
-              
+              @remote = true
               format.html { render action: "new" }
               format.json { render json: @client.errors, status: :unprocessable_entity }
               format.js 

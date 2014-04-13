@@ -1,16 +1,24 @@
 <%= f.simple_fields_for :locations do |builder| %>     
     
+      <% unless params[:layout] || @remote==true %>
        <h2>Address</h2>
+      <% end %>
 
        <div id='countries'>
 
-       
-         <%= builder.input :country_id, as: :integer, as: :hidden, :input_html=>{value: @client.country_id} %>
+       <%= builder.input :country_id, as: :integer, as: :hidden, :input_html=>{value: @client.country_id} %>
+       <% if params[:layout] || @remote==true %>
+         <%= builder.input :country_id, collection: Country.all(order: 'name'),
+            :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
+            
+       <% else %>
+        
          <%= builder.input :country_id, disabled: true, collection: Country.all(order: 'name'),
             :selected => @client.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
           <% if @client.clienttype_id != 3  %>
             <%= f.button :submit, "Change country", :name=>'country',:class=>'btn btn-primary btn-small'  %>
           <% end %>
+       <% end %>
        
        </div>
        <br>
@@ -32,7 +40,7 @@
              :label_method => lambda { |se| "#{se.name}" } %>   
             <%= builder.input :postal, :label=>"Postal Code / zip code" %> 
            <% end  %>
-
+         
         <% else %>
             <% if @client.country_id  %>
               <%= builder.input :state_id, :label=>"Province", 
@@ -46,9 +54,9 @@
               <%= builder.input :postal, :label=>"Postal Code / zip code" %>
         <% end %>        
 
-        <%= builder.simple_fields_for :clientlocation do |cl| %>
-          <%= cl.input :addresstype_id, as: :hidden,  :input_html=>{value: 1} %>              
-        <% end %>
+         <%= builder.simple_fields_for :clientlocation do |cl| %>
+            <%= cl.input :addresstype_id, as: :hidden,  :input_html=>{value: 1} %>              
+          <% end %>
 
 <%end%>
 

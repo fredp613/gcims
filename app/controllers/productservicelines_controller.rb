@@ -5,15 +5,7 @@ class ProductservicelinesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @fiscalyear1 = params[:fy1]
-    @fiscalyear2 = params[:fy2]
-    @fyArray = []
-
-
     @productservicelines = Productserviceline.all
-    #@pslFiltered = Productserviceline.search(@fiscalyear1, @fiscalyear2)
-    @fiscalyears = Fiscalyear.search(@fiscalyear1, @fiscalyear2).select(:id).to_a
-    @fyArray = @fiscalyears.map{ |x| x[:id] }
 
     respond_to do |format|
       format.html 
@@ -21,9 +13,10 @@ class ProductservicelinesController < ApplicationController
     end
   end
 
+# for ajax call
   def pras_index
 
-    if params[:ssl]
+     if params[:ssl]
       @psl_id = Subserviceline.where(:id=>params[:ssl]).select(:productserviceline_id)
       @productservicelines =  Productserviceline.where(:id=>@psl_id)
     end
@@ -56,7 +49,7 @@ class ProductservicelinesController < ApplicationController
   
       #render :layout => false
     
-      respond_to do |format|
+    respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @productserviceline }
       format.pdf do
@@ -74,7 +67,7 @@ class ProductservicelinesController < ApplicationController
     @productserviceline = Productserviceline.new
     build
    
-    if @layout= "false"   
+    if params[:layout]
       render :layout => false
     else
       respond_to do |format|
@@ -88,10 +81,14 @@ class ProductservicelinesController < ApplicationController
   def edit
     @productserviceline = Productserviceline.find(params[:id])
 
-    @layout = params[:layout]
 
-    if @layout='false'
+    if params[:layout]
       render :layout => false
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @subserviceline }
+      end
     end
     
   end
@@ -99,18 +96,22 @@ class ProductservicelinesController < ApplicationController
   # POST /productservicelines
   # POST /productservicelines.json
   def create
-    @productserviceline = current_user.productservicelines.new(params[:productserviceline])
-
+    @productserviceline = current_user.productservicelines.new(params[:productserviceline])    
     respond_to do |format|
       if @productserviceline.save
-        @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
-        @updatetree.update_tree_instances
         
+<<<<<<< HEAD
         format.html { redirect_to productserviceline_path(@productserviceline), notice: 'Productserviceline was successfully created.' }
+=======
+        @productservicelines = Productserviceline.all
+        format.html { redirect_to productservicelines_path, notice: 'Productserviceline was successfully created.' }
+>>>>>>> fy_refactor
         format.json { render json: @productserviceline, status: :created, location: @productserviceline }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @productserviceline.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -123,15 +124,16 @@ class ProductservicelinesController < ApplicationController
 
     respond_to do |format|
       if @productserviceline.update_attributes(params[:productserviceline]) 
-        @updatetree = UpdateTree.new(current_user, @productserviceline, nil, nil, nil, "psl", "update", params)  
-        @updatetree.update_tree_instances
-  
+
+        @productservicelines = Productserviceline.all
         
-        format.html { redirect_to @productserviceline, notice: 'Productserviceline was successfully updated.' }
+        format.html { redirect_to productservicelines_path, notice: 'Productserviceline was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @productserviceline.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -142,9 +144,16 @@ class ProductservicelinesController < ApplicationController
     @productserviceline = Productserviceline.find(params[:id])
     @productserviceline.destroy
 
+    if @productserviceline.errors.any?
+      flash[:error] = @productserviceline.errors.full_messages
+    else
+      flash[:notice] = 'Product service line item deleted'
+    end
+    @productservicelines = Productserviceline.all
     respond_to do |format|
       format.html { redirect_to productservicelines_url }
       format.json { head :no_content }
+      format.js
     end
   end
 
