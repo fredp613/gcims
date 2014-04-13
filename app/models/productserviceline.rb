@@ -31,10 +31,12 @@ class Productserviceline < ActiveRecord::Base
   validates :enddate, presence: true
   validate :startdate_comparison
   validate :enddate_comparison
+  validate :check_associations_dates  
 
   after_create :create_tree
   after_update :update_tree
-
+  before_destroy :check_associations
+  
 
    def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
@@ -120,7 +122,8 @@ class Productserviceline < ActiveRecord::Base
     @fys
   end
 
-#refactor these entirely - sy and ey are fiscal years!! 
+#refactor these entirely - sy and ey are fiscal years!! You're going to have to create 
+#variables that will extract the year and months from 
   def self.active_between(sy, ey)
     sd = sy + '-04-01'
     ed = ey + '-03-31'
@@ -138,5 +141,45 @@ class Productserviceline < ActiveRecord::Base
       false
     end 
   end
+
+   def check_associations
+    if self.applications.exists?
+      errors.add(:base, "You cannot delete this branch because this branch has projects - If you want to deactivate it,
+      you can change the end date of this branch. You can also transfer all the projects under this branch to another 
+      PRAS branch and delete the branch afterwards")
+      return false
+    else
+      return true
+    end    
+  end
+
+ def check_associations_dates
+    
+    if self.projects.exists?
+      
+      last = self.projects.first(:order => 'enddate DESC')
+      first = self.projects.first(:order => 'startdate ASC')
+
+      if (last.enddate > self.enddate) || (first.startdate < self.startdate)
+
+        if last.enddate > self.enddate
+           errors.add(:enddate, "There are projects that exist with later dates than the one you have chosen
+            therefore you cannot change the end date of this pras item unless you modify the end date of those projects.
+             The end date cannot be less than #{last.enddate.to_date} which is corporate file number: #{first.applications.first.corporate_file_number}")         
+        end
+
+        
+        if first.startdate < self.startdate
+           errors.add(:startdate, "There are projects that exist with lower start dates than than the one you have chosen
+            therefore you cannot change the start date of this pras item unless you modify the start date of those projects.
+             The start date cannot be less than #{first.startdate.to_date} which is corporate file number: #{first.applications.first.corporate_file_number}")
+        end
+
+      end
+    end
+
+  end
+
+
 
 end

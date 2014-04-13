@@ -1,0 +1,26 @@
+<fieldset>
+
+<legend>Departmental Programs (tree)</legend>
+
+<ul class='tree'>
+<% @productservicelines.each do |psl| %> 
+  <li class='icon-folder-close'><%= render 'productservicelines/psl', :psl=>psl %><br>
+    <ul style='display:none;'><% psl.subservicelines.each do |ssl|%>
+      <li class='icon-folder-close'><%= render 'productservicelines/ssl', :ssl=>ssl %><br> 
+        <ul><% ssl.summarycommitments.each do |sc|%>  
+           <li class='sc icon-folder-close'><%= render 'productservicelines/sc', :sc=>sc %><br>
+              <ul><% sc.commitmentitems.each do |ci|%>                
+                <li class='icon-folder-close'><%= render 'productservicelines/ci', :ci=>ci %><br></li>
+              <% end %>
+              </ul>
+           </li>
+           <% end %> 
+        </ul>
+      </li>  
+      <% end %>           
+  </ul>
+ </li>
+ <% end %>
+</ul>
+
+</fieldset>

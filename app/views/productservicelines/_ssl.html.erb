@@ -1,8 +1,24 @@
 <%= link_to ssl.ssl_name, subserviceline_path(ssl), :name=>ssl, :value=>ssl.id, 
+
 :class=>(
-	(FiscalYear.new(ssl.startdate, ssl.enddate).fiscalyear_by_date_range.to_a & 
-	FiscalYear.new(params[:start_year] ||= Date.today.year, params[:end_year] ||= Date.today.year).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red")%>
-          <%= link_to '', edit_subserviceline_path(ssl), :class=>'editSsl icon-pencil black', 'data-target'=>'#myModal', :remote=>true %>   
-          <%= link_to '', new_subserviceline_path(:productserviceline_id => ssl.productserviceline_id, 
-          :fiscalyear_ids => ssl.fiscalyears), :class=>'newSsl icon-plus-sign black', :remote=>true %>  
-          <%= link_to '', ssl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red'%>
+
+if params[:start_year] || params[:end_year]
+
+(FiscalYear.new(ssl.startdate, ssl.enddate).fiscalyear_by_date_range.to_a & 
+FiscalYear.new(params[:start_year] ||= Date.today, params[:end_year] ||= Date.today).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red"
+else
+	ssl.enddate > Date.today ? "pras_item" : "pras_item red"
+end
+
+)
+
+
+%>
+
+<%= link_to '', edit_subserviceline_path(ssl, :layout=>false), :class=>'editSsl icon-pencil black', :remote=>true %>
+<%= link_to '', new_subserviceline_path(:layout=>false, :productserviceline_id=>ssl.productserviceline_id,
+:startdate=>ssl.startdate, :enddate=>ssl.enddate), :class=>'newPras icon-plus-sign black', :remote=>true %> 
+
+<% unless ssl.applications.count > 0 %>
+<%= link_to '', ssl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red', :remote=>true%>
+<% end %>

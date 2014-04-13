@@ -36,32 +36,9 @@
 </div> 
 </fieldset>
 
-<fieldset>
-
-<legend>Departmental Programs (tree)</legend>
-
-<ul class='tree'>
-<% @productservicelines.each do |psl| %> 
-  <li class='icon-folder-close'><%= render 'psl', :psl=>psl %><br>
-    <ul style='display:none;'><% psl.subservicelines.each do |ssl|%>
-      <li class='icon-folder-close'><%= render 'ssl', :ssl=>ssl %><br> 
-        <ul><% ssl.summarycommitments.each do |sc|%>  
-           <li class='icon-folder-close'><%= render 'sc', :sc=>sc %><br>
-              <ul><% sc.commitmentitems.each do |ci|%>                
-                <li class='icon-folder-close'><%= render 'ci', :ci=>ci %><br></li>
-              <% end %>
-              </ul>
-           </li>
-           <% end %> 
-        </ul>
-      </li>  
-      <% end %>           
-  </ul>
- </li>
- <% end %>
-</ul>
-
-</fieldset>
+<div id='pras_tree'>
+  <%= render 'pras_tree', :productservicelines => @productservicelines %>
+</div>
 
 <br><br>
 
