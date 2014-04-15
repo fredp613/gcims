@@ -16,8 +16,11 @@ class Commitmentitem < ActiveRecord::Base
   validate :check_associations_dates
   
   before_destroy :check_associations
+  after_update :update_tree
   
-
+  scope :active, lambda { 
+    where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
+  }
 
    def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
@@ -75,6 +78,25 @@ class Commitmentitem < ActiveRecord::Base
       end
     end
 
+  end
+
+  def update_tree
+    if self.startdate_changed? || self.enddate_changed?      
+      ##update up
+        if self.summarycommitment.startdate > self.startdate 
+          self.summarycommitment.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)
+        end
+
+        if self.summarycommitment.enddate < self.enddate
+            self.summarycommitment.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
+        end 
+
+        #unique branch auto updates parent
+        unless self.summarycommitment.commitmentitems.count > 1
+          self.summarycommitment.update_attributes(:enddate =>self.enddate, :startdate => self.startdate, :user_id=>self.user_id)
+        end
+
+    end
   end
 
 

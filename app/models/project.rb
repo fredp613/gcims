@@ -33,12 +33,10 @@ class Project < ActiveRecord::Base
   
 #also add || is in state create
   validates :projectname, presence: :true, :if => :projectname_changed? 
-  validates :startdate, presence: :true, :if => :startdate_changed? 
-  validates :enddate, presence: :true, :if => :enddate_changed? 
+  validates :startdate, presence: :true#, :if => :startdate_changed? 
+  validates :enddate, presence: :true#, :if => :enddate_changed? 
   # need to fix this validation for the unique attribute
   validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :division_id_changed?
-  
-  
   
   validate :startdate_comparison
   validate :enddate_comparison

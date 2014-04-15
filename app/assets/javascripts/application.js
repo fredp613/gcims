@@ -85,17 +85,14 @@ $(document).ready(ready1);
     
   }); **/
 
- function timerIncrement() {
-  idleTime = idleTime + 1;
-<<<<<<< HEAD
-  if (idleTime > 16) { // 16 minutes
-      window.location.replace("/")            
-=======
-  if (idleTime > 17) { // 16 minutes
-      window.location.replace("/login")            
->>>>>>> fy_refactor
-  }
- }
+
+ // function timerIncrement() {
+ //  idleTime = idleTime + 1;
+ //  if (idleTime > 17) { // 16 minutes
+ //      window.location.replace("/login")            
+ //  }
+ // }
+
 
 function bind_datepicker() {
   $element = $(document).find('.datepicker')

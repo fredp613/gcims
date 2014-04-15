@@ -17,7 +17,11 @@ class Productserviceline < ActiveRecord::Base
   has_many :projects, through: :applications
   has_many :fypsls, :dependent => :destroy
   
-  scope :active, where('enddate > ?', Date.today)
+  
+
+  scope :active, lambda { 
+    where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
+  }
 
 
   belongs_to :user
@@ -82,39 +86,62 @@ class Productserviceline < ActiveRecord::Base
 
   def update_tree
 
-    @ssl = self.subservicelines.all
-    @ssl.each do |ssl|
-      if (ssl.startdate < self.startdate) || (ssl.startdate > self.enddate)
-        ssl.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)                
+    #first get allowable date range - if any of the children fall outside of this range update them.
+    sd = self.startdate
+    ed = self.enddate
+
+    self.subservicelines.each do |ssl|
+      #start date in range - end date out of range
+      if (ssl.startdate >= sd && ssl.startdate <= ed) && !(ssl.enddate >= sd && ssl.enddate <= ed)
+        ssl.update_attributes(:enddate => ed, :user_id=>self.user_id)
       end
-      if (ssl.enddate > self.enddate) || (ssl.startdate < self.enddate)
-        ssl.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)                
-      end    
+      #start date out of range - end date in range
+      if !(ssl.startdate >= sd && ssl.startdate <= ed) && (ssl.enddate >= sd && ssl.enddate <= ed)
+        ssl.update_attributes(:startdate => sd, :user_id=>self.user_id)
+      end
+      #start and enddate out of range
+      if !(ssl.startdate >= sd && ssl.startdate <= ed) && !(ssl.enddate >= sd && ssl.enddate <= ed)
+        ssl.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+      end
+
     end
 
-    @sc = self.summarycommitments.all
-    @sc.each do |sc|
-      if (sc.startdate < self.startdate) || (sc.startdate > self.enddate)
-        sc.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)        
-        
+    self.summarycommitments.each do |sc|
+      #start date in range - end date out of range
+      if (sc.startdate >= sd && sc.startdate <= ed) && !(sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:enddate => ed, :user_id=>self.user_id)
       end
-      if (sc.enddate > self.enddate) || (sc.startdate < self.enddate)
-        sc.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)        
-        
-      end   
+      #start date out of range - end date in range
+      if !(sc.startdate >= sd && sc.startdate <= ed) && (sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:startdate => sd, :user_id=>self.user_id)
+      end
+      #start and enddate out of range
+      if !(sc.startdate >= sd && sc.startdate <= ed) && !(sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+      end
+
     end
 
-    @ci = self.commitmentitems.all
-    @ci.each do |ci|
-      if (ci.startdate < self.startdate) || (ci.startdate > self.enddate)
-        ci.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)        
-        
+    self.commitmentitems.each do |ci|
+      #start date in range - end date out of range
+      if (ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+        ci.update_attributes(:enddate => ed, :user_id=>self.user_id)
       end
-      if (ci.enddate > self.enddate) || (ci.startdate < self.enddate)
-        ci.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
-      end   
+      #start date out of range - end date in range
+      if !(ci.startdate >= sd && ci.startdate <= ed) && (ci.enddate >= sd && ci.enddate <= ed)
+        ci.update_attributes(:startdate => sd, :user_id=>self.user_id)
+      end
+      #start and enddate out of range
+      if !(ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+        ci.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+      end
+
     end
+
+    #check if active - if not active then children shold not be active
     
+
+
   end
 
   def fiscalyears

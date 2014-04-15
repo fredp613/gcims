@@ -24,6 +24,10 @@ class Subserviceline < ActiveRecord::Base
   validate :enddate_comparison
   validate :check_associations_dates
   
+ scope :active, lambda { 
+    where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
+  }
+
   after_create :create_tree
   after_update :update_tree
   before_destroy :check_associations
@@ -42,6 +46,8 @@ class Subserviceline < ActiveRecord::Base
         errors.add(:enddate, 'must be greater than start date')                 
     end
   end
+
+ 
 
   def fiscalyears
     @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
@@ -71,31 +77,60 @@ class Subserviceline < ActiveRecord::Base
 
   end
 
+
   def update_tree
 
     if self.startdate_changed? || self.enddate_changed?      
-            @sc = self.summarycommitments.all
-            @sc.each do |sc|
-              if (sc.startdate < self.startdate) || (sc.startdate > self.enddate)
-                sc.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)        
-                
-              end
-              if (sc.enddate > self.enddate) || (sc.startdate < self.enddate)
-                sc.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)        
-                
-              end   
-            end
+            
+      ## update down
+      sd = self.startdate
+      ed = self.enddate
 
-            @ci = self.commitmentitems.all
-            @ci.each do |ci|
-              if (ci.startdate < self.startdate) || (ci.startdate > self.enddate)
-                ci.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)        
-                
-              end
-              if (ci.enddate > self.enddate) || (ci.startdate < self.enddate)
-                ci.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
-              end   
-            end
+      self.summarycommitments.each do |sc|
+      #start date in range - end date out of range
+      if (sc.startdate >= sd && sc.startdate <= ed) && !(sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:enddate => ed, :user_id=>self.user_id)
+      end
+      #start date out of range - end date in range
+      if !(sc.startdate >= sd && sc.startdate <= ed) && (sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:startdate => sd, :user_id=>self.user_id)
+      end
+      #start and enddate out of range
+      if !(sc.startdate >= sd && sc.startdate <= ed) && !(sc.enddate >= sd && sc.enddate <= ed)
+        sc.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+      end
+
+      end
+
+      self.commitmentitems.each do |ci|
+      #start date in range - end date out of range
+        if (ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+          ci.update_attributes(:enddate => ed, :user_id=>self.user_id)
+        end
+        #start date out of range - end date in range
+        if !(ci.startdate >= sd && ci.startdate <= ed) && (ci.enddate >= sd && ci.enddate <= ed)
+          ci.update_attributes(:startdate => sd, :user_id=>self.user_id)
+        end
+        #start and enddate out of range
+        if !(ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+          ci.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+        end
+        
+      end
+
+      ##update up
+        if self.productserviceline.startdate > self.startdate
+          self.productserviceline.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)
+        end
+
+        if self.productserviceline.enddate < self.enddate
+            self.productserviceline.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
+        end 
+        #unique branch auto updates parent
+        unless self.productserviceline.subservicelines.count > 1 
+          self.productserviceline.update_attributes(:enddate =>self.enddate, :startdate => self.startdate, :user_id=>self.user_id)
+        end
+
 
     end
     

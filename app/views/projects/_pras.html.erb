@@ -1,7 +1,56 @@
 
 <%= f.simple_fields_for :applications do |application| %>
 
+<% if @province == 3 %>
+
 <fieldset>
+	<legend>Choose division/branch</legend>
+		 		          				
+    <%= f.input :division_id, :label=>false, :wrapper=>:append do %>
+    	<%= f.input_field :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
+        <%= link_to "add", new_client_division_path(params[:client_id]), :class=> 'btn btn-success', :style=>'margin-bottom:5px' %>	      	         
+      <% end %>
+	 	
+</fieldset>
+
+<% end %>
+
+<br><br>
+<fieldset style='margin-top:-40px;'>
+		
+		<legend>Select Program Information</legend>
+
+	<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.active, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
+
+	<%= application.input :subserviceline do %>
+		<%= application.grouped_collection_select :subserviceline, Productserviceline.active.order(:psl_name),
+		'subservicelines.active', :psl_name, :id, :ssl_name, include_blank: true %>
+	<% end %>
+
+	<%= application.input :summarycommitment do %>
+		<%= application.grouped_collection_select :summarycommitment, Subserviceline.active.order(:ssl_name),
+		'summarycommitments.active', :ssl_name, :id, :sc_name, include_blank: true %>
+	<% end %>
+
+	<%= application.input :commitmentitem_id do %>
+		<%= application.grouped_collection_select :commitmentitem_id, Summarycommitment.active.order(:sc_name),
+		'commitmentitems.active', :sc_name, :id, :ci_name, include_blank: true %>
+	<% end %>
+
+
+</fieldset>
+
+<fieldset style='margin-top:-50px'>
+        <legend>Project Information</legend>
+      <%= f.input :projectname, label: 'Title' %>
+        <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>
+
+      <%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors %>
+        <%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors %>
+    	<%#= render 'tombstone', :f=>f %>
+      </fieldset>
+
+<fieldset style='margin-top:-50px'>
 
 	<legend>Main Information</legend>
 		<%= application.input :corporate_file_number %>
@@ -18,28 +67,8 @@
 
 </fieldset>
 
-<fieldset style='margin-top:-40px;'>
-		
-		<legend>Financial Coding</legend>
 
-<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.all, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
 
-	<%= application.input :subserviceline do %>
-		<%= application.grouped_collection_select :subserviceline, Productserviceline.order(:psl_name),
-		:subservicelines, :psl_name, :id, :ssl_name, include_blank: true %>
-	<% end %>
-
-	<%= application.input :summarycommitment do %>
-		<%= application.grouped_collection_select :summarycommitment, Subserviceline.order(:ssl_name),
-		:summarycommitments, :ssl_name, :id, :sc_name, include_blank: true %>
-	<% end %>
-
-	<%= application.input :commitmentitem_id do %>
-		<%= application.grouped_collection_select :commitmentitem_id, Summarycommitment.order(:sc_name),
-		:commitmentitems, :sc_name, :id, :ci_name, include_blank: true %>
-	<% end %>
 <% end %>
-
-</fieldset>
 
 

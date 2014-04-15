@@ -27,7 +27,7 @@
       <div class="form-actions">
         <%= f.button :submit, :class => 'btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    commitmentitems_path, :class => 'btn' %>
+                    commitmentitems_path, :class => 'btn', :id=>'cancel', :remote=>true %>
       </div>
 
   <% end %>
@@ -39,6 +39,10 @@ $('.datepicker').datepicker({
   autoclose: 'true',  
   format: 'yyyy-mm-dd'
 });
+
+$(document).on('click', '#cancel', function () {
+  $('#myModal').modal('hide');
+})
 
 
 </script>   

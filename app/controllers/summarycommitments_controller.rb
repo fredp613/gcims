@@ -5,17 +5,17 @@ class SummarycommitmentsController < ApplicationController
    
     #ajax calls
     if params[:psl]
-      @ssls = Subserviceline.where(:productserviceline_id=>params[:psl])
-      @summarycommitments = Summarycommitment.where(:subserviceline_id=>@ssls)
+      @ssls = Subserviceline.active.where(:productserviceline_id=>params[:psl])
+      @summarycommitments = Summarycommitment.active.where(:subserviceline_id=>@ssls)
     end
 
     if params[:ssl]
-      @summarycommitments = Summarycommitment.where(:subserviceline_id=>params[:ssl])
+      @summarycommitments = Summarycommitment.active.where(:subserviceline_id=>params[:ssl])
     end
 
     if params[:ci]
-      @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
-      @summarycommitments = Summarycommitment.where(:id=>@sc_id)
+      @sc_id = Commitmentitem.active.where(:id=>params[:ci]).first.summarycommitment_id
+      @summarycommitments = Summarycommitment.active.where(:id=>@sc_id)
     end
     ###########
 

@@ -4,19 +4,19 @@ class SubservicelinesController < ApplicationController
   def index
 
 #for ajax cal
-     if params[:psl]
-      @subservicelines = Subserviceline.where(:productserviceline_id=>params[:psl])
+    if params[:psl]
+      @subservicelines = Subserviceline.active.where(:productserviceline_id=>params[:psl])
     end
 
     if params[:sc]
-      @ssl_id = Summarycommitment.where(:id=>params[:sc]).select(:subserviceline_id)
-      @subservicelines = Subserviceline.where(:id=>@ssl_id)
+      @ssl_id = Summarycommitment.active.where(:id=>params[:sc]).select(:subserviceline_id)
+      @subservicelines = Subserviceline.active.where(:id=>@ssl_id)
     end
 
     if params[:ci]
-      @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
-      @ssl_id = Summarycommitment.where(:id=>@sc_id).first.subserviceline_id
-      @subservicelines = Subserviceline.where(:id=>@ssl_id)
+      @sc_id = Commitmentitem.active.where(:id=>params[:ci]).first.summarycommitment_id
+      @ssl_id = Summarycommitment.active.where(:id=>@sc_id).first.subserviceline_id
+      @subservicelines = Subserviceline.active.where(:id=>@ssl_id)
     end
  ##########
     # @subservicelines = Subserviceline.all
