@@ -100,12 +100,8 @@ class ProductservicelinesController < ApplicationController
     respond_to do |format|
       if @productserviceline.save
         
-<<<<<<< HEAD
-        format.html { redirect_to productserviceline_path(@productserviceline), notice: 'Productserviceline was successfully created.' }
-=======
         @productservicelines = Productserviceline.all
         format.html { redirect_to productservicelines_path, notice: 'Productserviceline was successfully created.' }
->>>>>>> fy_refactor
         format.json { render json: @productserviceline, status: :created, location: @productserviceline }
         format.js
       else

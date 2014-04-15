@@ -41,6 +41,7 @@ class Project < ActiveRecord::Base
   validate :startdate_comparison
   validate :enddate_comparison
   validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
+  
 
   pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate],
   using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
@@ -123,6 +124,8 @@ class Project < ActiveRecord::Base
 
 
   end
+
+
 
 
 

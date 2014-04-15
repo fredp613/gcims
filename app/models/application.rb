@@ -35,6 +35,7 @@ class Application < ActiveRecord::Base
 
 
   validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? } 
+  validate :pras_date_range
 
   scope :other_funding, lambda { 
     where('applications.requested_other > ?', 0)
@@ -44,8 +45,7 @@ class Application < ActiveRecord::Base
     self.first
   }
 
-<<<<<<< HEAD
-=======
+
   def budget_verification
 
 
@@ -66,7 +66,7 @@ class Application < ActiveRecord::Base
 
   end
 
->>>>>>> fy_refactor
+
   def unique_attributes_update?
     !updating_unique_attribute
   end
@@ -105,4 +105,31 @@ class Application < ActiveRecord::Base
     %w(corporate_file_number projects.projectname commitmentitems.ci_name)
   end
 
+  def pras_date_range
+    
+    return if !(self.project.startdate_changed? || self.project.enddate_changed?)
+      sd = self.project.startdate
+      ed = self.project.enddate
+
+      if sd < self.commitmentitem.startdate
+        errors.add(:startdate, 'The start date must be later than #{self.commitmentitem.startdate}')
+      end
+
+      if ed > self.commitmentitem.enddate
+        errors.add(:enddate, 'The end date must be before #{self.commitmentitem.enddate}')
+      end
+
+    
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
