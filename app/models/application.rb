@@ -35,6 +35,7 @@ class Application < ActiveRecord::Base
 
 
   validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? } 
+  #validate :pras_date_range
 
   scope :other_funding, lambda { 
     where('applications.requested_other > ?', 0)
@@ -101,5 +102,7 @@ class Application < ActiveRecord::Base
   def self.search_columns
     %w(corporate_file_number projects.projectname commitmentitems.ci_name)
   end
+
+  
 
 end
