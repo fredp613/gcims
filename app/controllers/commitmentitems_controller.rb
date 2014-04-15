@@ -5,18 +5,18 @@
 
     #for ajax call
     if params[:psl]
-      @ssls = Subserviceline.where(:productserviceline_id=>params[:psl])
-      @scs = Summarycommitment.where(:subserviceline_id=>@ssls)
-      @commitmentitems = Commitmentitem.where(:summarycommitment_id=>@scs)
+      @ssls = Subserviceline.active.where(:productserviceline_id=>params[:psl])
+      @scs = Summarycommitment.active.where(:subserviceline_id=>@ssls)
+      @commitmentitems = Commitmentitem.active.where(:summarycommitment_id=>@scs)
     end
 
     if params[:ssl]
-      @scs = Summarycommitment.where(:subserviceline_id=>params[:ssl])
-      @commitmentitems = Commitmentitem.where(:summarycommitment_id=>@scs)
+      @scs = Summarycommitment.active.where(:subserviceline_id=>params[:ssl])
+      @commitmentitems = Commitmentitem.active.where(:summarycommitment_id=>@scs)
     end
 
     if params[:sc]
-      @commitmentitems = Commitmentitem.where(:id=>params[:sc])
+      @commitmentitems = Commitmentitem.active.where(:id=>params[:sc])
     end
 
 

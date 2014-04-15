@@ -27,6 +27,9 @@ class Summarycommitment < ActiveRecord::Base
   before_destroy :check_associations
   
 
+  scope :active, lambda { 
+    where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
+  }
 
    def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
@@ -62,16 +65,38 @@ class Summarycommitment < ActiveRecord::Base
 
     if self.startdate_changed? || self.enddate_changed?      
 
-            @ci = self.commitmentitems.all
-            @ci.each do |ci|
-              if (ci.startdate < self.startdate) || (ci.startdate > self.enddate)
-                ci.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)        
-                
-              end
-              if (ci.enddate > self.enddate) || (ci.startdate < self.enddate)
-                ci.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
-              end   
-            end
+      #update down
+      sd = self.startdate
+      ed = self.enddate
+
+      self.commitmentitems.each do |ci|
+          #start date in range - end date out of range
+          if (ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+            ci.update_attributes(:enddate => ed, :user_id=>self.user_id)
+          end
+          #start date out of range - end date in range
+          if !(ci.startdate >= sd && ci.startdate <= ed) && (ci.enddate >= sd && ci.enddate <= ed)
+            ci.update_attributes(:startdate => sd, :user_id=>self.user_id)
+          end
+          #start and enddate out of range
+          if !(ci.startdate >= sd && ci.startdate <= ed) && !(ci.enddate >= sd && ci.enddate <= ed)
+            ci.update_attributes(:startdate => sd, :enddate => ed, :user_id=>self.user_id)
+          end
+         
+      end
+       ##update up
+          if self.subserviceline.startdate > self.startdate 
+            self.subserviceline.update_attributes(:startdate => self.startdate, :user_id=>self.user_id)
+          end
+
+          if self.subserviceline.enddate < self.enddate
+              self.subserviceline.update_attributes(:enddate => self.enddate, :user_id=>self.user_id)       
+          end 
+
+        #unique branch auto updates parent
+        unless self.subserviceline.summarycommitments.count > 1
+          self.subserviceline.update_attributes(:enddate =>self.enddate, :startdate => self.startdate, :user_id=>self.user_id)
+        end
 
     end
     

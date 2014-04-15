@@ -6,7 +6,7 @@ if params[:start_year] || params[:end_year]
 (FiscalYear.new(psl.startdate, psl.enddate).fiscalyear_by_date_range.to_a & 
 FiscalYear.new(params[:start_year] ||= Date.today, params[:end_year] ||= Date.today).fiscalyear_by_year_range.to_a).size > 0 ? "pras_item" : "pras_item red"
 else
-	psl.enddate > Date.today ? "pras_item" : "pras_item red"
+	(psl.enddate >= Date.today && psl.startdate <= Date.today) ? "pras_item" : "pras_item red"
 end
 
 )

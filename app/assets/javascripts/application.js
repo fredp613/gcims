@@ -81,12 +81,12 @@ $(document).ready(ready1);
     
   }); **/
 
- function timerIncrement() {
-  idleTime = idleTime + 1;
-  if (idleTime > 17) { // 16 minutes
-      window.location.replace("/login")            
-  }
- }
+ // function timerIncrement() {
+ //  idleTime = idleTime + 1;
+ //  if (idleTime > 17) { // 16 minutes
+ //      window.location.replace("/login")            
+ //  }
+ // }
 
 function bind_datepicker() {
   $element = $(document).find('.datepicker')
