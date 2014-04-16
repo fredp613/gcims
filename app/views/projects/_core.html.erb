@@ -11,8 +11,6 @@
 	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
 	</div>
 
-	
-
 	<div style='width:90%;word-wrap: break-word;'>
 		 <h4>Description 
  		<%# if allow_param? :projects, :projectdesc %>
@@ -29,39 +27,37 @@
 	</div>
 	</div>
 
- <h4>Start date 
+
+ <% @project.applications.each do |app| %>
+
+
+ 	<h4>Start date 
  	<% if allow? :projects, :edit  %> 
-	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project Start Date', 							
-		'data-attribute'=>'projectstart',					
+	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'startdate'), :class=>'editAppSingleField icon-pencil', 
+		:title=>'Edit Application Start Date', 							
+		'data-attribute'=>'startdate',					
 		:remote=>true %>
 	<% end %>
  </h4>
 
-	<div class='projectstart_container'>
-	<h5 id='projectstart' style='color:#797979;'><%= @project.startdate.to_date %></h5>
+	<div class='startdate_container'>
+	<h5 id='app_start' style='color:#797979;'><%= app.startdate.to_date %></h5>
 	</div>
-
-
-
 
  <h4>End date 
  <% if allow? :projects, :edit  %> 
   	
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project End Date', 							
-		'data-attribute'=>'projectend',					
+ 	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'enddate'), :class=>'editAppSingleField icon-pencil', 
+		:title=>'Edit Application End Date', 							
+		'data-attribute'=>'enddate',					
 		:remote=>true %>
 	<% end %>
 	
 </h4>
-	<div class='projectend_container'>
-	<h5 id='projectend' style='color:#797979;'><%= @project.enddate.to_date %></h5>
+	<div class='enddate_container'>
+	<h5 id='app_end' style='color:#797979;'><%= app.enddate.to_date %></h5>
 </div>
 
-
-
- <% @project.applications.each do |app| %>
 	 	<h4>Corporate File Number 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'corporate_file_number'), :class=>'editAppSingleField icon-pencil', 
@@ -72,7 +68,7 @@
 	 </h4>
 
 	<div class='corporate_file_number_container'>
-	<h5 id='projectstart' style='color:#797979;'><%= app.corporate_file_number %></h5>
+	<h5 id='appcorp' style='color:#797979;'><%= app.corporate_file_number %></h5>
 	</div>
 
 	<h4>Requested Amount 

@@ -38,7 +38,55 @@ module ApplicationHelper
 	end
 
 
-	def date_picker(name, f, value, label="", error = "", position="")
+	# def date_picker(name, f, value, label="", error = "", position="")
+	# 	@position = position
+	# 	@object = f.object.class.name.downcase
+	# 	object = @object + "_" + name.to_s
+	# 	@name = f.object.class.name.downcase + "[" + name.to_s + "]"
+	# 	if !error.get(name).blank? #used to be !error.empty?
+	# 		@error = error.get(name)
+	# 		@error_ind = "error"
+	# 	else
+	# 		@error = ""
+	# 		@error_ind = ""
+	# 	end
+	     	
+	# 		#error(@name,object,label) +
+	# 	if position !='under'			
+	# 		content_tag(:div, :class=>'control-group string required ' + object + ' ' + @error_ind) do
+	# 			concat content_tag(:div, :class=>'controls')		 	      	
+	# 	      	concat content_tag(:label, label, :class=>"string required control-label", :for=>object)
+	# 	      	concat field(@name,object,value,@error, @position) 
+	# 	    end
+	#   	else
+	#      	 field(@name,object,value,@error, @position, @error_ind) 
+	     
+ #   		end
+   		
+ #   	end
+
+ #   	def field(name, object,value, error, position, error_indicator)
+ #   		   	content_tag(:div, :class=>'control-group string required ' + object + ' ' + error_indicator) do	
+	# 	   		content_tag(:div, :class=>'controls') do
+	# 	   		 content_tag(:div, :class=>'input-append') do
+	# 	     		concat content_tag :input,"", :class=>"string required datepicker", 
+	# 	       		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
+	# 				@button = "<button class='btn btn-info' style='margin-bottom:5px' type='submit'>
+	# 						 <i class='icon-ok'></i>           
+	# 						 </button>"
+	# 				concat @button.html_safe
+	# 				if !(error.blank? || error == "")	       	  				  				 			
+	# 		     		concat content_tag(:span, error.first, :class=>'help-inline')			     		 
+	# 		     	end
+	# 		     	end	
+			     			     	
+	# 	    	end
+		    	
+	# 	    end
+
+ #   	end
+
+   	def date_picker(name, f, value, label="", error = "", position="")
 		@position = position
 		@object = f.object.class.name.downcase
 		object = @object + "_" + name.to_s
@@ -50,7 +98,7 @@ module ApplicationHelper
 			@error = ""
 			@error_ind = ""
 		end
-	     	
+
 			#error(@name,object,label) +
 		if position !='under'			
 			content_tag(:div, :class=>'control-group string required ' + object + ' ' + @error_ind) do		 	      	
@@ -59,7 +107,7 @@ module ApplicationHelper
 		    end
 	  	else
 	     	 field(@name,object,value,@error, @position) 
-	     
+
    		end
    		
    	end
@@ -75,17 +123,21 @@ module ApplicationHelper
 			     	end
 	    	end
     	else
+
     		concat content_tag :input,"", :class=>"string optional datepicker", 
        		:id=>object, :name=>name, :type=>"text",:value=>!value.blank? ? value.to_date : value	       	  	
        	  	if !(error.blank? || error == "")	 
        	  		error.each do |e|       	  				  				 			
 	     			concat content_tag(:span, e, :class=>'help-inline') 
 	     		end
+
 	     	end
     	end
 
 
    	end
+
+  
 
    	def sortable(object, column, title = nil)
 	    title ||= column.titleize
