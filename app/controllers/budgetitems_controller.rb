@@ -49,7 +49,7 @@ class BudgetitemsController < ApplicationController
 
     end
 
-    @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
+    # @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
     
 
 
