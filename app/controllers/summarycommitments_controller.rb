@@ -77,19 +77,8 @@ class SummarycommitmentsController < ApplicationController
     respond_to do |format|
       if @summarycommitment.save
 
-<<<<<<< HEAD
-        @subserviceline = @summarycommitment.subserviceline
-        @productserviceline = @subserviceline.productserviceline
-
-        @updatetree = UpdateTree.new(current_user, @productserviceline, @subserviceline, @summarycommitment, nil, "sc", "update", params)  
-        @updatetree.update_tree_instances
-
-
-        format.html { redirect_to summarycommitment_path(@summarycommitment), notice: 'Summarycommitment was successfully created.' }
-=======
         @productservicelines = Productserviceline.all
         format.html { redirect_to productservicelines_path, notice: 'Summarycommitment was successfully created.' }
->>>>>>> fy_refactor
         format.json { render json: @summarycommitment, status: :created, location: @summarycommitment }
         format.js
       else

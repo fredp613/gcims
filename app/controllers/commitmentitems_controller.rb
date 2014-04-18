@@ -87,11 +87,6 @@
       if @commitmentitem.save
         @productservicelines = Productserviceline.all
 
-<<<<<<< HEAD
-        format.html { redirect_to commitmentitem_path(@commitmentitem), notice: 'Commitmentitem was successfully created.' }
-=======
-        format.html { redirect_to productservicelines_path, notice: 'Commitmentitem was successfully created.' }
->>>>>>> fy_refactor
         format.json { render json: @commitmentitem, status: :created, location: @commitmentitem }
         format.js
       else

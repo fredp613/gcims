@@ -78,19 +78,9 @@ class SubservicelinesController < ApplicationController
     
     respond_to do |format|
       if @subserviceline.save
-<<<<<<< HEAD
 
-        @productserviceline = @subserviceline.productserviceline
-
-        @updatetree = UpdateTree.new(current_user, @productserviceline, @subserviceline, nil, nil, "ssl", "update", params)  
-        @updatetree.update_tree_instances
-
-
-        format.html { redirect_to subserviceline_path(@subserviceline), notice: 'Subserviceline was successfully created.' }
-=======
         @productservicelines = Productserviceline.all
         format.html { redirect_to productservicelines_path, notice: 'Subserviceline was successfully created.' }
->>>>>>> fy_refactor
         format.json { render json: @subserviceline, status: :created, location: @subserviceline }
         format.js
       else
