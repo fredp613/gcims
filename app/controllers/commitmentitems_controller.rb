@@ -19,6 +19,10 @@
       @commitmentitems = Commitmentitem.active.where(:id=>params[:sc])
     end
 
+    if params[:id]
+      @commitmentitems = Commitmentitem.active.where(:id=>params[:id])
+    end
+
 
     ##############
 
@@ -28,6 +32,8 @@
     end
   end
 
+ 
+
   # GET /commitmentitems/1
   # GET /commitmentitems/1.json
   def show
@@ -35,7 +41,8 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @commitmentitem }
+      format.json { render json: @commitmentitem.as_json }
+      format.js
     end
   end
 
