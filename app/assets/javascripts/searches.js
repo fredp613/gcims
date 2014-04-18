@@ -7,30 +7,8 @@ function () {
 
   $('#results').fadeIn(300);
 
-<<<<<<< HEAD
 
-  $('#table_container').on('click', '.pagination a', function() {
-    $.getScript(this.href);
-    history.pushState(null,"",this.href)
-    return false;
-  })
 
-  $(document).on('click', '#newCT', function() {
-    var link = $(this).attr('href') + '?layout=false'
-    createModal(link, 'Create Client Wizard');
-    return false;
-  })
-
-  var createModal = function(link, title) {
-    $('.modal-title').html(title);
-    $('<div id="modalId" />').appendTo('.modal-body');
-    $('#modalId').load(link);
-    $("#myModal").modal();  
-    //psls = $('#project_applications_attributes_0_subserviceline').html();
-    //console.log(psls)
-  } 
-=======
->>>>>>> fy_refactor
 
   $('#table_container').on('click', '.pagination a', function() {
     $.getScript(this.href);

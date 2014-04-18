@@ -3,19 +3,10 @@
 
 <p><h3>Quick Search</h3></p>
 
-<<<<<<< HEAD
-
-<%= render 'qSearch' %>
-
-
-<div id='table_container' >
-  <div class='loader'>
-  </div>
-=======
 
 <%= form_tag searches_path, :action=>'searches/index', :remote=>true, :method=>'get', :id=>'searchForm'  do |f|  %>
   
->>>>>>> fy_refactor
+
 
   <div class='input-append'>
   
@@ -53,14 +44,13 @@
 <%= render 'shared/modal_html' %>
 
 
-<<<<<<< HEAD
+
     <% if allow? "clients", "new" %>
     <p>
       <%= link_to "Add Client", new_client_clienttypes_path, :class=>'btn btn-info', :id=>'newCT' %>
     </p>
     <% end %>
-=======
->>>>>>> fy_refactor
+
 
 
 

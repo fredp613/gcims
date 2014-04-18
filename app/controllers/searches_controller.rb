@@ -4,11 +4,6 @@ class SearchesController < ApplicationController
 
   def index
   	
-<<<<<<< HEAD
-  	
- 	
-=======
->>>>>>> fy_refactor
  	if params[:search_field]
  	 	
  	 if params[:clients_page_size]	
