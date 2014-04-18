@@ -41,7 +41,7 @@ ready1 =
   });
 
   $(window).bind("popstate", function(){
-  	$.getScript(location.href);
+    $.getScript(location.href);
   });
 
 
@@ -63,10 +63,6 @@ ready1 =
   //   window.location.replace("/login");
   // }
 
-  if ($('body:contains("not authorized")').length>0 || $('body:contains("session expired")').length>0) {
-    window.location.replace("/login");
-  }
-
  
 
 }
@@ -85,14 +81,12 @@ $(document).ready(ready1);
     
   }); **/
 
-
  // function timerIncrement() {
  //  idleTime = idleTime + 1;
  //  if (idleTime > 17) { // 16 minutes
  //      window.location.replace("/login")            
  //  }
  // }
-
 
 function bind_datepicker() {
   $element = $(document).find('.datepicker')
@@ -136,7 +130,7 @@ function timerIncrement() {
     idleTime = idleTime + 1;
     if (idleTime > 29) { // 30 minutes
         location.reload();
-    }	
+    } 
 }
 **/
 
