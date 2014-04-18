@@ -8,7 +8,8 @@
   <legend>PRAS</legend>
  <% end  %>
   <div class="form-inputs">
-
+    <%= date_picker :startdate, f,  @application.startdate, "Start Date", @application.errors %>
+    <%= date_picker :enddate, f,  @application.enddate, "End Date", @application.errors %>
     <%= f.input :corporate_file_number, as: :hidden %>
     <%= f.input :requested, as: :hidden %>
   	<%= f.input :productserviceline, label: 'Product Service Line', 

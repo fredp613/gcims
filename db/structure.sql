@@ -107,7 +107,9 @@ CREATE TABLE applications (
     updated_by integer,
     decision_by integer,
     responsible_official integer,
-    requested_other integer
+    requested_other integer,
+    startdate timestamp without time zone,
+    enddate timestamp without time zone
 );
 
 
@@ -2057,3 +2059,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140409172234');
 INSERT INTO schema_migrations (version) VALUES ('20140409172242');
 
 INSERT INTO schema_migrations (version) VALUES ('20140409172249');
+
+INSERT INTO schema_migrations (version) VALUES ('20140415174151');

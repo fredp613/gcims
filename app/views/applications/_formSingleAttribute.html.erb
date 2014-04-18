@@ -28,10 +28,30 @@
 		        :value=> number_with_precision(f.object.requested, 
 		        :precision => 2, separator: '.', delimiter: ',') || '0.00' %> 
 		        <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
-      			<i class='icon-ok'></i>  		
-   			<% end %>           
+      				<i class='icon-ok'></i>  		
+   				<% end %>           
 	        </div>            
      <% end %>
+
+     <% elsif @application.updating_unique_attribute == "startdate"  %>
+		 
+	       <%= f.input :startdate, :label=>false, :wrapper=>:append do %>
+			<%= date_picker :startdate, f,  @application.startdate, "Start Date", @application.errors, 'under' %>
+			<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+				<i class='icon-ok'></i>
+			<% end %>
+		<% end %>           
+
+     <% elsif @application.updating_unique_attribute == "enddate"  %>
+		 
+	         <%= f.input :enddate, :label=>false, :wrapper=>:append do %>
+			<%= date_picker :enddate, f,  @application.enddate, "End Date", @application.errors, 'under' %>
+			<%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
+				<i class='icon-ok'></i>
+			<% end %>
+		<% end %>    
+
+
 	<% else%>
 		<div class='input-append'>
    			<%= f.input_field :corporate_file_number %>
@@ -39,13 +59,12 @@
       			<i class='icon-ok'></i>  		
    			<% end %>
    		</div>
+
 	<% end %>
 
 	<br>
 
- <!--<div class="submit">
-        <%#= f.button :submit, class: 'btn-success', style: 'margin-top:-35px;' %>
- </div> -->
+
 </div>
 
 <% end %>

@@ -1,11 +1,14 @@
 class Application < ActiveRecord::Base
 
 
+  include ActiveModel::Dirty
+
   attr_accessible :corporate_file_number, :budgetitems_attributes, 
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
   :productserviceline, :requested, :requested_other, :otherfunders_attributes,
   #user columns
-  :updated_by, :created_by, :decision_by, :responsible_official, :updating_unique_attribute
+  :updated_by, :created_by, :decision_by, :responsible_official, 
+  :updating_unique_attribute, :startdate, :enddate
 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
 
@@ -27,15 +30,25 @@ class Application < ActiveRecord::Base
   validates :subserviceline, presence: true, :if => :unique_attributes_update?
   validates :summarycommitment, presence: true, :if => :unique_attributes_update?
   validates :productserviceline, presence: true, :if => :unique_attributes_update?
+  validates :startdate, presence: :true 
+  validates :enddate, presence: :true
+
+
 
   validates :requested, presence: :true, numericality: {:greater_than=> 0}, :if => :unique_attributes_update?
+
   #:numericality => true#,
             #:format => { :with => /^(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?|\(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\))$/ }
             #:format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
 
 
   validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? } 
+  validate :startdate_comparison
+  validate :enddate_comparison
   validate :pras_date_range
+  validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
+  
+
 
   scope :other_funding, lambda { 
     where('applications.requested_other > ?', 0)
@@ -44,6 +57,59 @@ class Application < ActiveRecord::Base
   scope :original_application, lambda {
     self.first
   }
+
+   def startdate_comparison     
+    return if !startdate_changed? || startdate.blank?
+    if enddate < startdate               
+        errors.add(:startdate, 'must be smaller than end date')                
+    end
+  end
+
+  def enddate_comparison     
+    return if !enddate_changed? || enddate.blank?
+    if enddate < startdate                       
+        errors.add(:enddate, 'must be greater than start date')                 
+    end
+  end
+
+  def dates_budgetitem_fiscalyears_comparison
+    #select distinct fiscalyears in budgetitems into array
+    #get fiscal year range from fiscal years using new start and enddate values (in not blanks)
+    #compaire both arrays and seek differences - differences into new array which will
+    #be part of the error displayed to user
+
+    #@fy_budgetitems = Array.new 
+    @fy_budgetitems = Array.new
+
+    self.budgetitems.each do |b|
+      @fy_budgetitems.push(b.fiscalyear_id)
+    end
+
+    @fy_dates = Fiscalyear.year_range(startdate, enddate).map(&:id)
+
+   # @difference = @fy_budgetitems - @fy_dates
+    @diff = @fy_budgetitems.reject{ |f| @fy_dates.include? f }
+
+    #@ssl.fiscalyear_ids.reject{ |e| @psl.fiscalyear_ids.include? e}
+    
+    if @diff.size > 0
+      @fiscalyears = Fiscalyear.where(:id=>@diff).order(:fy).to_a
+
+      if startdate_changed?         
+        errors.add(:startdate, 
+          'Before changing the start date
+          please ensure that there are no expense items in
+          the following fiscal years:'+ " " + @fiscalyears.map(&:fy).join(', '))
+      elsif enddate_changed?
+        errors.add(:enddate, 
+          'Before changing the end date
+          please ensure that there are no expense items in
+          the following fiscal years:'+ " " + @fiscalyears.map(&:fy).join(', '))
+      end
+    end
+  end
+
+
 
 
   def budget_verification
@@ -107,20 +173,24 @@ class Application < ActiveRecord::Base
 
   def pras_date_range
     
-    return if !(self.project.startdate_changed? || self.project.enddate_changed?)
-      sd = self.project.startdate
-      ed = self.project.enddate
 
-      if sd < self.commitmentitem.startdate
-        errors.add(:startdate, 'The start date must be later than #{self.commitmentitem.startdate}')
-      end
+    return if self.startdate.blank? || self.enddate.blank?
 
-      if ed > self.commitmentitem.enddate
-        errors.add(:enddate, 'The end date must be before #{self.commitmentitem.enddate}')
-      end
+    sd = self.commitmentitem.startdate
+    ed = self.commitmentitem.enddate
 
-    
+    if (self.startdate.to_date < sd) && self.startdate_changed?
+      errors.add(:startdate, "The application start date cannot preceed the program start date of #{sd.to_date}")
+    end
+
+    if (self.enddate.to_date > ed) && self.enddate_changed?
+      errors.add(:enddate, "The application end date cannot preceed the program end date of #{ed.to_date}")
+    end
+
   end
+
+  
+
 
 end
 

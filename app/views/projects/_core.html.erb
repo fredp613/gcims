@@ -11,24 +11,14 @@
 	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
 	</div>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fy_refactor
-	
 
 	<div style='width:90%;word-wrap: break-word;'>
 		 <h4>Description 
  		<%# if allow_param? :projects, :projectdesc %>
-<<<<<<< HEAD
- 		<% if allow? :projects, :edit  %> 
-		 	
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil', 
-=======
+
  	<% if allow? :projects, :edit  %> 
 		 	
  		<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil', 
->>>>>>> fy_refactor
 		:title=>'Edit Project Description', 							
 		'data-attribute'=>'projectdesc',					
 		:remote=>true %>
@@ -39,45 +29,39 @@
 	</div>
 	</div>
 
- <h4>Start date 
+
+ <% @project.applications.each do |app| %>
+
+
+ 	<h4>Start date 
  	<% if allow? :projects, :edit  %> 
-	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'startdate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project Start Date', 							
-		'data-attribute'=>'projectstart',					
+	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'startdate'), :class=>'editAppSingleField icon-pencil', 
+		:title=>'Edit Application Start Date', 							
+		'data-attribute'=>'startdate',					
 		:remote=>true %>
 	<% end %>
  </h4>
 
-	<div class='projectstart_container'>
-	<h5 id='projectstart' style='color:#797979;'><%= @project.startdate.to_date %></h5>
+	<div class='startdate_container'>
+	<h5 id='app_start' style='color:#797979;'><%= app.startdate.to_date %></h5>
 	</div>
-
-
-
 
  <h4>End date 
  <% if allow? :projects, :edit  %> 
   	
- 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'enddate'), :class=>'editProjectSingleField icon-pencil', 
-		:title=>'Edit Project End Date', 							
-		'data-attribute'=>'projectend',					
+ 	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'enddate'), :class=>'editAppSingleField icon-pencil', 
+		:title=>'Edit Application End Date', 							
+		'data-attribute'=>'enddate',					
 		:remote=>true %>
 	<% end %>
 	
 </h4>
-	<div class='projectend_container'>
-	<h5 id='projectend' style='color:#797979;'><%= @project.enddate.to_date %></h5>
+	<div class='enddate_container'>
+	<h5 id='app_end' style='color:#797979;'><%= app.enddate.to_date %></h5>
 </div>
 
-
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> fy_refactor
-
  <% @project.applications.each do |app| %>
+
 	 	<h4>Corporate File Number 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'corporate_file_number'), :class=>'editAppSingleField icon-pencil', 
@@ -88,7 +72,7 @@
 	 </h4>
 
 	<div class='corporate_file_number_container'>
-	<h5 id='projectstart' style='color:#797979;'><%= app.corporate_file_number %></h5>
+	<h5 id='appcorp' style='color:#797979;'><%= app.corporate_file_number %></h5>
 	</div>
 
 	<h4>Requested Amount 
@@ -105,30 +89,7 @@
         :precision => 2, separator: '.', delimiter: ',') || 0.00 %></h5>
 	</div>
 
- 
-<<<<<<< HEAD
- 	<h5 style='color:#797979;'><%= app.corporate_file_number %>
- 	 
- </h5>
- 	<h4>Requested amount 
- 		<% if allow? :projects, :edit  %> 
- 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested'), :class=>'editAppSingleField icon-pencil' %>
- 		<% end %>
- 	</h4>
 
- 	<h5 style='color:#797979;'>$<%= number_with_precision(app.requested, 
-        :precision => 2, separator: '.', delimiter: ',') || 0.00 %>        
-    </h5>
- 	<h4>Requested amount from other source(s) 
- 		<% if allow? :projects, :edit  %> 
- 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested_other'), :class=>'editAppSingleField icon-pencil' %></h4>
- 		<% end %>
- 	
- 	<h5 style='color:#797979;'>$<%= number_with_precision(app.requested_other, 
-        :precision => 2, separator: '.', delimiter: ',') || 0.00 %>
-           
-    </h5>			 			 	
-=======
  	<h4>Requested Amount (Other Sources) 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested_other'), :class=>'editAppSingleField icon-pencil', 
@@ -142,7 +103,7 @@
 	<h5 id='requested_other' style='color:#797979;'>$<%= number_with_precision(app.requested_other, 
         :precision => 2, separator: '.', delimiter: ',') || 0.00 %></h5>
 	</div>		 			 	
->>>>>>> fy_refactor
+
  <% end %>
 </div>
 
@@ -152,15 +113,11 @@
 $(document).on('click', '.editProjectSingleField', function() {
 
 	var attribute = $(this).attr('data-attribute')	
-	//$('#'+attribute).css('display', 'none');
+
 
 	var link = this.href + '&layout="false"'	
 	$('.'+attribute+'_container').load(link);
-	//$('.edit_container').appendTo('.'+attribute+'_container')
-<<<<<<< HEAD
-	return false;
-=======
-	//return false;
+
 	 $('.editProjectSingleField').hide();
 	 $('.editAppSingleField').hide();
 		
@@ -169,17 +126,15 @@ $(document).on('click', '.editProjectSingleField', function() {
 $(document).on('click', '.editAppSingleField', function() {
 
 	var attribute = $(this).attr('data-attribute')	
-	//$('#'+attribute).css('display', 'none');
+	
 
 	var link = this.href + '&layout="false"'	
 	$('.'+attribute+'_container').load(link);
-	//$('.edit_container').appendTo('.'+attribute+'_container')
-	//return false;
+	
 	$('.editProjectSingleField').hide();
 	 $('.editAppSingleField').hide();
-	// $('.editProjectSingleField').attr('style', 'display:none;')
-	// $('.editAppSingleField').attr('style', 'display:none;')
->>>>>>> fy_refactor
+	
+
 		
 })
 

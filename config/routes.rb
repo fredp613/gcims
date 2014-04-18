@@ -20,11 +20,12 @@ GCIMS::Application.routes.draw do
   resources :clientlocations
   resources :contactlocations
   resources :fiscalyears
-  resources :commitmentitems
   resources :summarycommitments 
   resources :subservicelines  
   resources :productservicelines, path: 'pras' 
   resources :fincodes
+  resources :commitmentitems 
+
 
   resources :searches do
     collection do

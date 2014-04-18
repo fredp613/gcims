@@ -120,8 +120,11 @@ $(document).on('click', '#newCT', function() {
      // $.getScript(this.href);
         //e.preventDefault();  
         var link = $(this).attr('href') + '?layout="false"';
-        createModal(link, 'Create Project Wizard');
+        createModal(link, 'Create Project Wizard');         
+
+
         return false;
+       
   }); 
 
     var createModal = function(link, title) {

@@ -33,15 +33,17 @@ class Project < ActiveRecord::Base
   
 #also add || is in state create
   validates :projectname, presence: :true, :if => :projectname_changed? 
-  validates :startdate, presence: :true#, :if => :startdate_changed? 
-  validates :enddate, presence: :true#, :if => :enddate_changed? 
+  # validates :startdate, presence: :true#, :if => :startdate_changed? 
+  # validates :enddate, presence: :true#, :if => :enddate_changed? 
+
   # need to fix this validation for the unique attribute
   validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :division_id_changed?
   
-  validate :startdate_comparison
-  validate :enddate_comparison
-  validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
-  
+
+  # validate :startdate_comparison
+  # validate :enddate_comparison
+  #validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
+
 
   pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate],
   using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
@@ -62,12 +64,7 @@ class Project < ActiveRecord::Base
     end
   end 
 
-<<<<<<< HEAD
-  def validate_date_fields?     
-    return if [enddate.blank?, startdate.blank?].any?
-    if enddate < startdate               
-        errors.add(:startdate, 'must be smaller than end date')         
-=======
+
   def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
     if enddate < startdate               
@@ -78,8 +75,7 @@ class Project < ActiveRecord::Base
   def enddate_comparison     
     return if !enddate_changed? || enddate.blank?
     if enddate < startdate                       
->>>>>>> fy_refactor
-        errors.add(:enddate, 'must be greater than start date')                 
+     errors.add(:enddate, 'must be greater than start date')                 
     end
   end
 
@@ -89,7 +85,6 @@ class Project < ActiveRecord::Base
     #compaire both arrays and seek differences - differences into new array which will
     #be part of the error displayed to user
 
-    #@fy_budgetitems = Array.new 
     @fy_budgetitems = Array.new
 
     self.budgetitems.each do |b|

@@ -38,15 +38,19 @@
 	<% end %>
 
 
+
 </fieldset>
 
 <fieldset style='margin-top:-50px'>
         <legend>Project Information</legend>
-      <%= f.input :projectname, label: 'Title' %>
+      	<%= f.input :projectname, label: 'Title' %>
         <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>
+      	<%#= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors %>
+        <%#= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors %>
 
-      <%= date_picker :startdate, f,  @project.startdate, "Start Date", @project.errors %>
-        <%= date_picker :enddate, f,  @project.enddate, "End Date", @project.errors %>
+        <%= application.input :startdate, as: :string,  :input_html => {:class=>'datepicker'} %>
+        <%= application.input :enddate, as: :string,  :input_html => {:class=>'datepicker'} %>
+
     	<%#= render 'tombstone', :f=>f %>
       </fieldset>
 
