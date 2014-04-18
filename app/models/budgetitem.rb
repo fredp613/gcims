@@ -4,12 +4,12 @@ class Budgetitem < ActiveRecord::Base
 
 
   attr_accessible :application_id, :budgetcategory_id, :fiscalyear_id, :forecast, 
-  :actual, :title, :desc, :project, :apptypes, :funding_source, :fiscalyears
+  :actual, :title, :desc, :project, :apptypes, :funding_source#, :fiscalyears
   attr_accessor :project, :apptypes, :fiscalyears, :fiscalyear_range
 
 
   belongs_to :budgetcategory
-  belongs_to :fiscalyear
+  #belongs_to :fiscalyear
   belongs_to :application 
 
   
