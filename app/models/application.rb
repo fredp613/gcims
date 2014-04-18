@@ -49,7 +49,6 @@ class Application < ActiveRecord::Base
   validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
   
 
-
   scope :other_funding, lambda { 
     where('applications.requested_other > ?', 0)
   }
@@ -57,6 +56,7 @@ class Application < ActiveRecord::Base
   scope :original_application, lambda {
     self.first
   }
+
 
    def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
@@ -111,7 +111,6 @@ class Application < ActiveRecord::Base
 
 
 
-
   def budget_verification
 
 
@@ -131,7 +130,6 @@ class Application < ActiveRecord::Base
     end 
 
   end
-
 
   def unique_attributes_update?
     !updating_unique_attribute
@@ -173,11 +171,10 @@ class Application < ActiveRecord::Base
 
   def pras_date_range
     
-
     return if self.startdate.blank? || self.enddate.blank?
 
-    sd = self.commitmentitem.startdate
-    ed = self.commitmentitem.enddate
+    sd = self.commitmentitem.startdate.to_date
+    ed = self.commitmentitem.enddate.to_date
 
     if (self.startdate.to_date < sd) && self.startdate_changed?
       errors.add(:startdate, "The application start date cannot preceed the program start date of #{sd.to_date}")
@@ -191,15 +188,4 @@ class Application < ActiveRecord::Base
 
   
 
-
 end
-
-
-
-
-
-
-
-
-
-

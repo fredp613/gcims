@@ -41,12 +41,12 @@ class ProjectsController < ApplicationController
     #@project.applications.build
     
 
-    @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)    
+    # @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)    
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
-      format.js { render "show", :locals => {:total_estimate=>@total_estimate}}
+      format.js { render "show" }
     end
   end
 
