@@ -3,27 +3,18 @@
 	 console.log('Error');
 	 $('#modalId').remove();
 	 $('.modal-body').html('<div id="modalId"></div>')
-<<<<<<< HEAD
-	 $('#modalId').html('<%= j render ('formCT') %>')
-=======
 	 $('#modalId').html('<div class=".form_container"></div>')
 	 $('.form_container').html('<%= j render ('formCT') %>')
->>>>>>> fy_refactor
+
 
 <% else %>
 	
   console.log('Client type sucessfully chosen');
-<<<<<<< HEAD
+
   
   $('#frmClient').formToWizard({ submitButton: 'clientSubmit' });  
-  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
-=======
-	 // $('#modalId').remove();
-	 // $('.modal-body').html('<div id="modalId"></div>')
-	 $('.form_container').html('<%= j render ('clients/wizardForm'), :client=>@client %>')
+  $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");	 
+  $('.form_container').html('<%= j render ('clients/wizardForm'), :client=>@client %>')
 	   
-  
-  
->>>>>>> fy_refactor
 
 <% end  %>

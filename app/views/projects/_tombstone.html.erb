@@ -1,19 +1,10 @@
 
 
 <fieldset>
-<<<<<<< HEAD
+
 	<legend>Choose division/branch</legend>
 		 	
-<<<<<<< HEAD
-	<div class='input-append'>            				
-    	<%= f.input_field :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
-        <%= link_to "add", new_client_division_path(params[:client_id]), :class=> 'btn btn-success', :style=>'margin-bottom:5px' %>	      	         
-	 </div>   	
 
-
-
-			 	
-=======
 	          				
     <%= f.input :division_id, :label=>false, :wrapper=>:append do %>
     	<%= f.input_field :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
@@ -23,16 +14,14 @@
 
 	 
    			 	
->>>>>>> fy_refactor
+
 </fieldset>
 
 <% end %>
 
 <fieldset>
 <div class='content'>
-=======
 
->>>>>>> fy_refactor
 	 <legend class='proj_legend'>Project Details</legend>
 
 	 	<%= render 'project_fields', :f=>f %>

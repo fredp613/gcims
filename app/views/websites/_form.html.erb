@@ -1,21 +1,14 @@
 <p>
 <%= simple_form_for @website, :remote=>true do |f| %>
 
-<<<<<<< HEAD
-  <div class="input-append">
-    <%= f.input :website,as: :string,:label=>false %>  
-      <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
-       <i class='icon-ok'></i>
-  	  <% end %>
-  </div>
-=======
+
   <%= f.input :website, :label=>false, :wrapper => :append do %>                   
       <%= f.input_field :website, label: false %> 
       <%= button_tag(:type=>:submit, :class=>'btn btn-info', :style=>'margin-bottom:5px') do %>
       <i class='icon-ok'></i>     
   <% end %> 
   <% end %>
->>>>>>> fy_refactor
+
 
   <% if !@website.new_record? %>
   <%= f.input :client_id, as: :hidden %>

@@ -1,23 +1,16 @@
-<<<<<<< HEAD
-<h4>Create client</h4> <br>
 
-=======
 
 <% unless params[:layout] %>
 <h4>Create client</h4> <br>
 <% end %>
->>>>>>> fy_refactor
+
 
 <% unless params[:layout] %>
 <div class='loader'>
   </div>
 <% end %>
 
-<<<<<<< HEAD
 
- <%= render 'form' %>
-
-=======
 <div class='form_container'>
 <% if params[:layout] || @remote==true %>
  <%= render 'wizardForm' %>
@@ -25,7 +18,7 @@
 <%= render 'form' %>
 <% end %>
 </div>
->>>>>>> fy_refactor
+
 
 
 

@@ -13,64 +13,7 @@
 
 
 
-<<<<<<< HEAD
- <ul class="nav nav-tabs">
-  <li class="active">
-    <a data-toggle="tab" href="#tombstone"><h4 style='color:#4e80b6'>Tombstone</h4></a>
-  </li>
-   <li>
-    <a data-toggle="tab" href="#program"><h4 style='color:#4e80b6'>Program Specific</h4></a>
-  </li>
-  <li>
-    <a data-toggle="tab" href="#financial"><h4 style='color:#4e80b6'>Financial</h4></a>
-  </li>
-  <li>
-    <a data-toggle="tab" href="#approval"><h4 style='color:#4e80b6'>Approval</h4></a>
-  </li>  
-  <li>
-    <a data-toggle="tab" href="#client"><h4 style='color:#4e80b6'>Client Information</h4></a>
-  </li>
-  <li>
-    <a data-toggle="tab" href="#attachement"><h4 style='color:#4e80b6'>Information Management</h4></a>
-  </li>
 
-</ul>
-
-
-<div class="form-inputs">
-	<div class="tab-content">
-
-
-		 <div class="tab-pane active" id="tombstone"> 	  
-			 <%#= render 'form_show_core' %>
-			 <div id='core'>
-			 	<%= render 'core' %>
-			 </div>
-
-			 <div id='pre-assessment'>
-			 	<%= render 'pre-assessment'  %>
-			 </div>
-		</div>
-		<div class="tab-pane" id="program">
-		  	 program specific (i.e. objectives etc. - specific fields)
-		</div>		
-		<div class="tab-pane" id="financial">
-		  	 <%= render 'budget', :project => @project  %>
-		</div>
-		<div class="tab-pane" id="approval">
-		  	 approval tab-should show at a glance what is required for a approval - i.e. budget summary
-		  	 risk score - who should be approving
-		</div>
-		<div class="tab-pane" id="client">
-		  	 Client information
-		</div>
-		<div class="tab-pane" id="attachement">
-		  	 Information Management
-		</div>
-
-	</div>
- </div>
-=======
 	 <ul class="nav nav-tabs">
 	  <li class="active">
 	    <a data-toggle="tab" href="#tombstone"><h4 style='color:#4e80b6'>Tombstone</h4></a>
@@ -128,7 +71,7 @@
 		</div>
 	 </div>
 
->>>>>>> fy_refactor
+
 
 
 <%= render 'shared/modal_html' %>
