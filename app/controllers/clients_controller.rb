@@ -71,10 +71,9 @@ class ClientsController < ApplicationController
     build
     respond_to do |format|
         if params[:layout]
-<<<<<<< HEAD
-=======
+
           @remote = true
->>>>>>> fy_refactor
+
           format.html { render :layout => false }
         else
           format.html # show.html.erb

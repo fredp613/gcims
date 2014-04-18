@@ -1,10 +1,5 @@
 class ProjectsController < ApplicationController
   
-<<<<<<< HEAD
-  before_filter :authenticate_user!
-=======
-  
->>>>>>> fy_refactor
   before_filter :set_instance_variables, only: [:new, :create]
   before_filter :set_show_variables, only: [:show, :edit]
 

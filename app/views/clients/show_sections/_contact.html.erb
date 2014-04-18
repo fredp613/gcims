@@ -9,41 +9,8 @@
          <% @client.contacts.each do |contact| %>
 
 
-<<<<<<< HEAD
-         <div class='well span3'>
-<<<<<<< HEAD
-=======
-          
->>>>>>> fy_refactor
-          <% if contact.authority == true %>
-              <b>Signing Authority</b>
-          <% end %>
-          <br>
-          <%= contact.firstname  %> <br>
-          <%= contact.lastname  %><br>
-          <%= contact.title  %><br>
 
-          <% contact.locations.each do |location| %>
-          	<%= location.addressline1 %> <br>
-        	<% if location.addressline2? %>
-        	<%= location.addressline2 %> <br>
-        	<% end %>
-        	<% if location.addressline3? %>
-        	<%= location.addressline3 %> <br>
-        	<% end %>
-        	<% if location.addressline4? %>
-        	<%= location.addressline4 %> <br>
-        	<% end %>
-        	<% if location.city? %>
-        	<%= location.city %> <br>
-        	<% end %>
-          <% if location.state_id? %>
-     		   <%= location.state.name %> <br>
-           <% end %>
-           <% if location.country_id? %>
-        	<%= location.country.name %> <br>
-          <% end %>
-=======
+
            <div class='well span3'>
             
             <% if contact.authority == true %>
@@ -74,7 +41,7 @@
              <% if location.country_id? %>
           	<%= location.country.name %> <br>
             <% end %>
->>>>>>> fy_refactor
+
 
         
 
