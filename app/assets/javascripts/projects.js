@@ -48,23 +48,6 @@ function () {
 
   var d = new Date("2020-10-10")
 
-  // var curr_date = d.getDate();
-
-  // var curr_month = d.getMonth();
-
-  // var curr_year = d.getFullYear();
-
- // document.write(curr_date + "-" + curr_month + "-" + curr_year);
-
-  // $("body").delegate(".datepicker", "focusin", function(){
-  //     $(this).datepicker({
-  //       autoclose: 'true',  
-  //       format: 'yyyy-mm-dd',
-  //       startDate: d
-  //     }); 
-  // });
-
-
 }
 
 
@@ -115,18 +98,9 @@ function getCommitmentItemData() {
                 startDate: sd,
                 endDate: ed
               }); 
-            
           });
-
-
-      });
-
-    
-    
+      }); 
   }
-  
- 
-  //return [startdate, enddate]
 }
 
 function submitSearchForm(){
