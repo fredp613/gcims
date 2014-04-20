@@ -181,9 +181,14 @@ class Application < ActiveRecord::Base
     end
 
     if (self.enddate.to_date > ed) && self.enddate_changed?
-      errors.add(:enddate, "The application end date cannot preceed the program end date of #{ed.to_date}")
+      errors.add(:enddate, "The application end date cannot exceed the program end date of #{ed.to_date}")
     end
 
+  end
+
+  def fiscalyears 
+    @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
+    @fys
   end
 
   

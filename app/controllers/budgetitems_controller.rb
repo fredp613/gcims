@@ -49,17 +49,11 @@ class BudgetitemsController < ApplicationController
 
     end
 
-    # @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
-    
-
-
     @budgetitem.apptypes = 
     Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
     .where('applications.id = (?)', @budgetitem.application_id)
 
     
-   
-
     respond_to do |format|
         if params[:layout]
           format.html { render :layout => false }
@@ -96,7 +90,7 @@ class BudgetitemsController < ApplicationController
   # POST /budgetitems.json
   def create
 
-    @fys = params[:fiscalyear_ids]
+    @fys = params[:fiscalyear_id]
     @fiscalyears = Array.new
 
     if @fys 
@@ -106,71 +100,34 @@ class BudgetitemsController < ApplicationController
         @budgetitem.fiscalyear_id = fy        
         @fiscalyears.push(fy)
       end
-
-
     else
       @budgetitem = Budgetitem.new(params[:budgetitem])
     end
 
-    @project = Project.find(@budgetitem.application.project_id)
+    @project = Project.find(@budgetitem.application.project_id) 
 
- 
-    #redirect_to project_path(@budgetitem.application.project)
-    
-
-    respond_to do |format|
-      if (@budgetitem.funding_source != 'Justice Canada') ? @budgetitem.balanced_budget(@fiscalyears.count, 'new', 0, 0, true) : @budgetitem.balanced_budget(@fiscalyears.count, 'new') 
-         if @fys 
-          @fys.each do |fy|
-              @budgetitem = Budgetitem.new(params[:budgetitem])
-              @budgetitem.fiscalyear_id = fy    
-              @budgetitem.save 
-          end    
-        end  
-            if @budgetitem.save
-               
-                flash[:notice] = 'Expense item updated'
-                format.html { redirect_to project_path(@budgetitem.application.project) }
-                format.json { render json: @budgetitem, status: :created, location: @budgetitem }  
-                format.js              
-            
-            else
-              
-             @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) unless params[:fiscalyear_ids].blank?      
-             @budgetitem.project = params[:project]
-              @budgetitem.apptypes = 
-              Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-              .where('applications.id = (?)', @budgetitem.application_id)   
-
-              if params[:project_id]
-                @project = Project.where(:id=>params[:project_id])
-              end
-             
-              
-              @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
-
-              format.html { render action: "new" }
-              format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
-              format.js
-            end
-      else     
-         @budgetitem.fiscalyears = params[:fiscalyear_ids].map(&:to_i) unless params[:fiscalyear_ids].blank?      
-         @budgetitem.project = params[:project]
-          @budgetitem.apptypes = 
-          Applicationtype.joins(:applications).select('applications.id, applicationtypes.name')
-          .where('applications.id = (?)', @budgetitem.application_id)
-
-        if params[:project_id]
-          @project = Project.where(:id=>params[:project_id])
+    respond_to do |format|      
+      if @fys 
+        @fys.each do |fy|
+            @budgetitem = Budgetitem.new(params[:budgetitem])
+            @budgetitem.fiscalyear_id = fy.to_s    
+            @budgetitem.save 
         end
-        @budgetitem.fiscalyear_range = Fiscalyear.year_range(@budgetitem.application.project.startdate, @budgetitem.application.project.enddate)
-
-        format.html { render action: "new", :project=>@budgetitem.project }
-        format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
-        format.js
+      end           
+      if @budgetitem.save               
+            flash[:notice] = 'Expense item updated'
+            format.html { redirect_to project_path(@budgetitem.application.project) }
+            format.json { render json: @budgetitem, status: :created, location: @budgetitem }  
+            format.js                          
+      else
+          @budgetitem.fiscalyears = @fiscalyears
+          format.html { render action: "new", :project=>@budgetitem.project }
+          format.json { render json: @budgetitem.errors, status: :unprocessable_entity }
+          format.js
       end
     end
-  end 
+  end
+  
 
 
 

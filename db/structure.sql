@@ -236,12 +236,12 @@ CREATE TABLE budgetitems (
     "desc" text,
     forecast numeric,
     actual numeric,
-    fiscalyear_id integer,
     application_id integer,
     budgetcategory_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    funding_source character varying(255)
+    funding_source character varying(255),
+    fiscalyear_id character varying(255)
 );
 
 
@@ -2061,3 +2061,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140409172242');
 INSERT INTO schema_migrations (version) VALUES ('20140409172249');
 
 INSERT INTO schema_migrations (version) VALUES ('20140415174151');
+
+INSERT INTO schema_migrations (version) VALUES ('20140420144820');
+
+INSERT INTO schema_migrations (version) VALUES ('20140420145940');

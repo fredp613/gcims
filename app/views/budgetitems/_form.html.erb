@@ -4,7 +4,7 @@
   <div class="form-inputs">
     
     <% if !@budgetitem.new_record? %>
-      <h3 id='fy_indicator'><%= h @budgetitem.fiscalyear.fy %></h3>
+      <h3 id='fy_indicator'><%= h @budgetitem.fiscalyear_id%></h3>
       <%= hidden_field_tag "original_forecast", @budgetitem.forecast_was ? @budgetitem.forecast_was : @budgetitem.forecast %><br>
     <% end %>
 
@@ -17,7 +17,7 @@
     
     <%= f.input :desc, :label=>'Expense item description', :input_html=>{:rows=>2} %>
     
-    <%#= render 'budgetitem_fiscalyears' %>
+    <%= render 'budgetitem_fiscalyears' %>
 
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>

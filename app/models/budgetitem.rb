@@ -4,12 +4,11 @@ class Budgetitem < ActiveRecord::Base
 
 
   attr_accessible :application_id, :budgetcategory_id, :fiscalyear_id, :forecast, 
-  :actual, :title, :desc, :project, :apptypes, :funding_source#, :fiscalyears
-  attr_accessor :project, :apptypes, :fiscalyears, :fiscalyear_range
+  :actual, :title, :desc, :project, :apptypes, :funding_source, :fiscalyear_id
+  attr_accessor :project, :apptypes, :fiscalyear_range, :fiscalyears
 
 
-  belongs_to :budgetcategory
-  #belongs_to :fiscalyear
+  belongs_to :budgetcategory  
   belongs_to :application 
 
   
@@ -36,6 +35,8 @@ class Budgetitem < ActiveRecord::Base
   def has_fiscalyear
     errors.add(:fiscalyear_id, 'must choose at least one fiscal year') if self.fiscalyear_id.blank?
   end
+
+  
   
   def forecast=(num)
 
@@ -98,12 +99,6 @@ class Budgetitem < ActiveRecord::Base
     end
   end
 
-  # def verify_budget_constaint
-  #   @forecast_changed = self.forecast_was
-  #   self.actual = @forecast_changed
-  #   yield    
-
-  # end
 
 
 

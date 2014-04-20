@@ -36,7 +36,7 @@
                   <td><%= budget.funding_source %></td>
                   <td><%= budget.budgetcategory.name %></td>
                   <td><%= budget.desc %></td>
-                  <td><%= budget.fiscalyear.fy %></td>
+                  <td><%= budget.fiscalyear_id %></td>
                   <td><%= number_to_currency(budget.forecast.to_s.to_d) %></td>
                       <td><%= number_to_currency(budget.actual.to_s.to_d) %></td> <!-- check for status after approval before showing this -->              
                     <td><%= app.applicationtype.name %></td>
