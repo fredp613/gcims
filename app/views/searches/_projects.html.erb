@@ -26,7 +26,7 @@
 <%= paginate @applications, :param_name=>'project_page', :remote=>true %>
 </div>
 
-<% if @projects.count > 10 %>
+<% if @projects.count(:all) > 10 %>
   <%= render 'shared/pageSize', :resource=>'projects' %>
 <% end %>
 

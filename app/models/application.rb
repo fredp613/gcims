@@ -85,7 +85,7 @@ class Application < ActiveRecord::Base
       @fy_budgetitems.push(b.fiscalyear_id)
     end
 
-    @fy_dates = Fiscalyear.year_range(startdate, enddate).map(&:id)
+    @fy_dates = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
 
    # @difference = @fy_budgetitems - @fy_dates
     @diff = @fy_budgetitems.reject{ |f| @fy_dates.include? f }
@@ -93,18 +93,19 @@ class Application < ActiveRecord::Base
     #@ssl.fiscalyear_ids.reject{ |e| @psl.fiscalyear_ids.include? e}
     
     if @diff.size > 0
-      @fiscalyears = Fiscalyear.where(:id=>@diff).order(:fy).to_a
+      # @fiscalyears = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
+      
 
       if startdate_changed?         
         errors.add(:startdate, 
           'Before changing the start date
           please ensure that there are no expense items in
-          the following fiscal years:'+ " " + @fiscalyears.map(&:fy).join(', '))
+          the following fiscal years:'+ " " + @diff.join(', '))
       elsif enddate_changed?
         errors.add(:enddate, 
           'Before changing the end date
           please ensure that there are no expense items in
-          the following fiscal years:'+ " " + @fiscalyears.map(&:fy).join(', '))
+          the following fiscal years:'+ " " + @diff.join(', '))
       end
     end
   end

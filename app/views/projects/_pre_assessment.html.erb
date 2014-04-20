@@ -10,10 +10,10 @@
 		Summary Commitment: <strong><%= app.commitmentitem.summarycommitment.sc_name %></strong><br>
 		Commitment Item: <strong><%= app.commitmentitem.ci_name %></strong><br>
 		
-		<% if allow? :projects, :edit  %> 
+		<%# if allow? :projects, :edit  %> 
 			<%= link_to "change", edit_application_path(app, :pras=>true), name: 'pras', 
 	 		:class=>'btn btn-info btn-small' %>
- 		<% end %>
+ 		<%# end %>
 
 	<% end %>
 

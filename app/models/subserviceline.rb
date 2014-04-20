@@ -1,5 +1,7 @@
 
 class Subserviceline < ActiveRecord::Base
+  
+  self.table_name = "subservicelines"
   attr_accessible :active, :ssl_name, :productserviceline_id, :summarycommitments_attributes, :commitmentitems_attributes,
   :startdate, :enddate,:fiscalyear_ids, :user_id, :sc_name, :ci_name
 

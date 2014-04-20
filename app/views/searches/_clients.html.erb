@@ -25,7 +25,7 @@
 <%= paginate @clients, :param_name=>'client_page', :remote=>true %>
 </div>
 
-<% if @client.count > 10 %>
+<% if @client.count(:all) > 10 %>
 	<%= render 'shared/pageSize', :resource=>'clients' %>
 <% end %>
 

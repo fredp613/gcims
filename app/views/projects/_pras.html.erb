@@ -24,7 +24,7 @@
 
 	<%= application.input :subserviceline do %>
 		<%= application.grouped_collection_select :subserviceline, Productserviceline.active.order(:psl_name),
-		'subservicelines.active', :psl_name, :id, :ssl_name, include_blank: true %>
+		Subserviceline.active, :psl_name, :id, :ssl_name, include_blank: true %>
 	<% end %>
 
 	<%= application.input :summarycommitment do %>

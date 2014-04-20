@@ -153,7 +153,7 @@ class ProjectsController < ApplicationController
     
 
     @project = Project.find(params[:id])
-    @project.updated_by = current_user.id
+    @project.updated_by = current_user#.id
 
         respond_to do |format|
           if @project.update_attributes(params[:project])
@@ -219,11 +219,11 @@ class ProjectsController < ApplicationController
 
     
 
-    @total_estimate = @project.applications.first.budgetitems.this_funder.sum(&:forecast)
-    @total_actual = @project.applications.first.budgetitems.this_funder.sum(&:actual)
+    @total_estimate = @project.budgetitems.this_funder.sum(:forecast)
+    @total_actual = @project.budgetitems.this_funder.sum(:actual)
 
-    @total_estimate_other = @project.applications.first.budgetitems.other_funder.sum(&:forecast)
-    @total_actual_other = @project.applications.first.budgetitems.other_funder.sum(&:actual)
+    @total_estimate_other = @project.budgetitems.other_funder.sum(:forecast)
+    @total_actual_other = @project.budgetitems.other_funder.sum(:actual)
   end
 
 

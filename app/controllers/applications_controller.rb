@@ -89,7 +89,7 @@ class ApplicationsController < ApplicationController
   # PUT /applications/1.json
   def update
     @application = Application.find(params[:id])
-    @application.updated_by = current_user.id
+    @application.updated_by = current_user
     
     if params[:updating_unique_attribute]      
       @application.updating_unique_attribute = self

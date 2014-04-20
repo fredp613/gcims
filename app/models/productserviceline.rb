@@ -2,7 +2,7 @@ class Productserviceline < ActiveRecord::Base
 
   include ActiveModel::Dirty
 
-  set_table_name "productservicelines"
+  self.table_name = "productservicelines"
   attr_accessible :psl_name, :active, :subservicelines_attributes, 
   :summarycommitments_attributes, :commitmentitems_attributes, :startdate, :enddate,:fiscalyear_ids,
   :ssl_name, :sc_name, :ci_name, :user_id

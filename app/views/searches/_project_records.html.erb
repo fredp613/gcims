@@ -12,9 +12,9 @@
   		<td><%= a.commitmentitem.summarycommitment.sc_name %></td>
   		<td><%= a.commitmentitem.ci_name %></td>
   		<td>
-      <% if allow? "projects", "new" %>
-        <%= link_to 'Add', new_client_project_path(a.project.client_id), :class=>'newProject btn btn-small btn-primary' %> 
-      <% end %>
+    <%# if allow? "projects", "new" %>
+      <%= link_to 'Add', new_client_project_path(a.project.client_id), :class=>'newProject btn btn-small btn-primary' %> 
+    <%# end %>
 
       </td>
       
