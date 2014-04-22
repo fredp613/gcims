@@ -1,4 +1,4 @@
-class Frontend::ClientapplicationController < Frontend::BaseFrontendController
+class Frontend::HomeController < Frontend::BaseFrontendController
 
 # layout "application_fluid"
 

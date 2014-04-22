@@ -1,6 +1,5 @@
 GCIMS::Application.routes.draw do
   
-
   resources :otherfunders
   resources :applicationtypes
   resources :budgetcategories
@@ -22,10 +21,14 @@ GCIMS::Application.routes.draw do
   resources :fiscalyears
   resources :summarycommitments 
   resources :subservicelines  
-  resources :productservicelines, path: 'pras' 
   resources :fincodes
   resources :commitmentitems 
 
+  resources :productservicelines, :path => "pras"  do 
+   collection do 
+    get "/pras_index" => 'productservicelines#pras_index'
+   end
+  end
 
   resources :searches do
     collection do
@@ -118,7 +121,7 @@ GCIMS::Application.routes.draw do
 
   namespace :frontend do
     resources :client_application 
-    #root to: "Clientapplication#index"    
+    root to: "home#index"    
   end
 
  

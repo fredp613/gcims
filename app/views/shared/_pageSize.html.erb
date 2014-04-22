@@ -6,9 +6,9 @@
 			<%= hidden_field_tag :search_field, @query %>
 			
 			<% if resource=='clients' %>
-			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@client_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
+			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@clients_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
 			<% else %>
-			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
+			<%= select_tag resource+"_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@application_page_size), :style=>'width:80px', :class=>'size', :name=>resource + "_page_size" %>
 			<% end %>
 			
 			<%= submit_tag "per page", :class=>'btn btn-info' %>

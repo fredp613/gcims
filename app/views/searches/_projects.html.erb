@@ -16,17 +16,16 @@
  </thead>
  <tbody id='project_records'>
  	<%= render 'project_records' %>
-
  </tbody>
 
 
 </table>
 
 <div id='project_paginator'>
-<%= paginate @applications, :param_name=>'project_page', :remote=>true %>
+<%= paginate @applications, :param_name=>'application_page', :remote=>true %>
 </div>
 
-<% if @projects.count(:all) > 10 %>
-  <%= render 'shared/pageSize', :resource=>'projects' %>
+<% if @applications.count(:all) > 10 %>
+  <%= render 'shared/pageSize', :resource=>'applications' %>
 <% end %>
 

@@ -20,18 +20,12 @@
     </div>
 
     <div class="tab-pane" id="projects">
-    <% if !@project_final.blank? %>
+    <% if !@applications.blank?  %>
     <%= render 'projects' %>
     <% else %>
     <strong>Your search did not yield any projects</strong>
     <% end %>
     </div>
-
-    <%# if allow? "clients", "new" %>
-    <!-- <p>
-      <%#= link_to "Add Client", new_client_clienttypes_path, :class=>'btn btn-info', :id=>'newCT' %>
-    </p> -->
-    <%# end %>
 
   </div>
 

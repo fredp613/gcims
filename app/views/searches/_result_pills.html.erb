@@ -3,9 +3,9 @@
 
 <ul id='result_pills_container' class="nav nav-pills" data-tabs="tabs">
 <li class="active">
-     <a data-toggle="tab" href="#clients">Clients (<%= @client.count(:all) %>)</a>
+     <a data-toggle="tab" href="#clients">Clients (<%= @total_clients.count(:all) %>)</a>
    </li>
    <li>
-     <a data-toggle="tab" href="#projects">Projects (<%= @project_final.count %>)</a>
+     <a data-toggle="tab" href="#projects">Projects (<%= @total_apps.count(:all) %>)</a>
    </li>
  </ul>

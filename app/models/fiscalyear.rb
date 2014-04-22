@@ -10,7 +10,7 @@ class Fiscalyear < ActiveRecord::Base
   has_many :summarycommitments, through: :fyssls
   has_many :commitmentitems, through: :fycis
 
-  scope :by_fiscalyear, lambda { |fiscalyear_id| where(:id => fiscalyear_id.reject!(&:blank?)) }
+  scope :by_fiscalyear, -> { |fiscalyear_id| where(:id => fiscalyear_id.reject!(&:blank?)) }
 
   def self.search(fy1=0, fy2=0)
     @fy1 = fy1.to_i

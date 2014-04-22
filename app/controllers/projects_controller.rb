@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
       @query = ""
     end
 
-    @projects_search = @projects.text_search(@query).map(&:id) 
+    @projects_search = @projects.text_search(@query).to_a.map(&:id) 
 
     @total_applications = Application.where(:project_id=>@projects_search)
     @applications = Application.where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)

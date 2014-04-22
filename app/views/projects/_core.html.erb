@@ -1,12 +1,12 @@
 <div id='core_container' class='span6'>
 
 <h4>Title 
-	<%# if allow? :projects, :edit  %> 
+	<% if allow? :projects, :edit  %> 
 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectname'), :class=>'editProjectSingleField icon-pencil', 
 		:title=>'Edit Project Title', 							
 		'data-attribute'=>'projectname',					
 		:remote=>true %></h4>
-	<%# end %>
+	<% end %>
 	<div class='projectname_container'>
 	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
 	</div>
@@ -14,13 +14,13 @@
 	<div style='width:90%;word-wrap: break-word;'>
 		 <h4>Description 
  		<%# if allow_param? :projects, :projectdesc %>
- 	<%# if allow? :projects, :edit  %> 
+ 	<% if allow? :projects, :edit  %> 
 		 	
  		<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectdesc'), :class=>'editProjectSingleField icon-pencil', 
 		:title=>'Edit Project Description', 							
 		'data-attribute'=>'projectdesc',					
 		:remote=>true %>
-	<%# end %>
+	<% end %>
 	</h4>
 	<div class='projectdesc_container'>
 	<h5 id='projectdesc' style='color:#797979;'><%= @project.projectdesc %></h5>
@@ -32,12 +32,12 @@
 
 
  	<h4>Start date 
- 	<%# if allow? :projects, :edit  %> 
+ 	<% if allow? :projects, :edit  %> 
 	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'startdate'), :class=>'editAppSingleField icon-pencil', 
 		:title=>'Edit Application Start Date', 							
 		'data-attribute'=>'startdate',					
 		:remote=>true %>
-	<%# end %>
+	<% end %>
  </h4>
 
 	<div class='startdate_container'>
@@ -45,13 +45,13 @@
 	</div>
 
  <h4>End date 
- <%# if allow? :projects, :edit  %> 
+ <% if allow? :projects, :edit  %> 
   	
  	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'enddate'), :class=>'editAppSingleField icon-pencil', 
 		:title=>'Edit Application End Date', 							
 		'data-attribute'=>'enddate',					
 		:remote=>true %>
-<%# end %>
+<% end %>
 	
 </h4>
 	<div class='enddate_container'>
@@ -59,12 +59,12 @@
 </div>
 
 	 	<h4>Corporate File Number 
-	 	<%# if allow? :projects, :edit  %> 
+	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'corporate_file_number'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Corporate File Number', 							
 			'data-attribute'=>'corporate_file_number',					
 			:remote=>true %>
-		<%# end %>
+		<% end %>
 	 </h4>
 
 	<div class='corporate_file_number_container'>
@@ -72,12 +72,12 @@
 	</div>
 
 	<h4>Requested Amount 
-	 	<%# if allow? :projects, :edit  %> 
+	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Requested Amount', 							
 			'data-attribute'=>'requested',					
 			:remote=>true %>
-		<%# end %>
+		<% end %>
 	 </h4>
 
 	<div class='requested_container'>
@@ -87,12 +87,12 @@
 
  
  	<h4>Requested Amount (Other Sources) 
-	 	<%# if allow? :projects, :edit  %> 
+	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested_other'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Requested Amount (other sources)', 							
 			'data-attribute'=>'requested_other',					
 			:remote=>true %>
-		<%# end %>
+		<% end %>
 	 </h4>
 
 	<div class='requested_other_container'>

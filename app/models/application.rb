@@ -1,9 +1,9 @@
 class Application < ActiveRecord::Base
 
-
+  include PgSearch
   include ActiveModel::Dirty
 
-  attr_accessible :corporate_file_number, :budgetitems_attributes, 
+  attr_accessible :corporate_file_number, :project_id, :budgetitems_attributes, 
   :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
   :productserviceline, :requested, :requested_other, :otherfunders_attributes,
   #user columns
@@ -22,6 +22,7 @@ class Application < ActiveRecord::Base
   
   accepts_nested_attributes_for :budgetitems
   accepts_nested_attributes_for :otherfunders
+
   #accepts_nested_attributes_for :applicationtype
   
 
@@ -49,13 +50,25 @@ class Application < ActiveRecord::Base
   validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
   
 
-  scope :other_funding, lambda { 
+  scope :other_funding, -> { 
     where('applications.requested_other > ?', 0)
   }
 
-  scope :original_application, lambda {
+  scope :original_application, -> {
     self.first
   }
+
+  pg_search_scope :search, against: [:startdate, :enddate, :responsible_official, :corporate_file_number], using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  associated_against: { commitmentitem: [:ci_name],
+  project: [:projectname, :projectdesc] }
+
+  def self.text_search(query)
+    if query.present? && !query.blank?
+      search(query)
+    else
+      where(nil)      
+    end
+  end 
 
 
    def startdate_comparison     
@@ -167,8 +180,9 @@ class Application < ActiveRecord::Base
   end
 
   def self.search_columns
-    %w(corporate_file_number projects.projectname commitmentitems.ci_name)
+    %w(corporate_file_number project.projectname commitmentitem.ci_name project.division_name)
   end
+
 
   def pras_date_range
     
