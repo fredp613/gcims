@@ -12,16 +12,15 @@
 //
 //= require jquery
 //= require jquery.turbolinks
+//= require jquery-ui
 //= require jquery_ujs
 //= require jquery.formatCurrency-1.4.0
 //= require twitter/bootstrap
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require select2
 //= require turbolinks
 //= require_tree .
-
-
-
 
 var ready1;
 ready1 = function() {

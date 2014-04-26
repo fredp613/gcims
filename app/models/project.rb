@@ -45,22 +45,24 @@ class Project < ActiveRecord::Base
   #validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
 
 
-  pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate],
-  using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate], using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
   associated_against: { applications: :corporate_file_number,
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   client: [:name, :name1], division: [:name, :name1, :name2] }
+
+  
+
 
   def not_unique_attributes_update?
     !updating_unique_attribute 
   end
   
 
-  def self.text_search(query)
+   def self.text_search(query)
     if query.present?
       search(query)
     else
-      scoped
+      where(nil)
     end
   end 
 

@@ -1,4 +1,4 @@
-<%= render 'projects/this_funding' %>
+<%= render 'projects/this_funding', locals: @project %>
 
 <% if @project.applications.other_funding.present? %>
 

@@ -22,20 +22,17 @@
 
 	<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.active, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
 
-	<%= application.input :subserviceline do %>
-		<%= application.grouped_collection_select :subserviceline, Productserviceline.active.order(:psl_name),
-		'subservicelines.active', :psl_name, :id, :ssl_name, include_blank: true %>
-	<% end %>
+	<%= application.input :subserviceline, collection: Productserviceline.active, as: :grouped_select, 
+		group_method: :subservicelines, group_label_method: 'psl_name', label_method: 'ssl_name'  %> 
 
-	<%= application.input :summarycommitment do %>
-		<%= application.grouped_collection_select :summarycommitment, Subserviceline.active.order(:ssl_name),
-		'summarycommitments.active', :ssl_name, :id, :sc_name, include_blank: true %>
-	<% end %>
+	<%= application.input :summarycommitment, collection: Subserviceline.active, as: :grouped_select, group_method: :summarycommitments, group_label_method: 'ssl_name', label_method: 'sc_name'  %> 
 
-	<%= application.input :commitmentitem_id do %>
-		<%= application.grouped_collection_select :commitmentitem_id, Summarycommitment.active.order(:sc_name),
-		'commitmentitems.active', :sc_name, :id, :ci_name, include_blank: true %>
-	<% end %>
+	<%= application.input :commitmentitem_id, collection: Summarycommitment.active, as: :grouped_select, group_method: :commitmentitems, group_label_method: 'sc_name', label_method: 'ci_name'  %> 
+
+
+
+	
+
 
 
 

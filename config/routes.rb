@@ -1,6 +1,5 @@
 GCIMS::Application.routes.draw do
   
-
   resources :otherfunders
   resources :applicationtypes
   resources :budgetcategories
@@ -22,17 +21,21 @@ GCIMS::Application.routes.draw do
   resources :fiscalyears
   resources :summarycommitments 
   resources :subservicelines  
-  resources :productservicelines, path: 'pras' 
   resources :fincodes
   resources :commitmentitems 
 
+  resources :productservicelines, :path => "pras"  do 
+   collection do 
+    get "/pras_index" => 'productservicelines#pras_index'
+   end
+  end
 
   resources :searches do
     collection do
       get "searches/index", :as=>'quicksearch'
-      post "searches/index", :as=>'quicksearch'
+      post "searches/index"
       get "searches/advanced", :as=>'advancedsearch'
-      post "searches/advanced", :as=>'advancedsearch'
+      post "searches/advanced"
     end
   end
 
@@ -84,6 +87,9 @@ GCIMS::Application.routes.draw do
     resources :projectcontacts
     resources :locations
     resources :budgetitems
+    collection do 
+      get "/projit" => 'projects#projit'      
+    end
   end
 
   resources :contacts do
@@ -102,26 +108,23 @@ GCIMS::Application.routes.draw do
 
 
   devise_for :user
-
   as :user do
     get '/register', to: 'devise/registrations#new', as: :register
     get '/login', to: 'devise/sessions#new', as: :login
-    post "/login" => 'devise/sessions#create', as: :user_session
-    delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
-    get '/logout', to: 'devise/sessions#destroy', as: :logout
+    post "/login" => 'devise/sessions#create'
+    delete "/logout" => 'devise/sessions#destroy'
+    get '/logout', to: 'devise/sessions#destroy'
 
     get '/frontend/register', to: 'devise/registrations#new', as: :frontend_register
     get '/frontend/login', to: 'devise/sessions#new', as: :frontend_login
     post "/frontend/login" => 'devise/sessions#create', as: :frontend_user_session
     delete "/frontend/logout" => 'devise/sessions#destroy', as: :frontend_destroy_user_session
-    get '/frontend/logout', to: 'devise/sessions#destroy', as: :frontend_logout
-
-    
+    get '/frontend/logout', to: 'devise/sessions#destroy', as: :frontend_logout  
   end
 
   namespace :frontend do
     resources :client_application 
-    root to: "ClientApplication#index"    
+    root to: "home#index"    
   end
 
  

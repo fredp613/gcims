@@ -37,7 +37,7 @@
       </legend>
 
    <div>
-    <% @client.clientlocations.order_by_addresstype.each do |cl| %>
+    <% @client.clientlocations.each do |cl| %>
       <div class='well span3' >
     	 <% if cl.addresstype %>
         <h4><%= cl.addresstype.name %></h4>

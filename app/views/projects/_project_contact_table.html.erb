@@ -3,10 +3,10 @@
 	 	 <tr>
 	 		<th>Contact Name</th>
 	 		<th>Authority?</th>
-	 		<% if allow? :projects, :edit  %> 
+	 		<%# if allow? :projects, :edit  %> 
 	 	 		<th>Edit</th>
 	 	 		<th>Remove</th>
-	 		<% end %>
+	 		<%# end %>
 	 	 </tr>
 	 	</thead>
 	 	<tbody>
@@ -18,10 +18,10 @@
 	 				<span class='icon-ok'></span>
 	 			<% end %>
 	 		</td>
-	 		<% if allow? :projects, :edit  %> 
+	 		<%# if allow? :projects, :edit  %> 
 	 	 		<td><%= link_to '', edit_project_projectcontact_path(@project,pc), :class=>'icon-pencil' %></td>
 	 	 		<td><%= link_to '', pc, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red' %> </td>
-	 		<% end %>
+	 		<%# end %>
 	 	</tr>
 	 	<% end %>
 

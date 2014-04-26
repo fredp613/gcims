@@ -64,10 +64,10 @@ class Client < ActiveRecord::Base
   websites: :website, emails: :email, phones: :phone, divisions: [:name, :name1, :name2] }
 
   def self.text_search(query)
-    if query.present?
+    if query.present? && !query.blank?
       search(query)
     else
-      scoped
+      where(nil)
     end
   end 
 

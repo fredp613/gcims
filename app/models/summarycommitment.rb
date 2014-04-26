@@ -27,7 +27,7 @@ class Summarycommitment < ActiveRecord::Base
   before_destroy :check_associations
   
 
-  scope :active, lambda { 
+  scope :active, -> { 
     where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
   }
 
@@ -117,8 +117,8 @@ class Summarycommitment < ActiveRecord::Base
     
     if self.projects.exists?
       
-      last = self.projects.first(:order => 'enddate DESC')
-      first = self.projects.first(:order => 'startdate ASC')
+      last = self.projects(:order => 'enddate DESC').first
+      first = self.projects(:order => 'startdate ASC').first
 
       if (last.enddate > self.enddate) || (first.startdate < self.startdate)
 

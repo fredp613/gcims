@@ -1,5 +1,12 @@
 module ApplicationHelper
 	
+	def markdown(content)
+	  options = [autolink: true, hard_wrap: true, filter_html: true, safe_links_only: true]
+	  @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, *options )
+	  @markdown.render(content).html_safe
+	end
+
+
 	def bootstrap_flash
 	 flash.each do |name, msg|
 	    case name.to_s

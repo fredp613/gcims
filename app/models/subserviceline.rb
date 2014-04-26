@@ -1,5 +1,7 @@
 
 class Subserviceline < ActiveRecord::Base
+  
+  self.table_name = "subservicelines"
   attr_accessible :active, :ssl_name, :productserviceline_id, :summarycommitments_attributes, :commitmentitems_attributes,
   :startdate, :enddate,:fiscalyear_ids, :user_id, :sc_name, :ci_name
 
@@ -24,7 +26,7 @@ class Subserviceline < ActiveRecord::Base
   validate :enddate_comparison
   validate :check_associations_dates
   
- scope :active, lambda { 
+ scope :active, -> { 
     where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
   }
 
@@ -151,8 +153,8 @@ class Subserviceline < ActiveRecord::Base
     
     if self.projects.exists?
       
-      last = self.projects.first(:order => 'enddate DESC')
-      first = self.projects.first(:order => 'startdate ASC')
+      last = self.projects(:order => 'enddate DESC').first
+      first = self.projects(:order => 'startdate ASC').first
 
       if (last.enddate > self.enddate) || (first.startdate < self.startdate)
 

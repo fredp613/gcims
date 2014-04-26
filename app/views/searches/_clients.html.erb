@@ -16,6 +16,8 @@
  </thead>
  <tbody id='client_records'>
  <%= render 'client_records' %>
+ <%= hidden_field_tag :direction, params[:direction] %>
+ <%= hidden_field_tag :sort, params[:sort] %>
  </tbody>
 
 </table>
@@ -25,7 +27,7 @@
 <%= paginate @clients, :param_name=>'client_page', :remote=>true %>
 </div>
 
-<% if @client.count > 10 %>
+<% if @clients.count(:all) > 10 %>
 	<%= render 'shared/pageSize', :resource=>'clients' %>
 <% end %>
 

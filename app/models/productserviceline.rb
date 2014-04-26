@@ -2,7 +2,7 @@ class Productserviceline < ActiveRecord::Base
 
   include ActiveModel::Dirty
 
-  set_table_name "productservicelines"
+  self.table_name = "productservicelines"
   attr_accessible :psl_name, :active, :subservicelines_attributes, 
   :summarycommitments_attributes, :commitmentitems_attributes, :startdate, :enddate,:fiscalyear_ids,
   :ssl_name, :sc_name, :ci_name, :user_id
@@ -19,7 +19,7 @@ class Productserviceline < ActiveRecord::Base
   
   
 
-  scope :active, lambda { 
+  scope :active, -> { 
     where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
   }
 
@@ -184,8 +184,8 @@ class Productserviceline < ActiveRecord::Base
     
     if self.projects.exists?
       
-      last = self.projects.first(:order => 'enddate DESC')
-      first = self.projects.first(:order => 'startdate ASC')
+      last = self.projects(:order => 'enddate DESC').first
+      first = self.projects(:order => 'startdate ASC').first
 
       if (last.enddate > self.enddate) || (first.startdate < self.startdate)
 

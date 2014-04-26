@@ -7,15 +7,15 @@ class SearchesController < ApplicationController
  	if params[:search_field]
  	 	
  	 if params[:clients_page_size]	
- 	  @client_page_size = params[:clients_page_size]
+ 	  @clients_page_size = params[:clients_page_size]
  	 else
- 	  @client_page_size = 10
+ 	  @clients_page_size = 10
  	 end
 
- 	 if params[:projects_page_size]	
- 	  @project_page_size = params[:projects_page_size]
+ 	 if params[:applications_page_size]	
+ 	  @applications_page_size = params[:applications_page_size]
  	 else
- 	  @project_page_size = 10
+ 	  @applications_page_size = 10
  	 end
 
  	 if params[:search_field] 
@@ -28,29 +28,17 @@ class SearchesController < ApplicationController
       @query = ""
    end
 
-
- 	 @clients = Client.joins(:emails, :websites, :phones).order(sort_column('client') + " " + sort_direction).text_search(@query).page(params[:client_page]).per(@client_page_size)
-
- 	 @client = Client.text_search(@query).select(:id)
+   @total_clients = Client.text_search(@query).select(:id)
+ 	 @clients = Client.text_search(@query).order(sort_column('client') + " " + sort_direction).page(params[:client_page]).per(@clients_page_size)
  	 
- 	 #@projects = Project.where(:client_id=>@client.map(&:id))
- 	 @projects = Project.text_search(@query).select(:id)
-
- 	 @locations = Location.text_search(@query).select(:id)
- 	 @cl = Clientlocation.where(:location_id=>@locations.map(&:id))
-
- 	 @projects_by_location = Project.where(:client_id=>@cl.select(:client_id))
- 	
- 	 @project_final = @projects.map(&:id) + @projects_by_location.map(&:id).reject{ |p| @projects.map(&:id).include? p}
- 
- 	 @applications = Application.includes(:project,:commitmentitem).where(:project_id=>@project_final).order(sort_column('app') + " " + sort_direction).page(params[:project_page]).per(@project_page_size)
-
+   @total_apps = Application.text_search(@query).select(:id)
+   @applications = Application.joins(:project).text_search(@query).order(sort_column('app') + " " + sort_direction).page(params[:application_page]).per(@applications_page_size)
  	end	
 
  	respond_to do |format|
  	 	format.html  
  	 	format.json { render json: @clients } 
-        format.js
+    format.js
  	end
 
   end

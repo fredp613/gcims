@@ -22,15 +22,16 @@ class Budgetitem < ActiveRecord::Base
   validate :has_fiscalyear
 
   #around_update :verify_budget_constaint
-  default_scope order('created_at ASC')
+  # default_scope order('created_at ASC')
   
 
-  scope :other_funder, lambda { 
+  scope :other_funder, -> { 
     where('budgetitems.funding_source != ?', 'Justice Canada')
   }
-  scope :this_funder, lambda { 
-    where('budgetitems.funding_source = ?', 'Justice Canada')
-  }
+
+  
+  scope :this_funder, -> { 
+    where('budgetitems.funding_source = ?', 'Justice Canada')}
 
   def has_fiscalyear
     errors.add(:fiscalyear_id, 'must choose at least one fiscal year') if self.fiscalyear_id.blank?
