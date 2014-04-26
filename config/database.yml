@@ -26,7 +26,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: gc_production
+  database: gc_development
   pool: 5
   username: fpearson
   password:

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
 
   before_action :configure_permitted_parameters, if: :devise_controller?
- 
+  # before_filter :miniprofiler
 
 # include ApplicationHelper
   protect_from_forgery
@@ -65,6 +65,10 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, alert: 'not authorized'
      end
     end
+
+    # def miniprofiler
+    #   Rack::Miniprofiler.authorize_request
+    # end
 
   protected
 
