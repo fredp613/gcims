@@ -3,6 +3,25 @@ class ProjectsController < ApplicationController
   before_filter :set_instance_variables, only: [:new, :create]
   before_filter :set_show_variables, only: [:show, :edit]
 
+
+  def projit
+     if params[:ct_id] != ""
+       @clients = Client.where(:clienttype_id=>params[:ct_id])
+     else
+       @clients = Client.order(:name=>:asc)
+     end     
+
+     @filtered = @clients.where('name ILIKE (?) OR name1 ILIKE (?)', "%#{params[:term]}%", "%#{params[:term]}%")
+    
+    if @filtered.blank?
+      render json: [key: '-1', value: "no results found"]
+    else      
+      render json: @filtered.map { |f| { key: f.id, value: f.adj_name} }          
+    end
+
+    
+  end
+
   def index
     @projects = Project.where(:created_by=>current_user.id)
 

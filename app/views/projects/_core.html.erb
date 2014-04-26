@@ -23,7 +23,7 @@
 	<% end %>
 	</h4>
 	<div class='projectdesc_container'>
-	<h5 id='projectdesc' style='color:#797979;'><%= @project.projectdesc %></h5>
+	<h5 id='projectdesc' style='color:#797979;'><%= markdown(@project.projectdesc) %></h5>
 	</div>
 	</div>
 

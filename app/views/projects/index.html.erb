@@ -10,9 +10,36 @@
 
 
 <div class='row'>
+<%#= form_tag projit_projects_path, :action=>'projects/projit', :remote=>true, :method=>'get', :id=>'client_search_form', :class => 'form-inline'  do |f|  %>
+
+  <%#= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %>   
+ 
+  
+   
+   <%#= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :data => {:autocomplete_source => projit_projects_path }  %>
+<%# end %>
+
+<%= simple_form_for projit_projects_path, :html => { :id => "frmClient"} do |f| %>
+  <%= f.error_notification %>
+
+  <%= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %> 
+
+  <%#= f.input @clients, :label=>false, collection: Client.order(:name=>:asc), label_method: 'name', include_blank: false, :prompt=>"select a client", :input_html=>{:id=>'client_name', :style=>'width:20%'}%>
+
+  <%= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :style=>'width:20%' %>
+
+  <%#= f.input @clients, :input_html=>{:id=>'client_name1'} %>
+  
+
+<% end %>
+
+
+
   <%= form_tag projects_path, :action=>'projects/index', :remote=>true, :method=>'get', :id=>'project_search_form', :class => 'form-inline'  do |f|  %>
     
     <div class='input-append'>
+
+  
 
     <% if !@query.blank? %>
     <%= text_field_tag :search_field, @query, :class=>'search_project'%>  
@@ -88,7 +115,84 @@
 
 <%= render 'shared/modal_html' %>
 
+<script type="text/javascript">
 
+ // // $('#clientname').autocomplete({
+ // //    source: $('#clientname').data('autocomplete-source')
+ // // });
+
+
+ // $('#clientname').autocomplete({
+ //    source: function (request, response) {
+ //        $.ajax({
+ //            type: 'GET',
+ //            url: '/projects/projit',
+ //            dataType: "json",
+ //            cache: false,
+ //            data: { ct_id: $('#ct_id').val(), term: $('#clientname').val() },
+ //            success: function (data) {
+ //                   response($.map(data, function (data) { 
+ //                        return {
+ //                            label: data.value,
+ //                            value: data.value,
+ //                            key: data.key  
+
+ //                        };
+ //                        // $('#cts').val(data.value); 
+ //                   });
+
+ //            }
+
+ //        });
+ //       }//,
+ //    // select: function(e, ui) {
+ //    //   alert(ui.item.key);
+ //    // }
+    
+ // });
+
+// $("#client_name").chosen({no_results_text: "Oops, nothing found!"});
+
+
+
+activateddl();
+
+
+$(document).on("change", "#ct_id", function() {
+
+      activateddl();
+});
+
+function activateddl() { 
+  $('#clientname').select2({
+    ajax: {
+        url: '/projects/projit',
+        dataType: 'json',
+        //quietMillis: 100,
+        data: function (term, ct_id) {
+            return {
+                term: term,
+                ct_id: $('#ct_id').val()
+            };
+        },
+        results: function (data) {
+          var results = [];
+          $.each(data, function(index, item){
+            results.push({
+              id: item.key,
+              text: item.value
+            });
+          });
+          return {
+              results: results
+          };
+        }
+    }
+});
+}
+
+
+</script>
 
 
 

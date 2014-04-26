@@ -87,6 +87,9 @@ GCIMS::Application.routes.draw do
     resources :projectcontacts
     resources :locations
     resources :budgetitems
+    collection do 
+      get "/projit" => 'projects#projit'      
+    end
   end
 
   resources :contacts do

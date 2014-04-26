@@ -32,7 +32,7 @@ gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
 
 
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.3.0"
 
 gem 'devise', '~> 3.2.4'
 gem 'cancan'
@@ -45,7 +45,10 @@ gem 'pg_search'
 gem 'kaminari'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-
+# gem 'chosen-rails'
+gem "select2-rails"
+gem "redcarpet"
+gem 'rack-mini-profiler'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

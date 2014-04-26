@@ -50,6 +50,9 @@ class Project < ActiveRecord::Base
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
   client: [:name, :name1], division: [:name, :name1, :name2] }
 
+  
+
+
   def not_unique_attributes_update?
     !updating_unique_attribute 
   end
