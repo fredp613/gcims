@@ -28,5 +28,6 @@
 /vendor/bundle
 
 /config/secrets.yml
+/config/database.yml
 
 
