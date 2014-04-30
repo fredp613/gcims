@@ -10,6 +10,8 @@
 
 
 <div class='row'>
+
+  <!-- select2 plugin test -->
 <%#= form_tag projit_projects_path, :action=>'projects/projit', :remote=>true, :method=>'get', :id=>'client_search_form', :class => 'form-inline'  do |f|  %>
 
   <%#= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %>   
@@ -19,19 +21,19 @@
    <%#= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :data => {:autocomplete_source => projit_projects_path }  %>
 <%# end %>
 
-<%= simple_form_for projit_projects_path, :html => { :id => "frmClient"} do |f| %>
-  <%= f.error_notification %>
+<%#= simple_form_for projit_projects_path, :html => { :id => "frmClient", :class=>'form-inline'} do |f| %>
+  <%#= f.error_notification %>
 
-  <%= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %> 
+ <!--  <div>
+  <%#= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %> 
 
-  <%#= f.input @clients, :label=>false, collection: Client.order(:name=>:asc), label_method: 'name', include_blank: false, :prompt=>"select a client", :input_html=>{:id=>'client_name', :style=>'width:20%'}%>
+  <%#= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :style=>'width:15%;' %>
+  </div>
 
-  <%= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :style=>'width:20%' %>
+  <br><br> -->
+  <%#= select_tag 'ct_test', options_for_select(Client.order(:name).limit(100).collect{ |c| [c.adj_name, c.id] }),:prompt => "", :style=>'width:15%' %> 
 
-  <%#= f.input @clients, :input_html=>{:id=>'client_name1'} %>
-  
-
-<% end %>
+<%# end %>
 
 
 
@@ -155,13 +157,50 @@
 
 
 
-activateddl();
+// activateddl();
 
+activateddl();
+activateddlstatic()
 
 $(document).on("change", "#ct_id", function() {
 
       activateddl();
+      createList();
+
+     //getData($("#ct_id").val());
+     // activateddlStatic();
 });
+
+function createList(val) {
+  
+  $.getJSON('/projects/projit_static', { 'ct_id': $("#ct_id").val() }, function(data){          
+            var clients = data;
+            //var ssls = data.ssl_name
+            
+            console.log(clients)
+            
+            var items = [];
+            if (clients.length !=1 ) {
+              items.push('<option value=""></option>')
+            }
+
+            $.each(data, function(i) {
+                items.push('<option value="' + clients[i].key + '">' + clients[i].value + '</option>');
+            });
+
+            if (clients) {
+              $('#ct_test').html(items.join(''));
+            }
+            else {
+              $('#ct_test').empty();
+            }
+
+        });
+  activateddlstatic();
+
+}
+
+
 
 function activateddl() { 
   $('#clientname').select2({
@@ -190,6 +229,12 @@ function activateddl() {
     }
 });
 }
+
+function activateddlstatic() { 
+   $('#ct_test').select2();
+  //$('#ct_test').chosen();
+}
+
 
 
 </script>

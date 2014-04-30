@@ -8,7 +8,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = Client.order(:name)
     @provinces = State.where(:country_id=>38)
     @types = Clienttype.all 
     #reset_session

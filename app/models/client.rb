@@ -52,6 +52,8 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :applications
 
+ 
+
   pg_search_scope :search, against: [:name, :name1],
   using: {     
     tsearch: {dictionary: 'english', prefix: true, any_word: true},
@@ -160,11 +162,25 @@ class Client < ActiveRecord::Base
     %w(name emails_clients.email phones_clients.phone websites_clients.website)
   end
 
-  
-  
+  # def self.published
+  #   where(published: true)
+  # end
 
+  def individual?
+    return true if self.clienttype.name == 'Individual' 
+  end
 
-  
+  def ngo?
+    return true if self.clienttype.name == 'Non-Governmental Organization'   
+  end
+
+  def pt?
+    return true if self.clienttype.name == 'Province/Territory'   
+  end
+
+  def private?
+    return true if self.clienttype.name == 'For-Profit Organization' 
+  end
 
   
 

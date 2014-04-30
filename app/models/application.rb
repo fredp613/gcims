@@ -12,12 +12,14 @@ class Application < ActiveRecord::Base
 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
 
-
+  
   has_many :budgetitems, :dependent => :destroy
   has_many :otherfunders, :dependent => :destroy
   belongs_to :applicationtype
   belongs_to :project
   belongs_to :commitmentitem
+  
+
 
   
   accepts_nested_attributes_for :budgetitems
@@ -28,9 +30,9 @@ class Application < ActiveRecord::Base
 
   validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?
   validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?
-  validates :subserviceline, presence: true, :if => :unique_attributes_update?
-  validates :summarycommitment, presence: true, :if => :unique_attributes_update?
-  validates :productserviceline, presence: true, :if => :unique_attributes_update?
+  # validates :subserviceline, presence: true, :if => :unique_attributes_update?
+  # validates :summarycommitment, presence: true, :if => :unique_attributes_update?
+  # validates :productserviceline, presence: true, :if => :unique_attributes_update?
   validates :startdate, presence: :true 
   validates :enddate, presence: :true
 

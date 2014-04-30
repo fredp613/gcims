@@ -16,10 +16,10 @@
         
         <div id='countries'>
         <% if @location.new_record? %>
-           <%= f.input :country_id, collection: Country.all(order: 'name'),
+           <%= f.input :country_id, collection: Country.order(:name),
            :selected => @location.country_id,:label_method => lambda { |cy| "#{cy.name}" } %> 
         <% else %>
-           <%= f.input :country_id, collection: Country.all(order: 'name'),
+           <%= f.input :country_id, collection: Country.order(:name),
            :label_method => lambda { |cy| "#{cy.name}" } %> 
         <% end %>
            <%= f.button :submit, "change country", :name=>'country', :class=>'btn btn-info btn-small' %>    

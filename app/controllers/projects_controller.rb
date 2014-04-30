@@ -2,25 +2,33 @@ class ProjectsController < ApplicationController
   
   before_filter :set_instance_variables, only: [:new, :create]
   before_filter :set_show_variables, only: [:show, :edit]
+  # caches_page :show
 
 
-  def projit
-     if params[:ct_id] != ""
-       @clients = Client.where(:clienttype_id=>params[:ct_id])
-     else
-       @clients = Client.order(:name=>:asc)
-     end     
+  # def projit
+  #    if params[:ct_id] != ""
+  #      @clients = Client.where(:clienttype_id=>params[:ct_id])
+  #    else
+  #      @clients = Client.order(:name=>:asc)
+  #    end     
 
-     @filtered = @clients.where('name ILIKE (?) OR name1 ILIKE (?)', "%#{params[:term]}%", "%#{params[:term]}%")
+  #    @filtered = @clients.where('name ILIKE (?) OR name1 ILIKE (?)', "%#{params[:term]}%", "%#{params[:term]}%")
     
-    if @filtered.blank?
-      render json: [key: '-1', value: "no results found"]
-    else      
-      render json: @filtered.map { |f| { key: f.id, value: f.adj_name} }          
-    end
+  #   if @filtered.blank?
+  #     render json: [key: '-1', value: "no results found"]
+  #   else      
+  #     render json: @filtered.map { |f| { key: f.id, value: f.adj_name} }          
+  #   end
+  # end
 
-    
-  end
+  # def projit_static
+  #   if params[:ct_id].blank?
+  #     @clients = Client.order(:name).limit(100);
+  #   else
+  #     @clients = Client.where(:clienttype_id=>params[:ct_id])
+  #   end
+  #   render json: @clients.map { |c| { key: c.id, value: c.adj_name} }          
+  # end
 
   def index
     @projects = Project.where(:created_by=>current_user.id)
@@ -44,7 +52,7 @@ class ProjectsController < ApplicationController
     @projects_search = @projects.text_search(@query).to_a.map(&:id) 
 
     @total_applications = Application.where(:project_id=>@projects_search)
-    @applications = Application.where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)
+    @applications = Application.joins(:project, :commitmentitem => :summarycommitment).where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,6 +69,8 @@ class ProjectsController < ApplicationController
     
 
     # @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)    
+
+    # fresh_when @project
 
     respond_to do |format|
       format.html # show.html.erb
@@ -145,6 +155,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        
         flash[:notice] = "Project was successfully created."
         @state_form_ts = Time.now.to_i
         session[:last_created_at] = @state_form_ts

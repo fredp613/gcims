@@ -89,6 +89,7 @@ GCIMS::Application.routes.draw do
     resources :budgetitems
     collection do 
       get "/projit" => 'projects#projit'      
+      get "/projit_static" => 'projects#projit_static'      
     end
   end
 

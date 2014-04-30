@@ -46,7 +46,7 @@ gem 'kaminari'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 # gem 'chosen-rails'
-gem "select2-rails"
+# gem "select2-rails"
 gem "redcarpet"
 gem 'rack-mini-profiler'
 # To use ActiveModel has_secure_password

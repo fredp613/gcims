@@ -10,7 +10,7 @@
 
     <% if @budgetitem.funding_source != "Justice Canada" %>
       <%= f.input :funding_source,  :label=>"Funding source" %>
-    <% else %>
+    <% else %>  
       <%= f.input :funding_source, as: :hidden, :input_html=>{value: "Justice Canada"} %>
       <%= text_field_tag :funding_tag,  "Justice Canada", :disabled=>true %>
     <% end %><br>
@@ -21,12 +21,12 @@
 
     <%= f.input :forecast, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :forecast, :style=>'width:92%', :value=> number_with_precision(f.object.forecast, :precision=>2, separator: '.', delimiter: ',')  %>
+          <%= f.input_field :forecast, as: :string, :style=>'width:92%', :value=> number_with_precision(f.object.forecast, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
 
     <%= f.input :actual, :wrapper => :prepend do %>
           <%= content_tag :span, "$", :class => "add-on" %>
-          <%= f.input_field :actual, :style=>'width:92%', :value=> number_with_precision(f.object.actual, :precision=>2, separator: '.', delimiter: ',')  %>
+          <%= f.input_field :actual, as: :string, :style=>'width:92%', :value=> number_with_precision(f.object.actual, :precision=>2, separator: '.', delimiter: ',')  %>
     <% end %>
 
 

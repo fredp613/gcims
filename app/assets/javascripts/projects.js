@@ -46,7 +46,7 @@ function () {
   }) 
 
 
-  var d = new Date("2020-10-10")
+  // var d = new Date("2020-10-10")
 
 }
 
@@ -80,18 +80,18 @@ function getCommitmentItemData() {
 
          $.each(data, function(i) {        
          
-         startdate = data[i].startdate
-         enddate = data[i].enddate
+             startdate = data[i].startdate
+             enddate = data[i].enddate
         
          });       
 
          var sd = new Date(String(startdate))
          var ed = new Date(String(enddate))
-         //alert(sd);
+         
           //$(document).find('.datepicker').datepicker();
           $(document).delegate(".datepicker", "focusin", function(){            
               
-               $(this).datepicker('remove');
+              $(this).datepicker('remove');
                $(this).datepicker({
                 autoclose: 'true',  
                 format: 'yyyy-mm-dd',
@@ -134,7 +134,7 @@ function resetSearchForm(){
 
 $(window).bind("popstate", function(){
     $.getScript(location.href);
-  });
+});
 
 
  

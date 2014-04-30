@@ -12,7 +12,7 @@ function convertCurrency(event) {
 
 
 $(document).on('keyup', '#budgetitem_forecast',  refreshBalance );
-$(document).on('focus', '#budgetitem_forecast',  modifyNumber );
+ $(document).on('focus', '#budgetitem_forecast',  modifyNumber );
 $(document).on('click', 'input[type=checkbox]',  refreshBalance);
 $(document).on('click', '#submit_budgetitem', submitForm);
 
@@ -84,13 +84,6 @@ function refreshBalance() {
 
 		$('#balance_number').text(new_bal)
 		$('#balance_number').formatCurrency({ symbol:'$'});
-	
-
-	/**if ($('#budgetitem_forecast').val() == '') {
-		
-		$('input[type=checkbox]').attr('checked', false)
-
-	}**/		
 
 }
 

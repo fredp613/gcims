@@ -12,9 +12,9 @@
    <li>
     <a data-toggle="tab" href="#contact"><h4 style='color:#4e80b6'>Contacts</h4></a>
   </li>
-  <% if @client.clienttype_id != 1 %>
+  <% if !@client.individual? %>
       <li>
-      	<% if @client.clienttype_id != 3 %>    
+      	<% if !@client.pt? %>    
 	        <a data-toggle="tab" href="#additional_info"><h4 style='color:#4e80b6'>
 	        	Additional Information</h4></a>      
     	<% else %>        
@@ -42,9 +42,9 @@
        <%= render 'clients/show_sections/contact' %>
     </div>
 
-    <% if @client.clienttype_id != 1 %>
+    <% if !@client.individual? %>
 
-	      <% if @client.clienttype_id != 3 %>
+	      <% if !@client.pt? %>
 		       <div class="tab-pane" id="additional_info">     
 		         <%= render 'clients/show_sections/additional_info' %>
 		      </div>

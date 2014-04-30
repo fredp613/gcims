@@ -3,4 +3,9 @@ class Applicationtype < ActiveRecord::Base
 
   has_many :applications
   accepts_nested_attributes_for :applications
+
+  scope :original, -> { 
+    where(:name=>'original')
+  }
+
 end
