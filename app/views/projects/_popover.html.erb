@@ -1,0 +1,23 @@
+<%=  link_to "click here for full details", client_path(@project.client) %>
+
+<% if @project.division %>
+<%= @project.client.division.name %>
+<% end %>
+
+<ul style='list-style:none;'>
+<li><%= @project.client.locations.first.addressline1 %></li>
+<li><%= @project.client.locations.first.city %></li>
+<li><%= @project.client.locations.first.state.name %></li>
+<li><%= @project.client.locations.first.state.country.name %></li>
+</ul>
+
+
+<%= link_to '', nil ,:remote=>true, :style=>'float:right;', :id=>'close_pop',  :class=>"icon-remove-sign black"  %>
+
+<script type="text/javascript">
+
+	$(document).on('click', '#close_pop', function() {
+		$("#client_info").popover('hide');
+	});
+</script>
+

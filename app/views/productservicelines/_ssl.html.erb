@@ -19,6 +19,6 @@ end
 <%= link_to '', new_subserviceline_path(:layout=>false, :productserviceline_id=>ssl.productserviceline_id,
 :startdate=>ssl.startdate, :enddate=>ssl.enddate), :class=>'newPras icon-plus-sign black', :remote=>true %> 
 
-<% unless ssl.applications.count > 0 %>
+<% unless ssl.applications.count(:all) > 0 %>
 <%= link_to '', ssl, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red', :remote=>true%>
 <% end %>

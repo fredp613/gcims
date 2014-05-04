@@ -104,19 +104,19 @@ function getCommitmentItemData() {
 }
 
 function submitSearchForm(){
-  
+  // alert($('#projects_page_size').val())
   var form = $('#project_search_form')
   var action = form.attr('action');
   var formData = form.serialize();
-  // if ($('.search_project').val("")) {
-  //   $('#projects_page_size').val(5);
-  // }
-  $.get(action, formData, null, 'script');
 
+  // $.get(action, formData , null, 'script');
+  form.submit();
   history.pushState(null, document.title, action + "?" + formData);
   
   
 }
+
+
 
 function resetSearchForm(){
  

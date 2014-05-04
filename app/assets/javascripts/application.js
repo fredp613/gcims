@@ -26,14 +26,14 @@ var ready1;
 ready1 = function() {
   
 
-  $(window).bind("popstate", function(){
-    $.getScript(location.href);
-  });
+  // $(window).bind("popstate", function(){
+  //   $.getScript(location.href);
+  // });
   
 
-  $(window).load(function() {
-    $(".loader").fadeOut("slow");
-  });
+  // $(window).load(function() {
+  //   $(".loader").fadeOut("slow");
+  // });
 
   bind_datepicker();
   bind_datepicker_year();

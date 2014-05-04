@@ -1,9 +1,31 @@
-<div><h3><%= link_to @project.client.name, client_path(@project.client) %></h3>
-<% if @project.division_id %>
-	<h4><%= @project.division.full_name %></h4>
-<% end %>
+<div>
 
-<br></div>
+<!-- <div style='float:right' id='client_info1' class='icon-search'  
+data-content='<%#= render :partial => "popover" %>'/></div> -->
+
+
+
+
+<p><%= link_to @project.client.name, '#', :id=>'client_info',
+ data: {content: "#{render :partial => "popover"}"}, remote:true %></p>
+
+
+<script type="text/javascript">
+
+
+	$(document).find('#client_info').popover({
+	  trigger:'click', 
+	  placement:'right',  
+	  html:true,
+	  content: $(this).data('content')
+	});
+
+</script>
+
+
+
+<br>
+</div>
  <input type='hidden' name='ts' value=<%= @stale_form_ts %> />
 
  <div id='at_a_glance'>
@@ -11,24 +33,24 @@
 
  </div>
 
-	 <ul class="nav nav-tabs">
+	 <ul class="nav nav-pills gray">
 	  <li class="active">
-	    <a data-toggle="tab" href="#tombstone"><h4 style='color:#4e80b6'>Tombstone</h4></a>
+	    <a data-toggle="tab" href="#tombstone">Tombstone</a>
 	  </li>
 	   <li>
-	    <a data-toggle="tab" href="#program"><h4 style='color:#4e80b6'>Program Specific</h4></a>
+	    <a data-toggle="tab" href="#program">Program Specific</a>
 	  </li>
 	  <li>
-	    <a data-toggle="tab" href="#financial"><h4 style='color:#4e80b6'>Financial</h4></a>
+	    <a data-toggle="tab" href="#financial">Financial</a>
 	  </li>
 	  <li>
-	    <a data-toggle="tab" href="#approval"><h4 style='color:#4e80b6'>Approval</h4></a>
+	    <a data-toggle="tab" href="#approval">Approval</a>
 	  </li>  
 	  <li>
-	    <a data-toggle="tab" href="#client"><h4 style='color:#4e80b6'>Client Information</h4></a>
+	    <a data-toggle="tab" href="#client">Client Information</a>
 	  </li>
 	  <li>
-	    <a data-toggle="tab" href="#attachement"><h4 style='color:#4e80b6'>Information Management</h4></a>
+	    <a data-toggle="tab" href="#attachement">Information Management</a>
 	  </li>
 
 	</ul>

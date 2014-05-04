@@ -17,7 +17,7 @@
 @import "fontawesome/font-awesome";
 
 // Glyphicons
-//@import "twitter/bootstrap/sprites.less";
+@import "twitter/bootstrap/sprites.less";
 
 // Your custom LESS stylesheets goes here
 //
@@ -30,11 +30,10 @@
 // Example:
 // @linkColor: #ff0000;
 
-@navbarBackground: #999;
-@navbarBackgroundHighlight: #555;
-@navbarText: white;
-@navbarLinkColor: white;
-@navbarLinkColorHover: #eee;
+
+
+
+@navbarLinkColorHover: #969696;
 @navbar-default-link-active-bg: darken(@navbarBackground, 6.5%);
 @navbar-default-link-active-color: white;
 
@@ -51,7 +50,7 @@ html, body {
 }
 
 #wrap {
-	min-height: 100%
+	min-height: 100%;
 }
 
 #main {
@@ -67,6 +66,25 @@ html, body {
 	clear:both;
 	padding-top: 20px;
 	background-color: #616161;
+}
+
+.gray .active a, {
+	background-color: #6a8889;
+	color: #ffffff;
+}
+
+.gray .active a:hover {
+	background-color: #84a99e;
+	color: #ffffff;
+}
+
+.gray a {
+	color: #333333;
+}
+
+.popover {
+	max-width: 300px;
+	word-wrap:break-word;
 }
 
 

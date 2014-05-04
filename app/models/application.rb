@@ -30,9 +30,10 @@ class Application < ActiveRecord::Base
 
   validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?
   validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?
-  # validates :subserviceline, presence: true, :if => :unique_attributes_update?
-  # validates :summarycommitment, presence: true, :if => :unique_attributes_update?
-  # validates :productserviceline, presence: true, :if => :unique_attributes_update?
+  
+  validates :subserviceline, presence: true, :if => :unique_attributes_update?
+  validates :summarycommitment, presence: true, :if => :unique_attributes_update?
+  validates :productserviceline, presence: true, :if => :unique_attributes_update?
   validates :startdate, presence: :true 
   validates :enddate, presence: :true
 

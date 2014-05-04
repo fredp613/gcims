@@ -6,6 +6,8 @@ gem 'rails', '4.1.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'pg_power'
+gem 'pg_search'
 
 
 
@@ -41,7 +43,6 @@ gem 'simple_form'
 gem 'dossier'
 gem 'prawn'
 gem 'state_machine'
-gem 'pg_search'
 gem 'kaminari'
 gem 'turbolinks'
 gem 'jquery-turbolinks'

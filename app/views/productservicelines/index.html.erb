@@ -1,9 +1,9 @@
 <h3> PRAS Tree</h3>
 
+
+
 <fieldset>
 <legend>Filter by fiscal years</legend>
-
-
 
 <div id='fy_search'>
 <%= simple_form_for productservicelines_path, :method => 'get', :html => { :class => 'form-horizontal' } do |f|  %>
@@ -27,22 +27,23 @@
 
   </div>
   <%= f.submit "Search", :class=>'btn btn-primary' %>
-  </div>
+<% end %>
 
-    
+
+
   
-   
-  <% end %>
-</div> 
 </fieldset>
+</div>
 
-<div id='pras_tree'>
+<div id='pras_tree' class='row-fluid'>
   <%= render 'pras_tree', :productservicelines => @productservicelines %>
 </div>
 
-<br><br>
 
-<%= link_to 'Add Branch', new_productserviceline_path, :class=>'newPras btn btn-info' %>
+<div class='row' style='padding-left:2%'>
+<%= link_to 'Add Branch', new_productserviceline_path, :class=>'btn btn-info' %>
+</div>
+
 
 <div class="modal fade" id="myModal" style='display:none;'>
     <div class="modal-dialog">

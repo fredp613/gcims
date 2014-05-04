@@ -22,8 +22,8 @@
       <th></td>
       <th></td>
       <th></td>
-      <th><%= number_to_currency(@project.applications.first.budgetitems.other_funder.sum(&:forecast)) %></th>
-        <th><%= number_to_currency(@project.applications.first.budgetitems.other_funder.sum(&:actual)) %></th>
+      <th><%= number_to_currency(@project.budgetitems.other_funder.sum(:forecast)) %></th>
+        <th><%= number_to_currency(@project.budgetitems.other_funder.sum(:actual)) %></th>
         <th></td>
         <th></td>
      </tr>

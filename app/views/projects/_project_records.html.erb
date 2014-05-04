@@ -1,16 +1,66 @@
-<% @applications.each do |a| %>
-    <tr>
-      <td><%= a.corporate_file_number %></td>
-      <td><%= a.project.projectname %></td>      
-      <td><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name + "-" + a.commitmentitem.summarycommitment.sc_name  %></td>
-      <td><%= a.official_email(current_user) %></td>
-      <td style='width:40px'><%= link_to a.project do %>
+<%# @applications.each do |a| %>
+   <!--  <tr>
+      <td><%#= a.corporate_file_number %></td>
+      <td><%#= a.project.projectname %></td>      
+      <td><%#= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name + "-" + a.commitmentitem.summarycommitment.sc_name  %></td>
+      <td><%#= a.official_email(current_user) %></td>
+      <td style='width:40px'><%#= link_to a.project do %>
             <i class='icon-pencil icon-large black'></i>  
-          <% end  %>
-          <%= link_to a.project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <%# end  %>
+          <%#= link_to a.project, method: :delete, data: { confirm: 'Are you sure?' } do %>
           <i class='icon-remove-sign icon-large red'></i> 
-          <% end  %>
+          <%# end  %>
       </td>
 
-    </tr>
-  <% end %>
+    </tr> -->
+  <%# end %>
+
+
+<tr>
+    <td>
+      <div class='row'>
+      <% @applications.each do |a| %>     
+
+            <ul class='well' style='list-style:none; margin:1% 1% 0 0;float:left;width:200px;height:140px'>
+                <li><%= a.corporate_file_number %></li>
+                <li>
+                  <% if a.project.projectname.length>30 %>
+                   <%= a.project.projectname.split("").first(30).join("")%><%= link_to "...", "#", 
+                   :id=>'long_title', :class=>'long_title', data: {content:  h(a.project.projectname) }, :remote=>true%>
+                  <% else %>
+                   <%= a.project.projectname %>
+                  <% end %>
+                </li>
+                <li><%= a.commitmentitem.summarycommitment.subserviceline.productserviceline.psl_name + "-" + a.commitmentitem.summarycommitment.sc_name  %></li>
+                <li><%= a.official_email(current_user) %></li>
+               <li> <%= link_to a.project do %>
+                   <i class='icon-pencil icon-large black'></i>  
+                 <% end  %>
+                 <%= link_to a.project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                 <i class='icon-remove-sign icon-large red'></i> 
+                 <% end  %>
+               </li>
+              </ul>        
+      <% end %>
+      </div>
+  </td>
+
+</tr>
+
+
+
+
+<%#= link_to @project.client.name, '#', :id=>'client_info',
+ data: {content: "#{render :partial => "popover"}"}, remote:true %>
+
+
+<script type="text/javascript">
+
+  $(document).find('.long_title').popover({
+    trigger:'hover', 
+    placement:'top',  
+    html:true,
+    content: $(this).data('content')
+  });
+
+</script>

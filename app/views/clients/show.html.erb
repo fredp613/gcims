@@ -5,28 +5,28 @@
 </div>
 
 
- <ul class="nav nav-tabs">
+ <ul class="nav nav-pills gray">
   <li class="active">
-    <a data-toggle="tab" href="#main1"><h4 style='color:#4e80b6'>Main Information</h4></a>
+    <a data-toggle="tab" href="#main1">Main Information</a>
   </li>
    <li>
-    <a data-toggle="tab" href="#contact"><h4 style='color:#4e80b6'>Contacts</h4></a>
+    <a data-toggle="tab" href="#contact">Contacts</a>
   </li>
   <% if !@client.individual? %>
       <li>
       	<% if !@client.pt? %>    
-	        <a data-toggle="tab" href="#additional_info"><h4 style='color:#4e80b6'>
-	        	Additional Information</h4></a>      
+	        <a data-toggle="tab" href="#additional_info">
+	        	Additional Information</a>      
     	<% else %>        
-	         <a data-toggle="tab" href="#division"><h4 style='color:#4e80b6'>
-	        	Divisions</h4></a>
+	         <a data-toggle="tab" href="#division">
+	        	Divisions</a>
         <% end %>
       </li>    
     	
 
   <% end %>
   <li>
-    <a data-toggle="tab" href="#history"><h4 style='color:#4e80b6'>History</h4></a>
+    <a data-toggle="tab" href="#history">History</a>
   </li>  
   
 </ul>

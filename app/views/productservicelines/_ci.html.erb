@@ -18,6 +18,6 @@ end
 <%= link_to '', new_commitmentitem_path(:layout=>false, :summarycommitment_id=>ci.summarycommitment_id,
 :startdate=>ci.startdate, :enddate=>ci.enddate), :class=>'newPras icon-plus-sign black', :remote=>true %>
 
- <% unless ci.applications.count > 0 %>
+ <% unless ci.applications.count(:all) > 0 %>
  <%= link_to '', ci, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'icon-minus-sign red', :remote=>true %>
  <% end %>

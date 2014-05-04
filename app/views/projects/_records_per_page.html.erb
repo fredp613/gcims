@@ -1,0 +1,8 @@
+<% if @total_applications.count(:all) > 10 %>
+
+    <span style='font-style:oblique'>Records per page:</span>
+     	<%= select_tag "projects_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :remote=>true %> 
+    
+
+
+<% end %>

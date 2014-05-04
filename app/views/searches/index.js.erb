@@ -2,9 +2,13 @@
 
 <%#= render 'search_results_container' %>
 
-$("#client_records").html('<%= j render("searches/client_records")  %>');
-$("#project_records").html('<%= j render("searches/project_records") %>');
+// $("#client_records").html('<%= j render("searches/client_records")  %>');
+// $("#project_records").html('<%= j render("searches/project_records") %>');
 $("#result_pills_container").html('<%= j render("searches/result_pills") %>');
+$("#clients").html('<%= j render("searches/clients")  %>');
+$("#projects").html('<%= j render("searches/projects") %>');
+
+
 
 $("#client_paginator").html('<%= j(paginate(@clients, :param_name=>"client_page", :remote=>true).to_s) %>');
 $("#project_paginator").html('<%= j(paginate(@applications, :param_name=>"project_page", :remote=>true).to_s) %>');

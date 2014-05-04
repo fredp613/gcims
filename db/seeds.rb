@@ -129,10 +129,10 @@ Contact.all.each do |c|
 end
 
 Project.all.each do |p|
-	Application.create(:corporate_file_number=>(2..9).to_a.shuffle[0,8].join, :project_id=>p.id,:commitmentitem_id=>commitmentitems.id, 
+	Application.new(:corporate_file_number=>(2..9).to_a.shuffle[0,8].join, :project_id=>p.id,:commitmentitem_id=>commitmentitems.id, 
 		:applicationtype_id=>applicationtypes.id,:requested=>50000, :requested_other=>20000,
 		:updated_by=>users.id, :created_by=>users.id, :responsible_official=>users.id, 
- 		:startdate=>'2011-04-01', :enddate=>'2014-05-07')
+ 		:startdate=>'2011-04-01', :enddate=>'2014-05-07').save(validate:false)
 end
 
 

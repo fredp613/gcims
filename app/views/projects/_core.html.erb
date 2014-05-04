@@ -1,18 +1,18 @@
 <div id='core_container' class='span6'>
 
-<h4>Title 
+<h5>Title 
 	<% if allow? :projects, :edit  %> 
 	<%= link_to '', edit_project_path(@project, :updating_unique_attribute=>'projectname'), :class=>'editProjectSingleField icon-pencil', 
 		:title=>'Edit Project Title', 							
 		'data-attribute'=>'projectname',					
-		:remote=>true %></h4>
+		:remote=>true %></h5>
 	<% end %>
-	<div class='projectname_container'>
-	<h5 id='projectname' style='color:#797979;'><%= @project.projectname %></h5>
+	<div class='projectname_container' style='word-wrap: break-word;'>
+	<span id='projectname' ><%= @project.projectname %></span>
 	</div>
 
 	<div style='width:90%;word-wrap: break-word;'>
-		 <h4>Description 
+		 <h5>Description 
  		<%# if allow_param? :projects, :projectdesc %>
  	<% if allow? :projects, :edit  %> 
 		 	
@@ -21,9 +21,9 @@
 		'data-attribute'=>'projectdesc',					
 		:remote=>true %>
 	<% end %>
-	</h4>
+	</h5>
 	<div class='projectdesc_container'>
-	<h5 id='projectdesc' style='color:#797979;'><%= markdown(@project.projectdesc) %></h5>
+	<span id='projectdesc' ><%= markdown(@project.projectdesc) %></span>
 	</div>
 	</div>
 
@@ -31,20 +31,20 @@
  <% @project.applications.each do |app| %>
 
 
- 	<h4>Start date 
+ 	<h5>Start date 
  	<% if allow? :projects, :edit  %> 
 	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'startdate'), :class=>'editAppSingleField icon-pencil', 
 		:title=>'Edit Application Start Date', 							
 		'data-attribute'=>'startdate',					
 		:remote=>true %>
 	<% end %>
- </h4>
+ </h5>
 
 	<div class='startdate_container'>
-	<h5 id='app_start' style='color:#797979;'><%= app.startdate.to_date %></h5>
+	<span id='app_start' ><%= app.startdate.to_date %></span>
 	</div>
 
- <h4>End date 
+ <h5>End date 
  <% if allow? :projects, :edit  %> 
   	
  	<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'enddate'), :class=>'editAppSingleField icon-pencil', 
@@ -53,51 +53,51 @@
 		:remote=>true %>
 <% end %>
 	
-</h4>
+</h5>
 	<div class='enddate_container'>
-	<h5 id='app_end' style='color:#797979;'><%= app.enddate.to_date %></h5>
+	<span id='app_end' ><%= app.enddate.to_date %></span>
 </div>
 
-	 	<h4>Corporate File Number 
+	 	<h5>Corporate File Number 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'corporate_file_number'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Corporate File Number', 							
 			'data-attribute'=>'corporate_file_number',					
 			:remote=>true %>
 		<% end %>
-	 </h4>
+	 </h5>
 
 	<div class='corporate_file_number_container'>
-	<h5 id='appcorp' style='color:#797979;'><%= app.corporate_file_number %></h5>
+	<span id='appcorp' ><%= app.corporate_file_number %></span>
 	</div>
 
-	<h4>Requested Amount 
+	<h5>Requested Amount 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Requested Amount', 							
 			'data-attribute'=>'requested',					
 			:remote=>true %>
 		<% end %>
-	 </h4>
+	 </h5>
 
 	<div class='requested_container'>
-	<h5 id='requested' style='color:#797979;'>$<%= number_with_precision(app.requested, 
-        :precision => 2, separator: '.', delimiter: ',') || 0.00 %></h5>
+	<span id='requested' >$<%= number_with_precision(app.requested, 
+        :precision => 2, separator: '.', delimiter: ',') || 0.00 %></span>
 	</div>
 
  
- 	<h4>Requested Amount (Other Sources) 
+ 	<h5>Requested Amount (Other Sources) 
 	 	<% if allow? :projects, :edit  %> 
 		<%= link_to '', edit_application_path(app, :updating_unique_attribute=>'requested_other'), :class=>'editAppSingleField icon-pencil', 
 			:title=>'Edit Requested Amount (other sources)', 							
 			'data-attribute'=>'requested_other',					
 			:remote=>true %>
 		<% end %>
-	 </h4>
+	 </h5>
 
 	<div class='requested_other_container'>
-	<h5 id='requested_other' style='color:#797979;'>$<%= number_with_precision(app.requested_other, 
-        :precision => 2, separator: '.', delimiter: ',') || 0.00 %></h5>
+	<span id='requested_other' >$<%= number_with_precision(app.requested_other, 
+        :precision => 2, separator: '.', delimiter: ',') || 0.00 %></span>
 	</div>		 			 	
  <% end %>
 </div>
