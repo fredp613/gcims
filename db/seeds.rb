@@ -57,6 +57,11 @@ subservicelines = Subserviceline.create(ssl_name: 'Victims SSL', productservicel
 summarycommitments = Summarycommitment.create(sc_name: 'Victims SC', subserviceline_id: subservicelines.id,startdate: '2010-04-01' , enddate: '2017-03-31', user_id: users.id)
 commitmentitems = Commitmentitem.create(ci_name: 'Victims CI', summarycommitment_id: summarycommitments.id,startdate: '2010-04-01' , enddate: '2017-03-31', user_id: users.id)
 
+productservicelines1 = Productserviceline.create(psl_name: 'Victims Fund',startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+subservicelines1 = Subserviceline.create(ssl_name: 'Victims SSL', productserviceline_id: productservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+summarycommitments1 = Summarycommitment.create(sc_name: 'Victims SC', subserviceline_id: subservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+commitmentitems1 = Commitmentitem.create(ci_name: 'Victims CI', summarycommitment_id: summarycommitments1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+
 50.times do |i|
   Client.create(name: ('a'..'z').to_a.shuffle[0,8].join, 
   	name1: ('a'..'z').to_a.shuffle[0,8].join,

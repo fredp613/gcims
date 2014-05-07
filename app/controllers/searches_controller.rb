@@ -6,33 +6,34 @@ class SearchesController < ApplicationController
   	
  	if params[:search_field]
  	 	
- 	 if params[:clients_page_size]	
- 	  @clients_page_size = params[:clients_page_size]
- 	 else
- 	  @clients_page_size = 10
- 	 end
+   	 if params[:clients_page_size]	
+   	  @clients_page_size = params[:clients_page_size]
+   	 else
+   	  @clients_page_size = 10
+   	 end
 
- 	 if params[:applications_page_size]	
- 	  @applications_page_size = params[:applications_page_size]
- 	 else
- 	  @applications_page_size = 10
- 	 end
+   	 if params[:applications_page_size]	
+   	  @applications_page_size = params[:applications_page_size]
+   	 else
+   	  @applications_page_size = 10
+   	 end
 
- 	 if params[:search_field] 
- 	  @query = params[:search_field]
- 	 else
- 	  @query = ""	
- 	 end
+   	 if params[:search_field] 
+   	  @query = params[:search_field]
+   	 else
+   	  @query = ""	
+   	 end
 
- 	 if params[:reset] 	  
-      @query = ""
-   end
+   	 if params[:reset] 	  
+        @query = ""
+     end
 
-   @total_clients = Client.text_search(@query).select(:id)
- 	 @clients = Client.text_search(@query).order(sort_column('client') + " " + sort_direction).page(params[:client_page]).per(@clients_page_size)
- 	 
-   @total_apps = Application.text_search(@query).select(:id)
-   @applications = Application.joins(:project).text_search(@query).order(sort_column('app') + " " + sort_direction).page(params[:application_page]).per(@applications_page_size)
+     @total_clients = Client.text_search(@query).select(:id)
+   	 @clients = Client.text_search(@query).order(sort_column('client') + " " + sort_direction).page(params[:client_page]).per(@clients_page_size)
+   	 
+     @total_apps = Application.text_search(@query).select(:id)
+     @applications = Application.joins(:project).text_search(@query).order(sort_column('app') +
+      " " + sort_direction).page(params[:application_page]).per(@applications_page_size)
  	end	
 
  	respond_to do |format|

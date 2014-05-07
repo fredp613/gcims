@@ -2,22 +2,22 @@
 
 
 
-var ready5;
-ready5 = 
+var ready15;
+ready15 = 
 
-  function() {
+function() {
 
-  $("ul.tree ul").hide();
+$("ul.tree ul").hide();
 
 }
 
 
-$(document).on('page:load', ready5);
-$(document).ready(ready5);
+$(document).on('page:load', ready15);
+$(document).ready(ready15);
 
 
 var handleClick = function() {
-	$(this).nextAll("ul").toggle(200);
+	$(this).nextAll("ul").show('slow');
 
 	var $parentLI = $(this).parent("li")
 

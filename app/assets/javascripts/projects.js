@@ -47,8 +47,10 @@ function () {
 
 
   // var d = new Date("2020-10-10")
+ 
 
 }
+
 
 
 $(document).ready(ready10);
@@ -56,7 +58,9 @@ $(document).on('page:load', ready10);
 
 $(document).on('keyup', '.search_project',submitSearchForm)
 $(document).on('click', '.search_project_submit',submitSearchForm)
-$(document).on('change', '#projects_page_size',submitSearchForm)
+
+$(document).on('change', '#projects_page_size', submitSearchForm)
+
 $(document).on('click', '.reset_project_submit',resetSearchForm)
 $(document).on('blur', '#project_applications_attributes_0_commitmentitem_id', getCommitmentItemData)
 $(document).on('blur', '#project_applications_attributes_0_productserviceline', getCommitmentItemData)
@@ -65,6 +69,7 @@ $(document).on('blur', '#project_applications_attributes_0_productserviceline', 
 
 
 function getCommitmentItemData() {
+  
   
 
   var $ci = $('#project_applications_attributes_0_commitmentitem_id').find(':selected').val();
@@ -103,8 +108,8 @@ function getCommitmentItemData() {
   }
 }
 
-function submitSearchForm(){
-  // alert($('#projects_page_size').val())
+function submitSearchForm(val){
+  
   var form = $('#project_search_form')
   var action = form.attr('action');
   var formData = form.serialize();

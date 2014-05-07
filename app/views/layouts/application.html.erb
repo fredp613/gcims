@@ -102,6 +102,30 @@
             					    <li><a tabindex="-1" href="#"><i class='icon-book'></i>  Send Report</a></li>
             					  </ul>
             			</li>
+
+                  <% if current_user.admin? %>
+                  <li class='dropdown'>
+                    <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class='icon-tasks'></i> Administration
+                    <b class="caret"></b>
+                    </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                          <li>
+                            <%= link_to users_path do %>
+                            <i class='icon-user'></i> User Management
+                            <% end  %>                  
+                          </li>
+                          <li>
+                           <%= link_to productservicelines_path do %>
+                            <i class='icon-user'></i> Departmental Structure
+                            <% end  %> 
+                          </li>                          
+                          <li class="divider"></li>
+                          <li><a tabindex="-1" href="#"><i class='icon-book'></i>Administrative Item</a></li>
+                        </ul>
+                  </li>
+
+                  <% end %>
                   
                 <% end %>
             </ul>  <!-- nav end -->
@@ -142,11 +166,8 @@
         <div id='flash_message'>                    
                 <%= bootstrap_flash %>                      
             </div> 
-
-        
-              
-
-            <div style='padding:2%'>
+                  
+            <div style='padding:2%' id='content'> 
             <%= yield %>
             </div>         
        

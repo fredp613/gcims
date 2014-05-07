@@ -1,0 +1,26 @@
+
+
+<div class='row' style='padding-left:2%'>
+
+<% if !@users.blank? %>
+    <table>
+      <thead>
+        <tr><th></th></tr>
+      </thead>
+      <tbody id='user_records' >
+        <%= render 'users/user_records' %>    
+      </tbody>
+
+    </table>
+                      
+<% else %>
+    <!-- <p><strong>You have no projects</strong></p> -->
+<% end %>
+</div>
+
+
+<div class='row'>
+	<%= link_to "Add User", new_user_path %>
+
+
+</div>

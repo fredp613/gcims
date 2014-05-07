@@ -4,10 +4,14 @@
 
 // $("#client_records").html('<%= j render("searches/client_records")  %>');
 // $("#project_records").html('<%= j render("searches/project_records") %>');
+// $("#search_results_container").html('<%= j render("searches/search_results_container") %>');
+
+// $("#test1").html('<%= j render("searches/test1") %>');
 $("#result_pills_container").html('<%= j render("searches/result_pills") %>');
+$(".tab-content").html('<%= j render("searches/clients_projects") %>');
+
 $("#clients").html('<%= j render("searches/clients")  %>');
 $("#projects").html('<%= j render("searches/projects") %>');
-
 
 
 $("#client_paginator").html('<%= j(paginate(@clients, :param_name=>"client_page", :remote=>true).to_s) %>');

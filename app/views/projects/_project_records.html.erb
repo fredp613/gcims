@@ -15,7 +15,7 @@
     </tr> -->
   <%# end %>
 
-
+<% if @applications %>
 <tr>
     <td>
       <div class='row'>
@@ -48,7 +48,7 @@
 </tr>
 
 
-
+<% end %>
 
 <%#= link_to @project.client.name, '#', :id=>'client_info',
  data: {content: "#{render :partial => "popover"}"}, remote:true %>

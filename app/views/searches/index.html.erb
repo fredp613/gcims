@@ -4,7 +4,7 @@
   <p><h3>Quick Search</h3></p>
 <%= form_tag searches_path, :action=>'searches/index', :remote=>true, :method=>'get', :id=>'searchForm'  do |f|  %>
   
-
+<%#= hidden_field_tag :create, params[:create] %>
 
   <div class='input-append'>
   
@@ -15,11 +15,11 @@
       <% end  %>
     
 
-    <%= button_tag(:type=>:submit, :class=>'btn search', :style=>'margin-bottom:5px') do %>
+    <%= button_tag(:type=>:submit, :class=>'btn search', :style=>'margin-bottom:5px', :remote=>true) do %>
         <i class='icon-search'></i>
     <% end %>
 
-    <%= button_tag(:type=>:submit,  :name=>'reset', :class=>'btn btn-danger', :style=>'margin-bottom:5px') do %>
+    <%= button_tag(:type=>:submit,  :name=>'reset', :class=>'btn btn-danger', :style=>'margin-bottom:5px', :remote=>true) do %>
           <i class='icon-remove'></i>
     <% end %>
 
@@ -28,10 +28,8 @@
   </div>    
   <%= link_to "Click here for advanced search", advancedsearch_searches_path, :style=>'font-style:oblique;' %>
 
-  <div id='search_results_container'>
-
-    <%= render 'search_results_container' %>
-    
+  <div id='search_results_container'>    
+      <%= render 'searches/search_results_container'  %>        
   </div>
 
   <% if allow? "clients", "new" %>

@@ -1,9 +1,9 @@
 <h3> PRAS Tree</h3>
 
-
-
 <fieldset>
 <legend>Filter by fiscal years</legend>
+
+
 
 <div id='fy_search'>
 <%= simple_form_for productservicelines_path, :method => 'get', :html => { :class => 'form-horizontal' } do |f|  %>
@@ -27,23 +27,22 @@
 
   </div>
   <%= f.submit "Search", :class=>'btn btn-primary' %>
+  </div>
+
+    
+  
+</div> 
+</fieldset>
+
 <% end %>
 
-
-
-  
-</fieldset>
-</div>
-
-<div id='pras_tree' class='row-fluid'>
+<div id='pras_tree' style='width:80%'>
   <%= render 'pras_tree', :productservicelines => @productservicelines %>
 </div>
 
+<br><br>
 
-<div class='row' style='padding-left:2%'>
-<%= link_to 'Add Branch', new_productserviceline_path, :class=>'btn btn-info' %>
-</div>
-
+<%= link_to 'Add Branch', new_productserviceline_path, :class=>'newPras btn btn-info' %>
 
 <div class="modal fade" id="myModal" style='display:none;'>
     <div class="modal-dialog">
@@ -74,4 +73,3 @@ $element = $(document).find('.datepicker_year')
   });
 
 </script>
-       

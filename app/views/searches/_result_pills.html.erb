@@ -1,6 +1,7 @@
 
 
 
+<% if @clients || @applications  %>
 <ul id='result_pills_container' class="nav nav-pills" data-tabs="tabs">
 <li class="active">
      <a data-toggle="tab" href="#clients">Clients (<%= @total_clients.count(:all) %>)</a>
@@ -9,3 +10,4 @@
      <a data-toggle="tab" href="#projects">Projects (<%= @total_apps.count(:all) %>)</a>
    </li>
  </ul>
+ <% end %>

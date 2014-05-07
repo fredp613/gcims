@@ -1,0 +1,26 @@
+
+<tr>
+    <td>
+      <div class='row'>
+      <% @users.each do |u| %>     
+
+            <ul class='well' style='list-style:none; margin:1% 1% 0 0;float:left;width:200px;'>
+                <li><%= u.first_name %></li>
+                <li><%= u.last_name %></li>
+                <li><%= u.email %></li>
+                
+               <li> <%= link_to u do %>
+                   <i class='icon-pencil icon-large black'></i>  
+                 <% end  %>
+                 <%= link_to u, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                 <i class='icon-remove-sign icon-large red'></i> 
+                 <% end  %>
+               </li>
+              </ul>        
+      <% end %>
+      </div>
+  </td>
+
+</tr>
+
+
