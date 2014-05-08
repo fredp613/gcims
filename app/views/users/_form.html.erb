@@ -15,6 +15,10 @@
   </div>
 
   <div class="form-inputs">
+    <%= f.input :role_id, collection: Role.all, value_method: :id, label_method: :role, include_blank: true %>
+  </div>
+
+  <div class="form-inputs">
     <%= f.input :password %>
   </div>
 
@@ -22,9 +26,7 @@
     <%= f.input :password_confirmation %>
   </div>
 
-  <div class="form-inputs">
-    <%= f.input :admin %>
-  </div>
+ 
 
 
 

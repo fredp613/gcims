@@ -42,7 +42,7 @@ gem 'simple_form'
 #gem 'squeel'
 gem 'dossier'
 gem 'prawn'
-gem 'state_machine'
+# gem 'state_machine'
 gem 'kaminari'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
@@ -50,6 +50,7 @@ gem 'jquery-turbolinks'
 # gem "select2-rails"
 gem "redcarpet"
 gem 'rack-mini-profiler'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

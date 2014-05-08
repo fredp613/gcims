@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427000333) do
+ActiveRecord::Schema.define(version: 20140508145138) do
+
+
+  create_extension "pg_trgm", :version => "1.0"
+  create_extension "fuzzystrmatch", :version => "1.0"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,9 +129,9 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "enddate"
   end
 
-  add_index "commitmentitems", ["id"], name: "index_commitmentitems_on_id", using: :btree
-  add_index "commitmentitems", ["summarycommitment_id"], name: "index_commitmentitems_on_summarycommitment_id", using: :btree
-  add_index "commitmentitems", ["user_id"], name: "index_commitmentitems_on_user_id", using: :btree
+  add_index "commitmentitems", ["id"], :name => "index_commitmentitems_on_id"
+  add_index "commitmentitems", ["summarycommitment_id"], :name => "index_commitmentitems_on_summarycommitment_id"
+  add_index "commitmentitems", ["user_id"], :name => "index_commitmentitems_on_user_id"
 
   create_table "contacts", force: true do |t|
     t.string   "firstname"
@@ -247,7 +251,7 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.string   "postal"
   end
 
-  add_index "locations", ["country_id"], name: "index_locations_on_country_id", using: :btree
+  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
 
   create_table "otherfunders", force: true do |t|
     t.string   "name"
@@ -291,8 +295,8 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "enddate"
   end
 
-  add_index "productservicelines", ["id"], name: "index_productservicelines_on_id", using: :btree
-  add_index "productservicelines", ["user_id"], name: "index_productservicelines_on_user_id", using: :btree
+  add_index "productservicelines", ["id"], :name => "index_productservicelines_on_id"
+  add_index "productservicelines", ["user_id"], :name => "index_productservicelines_on_user_id"
 
   create_table "projectcontacts", force: true do |t|
     t.integer  "contacttype_id"
@@ -318,6 +322,14 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.integer  "division_id"
   end
 
+  create_table "roles", force: true do |t|
+    t.string   "role"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "states", force: true do |t|
     t.string  "name"
     t.integer "country_id"
@@ -335,9 +347,9 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "enddate"
   end
 
-  add_index "subservicelines", ["id"], name: "index_subservicelines_on_id", using: :btree
-  add_index "subservicelines", ["productserviceline_id"], name: "index_subservicelines_on_productserviceline_id", using: :btree
-  add_index "subservicelines", ["user_id"], name: "index_subservicelines_on_user_id", using: :btree
+  add_index "subservicelines", ["id"], :name => "index_subservicelines_on_id"
+  add_index "subservicelines", ["productserviceline_id"], :name => "index_subservicelines_on_productserviceline_id"
+  add_index "subservicelines", ["user_id"], :name => "index_subservicelines_on_user_id"
 
   create_table "summarycommitments", force: true do |t|
     t.string   "sc_name"
@@ -350,9 +362,9 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "enddate"
   end
 
-  add_index "summarycommitments", ["id"], name: "index_summarycommitments_on_id", using: :btree
-  add_index "summarycommitments", ["subserviceline_id"], name: "index_summarycommitments_on_subserviceline_id", using: :btree
-  add_index "summarycommitments", ["user_id"], name: "index_summarycommitments_on_user_id", using: :btree
+  add_index "summarycommitments", ["id"], :name => "index_summarycommitments_on_id"
+  add_index "summarycommitments", ["subserviceline_id"], :name => "index_summarycommitments_on_subserviceline_id"
+  add_index "summarycommitments", ["user_id"], :name => "index_summarycommitments_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -370,10 +382,11 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
+    t.integer  "role_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "websites", force: true do |t|
     t.string   "website"
@@ -381,5 +394,6 @@ ActiveRecord::Schema.define(version: 20140427000333) do
     t.datetime "updated_at", null: false
     t.integer  "client_id"
   end
+
 
 end

@@ -8,10 +8,10 @@
                 <li><%= u.first_name %></li>
                 <li><%= u.last_name %></li>
                 <li><%= u.email %></li>
+                <li><strong><%=  u.admin == true ? "Internal User" : "External User" %></strong></li>
                 
-               <li> <%= link_to u do %>
-                   <i class='icon-pencil icon-large black'></i>  
-                 <% end  %>
+               <li> <%= link_to "", edit_user_path(u), :class=> "icon-pencil icon-large black" %>
+                               
                  <%= link_to u, method: :delete, data: { confirm: 'Are you sure?' } do %>
                  <i class='icon-remove-sign icon-large red'></i> 
                  <% end  %>

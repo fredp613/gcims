@@ -27,10 +27,21 @@ Website.delete_all
 Contactlocation.delete_all
 Clientlocation.delete_all
 Location.delete_all
+Role.delete_all
 
 
-users = User.create(email: 'fredp613@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederick',last_name: 'Pearson')
-users1 = User.create(email: 'mikejones@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Mike',last_name: 'Jones')
+
+
+users = User.create(email: 'fredp613@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederick',last_name: 'Pearson', role_id: 4)
+users1 = User.create(email: 'mikejones@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Mike',last_name: 'Jones', role_id: 3)
+users2 = User.create(email: 'fredp614@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederic',last_name: 'Peirson', role_id: 2)
+users3 = User.create(email: 'frank@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Frank',last_name: 'White', role_id: 1)
+
+role = Role.create(role: "Officer", created_by: users, updated_by: users)
+role1 = Role.create(role: "Manager", created_by: users, updated_by: users)
+role2 = Role.create(role: "Executive", created_by: users, updated_by: users)
+role3 = Role.create(role: "Super", created_by: users, updated_by: users)
+role4 = Role.create(role: "Minister", created_by: users, updated_by: users)
 
 addresstypes = Addresstype.create(name: 'main')
 addresstypes = Addresstype.create(name: 'secondary')

@@ -1,5 +1,7 @@
 GCIMS::Application.routes.draw do
   
+  resources :roles
+  # resources :sessions
   resources :otherfunders
   resources :applicationtypes
   resources :budgetcategories
