@@ -1,0 +1,23 @@
+
+<table class="table table-striped">
+  <thead>
+  	<tr>
+  		<td>Cost Center</td>
+  		<td>Fiscal Year</td>
+      <td>Amount</td>
+  	</tr>
+  </thead>
+
+  <tbody>
+  	<% @programbudgets.each do |pb| %>
+    <tr>
+  	  <td><%= pb.fiscalyear %></td>
+  	  <td><%= pb.commitmentitem_id %></td>
+      <td><%= pb.amount.to_d %></td>
+    </tr>
+	<% end %>
+
+  </tbody>
+
+</table>
+

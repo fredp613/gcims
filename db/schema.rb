@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508145138) do
+ActiveRecord::Schema.define(version: 20140513013337) do
 
 
   create_extension "pg_trgm", :version => "1.0"
@@ -210,34 +210,6 @@ ActiveRecord::Schema.define(version: 20140508145138) do
     t.datetime "enddate"
   end
 
-  create_table "fiscalyears_commitmentitems", id: false, force: true do |t|
-    t.integer  "fiscalyear_id"
-    t.integer  "commitmentitem_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  create_table "fiscalyears_productservicelines", id: false, force: true do |t|
-    t.integer  "fiscalyear_id"
-    t.integer  "productserviceline_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  create_table "fiscalyears_subservicelines", id: false, force: true do |t|
-    t.integer  "fiscalyear_id"
-    t.integer  "subserviceline_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  create_table "fiscalyears_summarycommitments", id: false, force: true do |t|
-    t.integer  "fiscalyear_id"
-    t.integer  "summarycommitment_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
   create_table "locations", force: true do |t|
     t.string   "addressline1"
     t.string   "addressline2"
@@ -297,6 +269,15 @@ ActiveRecord::Schema.define(version: 20140508145138) do
 
   add_index "productservicelines", ["id"], :name => "index_productservicelines_on_id"
   add_index "productservicelines", ["user_id"], :name => "index_productservicelines_on_user_id"
+
+  create_table "programbudgets", force: true do |t|
+    t.string   "fiscalyear"
+    t.decimal  "amount"
+    t.integer  "user_id"
+    t.integer  "commitmentitem_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projectcontacts", force: true do |t|
     t.integer  "contacttype_id"

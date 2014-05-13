@@ -25,6 +25,7 @@ GCIMS::Application.routes.draw do
   resources :subservicelines  
   resources :fincodes
   resources :commitmentitems 
+  resources :programbudgets
 
   resources :productservicelines, :path => "pras"  do 
    collection do 

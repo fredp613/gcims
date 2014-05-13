@@ -4,6 +4,7 @@ class Commitmentitem < ActiveRecord::Base
   #has_many :fiscalyears, through: :fyci
   has_many :applications
   has_many :projects, through: :applications
+  has_many :programbudgets
 
   belongs_to :summarycommitment
   belongs_to :user

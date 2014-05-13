@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
 # include ApplicationHelper
   protect_from_forgery
   
-  before_filter :authorize
+  
   before_filter :authenticate_user!   
+  before_filter :authorize
 
   delegate :allow?, to: :current_permission
   helper_method :allow?
@@ -74,7 +75,13 @@ class ApplicationController < ActionController::Base
     def authorize
 
      if !current_permission.allow?(params[:controller], params[:action], current_resource)
-      redirect_to root_url, alert: 'not authorized'
+      if current_user.admin?
+        
+        redirect_to root_url, alert: 'not authorized'
+      else
+        
+        redirect_to "/frontend", alert: 'not authorized'
+      end
      end
     end
 

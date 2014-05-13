@@ -6,6 +6,15 @@ module ApplicationHelper
 	  @markdown.render(content).html_safe
 	end
 
+	def flash_class(type)
+	    case type
+	        when 'notice' then "alert alert-info"
+	        when 'success' then "alert alert-success"
+	        when 'error' then "alert alert-error"
+	        when 'alert' then "alert alert-error"
+	    end
+	end
+
 
 	def bootstrap_flash
 	 flash.each do |name, msg|

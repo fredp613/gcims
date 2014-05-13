@@ -28,6 +28,7 @@ Contactlocation.delete_all
 Clientlocation.delete_all
 Location.delete_all
 Role.delete_all
+Programbudget.delete_all
 
 
 
@@ -72,6 +73,9 @@ productservicelines1 = Productserviceline.create(psl_name: 'Victims Fund',startd
 subservicelines1 = Subserviceline.create(ssl_name: 'Victims SSL', productserviceline_id: productservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
 summarycommitments1 = Summarycommitment.create(sc_name: 'Victims SC', subserviceline_id: subservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
 commitmentitems1 = Commitmentitem.create(ci_name: 'Victims CI', summarycommitment_id: summarycommitments1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+
+Programbudget.create(fiscalyear: '2015', amount: '50000.00'.to_d, commitmentitem_id: commitmentitems1.id, user_id: users.id).save(validate:false)
+Programbudget.create(fiscalyear: '2016', amount: '50000.00'.to_d, commitmentitem_id: commitmentitems1.id, user_id: users.id).save(validate:false)
 
 50.times do |i|
   Client.create(name: ('a'..'z').to_a.shuffle[0,8].join, 

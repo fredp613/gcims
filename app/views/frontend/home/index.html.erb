@@ -1,4 +1,10 @@
 
+<% flash.each do |key, value| %>
+    <div class="<%= flash_class(key) %>">
+          <%= value  %>
+    </div>
+<% end %>
+            
 <% if user_signed_in? %>
 
 <h2>Client dashboard</h2>
