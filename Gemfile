@@ -50,6 +50,7 @@ gem 'jquery-turbolinks'
 # gem "select2-rails"
 gem "redcarpet"
 gem 'rack-mini-profiler'
+# gem 'strong_parameters'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -2,8 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :user %>
-    <%= f.association :client %>
+    <%= f.input :user_id, collection: User.all, label_method: :full_name, value_method: :id %>
+    <%= f.input :client_id, collection: Client.all, label_method: :adj_name, value_method: :id %>
   </div>
 
   <div class="form-actions">
