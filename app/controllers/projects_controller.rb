@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     @projects_search = @projects.text_search(@query).to_a 
 
     @total_applications = Application.where(:project_id=>@projects_search)
-    @applications = Application.joins(:project, :commitmentitem => :summarycommitment).where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)
+    @applications = Application.joins(:commitmentitem => :summarycommitment).where(:project_id=>@projects_search).page(params[:project_page]).per(@project_page_size)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -218,8 +218,6 @@ class ProjectsController < ApplicationController
   end
 
   #custom actions
-
-
   def current_resource
     @current_resource ||= Project.find(params[:id]) if params[:id]
   end
@@ -230,12 +228,9 @@ class ProjectsController < ApplicationController
     @project.projectcontacts.build
   end
 
-  def set_instance_variables
-    
-
+  def set_instance_variables    
     @client_name = Client.where(:id=>params[:client_id]).first.name      
     @province = Client.where(:id=>params[:client_id]).first.clienttype_id
-
   end
 
   def set_show_variables
@@ -246,8 +241,6 @@ class ProjectsController < ApplicationController
     @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
     @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
     @ddl = Contact.where(:id=>@contacts_clean)
-
-    
 
     @total_estimate = @project.budgetitems.this_funder.sum(:forecast)
     @total_actual = @project.budgetitems.this_funder.sum(:actual)

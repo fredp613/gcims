@@ -1,4 +1,4 @@
-<%= link_to ssl.ssl_name, subserviceline_path(ssl), :name=>ssl, :value=>ssl.id, 
+<%= link_to subserviceline_path(ssl), :name=>ssl, :value=>ssl.id, 
 
 :class=>(
 
@@ -10,10 +10,11 @@ else
 	(ssl.enddate >= Date.today && ssl.startdate <= Date.today) ? "pras_item" : "pras_item red"
 end
 
-)
+) do %>
+<i class='expandable icon-folder-close' style='padding-right:2%'></i>
+ssl.ssl_name
 
-
-%>
+<% end %>
 
 <%= link_to '', edit_subserviceline_path(ssl, :layout=>false), :class=>'editSsl icon-pencil black', :remote=>true %>
 <%= link_to '', new_subserviceline_path(:layout=>false, :productserviceline_id=>ssl.productserviceline_id,

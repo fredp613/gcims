@@ -9,6 +9,7 @@ function() {
 
 $("ul.tree ul").hide();
 
+
 }
 
 
@@ -16,24 +17,29 @@ $(document).on('page:load', ready15);
 $(document).ready(ready15);
 
 
-var handleClick = function() {
-	$(this).nextAll("ul").show('slow');
+var toggleTree = function() {
+	
+	var $icon = $(this).find(".expandable")
 
-	var $parentLI = $(this).parent("li")
-
-	if ($parentLI.hasClass("icon-folder-open")) {
-		$parentLI.removeClass("icon-folder-open");
-		$parentLI.addClass("icon-folder-close")
+	if ($icon.hasClass("icon-folder-close")) {
+    
+    $(this).nextAll("ul").show(250);
+		$icon.removeClass("icon-folder-close");
+		$icon.addClass("icon-folder-open")
 
 	}
 	else {
-		$parentLI.removeClass("icon-folder-closed");
-		$parentLI.addClass("icon-folder-open");
+    
+    $(this).nextAll("ul").hide(250);
+		$icon.removeClass("icon-folder-open");
+		$icon.addClass("icon-folder-close");
 	}
     return false;
 }
 
-$(document).on('click', '.pras_item', handleClick);
+
+
+$(document).on('click', '.pras_item', toggleTree);
 
 
  

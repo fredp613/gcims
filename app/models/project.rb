@@ -20,6 +20,8 @@ class Project < ActiveRecord::Base
   has_many :summarycommitments, through: :commitmentitems
   has_many :subservicelines, through: :summarycommitments
   has_many :productservicelines, through: :subservicelines
+  has_many :emails, through: :client
+  has_many :websites, through: :client
   
   belongs_to :client
   belongs_to :division
@@ -48,7 +50,7 @@ class Project < ActiveRecord::Base
   pg_search_scope :search, against: [:projectname, :projectdesc, :startdate, :enddate], using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
   associated_against: { applications: :corporate_file_number,
   commitmentitems: :ci_name, summarycommitments: :sc_name, subservicelines: :ssl_name, productservicelines: :psl_name,
-  client: [:name, :name1], division: [:name, :name1, :name2] }
+  client: [:name, :name1], division: [:name, :name1, :name2], emails: [:email], websites: [:website] }
 
   
 

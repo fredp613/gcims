@@ -1,4 +1,5 @@
-<%= link_to psl.psl_name, productserviceline_path(psl), :name=>psl, :value=>psl.id, 
+
+<%= link_to productserviceline_path(psl), :name=>psl, :value=>psl.id, 
 :class=>(
 
 if params[:start_year] || params[:end_year]
@@ -9,9 +10,12 @@ else
 	(psl.enddate >= Date.today && psl.startdate <= Date.today) ? "pras_item" : "pras_item red"
 end
 
-)
+) do %>
+<i class='expandable icon-folder-close' style='padding-right:2%'></i>
+psl.psl_name
 
-%>
+<% end %>
+
 
 <%= link_to '', edit_productserviceline_path(psl, :layout=>false), :class=>'editPsl icon-pencil black', :remote=>true %>
 <%= link_to '', new_productserviceline_path(:layout=>false), :class=>'newPras icon-plus-sign black', :remote=>true %> 

@@ -9,9 +9,7 @@
 	
   console.log('updated');
   $('#myModal').modal('hide');  
-  $('#pras_tree').html('<%= j render ("productservicelines/pras_tree"), :productservicelines=>@productservicelines %>')
-
-    
+  $('#pras_tree').html('<%= j render ("productservicelines/pras_tree"), :productservicelines=>@productservicelines %>')    
   $('#flash_message').html("<%= escape_javascript raw(bootstrap_flash) %>");
   	
 

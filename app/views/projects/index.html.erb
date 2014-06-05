@@ -13,31 +13,6 @@
 
 <div class='row'>
 
-  <!-- select2 plugin test -->
-<%#= form_tag projit_projects_path, :action=>'projects/projit', :remote=>true, :method=>'get', :id=>'client_search_form', :class => 'form-inline'  do |f|  %>
-
-  <%#= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %>   
- 
-  
-   
-   <%#= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :data => {:autocomplete_source => projit_projects_path }  %>
-<%# end %>
-
-<%#= simple_form_for projit_projects_path, :html => { :id => "frmClient", :class=>'form-inline'} do |f| %>
-  <%#= f.error_notification %>
-
- <!--  <div>
-  <%#= select_tag 'ct_id', options_for_select(Clienttype.all.collect{ |c| [c.name, c.id] }),:prompt => "" %> 
-
-  <%#= text_field_tag :clientname, nil, name: nil, :placeholder => "client name", :style=>'width:15%;' %>
-  </div>
-
-  <br><br> -->
-  <%#= select_tag 'ct_test', options_for_select(Client.order(:name).limit(100).collect{ |c| [c.adj_name, c.id] }),:prompt => "", :style=>'width:15%' %> 
-
-<%# end %>
-
-
 
   <%= form_tag projects_path, :action=>'projects/index', :remote=>true, :method=>'get', :id=>'project_search_form', :class => 'form-inline'  do |f|  %>
     
@@ -77,62 +52,20 @@
 
 </div>
 
-<!-- <div class='row'>
-<%# if !@projects.blank? %>
-  <table class='table table-bordered table-striped table-hover table-condensed'
-  style='table-layout:fixed;word-wrap:break-word;'>
-    <tr>
-      <th>Corporate File Number</th>
-      <th>Project Title</th>      
-      <th>Program/Sub-Program</th>
-      <th>Official</th>
-      <th style='width:40px'></th>
-    </tr>
-
-    <tbody id='project_records'>
-  
-    <%#= render 'projects/project_records' %>
-    </tbody>
-  
-  
-  </table>
 
 
-<div id='project_paginator'>
-<%#= paginate @applications, :param_name=>'project_page', :remote=>true %>
+<div id='project_records' >
+  <%= render 'projects/project_records' %>    
 </div>
 
-
-<%# if @total_applications.count > 10 %>
-  <%#= select_tag "projects_page_size", options_for_select([5,10,15,20,50,100,200,500,1000], :selected=>@project_page_size), :style=>'width:80px', :class=>'size', :name=>"projects_page_size" %>
-<%# end %> -->
-
-
-<div class='row' style='padding-left:2%'>
-<% if !@projects.blank? %>
-    <table>
-      <thead>
-        <tr><th></th></tr>
-      </thead>
-      <tbody id='project_records' >
-        <%= render 'projects/project_records' %>    
-      </tbody>
-
-    </table>
-                      
-<% else %>
-    <!-- <p><strong>You have no projects</strong></p> -->
-<% end %>
-</div>
 
 <div class='row'>
 
 <% if !@projects.blank? %>
-    <div id='project_paginator'>
-      <%= paginate @applications, :param_name=>'project_page', :remote=>true %>      
-    </div>
+  <div id='project_paginator'>
+    <%= paginate @applications, :param_name=>'project_page', :remote=>true %>      
+  </div>
    
-
 <% end %>
 
 </div>
@@ -142,127 +75,6 @@
 
 <%= render 'shared/modal_html' %>
 
-<!-- <script type="text/javascript"> 
-
-//  // // $('#clientname').autocomplete({
-//  // //    source: $('#clientname').data('autocomplete-source')
-//  // // });
-
-
-//  // $('#clientname').autocomplete({
-//  //    source: function (request, response) {
-//  //        $.ajax({
-//  //            type: 'GET',
-//  //            url: '/projects/projit',
-//  //            dataType: "json",
-//  //            cache: false,
-//  //            data: { ct_id: $('#ct_id').val(), term: $('#clientname').val() },
-//  //            success: function (data) {
-//  //                   response($.map(data, function (data) { 
-//  //                        return {
-//  //                            label: data.value,
-//  //                            value: data.value,
-//  //                            key: data.key  
-
-//  //                        };
-//  //                        // $('#cts').val(data.value); 
-//  //                   });
-
-//  //            }
-
-//  //        });
-//  //       }//,
-//  //    // select: function(e, ui) {
-//  //    //   alert(ui.item.key);
-//  //    // }
-    
-//  // });
-
-// // $("#client_name").chosen({no_results_text: "Oops, nothing found!"});
-
-
-
-// // activateddl();
-
-// activateddl();
-// activateddlstatic()
-
-// $(document).on("change", "#ct_id", function() {
-
-//       activateddl();
-//       createList();
-
-//      //getData($("#ct_id").val());
-//      // activateddlStatic();
-// });
-
-// function createList(val) {
-  
-//   $.getJSON('/projects/projit_static', { 'ct_id': $("#ct_id").val() }, function(data){          
-//             var clients = data;
-//             //var ssls = data.ssl_name
-            
-//             console.log(clients)
-            
-//             var items = [];
-//             if (clients.length !=1 ) {
-//               items.push('<option value=""></option>')
-//             }
-
-//             $.each(data, function(i) {
-//                 items.push('<option value="' + clients[i].key + '">' + clients[i].value + '</option>');
-//             });
-
-//             if (clients) {
-//               $('#ct_test').html(items.join(''));
-//             }
-//             else {
-//               $('#ct_test').empty();
-//             }
-
-//         });
-//   activateddlstatic();
-
-// }
-
-
-
-// function activateddl() { 
-//   $('#clientname').select2({
-//     ajax: {
-//         url: '/projects/projit',
-//         dataType: 'json',
-//         //quietMillis: 100,
-//         data: function (term, ct_id) {
-//             return {
-//                 term: term,
-//                 ct_id: $('#ct_id').val()
-//             };
-//         },
-//         results: function (data) {
-//           var results = [];
-//           $.each(data, function(index, item){
-//             results.push({
-//               id: item.key,
-//               text: item.value
-//             });
-//           });
-//           return {
-//               results: results
-//           };
-//         }
-//     }
-// });
-// }
-
-// function activateddlstatic() { 
-//    $('#ct_test').select2();
-//   //$('#ct_test').chosen();
-// }
-
-
-
-</script> -->
 
 
 

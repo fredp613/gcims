@@ -5,15 +5,15 @@
 
 <legend>Departmental Programs (tree)</legend>
 
-<ul class='tree'>
+<ul class='tree' style='list-style:none;'>
 <% @productservicelines.each do |psl| %> 
-  <li class='icon-folder-close'><%= render 'productservicelines/psl', :psl=>psl %><br>
-    <ul style='display:none;'><% psl.subservicelines.each do |ssl|%>
-      <li class='icon-folder-close'><%= render 'productservicelines/ssl', :ssl=>ssl %><br> 
-        <ul><% ssl.summarycommitments.each do |sc|%>  
-           <li class='sc icon-folder-close'><%= render 'productservicelines/sc', :sc=>sc %><br>
-              <ul><% sc.commitmentitems.each do |ci|%>                
-                <li class='icon-folder-close'><%= render 'productservicelines/ci', :ci=>ci %></li>
+  <li><%= render 'productservicelines/psl', :psl=>psl %><br>
+    <ul style='display:none;list-style:none;'><% psl.subservicelines.each do |ssl|%>
+      <li><%= render 'productservicelines/ssl', :ssl=>ssl %><br> 
+        <ul style='list-style:none;'><% ssl.summarycommitments.each do |sc|%>  
+           <li><%= render 'productservicelines/sc', :sc=>sc %><br>
+              <ul style='list-style:none;'><% sc.commitmentitems.each do |ci|%>                
+                <li><%= render 'productservicelines/ci', :ci=>ci %></li>
               <% end %>
               </ul>
            </li>

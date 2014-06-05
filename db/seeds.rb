@@ -29,20 +29,21 @@ Clientlocation.delete_all
 Location.delete_all
 Role.delete_all
 Programbudget.delete_all
+UserClient.delete_all
 
+role = Role.create(role: "Officer")
+role1 = Role.create(role: "Manager")
+role2 = Role.create(role: "Executive")
+role3 = Role.create(role: "Super")
+role4 = Role.create(role: "Minister")
+role5 = Role.create(role: "Administrator")
+role6 = Role.create(role: "public")
 
-
-
-users = User.create(email: 'fredp613@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederick',last_name: 'Pearson', role_id: 4)
-users1 = User.create(email: 'mikejones@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Mike',last_name: 'Jones', role_id: 3)
-users2 = User.create(email: 'fredp614@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederic',last_name: 'Peirson', role_id: 2)
-users3 = User.create(email: 'frank@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Frank',last_name: 'White', role_id: 1)
-
-role = Role.create(role: "Officer", created_by: users, updated_by: users)
-role1 = Role.create(role: "Manager", created_by: users, updated_by: users)
-role2 = Role.create(role: "Executive", created_by: users, updated_by: users)
-role3 = Role.create(role: "Super", created_by: users, updated_by: users)
-role4 = Role.create(role: "Minister", created_by: users, updated_by: users)
+users = User.create(email: 'fredp613@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederick',last_name: 'Pearson', role_id: role3.id)
+users1 = User.create(email: 'mikejones@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Mike',last_name: 'Jones', role_id: role1.id)
+users2 = User.create(email: 'fredp614@gmail.com', password: 'Fredp613$', password_confirmation: 'Fredp613$',admin: true,first_name: 'Frederic',last_name: 'Peirson', role_id: role2.id)
+users3 = User.create(email: 'frank@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'Frank',last_name: 'White', role_id: role5.id)
+users4 = User.create(email: 'public@gmail.com',password: 'Fredp613$',password_confirmation: 'Fredp613$',admin: false,first_name: 'John',last_name: 'Doe', role_id: role6.id)
 
 addresstypes = Addresstype.create(name: 'main')
 addresstypes = Addresstype.create(name: 'secondary')
@@ -69,10 +70,10 @@ subservicelines = Subserviceline.create(ssl_name: 'Victims SSL', productservicel
 summarycommitments = Summarycommitment.create(sc_name: 'Victims SC', subserviceline_id: subservicelines.id,startdate: '2010-04-01' , enddate: '2017-03-31', user_id: users.id)
 commitmentitems = Commitmentitem.create(ci_name: 'Victims CI', summarycommitment_id: summarycommitments.id,startdate: '2010-04-01' , enddate: '2017-03-31', user_id: users.id)
 
-productservicelines1 = Productserviceline.create(psl_name: 'Victims Fund',startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
-subservicelines1 = Subserviceline.create(ssl_name: 'Victims SSL', productserviceline_id: productservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
-summarycommitments1 = Summarycommitment.create(sc_name: 'Victims SC', subserviceline_id: subservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
-commitmentitems1 = Commitmentitem.create(ci_name: 'Victims CI', summarycommitment_id: summarycommitments1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+productservicelines1 = Productserviceline.create(psl_name: 'YJ Fund',startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+subservicelines1 = Subserviceline.create(ssl_name: 'YJ SSL', productserviceline_id: productservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+summarycommitments1 = Summarycommitment.create(sc_name: 'YJ SC', subserviceline_id: subservicelines1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
+commitmentitems1 = Commitmentitem.create(ci_name: 'YJ CI', summarycommitment_id: summarycommitments1.id,startdate: '2014-04-01' , enddate: '2016-03-31', user_id: users.id)
 
 Programbudget.create(fiscalyear: '2015', amount: '50000.00'.to_d, commitmentitem_id: commitmentitems1.id, user_id: users.id).save(validate:false)
 Programbudget.create(fiscalyear: '2016', amount: '50000.00'.to_d, commitmentitem_id: commitmentitems1.id, user_id: users.id).save(validate:false)
@@ -108,20 +109,24 @@ end
 end
 
 
-Client.create(name:'Government of Ontario',
+client1 = Client.create({name:'Government of Ontario',
+	created_by: users.id,
+  	updated_by: users.id,
+	clienttype_id: clienttypes2.id}, without_protection: true)
+
+client2 = Client.create(name:'Government of Alberta',
 	created_by: users.id,
   	updated_by: users.id,
 	clienttype_id: clienttypes2.id)
 
-Client.create(name:'Government of Alberta',
+client3 = Client.create(name:'Government of British Columbia',
 	created_by: users.id,
   	updated_by: users.id,
 	clienttype_id: clienttypes2.id)
 
-Client.create(name:'Government of British Columbia',
-	created_by: users.id,
-  	updated_by: users.id,
-	clienttype_id: clienttypes2.id)
+userclient = UserClient.create({
+  user_id: users.id, client_id: client1.id
+}, without_protection: true)
 
 
 location = Location.create(:addressline1=>'13 Torovin Private',:city=>'ottawa', :state_id=>453, :country_id=>38, :postal=>'K1B0A5')

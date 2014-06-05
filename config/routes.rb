@@ -1,5 +1,7 @@
 GCIMS::Application.routes.draw do
   
+  resources :user_clients
+
   resources :roles
   # resources :sessions
   resources :otherfunders
@@ -26,6 +28,7 @@ GCIMS::Application.routes.draw do
   resources :fincodes
   resources :commitmentitems 
   resources :programbudgets
+  
 
   resources :productservicelines, :path => "pras"  do 
    collection do 

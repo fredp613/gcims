@@ -13,17 +13,25 @@ class Application < ActiveRecord::Base
   attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
 
   
-  has_many :budgetitems, :dependent => :destroy
-  has_many :otherfunders, :dependent => :destroy
   belongs_to :applicationtype
   belongs_to :project
+  has_one :client, through: :project
   belongs_to :commitmentitem
+  # belongs_to :user
   
+  # has_one :client, through: :project
+  # has_many :emails, through: :client
+  # has_many :websites, through: :client
 
+  has_many :budgetitems, :dependent => :destroy
+  has_many :otherfunders, :dependent => :destroy  
+  
 
   
   accepts_nested_attributes_for :budgetitems
   accepts_nested_attributes_for :otherfunders
+  # accepts_nested_attributes_for :emails
+  # accepts_nested_attributes_for :websites
 
   #accepts_nested_attributes_for :applicationtype
   
@@ -61,9 +69,12 @@ class Application < ActiveRecord::Base
     self.first
   }
 
-  pg_search_scope :search, against: [:startdate, :enddate, :responsible_official, :corporate_file_number], using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}},
+  pg_search_scope :search, against: [:startdate, :enddate, :responsible_official, :corporate_file_number],
+  using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}, :trigram => {}},
   associated_against: { commitmentitem: [:ci_name],
-  project: [:projectname, :projectdesc] }
+  project: [:projectname, :projectdesc], client: [:name, :name1] }
+
+  
 
   def self.text_search(query)
     if query.present? && !query.blank?
@@ -177,10 +188,16 @@ class Application < ActiveRecord::Base
     @balance.to_i
   end
 
-  def official_email(user)
-    @user = User.where("id = (?)", user.id).first.email
+  def official_email
+    @user = User.where("id = (?)", self.responsible_official).first.email
     @user
   end
+
+  def official_email_stripped
+    official_email.split("@")[0].strip
+    official_email
+  end
+
 
   def self.search_columns
     %w(corporate_file_number project.projectname commitmentitem.ci_name project.division_name)
@@ -207,6 +224,12 @@ class Application < ActiveRecord::Base
   def fiscalyears 
     @fys = FiscalYear.new(self.startdate.to_date, self.enddate.to_date).fiscalyear_by_date_range
     @fys
+  end
+
+  def email_strip
+    @email = User.where(:id=>self.responsible_official).select(:email)
+    @email.split("@")[0].strip        
+    @email
   end
 
   

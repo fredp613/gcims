@@ -1,4 +1,4 @@
-<%= link_to sc.sc_name, summarycommitment_path(sc), :name=>sc, :value=>sc.id, 
+<%= link_to summarycommitment_path(sc), :name=>sc, :value=>sc.id, 
 
 :class=>(
 
@@ -10,9 +10,13 @@ else
 	(sc.enddate >= Date.today && sc.startdate <= Date.today) ? "pras_item" : "pras_item red"
 end
 
-)
+) do %>
+<i class='expandable icon-folder-close' style='padding-right:2%'></i>
+sc.sc_name
 
-%>
+<% end %>
+
+
 <%= link_to '', edit_summarycommitment_path(sc, :layout=>false), :class=>'editSc icon-pencil black', :remote=>true %>
 <%= link_to '', new_summarycommitment_path(:layout=>false, :subserviceline_id=>sc.subserviceline_id,
 :startdate=>sc.startdate, :enddate=>sc.enddate), :class=>'newPras icon-plus-sign black', :remote=>true %>

@@ -7,44 +7,40 @@ class Permission
     allow_param :user, [:name, :email, :password, :password_confirmation, :remember_me]
      
  	if user 
- 		allow "devise/registrations", [:edit, :update, :cancel]
-        allow "devise/sessions", [:destroy]
+ 		
+    allow "devise/registrations", [:edit, :update, :cancel]
+    allow "devise/sessions", [:destroy]
  		# allow :searches, [:index]
-		allow :applications, [:index, :show, :new, :create]
-		allow :applications, [:edit, :update, :destroy] #do |application|
-		 #application.created_by == user.id || application.updated_by == user.id
-		#end
-		allow :corporations, [:index, :show, :new, :create, :edit, :update, :destroy]
-		allow :bands, [:index, :show, :new, :create, :edit, :update, :destroy]
-		allow :charities, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :projects, [:index, :new, :create, :show]
- 		allow :emails, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :locations, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :projectcontacts, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :phones, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :websites, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :contactlocations, [:index, :show, :new, :create, :edit, :update, :destroy]
- 		allow :clientlocations, [:index, :show, :new, :create, :edit, :update, :destroy]
+		
  		
-
-
- 		allow :projects, [:edit, :update, :destroy] do |project|
- 		 project.created_by == user.id || project.updated_by == user.id
- 		end
-
- 		allow :budgetitems, [:show, :edit, :index, :new, :create, :update, :destroy] 
- 		
- 		allow :clients, [:index, :show, :edit, :update, :create]
- 		allow :contacts, [:index, :show, :edit, :update, :create]
- 		allow_param :projects, :projectdesc
- 		
- 		if user.admin?
- 		 allow :addresstypes, [:index, :show, :edit, :update, :create] 
- 		 	
-	 		if user.role_id == 4
-	 			allow_all	
-	 		end
+ 		if user.internal?
+      allow :applications, [:index, :show, :new, :create]
+      allow :applications, [:edit, :update, :destroy] #do |application|
+       #application.created_by == user.id || application.updated_by == user.id
+      #end
+      allow :corporations, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :bands, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :charities, [:index, :show, :new, :create, :edit, :update, :destroy]      
+      allow :emails, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :locations, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :projectcontacts, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :phones, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :websites, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :contactlocations, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :clientlocations, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :projects, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :budgetitems, [:show, :edit, :index, :new, :create, :update, :destroy] 
+      allow :searches,[:index, :advanced]
+      allow :clients, [:index, :show, :edit, :update, :create]
+      allow :contacts, [:index, :show, :edit, :update, :create]
+      # allow_param :projects, :projectdesc
+   		allow :addresstypes, [:index, :show, :edit, :update, :create] 
+   		 	
+   		if user.super_user?
+   			allow_all	
+   		end
 	 	end
+
  	end
 
 

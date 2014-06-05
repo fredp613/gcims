@@ -1,4 +1,4 @@
-<%= link_to ci.ci_name, commitmentitem_path(ci), :name=>ci, :value=>ci.id, 
+<%= link_to commitmentitem_path(ci), :name=>ci, :value=>ci.id, 
 
 :class=>(
 
@@ -10,7 +10,11 @@ else
 	(ci.enddate >= Date.today && ci.startdate <= Date.today) ? "pras_item" : "pras_item red"
 end
 
-) %>
+) do %>
+<i class='icon-chevron-right' style='padding-right:2%'></i>
+ci.ci_name
+
+<% end %>
 
 
 <%= link_to '', edit_commitmentitem_path(ci, :layout=>false), :class=>'editCi icon-pencil black', 

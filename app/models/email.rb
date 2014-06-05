@@ -8,4 +8,9 @@ class Email < ActiveRecord::Base
  # validates :client_id, presence: true
 	
 #  default_scope order('created_at ASC')	  
+
+  def email_strip
+  	email.split('@')[0].strip
+  end
+
 end

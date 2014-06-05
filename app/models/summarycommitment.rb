@@ -115,24 +115,24 @@ class Summarycommitment < ActiveRecord::Base
 
   def check_associations_dates
     
-    if self.projects.exists?
+    if self.applications.exists?
       
-      last = self.projects(:order => 'enddate DESC').first
-      first = self.projects(:order => 'startdate ASC').first
+      last = self.applications(:order => 'enddate DESC').first
+      first = self.applications(:order => 'startdate ASC').first
 
       if (last.enddate > self.enddate) || (first.startdate < self.startdate)
 
         if last.enddate > self.enddate
            errors.add(:enddate, "There are projects that exist with later dates than the one you have chosen
             therefore you cannot change the end date of this pras item unless you modify the end date of those projects.
-             The end date cannot be less than #{last.enddate.to_date} which is corporate file number: #{first.applications.first.corporate_file_number}")         
+             The end date cannot be less than #{last.enddate.to_date} which is corporate file number: #{first.corporate_file_number}")         
         end
 
         
         if first.startdate < self.startdate
            errors.add(:startdate, "There are projects that exist with lower start dates than than the one you have chosen
             therefore you cannot change the start date of this pras item unless you modify the start date of those projects.
-             The start date cannot be less than #{first.startdate.to_date} which is corporate file number: #{first.applications.first.corporate_file_number}")
+             The start date cannot be less than #{first.startdate.to_date} which is corporate file number: #{first.corporate_file_number}")
         end
 
       end
