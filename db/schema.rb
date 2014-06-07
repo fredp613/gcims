@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605014545) do
+ActiveRecord::Schema.define(version: 20140607181818) do
 
 
   create_extension "pg_trgm", :version => "1.0"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20140605014545) do
     t.integer  "contacttype_id"
     t.string   "title"
     t.string   "salutation"
+    t.integer  "user_id"
   end
 
   create_table "contacts_locations", force: true do |t|
@@ -224,6 +225,16 @@ ActiveRecord::Schema.define(version: 20140605014545) do
   end
 
   add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
+
+  create_table "modelstates", force: true do |t|
+    t.integer  "user_id"
+    t.string   "state"
+    t.string   "object"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "modelstates", ["user_id"], :name => "index_modelstates_on_user_id"
 
   create_table "otherfunders", force: true do |t|
     t.string   "name"
@@ -347,16 +358,6 @@ ActiveRecord::Schema.define(version: 20140605014545) do
   add_index "summarycommitments", ["subserviceline_id"], :name => "index_summarycommitments_on_subserviceline_id"
   add_index "summarycommitments", ["user_id"], :name => "index_summarycommitments_on_user_id"
 
-  create_table "user_clients", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "client_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_clients", ["client_id"], :name => "index_user_clients_on_client_id"
-  add_index "user_clients", ["user_id"], :name => "index_user_clients_on_user_id"
-
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "first_name"
@@ -385,6 +386,15 @@ ActiveRecord::Schema.define(version: 20140605014545) do
     t.datetime "updated_at", null: false
     t.integer  "client_id"
   end
+
+  create_table "wizards", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "state_id"
+  end
+
+  add_index "wizards", ["user_id"], :name => "index_wizards_on_user_id"
 
 
 end

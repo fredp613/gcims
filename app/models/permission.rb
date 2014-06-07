@@ -5,12 +5,14 @@ class Permission
     allow "devise/sessions", [:new, :create]
     allow "devise/registrations", [:new, :create, :destroy]      
     allow_param :user, [:name, :email, :password, :password_confirmation, :remember_me]
+
      
  	if user 
  		
     allow "devise/registrations", [:edit, :update, :cancel]
     allow "devise/sessions", [:destroy]
  		# allow :searches, [:index]
+    allow :wizards, [:new, :create, :edit, :update, :destroy, :index] 
 		
  		
  		if user.internal?

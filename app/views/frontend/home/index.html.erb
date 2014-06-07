@@ -7,7 +7,24 @@
             
 <% if user_signed_in? %>
 
-<h2>Client dashboard</h2>
+
+
+
+<% if Application.by_user(current_user).count == 0 %>
+
+  <div style='margin-top:5%;'>
+  <%= link_to "Click here to appy for a grant or contributions", new_frontend_wizard_path, 
+  :class=>'btn btn-info btn-large' %>
+  </div>
+
+<% else %>
+
+ <h3>My Applications</h3>
+
+
+
+<% end  %>
+
 
 <% else %>
 

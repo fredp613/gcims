@@ -1,8 +1,9 @@
 class Contact < ActiveRecord::Base
   attr_accessible :firstname, :lastname, :title, :contacttype_id, :authority, :locations_attributes,
-  :contactlocations_attributes, :projectcontact_attributes, :client_id,:custom_field, :salutation
+  :contactlocations_attributes, :projectcontact_attributes, :client_id,:custom_field, :salutation, :user_id, :type
 
   belongs_to :client
+  belongs_to :user
   
   has_one :projectcontact, :dependent => :destroy
   has_many :projects, through: :projectcontacts

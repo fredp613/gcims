@@ -29,7 +29,7 @@ Clientlocation.delete_all
 Location.delete_all
 Role.delete_all
 Programbudget.delete_all
-UserClient.delete_all
+
 
 role = Role.create(role: "Officer")
 role1 = Role.create(role: "Manager")
@@ -124,10 +124,6 @@ client3 = Client.create(name:'Government of British Columbia',
   	updated_by: users.id,
 	clienttype_id: clienttypes2.id)
 
-userclient = UserClient.create({
-  user_id: users.id, client_id: client1.id
-}, without_protection: true)
-
 
 location = Location.create(:addressline1=>'13 Torovin Private',:city=>'ottawa', :state_id=>453, :country_id=>38, :postal=>'K1B0A5')
 location1 = Location.create(:addressline1=>'1408 Baintree Place',:city=>'ottawa', :state_id=>453, :country_id=>38, :postal=>'K1B0A3')
@@ -159,6 +155,35 @@ Project.all.each do |p|
 		:updated_by=>users.id, :created_by=>users.id, :responsible_official=>users.id, 
  		:startdate=>'2011-04-01', :enddate=>'2014-05-07').save(validate:false)
 end
+
+
+ms = Modelstate.create(user_id:user,
+  state: "tombstone",
+  object: "wizard")
+
+ms1 = Modelstate.create(user_id:user,
+  state: "Funding program",
+  object: "wizard")
+
+ms2 = Modelstate.create(user_id:user,
+  state: "Eligibility",
+  object: "wizard")
+
+ms3 = Modelstate.create(user_id:user,
+  state: "Client Information",
+  object: "application")
+
+ms4 = Modelstate.create(user_id:user,
+  state: "Project Information",
+  object: "application")
+
+ms5 = Modelstate.create(user_id:user,
+  state: "Budget Information",
+  object: "application")
+
+ms6 = Modelstate.create(user_id:user,
+  state: "Program Specific Information",
+  object: "application")
 
 
 

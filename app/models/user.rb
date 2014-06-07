@@ -22,11 +22,16 @@ class User < ActiveRecord::Base
   has_many :productservicelines
   has_many :subservicelines
   has_many :clients
+  has_many :applications
+  has_many :wizards
+
   belongs_to :role
 
   scope :super_user?, -> { 
     where(role_id: 4)
   }
+
+
 
 
   #accepts_nested_attributes_for :commitmentitems, :summarycommitments, :productservicelines, :subservicelines

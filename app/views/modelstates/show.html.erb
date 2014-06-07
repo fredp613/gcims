@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @modelstate.user %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @modelstate.state %>
+</p>
+
+<p>
+  <strong>Object:</strong>
+  <%= @modelstate.object %>
+</p>
+
+<%= link_to 'Edit', edit_modelstate_path(@modelstate) %> |
+<%= link_to 'Back', modelstates_path %>

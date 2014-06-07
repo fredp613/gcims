@@ -19,6 +19,7 @@ class Client < ActiveRecord::Base
   has_many :states, through: :locations 
   has_many :projects, dependent: :destroy
   has_many :contacts, dependent: :destroy
+  has_many :users, through: :contacts
   has_many :emails
   has_many :phones
   has_many :websites
@@ -31,6 +32,7 @@ class Client < ActiveRecord::Base
   has_many :summarycommitments, through: :commitmentitems
   has_many :subservicelines, through: :summarycommitments
   has_many :productservicelines, through: :subservicelines
+  has_many :modelstates, as: :statable
 
   validates :name, presence: true
   validates :clienttype_id, presence: true

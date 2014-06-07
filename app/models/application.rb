@@ -12,12 +12,13 @@ class Application < ActiveRecord::Base
 
   attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
 
-  
+    
   belongs_to :applicationtype
   belongs_to :project
   has_one :client, through: :project
   belongs_to :commitmentitem
-  # belongs_to :user
+
+  belongs_to :user
   
   # has_one :client, through: :project
   # has_many :emails, through: :client
@@ -68,6 +69,9 @@ class Application < ActiveRecord::Base
   scope :original_application, -> {
     self.first
   }
+
+  scope :by_user, ->(id) { where(:created_by => id)}
+
 
   pg_search_scope :search, against: [:startdate, :enddate, :responsible_official, :corporate_file_number],
   using: {tsearch: {dictionary: 'english', prefix: true, any_word: true}, :trigram => {}},
@@ -232,6 +236,5 @@ class Application < ActiveRecord::Base
     @email
   end
 
-  
 
 end

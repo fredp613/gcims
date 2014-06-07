@@ -1,9 +1,10 @@
 GCIMS::Application.routes.draw do
   
-  resources :user_clients
+  resources :modelstates
 
-  resources :roles
-  # resources :sessions
+  resources :wizards
+
+  resources :roles  
   resources :otherfunders
   resources :applicationtypes
   resources :budgetcategories
@@ -28,6 +29,8 @@ GCIMS::Application.routes.draw do
   resources :fincodes
   resources :commitmentitems 
   resources :programbudgets
+
+
   
 
   resources :productservicelines, :path => "pras"  do 
@@ -131,6 +134,7 @@ GCIMS::Application.routes.draw do
 
   namespace :frontend do
     resources :client_application 
+    resources :wizards, path: 'clientapplication'
     root to: "home#index"    
   end
 

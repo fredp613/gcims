@@ -1,0 +1,29 @@
+<h1>Listing modelstates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>State</th>
+      <th>Object</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @modelstates.each do |modelstate| %>
+      <tr>
+        <td><%= modelstate.user %></td>
+        <td><%= modelstate.state %></td>
+        <td><%= modelstate.object %></td>
+        <td><%= link_to 'Show', modelstate %></td>
+        <td><%= link_to 'Edit', edit_modelstate_path(modelstate) %></td>
+        <td><%= link_to 'Destroy', modelstate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Modelstate', new_modelstate_path %>

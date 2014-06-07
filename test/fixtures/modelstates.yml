@@ -2,8 +2,10 @@
 
 one:
   user_id: 
-  client_id: 
+  state: MyString
+  object: MyString
 
 two:
   user_id: 
-  client_id: 
+  state: MyString
+  object: MyString
