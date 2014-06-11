@@ -29,7 +29,7 @@ Clientlocation.delete_all
 Location.delete_all
 Role.delete_all
 Programbudget.delete_all
-
+Modelstate.delete_all
 
 role = Role.create(role: "Officer")
 role1 = Role.create(role: "Manager")
@@ -157,32 +157,39 @@ Project.all.each do |p|
 end
 
 
-ms = Modelstate.create(user_id:user,
+ms = Modelstate.create(user_id:users.id,
   state: "tombstone",
+  position: 3,
   object: "wizard")
 
-ms1 = Modelstate.create(user_id:user,
+ms1 = Modelstate.create(user_id:users.id,
   state: "Funding program",
+  position: 1,
   object: "wizard")
 
-ms2 = Modelstate.create(user_id:user,
+ms2 = Modelstate.create(user_id:users.id,
   state: "Eligibility",
+  position: 2,
   object: "wizard")
 
-ms3 = Modelstate.create(user_id:user,
+ms3 = Modelstate.create(user_id:users.id,
   state: "Client Information",
+  position: 1,
   object: "application")
 
-ms4 = Modelstate.create(user_id:user,
+ms4 = Modelstate.create(user_id:users.id,
   state: "Project Information",
+  position: 2,
   object: "application")
 
-ms5 = Modelstate.create(user_id:user,
+ms5 = Modelstate.create(user_id:users.id,
   state: "Budget Information",
+  position: 3,
   object: "application")
 
-ms6 = Modelstate.create(user_id:user,
+ms6 = Modelstate.create(user_id:users.id,
   state: "Program Specific Information",
+  position: 4,
   object: "application")
 
 

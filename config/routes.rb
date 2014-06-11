@@ -1,5 +1,13 @@
 GCIMS::Application.routes.draw do
   
+  resources :customfieldconditions
+
+  resources :customfieldvalidators
+
+  resources :customfields
+
+  resources :customtemplates
+
   resources :modelstates
 
   resources :wizards

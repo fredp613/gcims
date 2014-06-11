@@ -1,10 +1,9 @@
-<%= simple_form_for(@wizard) do |f| %>
+<%= simple_form_for(@customfieldvalidator) do |f| %>
   <%= f.error_notification %>
 
-  <%= @wizard.first_state? %>
-
   <div class="form-inputs">
-    <%= f.association :user %>
+    <%= f.association :customfield %>
+    <%= f.input :type %>
   </div>
 
   <div class="form-actions">

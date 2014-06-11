@@ -1,0 +1,27 @@
+<h1>Listing customfieldvalidators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customfield</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customfieldvalidators.each do |customfieldvalidator| %>
+      <tr>
+        <td><%= customfieldvalidator.customfield %></td>
+        <td><%= customfieldvalidator.type %></td>
+        <td><%= link_to 'Show', customfieldvalidator %></td>
+        <td><%= link_to 'Edit', edit_customfieldvalidator_path(customfieldvalidator) %></td>
+        <td><%= link_to 'Destroy', customfieldvalidator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customfieldvalidator', new_customfieldvalidator_path %>

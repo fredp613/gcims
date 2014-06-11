@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607181818) do
+ActiveRecord::Schema.define(version: 20140611015015) do
 
 
   create_extension "pg_trgm", :version => "1.0"
@@ -174,6 +174,44 @@ ActiveRecord::Schema.define(version: 20140607181818) do
     t.integer "rank"
   end
 
+  create_table "customfieldconditions", force: true do |t|
+    t.integer  "customfieldvalidator_id"
+    t.string   "condition"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customfieldconditions", ["customfieldvalidator_id"], :name => "index_customfieldconditions_on_customfieldvalidator_id"
+
+  create_table "customfields", force: true do |t|
+    t.integer  "customtemplate_id"
+    t.string   "type"
+    t.string   "name"
+    t.string   "class"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customfields", ["customtemplate_id"], :name => "index_customfields_on_customtemplate_id"
+
+  create_table "customfieldvalidators", force: true do |t|
+    t.integer  "customfield_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customfieldvalidators", ["customfield_id"], :name => "index_customfieldvalidators_on_customfield_id"
+
+  create_table "customtemplates", force: true do |t|
+    t.integer  "commitmentitem_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customtemplates", ["commitmentitem_id"], :name => "index_customtemplates_on_commitmentitem_id"
+
   create_table "divisions", force: true do |t|
     t.string   "name"
     t.string   "name1"
@@ -232,6 +270,7 @@ ActiveRecord::Schema.define(version: 20140607181818) do
     t.string   "object"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "modelstates", ["user_id"], :name => "index_modelstates_on_user_id"

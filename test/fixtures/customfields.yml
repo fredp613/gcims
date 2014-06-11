@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customtemplate_id: 
+  type: 
+  name: MyString
+  class: MyString
+
+two:
+  customtemplate_id: 
+  type: 
+  name: MyString
+  class: MyString

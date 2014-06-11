@@ -8,23 +8,23 @@ class Wizard < ActiveRecord::Base
   end
 
   def current_state
-   @current_state || states.first
+   @current_state || states.where(position: 1).first
   end
 
   def next_state
-    self.current_state = states[states.index(current_state)+1]
+    current_state = states.where(position: (self.current_state.position.to_i + 1)).first
   end
 
   def previous_state
-    self.current_state = states[states.index(current_state)-1]
+    current_state = states.where(position: (self.current_state.position.to_i - 1)).first
   end
 
   def first_state?
-    current_state == states.first
+    current_state == states.order(:position).first
   end
 
   def last_state?
-    current_state == states.last
+    current_state == states.order(:position).last
   end
 
   def all_valid?
