@@ -1,0 +1,2 @@
+module CustomtemplatetypesHelper
+end

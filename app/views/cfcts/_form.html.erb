@@ -1,0 +1,12 @@
+<%= simple_form_for(@cfct) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :customfield, label_method: :field_label %>
+    <%= f.association :customtemplate, label_method: :name %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

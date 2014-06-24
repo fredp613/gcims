@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @customfieldvalue.value %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @customfieldvalue.user %>
+</p>
+
+<p>
+  <strong>Wizardcustomtemplate:</strong>
+  <%= @customfieldvalue.wizardcustomtemplate %>
+</p>
+
+<%= link_to 'Edit', edit_customfieldvalue_path(@customfieldvalue) %> |
+<%= link_to 'Back', customfieldvalues_path %>

@@ -1,0 +1,74 @@
+
+
+<%= simple_form_for @wizard, url: {action: "eligibility" } do |f| %>
+  
+  
+   <%= f.input :id, as: :hidden %>
+
+  <%= f.simple_fields_for :wizardcustomtemplates, @wizard.wizardcustomtemplates.build  do |builder| %>
+
+  <%= builder.input :wizard_id, as: :hidden, input_html: {value: @wizard.id} %>
+  <%= builder.input :wizard_state_id, as: :hidden %>
+  <%= builder.input :customtemplate_id, as: :hidden, input_html: { value: @eligibility.first.id } %> 
+
+    
+    <% @eligibility.first.customfields.each do |cf| %>
+
+      
+        
+        <%= builder.simple_fields_for :customfieldvalues, @wizard.wizardcustomtemplates.build.customfieldvalues.build  do |val| %>
+
+
+        <% if cf.field_type == "input_text" %>
+
+          <%= val.input :wizardcustomtemplate_id, as: :hidden, input_html: { value: @wizard.wizardcustomtemplates.first.id} %>
+          <%= val.input :user_id, as: :hidden, input_html: { value: current_user.id } %>    
+          <%= val.input :customfield_id, as: :hidden,  input_html: {value: cf.id} %> 
+          
+          <% if !cf.customfieldvalues.where(:wizardcustomtemplate_id=>@wizard.wizardcustomtemplates.first.id).blank? %>
+            <%= val.input :value, label: cf.field_label, input_html: {
+            value: cf.customfieldvalues.where(
+              "customfield_id=? AND wizardcustomtemplate_id=?", cf.id, @wizard.wizardcustomtemplates.first.id).first.value } %>  
+          <% else %>    
+            <%= val.input :value, label: cf.field_label %>
+          <% end %>
+
+          <%= @wizard.wizardcustomtemplates.first.id rescue nil %>
+          
+        <% end %>
+
+        <% if cf.field_type == "boolean" %>
+       
+        <%= val.input :wizardcustomtemplate_id, as: :hidden, input_html: { value: @wizard.wizardcustomtemplates.first.id} %>
+        <%= val.input :user_id, as: :hidden, input_html: { value: current_user.id } %>    
+        <%= val.input :customfield_id, as: :hidden, input_html: {value: cf.id } %> 
+
+        
+          <% if cf.customfieldvalues.where(:wizardcustomtemplate_id=>@wizard.wizardcustomtemplates.first.id).blank? %>
+            <%= val.input :value, as: :radio_buttons %>
+          <% else %>
+            <% if cf.customfieldvalues.where(
+              "customfield_id=? AND wizardcustomtemplate_id=?", cf.id, @wizard.wizardcustomtemplates.first.id).first.value == "true" %>
+              <%= val.input :value, label: cf.field_label,  as: :radio_buttons,  checked: true %>
+            <% else %>
+              <%= val.input :value, label: cf.field_label, as: :radio_buttons, checked: false %>
+            <% end %>
+          <% end %>
+      
+      <% end %>
+
+  <% end %> 
+  <% end %>
+  <% end %>
+  
+
+   <%= f.button :submit, "Verify eligibility", name: "verify" %>
+
+   <% if @wizard.errors.blank? %>
+    <%= f.button :submit, "Next", name: "next" %>
+   <% end %>
+
+   <%= f.button :submit, "Previous", name: "previous" %>
+
+<% end %>
+

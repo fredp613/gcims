@@ -1,0 +1,13 @@
+<%= simple_form_for(@wizardcustomtemplate) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.association :customtemplate %>
+    <%= f.association :wizard %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,17 +1,15 @@
 GCIMS::Application.routes.draw do
-  
+  resources :customfieldvalues
+
+  resources :wizardcustomtemplates
+
+    resources :customfields
+  resources :customtemplatetypes
+  resources :cfcts
+  resources :cicts
   resources :customfieldconditions
-
   resources :customfieldvalidators
-
-  resources :customfields
-
-  resources :customtemplates
-
   resources :modelstates
-
-  resources :wizards
-
   resources :roles  
   resources :otherfunders
   resources :applicationtypes
@@ -37,9 +35,21 @@ GCIMS::Application.routes.draw do
   resources :fincodes
   resources :commitmentitems 
   resources :programbudgets
-
-
+  resources :eligibilities
   
+
+  resources :wizards do
+    collection do
+      get "eligibility" => 'wizards#eligibility'
+      patch "eligibility" => 'wizards#verify_eligibility'
+    end
+  end
+
+  resources :customtemplates do
+    collection do
+      post "verify_eligibility"
+    end
+  end
 
   resources :productservicelines, :path => "pras"  do 
    collection do 
@@ -76,6 +86,7 @@ GCIMS::Application.routes.draw do
       get "corporation" => 'clients#corporation'      
     end
     
+
     
     resources :locations
     resources :contacts do

@@ -1,0 +1,27 @@
+<h1>Listing cfcts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customfield</th>
+      <th>Customtemplate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cfcts.each do |cfct| %>
+      <tr>
+        <td><%= cfct.customfield %></td>
+        <td><%= cfct.customtemplate %></td>
+        <td><%= link_to 'Show', cfct %></td>
+        <td><%= link_to 'Edit', edit_cfct_path(cfct) %></td>
+        <td><%= link_to 'Destroy', cfct, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cfct', new_cfct_path %>

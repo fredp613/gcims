@@ -24,7 +24,7 @@ class ModelstatesController < ApplicationController
   # POST /modelstates
   # POST /modelstates.json
   def create
-    @modelstate = Modelstate.new(params[:modelstates])
+    @modelstate = Modelstate.new(modelstate_params)
 
     respond_to do |format|
       if @modelstate.save
@@ -68,7 +68,7 @@ class ModelstatesController < ApplicationController
     end
 
     # # Never trust parameters from the scary internet, only allow the white list through.
-    # def modelstate_params
-    #   params.require(:modelstate).permit(:user_id, :state, :object)
-    # end
+    def modelstate_params
+      params.require(:modelstate).permit(:user_id, :state, :object, :position)
+    end
 end

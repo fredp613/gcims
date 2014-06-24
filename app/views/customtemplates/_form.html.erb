@@ -2,8 +2,9 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :commitmentitem %>
+  	<%= f.association :customtemplatetype, label_method: :ct_type %>
     <%= f.input :name %>
+    <%= f.input :active %>
   </div>
 
   <div class="form-actions">

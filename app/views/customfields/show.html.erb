@@ -1,23 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Customtemplate:</strong>
-  <%= @customfield.customtemplate %>
+  <strong>Field type:</strong>
+  <%= @customfield.field_type %>
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @customfield.type %>
+  <strong>Field name:</strong>
+  <%= @customfield.field_name %>
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @customfield.name %>
-</p>
-
-<p>
-  <strong>Class:</strong>
-  <%= @customfield.class %>
+  <strong>Field class:</strong>
+  <%= @customfield.field_class %>
 </p>
 
 <%= link_to 'Edit', edit_customfield_path(@customfield) %> |

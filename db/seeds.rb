@@ -162,6 +162,11 @@ ms = Modelstate.create(user_id:users.id,
   position: 3,
   object: "wizard")
 
+ms = Modelstate.create(user_id:users.id,
+  state: "completed",
+  position: 4,
+  object: "wizard")
+
 ms1 = Modelstate.create(user_id:users.id,
   state: "Funding program",
   position: 1,
@@ -191,6 +196,16 @@ ms6 = Modelstate.create(user_id:users.id,
   state: "Program Specific Information",
   position: 4,
   object: "application")
+
+ms7 = Modelstate.create(user_id:users.id,
+  state: "initial",
+  position: 1,
+  object: "customfieldvalue")
+
+ms8 = Modelstate.create(user_id:users.id,
+  state: "updatable",
+  position: 2,
+  object: "customfieldvalue")
 
 
 

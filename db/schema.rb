@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611015015) do
+ActiveRecord::Schema.define(version: 20140620010427) do
 
 
   create_extension "pg_trgm", :version => "1.0"
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 20140611015015) do
     t.string   "fiscalyear_id"
   end
 
+  create_table "cfcts", force: true do |t|
+    t.integer  "customfield_id"
+    t.integer  "customtemplate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cfcts", ["customfield_id"], :name => "index_cfcts_on_customfield_id"
+  add_index "cfcts", ["customtemplate_id"], :name => "index_cfcts_on_customtemplate_id"
+
   create_table "charities", force: true do |t|
     t.string   "registrationnumber"
     t.datetime "registrationdate"
@@ -87,6 +97,16 @@ ActiveRecord::Schema.define(version: 20140611015015) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
+
+  create_table "cicts", force: true do |t|
+    t.integer  "commitmentitem_id"
+    t.integer  "customtemplate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cicts", ["commitmentitem_id"], :name => "index_cicts_on_commitmentitem_id"
+  add_index "cicts", ["customtemplate_id"], :name => "index_cicts_on_customtemplate_id"
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -184,15 +204,14 @@ ActiveRecord::Schema.define(version: 20140611015015) do
   add_index "customfieldconditions", ["customfieldvalidator_id"], :name => "index_customfieldconditions_on_customfieldvalidator_id"
 
   create_table "customfields", force: true do |t|
-    t.integer  "customtemplate_id"
-    t.string   "type"
-    t.string   "name"
-    t.string   "class"
+    t.string   "field_type"
+    t.string   "field_name"
+    t.string   "field_class"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field_label"
+    t.boolean  "required"
   end
-
-  add_index "customfields", ["customtemplate_id"], :name => "index_customfields_on_customtemplate_id"
 
   create_table "customfieldvalidators", force: true do |t|
     t.integer  "customfield_id"
@@ -203,14 +222,34 @@ ActiveRecord::Schema.define(version: 20140611015015) do
 
   add_index "customfieldvalidators", ["customfield_id"], :name => "index_customfieldvalidators_on_customfield_id"
 
+  create_table "customfieldvalues", force: true do |t|
+    t.string   "value"
+    t.integer  "user_id"
+    t.integer  "wizardcustomtemplate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "customfield_id"
+  end
+
+  add_index "customfieldvalues", ["user_id"], :name => "index_customfieldvalues_on_user_id"
+  add_index "customfieldvalues", ["wizardcustomtemplate_id"], :name => "index_customfieldvalues_on_wizardcustomtemplate_id"
+
   create_table "customtemplates", force: true do |t|
-    t.integer  "commitmentitem_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active"
+    t.integer  "customtemplatetype_id"
+  end
+
+  create_table "customtemplatetypes", force: true do |t|
+    t.string   "ct_type"
+    t.integer  "modelstate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "customtemplates", ["commitmentitem_id"], :name => "index_customtemplates_on_commitmentitem_id"
+  add_index "customtemplatetypes", ["modelstate_id"], :name => "index_customtemplatetypes_on_modelstate_id"
 
   create_table "divisions", force: true do |t|
     t.string   "name"
@@ -426,11 +465,24 @@ ActiveRecord::Schema.define(version: 20140611015015) do
     t.integer  "client_id"
   end
 
+  create_table "wizardcustomtemplates", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "customtemplate_id"
+    t.integer  "wizard_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wizardcustomtemplates", ["customtemplate_id"], :name => "index_wizardcustomtemplates_on_customtemplate_id"
+  add_index "wizardcustomtemplates", ["user_id"], :name => "index_wizardcustomtemplates_on_user_id"
+  add_index "wizardcustomtemplates", ["wizard_id"], :name => "index_wizardcustomtemplates_on_wizard_id"
+
   create_table "wizards", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "state_id"
+    t.integer  "modelstate_id"
+    t.integer  "commitmentitem_id"
   end
 
   add_index "wizards", ["user_id"], :name => "index_wizards_on_user_id"

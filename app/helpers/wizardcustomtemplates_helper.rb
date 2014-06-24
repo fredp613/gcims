@@ -1,0 +1,2 @@
+module WizardcustomtemplatesHelper
+end

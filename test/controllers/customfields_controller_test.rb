@@ -18,7 +18,7 @@ class CustomfieldsControllerTest < ActionController::TestCase
 
   test "should create customfield" do
     assert_difference('Customfield.count') do
-      post :create, customfield: { class: @customfield.class, customtemplate_id: @customfield.customtemplate_id, name: @customfield.name, type: @customfield.type }
+      post :create, customfield: { field_class: @customfield.field_class, field_name: @customfield.field_name, field_type: @customfield.field_type }
     end
 
     assert_redirected_to customfield_path(assigns(:customfield))
@@ -35,7 +35,7 @@ class CustomfieldsControllerTest < ActionController::TestCase
   end
 
   test "should update customfield" do
-    patch :update, id: @customfield, customfield: { class: @customfield.class, customtemplate_id: @customfield.customtemplate_id, name: @customfield.name, type: @customfield.type }
+    patch :update, id: @customfield, customfield: { field_class: @customfield.field_class, field_name: @customfield.field_name, field_type: @customfield.field_type }
     assert_redirected_to customfield_path(assigns(:customfield))
   end
 

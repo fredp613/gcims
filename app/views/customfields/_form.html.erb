@@ -2,10 +2,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :customtemplate %>
-    <%= f.input :type %>
-    <%= f.input :name %>
-    <%= f.input :class %>
+    <%= f.input :field_type, collection: @customfield.types %>
+    <%= f.input :field_name %>
+    <%= f.input :field_label %>
+    <%= f.input :field_class %>
+    <%= f.input :required %>
   </div>
 
   <div class="form-actions">

@@ -1,0 +1,29 @@
+<h1>Listing customfieldvalues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>User</th>
+      <th>Wizardcustomtemplate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customfieldvalues.each do |customfieldvalue| %>
+      <tr>
+        <td><%= customfieldvalue.value %></td>
+        <td><%= customfieldvalue.user %></td>
+        <td><%= customfieldvalue.wizardcustomtemplate %></td>
+        <td><%= link_to 'Show', customfieldvalue %></td>
+        <td><%= link_to 'Edit', edit_customfieldvalue_path(customfieldvalue) %></td>
+        <td><%= link_to 'Destroy', customfieldvalue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customfieldvalue', new_customfieldvalue_path %>

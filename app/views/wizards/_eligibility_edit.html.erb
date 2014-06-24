@@ -1,0 +1,63 @@
+
+
+<%= simple_form_for @wizard, url: {action: "eligibility"} do |f| %>
+  
+   <%= f.input :id, as: :hidden %>
+
+  <%= f.simple_fields_for :wizardcustomtemplates do |builder| %>
+
+        <%= builder.input :id, as: :hidden, input_html: {value: @wizard.wizardcustomtemplates.first.id } %>
+
+       <%= builder.input :wizard_id, as: :hidden,  input_html: {value: @wizard.id} %>
+        <%= builder.input :wizard_state_id, as: :hidden %>
+        <%= builder.input :customtemplate_id, as: :hidden, input_html: { value: @wizard.wizardcustomtemplates.first.customfieldvalues.first.wizardcustomtemplate.customtemplate_id } %> 
+
+
+
+               <%= builder.simple_fields_for :customfieldvalues[0] do |val| %>
+
+        <% @wizard.wizardcustomtemplates.first.customfieldvalues.each_with_index do |cf, i| %>
+
+          <%= val.input :id,as: :hidden, input_html: { value: cf.id, name:
+          "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][id]" } %> 
+
+
+           <%= val.input :wizardcustomtemplate_id,as: :hidden,  input_html: { value: @wizard.wizardcustomtemplates.first.id, name: "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][wizardcustomtemplate_id]" } %>
+            <%= val.input :user_id,as: :hidden,  input_html: { value: current_user.id, name: 
+            "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][user_id]" } %> 
+
+            <%= val.input :customfield_id,as: :hidden,   input_html: {value: cf.customfield_id, name: 
+              "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][customfield_id]"} %>
+         
+
+          <% if cf.customfield.field_type == "input_text" %>
+              <%= val.input :value, label: cf.customfield.field_label, input_html: {
+              value: cf.value, name:
+              "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]" } %>  
+          <% elsif cf.customfield.field_type == "boolean" %>                   
+              <% if cf.value=="true" %>
+                <%= val.input :value, label: cf.customfield.field_label,  as: :radio_buttons,  checked: true,
+                input_html: { name: 
+                  "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]"} %>
+              <% else %>
+                <%= val.input :value, label: cf.customfield.field_label, as: :radio_buttons, checked: false,
+                input_html: { name: 
+                  "wizard[wizardcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]"} %>
+              <% end %>                    
+          <% end %>
+
+      <% end %> 
+    <% end %>
+  <% end %>
+  
+
+   <%= f.button :submit, "Verify eligibility", name: "verify" %>
+
+   <% if @wizard.errors.blank? %>
+    <%= f.button :submit, "Next", name: "next" %>
+   <% end %>
+
+   <%= f.button :submit, "Previous", name: "previous" %>
+
+<% end %>
+

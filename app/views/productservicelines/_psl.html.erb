@@ -1,5 +1,5 @@
 
-<%= link_to productserviceline_path(psl), :name=>psl, :value=>psl.id, 
+<%= link_to productserviceline_path(psl),  :name=>psl, :value=>psl.id, 
 :class=>(
 
 if params[:start_year] || params[:end_year]
@@ -12,7 +12,7 @@ end
 
 ) do %>
 <i class='expandable icon-folder-close' style='padding-right:2%'></i>
-psl.psl_name
+<%= psl.psl_name %>
 
 <% end %>
 

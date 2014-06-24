@@ -1,0 +1,20 @@
+
+<%= simple_form_for @customtemplate, url: {action: "verify_eligibility", method: :post } do |f| %>
+
+<%= f.input :wizard_id %>
+
+  <%= f.simple_fields_for :customtemplate do |builder| %>
+  <% @eligibility.first.customfields.each do |cf| %>
+    <% if cf.field_type == "input_text" %>
+    <%= builder.input cf.field_name, label: cf.field_label %>
+    <% end %>
+
+    <% if cf.field_type == "boolean" %>
+    <%= builder.input cf.field_name, as: :radio_buttons, label: cf.field_label%>
+    <% end %>
+  <% end %>
+  <% end %>
+
+   <%= f.button :submit, "Verify eligibility", name: "verify" %>
+
+<% end %>

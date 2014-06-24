@@ -3,10 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Customtemplate</th>
-      <th>Type</th>
-      <th>Name</th>
-      <th>Class</th>
+      <th>Field type</th>
+      <th>Field name</th>
+      <th>Field class</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,10 +13,9 @@
   <tbody>
     <% @customfields.each do |customfield| %>
       <tr>
-        <td><%= customfield.customtemplate %></td>
-        <td><%= customfield.type %></td>
-        <td><%= customfield.name %></td>
-        <td><%= customfield.class %></td>
+        <td><%= customfield.field_type %></td>
+        <td><%= customfield.field_name %></td>
+        <td><%= customfield.field_class %></td>
         <td><%= link_to 'Show', customfield %></td>
         <td><%= link_to 'Edit', edit_customfield_path(customfield) %></td>
         <td><%= link_to 'Destroy', customfield, method: :delete, data: { confirm: 'Are you sure?' } %></td>

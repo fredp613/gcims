@@ -1,13 +1,42 @@
 <%= simple_form_for(@wizard) do |f| %>
   <%= f.error_notification %>
 
-  <%= @wizard.first_state? %>
 
+  <%= f.input :modelstate_id %>
+
+  <% if @wizard.first_state? %>
+  	<p>Select the funding program you are applying too:</p> 
+  	<%= f.input :productserviceline, collection: Productserviceline.all, label_method: lambda { |p| p.psl_name } %>
+  	<%= f.input :subserviceline, collection: Subserviceline.all, label_method: lambda { |ssl| ssl.ssl_name } %>
+  	<%= f.input :summarycommitment, collection: Summarycommitment.all, label_method: lambda { |sc| sc.sc_name } %>
+  	<%= f.association :commitmentitem, label_method: lambda { |c| c.ci_name } %>
+  <% else %>
+
+	  <% if @wizard.last_state? %>
+	  
+	  <% end %>
+
+  <% end %>
+
+<br>
   <div class="form-inputs">
-    <%= f.association :user %>
+    <%= f.association :user, label_method: lambda { |u| u.full_name } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+   <% if @wizard.last_state? %> 
+   	<%= f.button :submit %>
+   <% else %> 
+   	<% if @wizard.first_state? %>
+   		<%= f.button :submit, "Next", name: "next" %>
+   	<% else %>
+   	    <%= f.button :submit, "Previous", name: "previous" %>
+        <% if @wizard.current_state.first.state = "tombstone" %>
+   	      <%= f.button :submit, "Finish wizard", name: "next" %>
+        <% else %>
+          <%= f.button :submit, "Next", name: "next" %>
+        <% end %>
+   	<% end %>
+   <% end %>
   </div>
 <% end %>

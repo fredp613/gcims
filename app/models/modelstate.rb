@@ -1,4 +1,10 @@
 class Modelstate < ActiveRecord::Base
-  attr_accessible :user_id, :state, :object, :position
+  
   belongs_to :user
+  has_many :wizards
+  has_many :customfieldvalues
+
+  def self.eligibility_state
+  	where(:state=>"Eligibility")
+  end
 end

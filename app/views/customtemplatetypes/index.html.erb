@@ -1,0 +1,27 @@
+<h1>Listing customtemplatetypes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Modelstate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customtemplatetypes.each do |customtemplatetype| %>
+      <tr>
+        <td><%= customtemplatetype.ct_type %></td>
+        <td><%= customtemplatetype.modelstate %></td>
+        <td><%= link_to 'Show', customtemplatetype %></td>
+        <td><%= link_to 'Edit', edit_customtemplatetype_path(customtemplatetype) %></td>
+        <td><%= link_to 'Destroy', customtemplatetype, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customtemplatetype', new_customtemplatetype_path %>

@@ -1,6 +1,11 @@
 <h1>Editing wizard</h1>
 
-<%= render 'form' %>
+
+<strong><%= @wizard.current_state.first.state %>
+</strong>
+
+<p>
+<%= render 'form' %></p>
 
 <%= link_to 'Show', @wizard %> |
 <%= link_to 'Back', wizards_path %>
