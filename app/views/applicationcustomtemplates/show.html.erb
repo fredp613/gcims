@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @applicationcustomtemplate.user %>
+</p>
+
+<p>
+  <strong>Application:</strong>
+  <%= @applicationcustomtemplate.application %>
+</p>
+
+<p>
+  <strong>Customtemplate:</strong>
+  <%= @applicationcustomtemplate.customtemplate %>
+</p>
+
+<%= link_to 'Edit', edit_applicationcustomtemplate_path(@applicationcustomtemplate) %> |
+<%= link_to 'Back', applicationcustomtemplates_path %>

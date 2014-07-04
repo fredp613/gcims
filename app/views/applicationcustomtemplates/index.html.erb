@@ -1,0 +1,29 @@
+<h1>Listing applicationcustomtemplates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Application</th>
+      <th>Customtemplate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @applicationcustomtemplates.each do |applicationcustomtemplate| %>
+      <tr>
+        <td><%= applicationcustomtemplate.user %></td>
+        <td><%= applicationcustomtemplate.application %></td>
+        <td><%= applicationcustomtemplate.customtemplate %></td>
+        <td><%= link_to 'Show', applicationcustomtemplate %></td>
+        <td><%= link_to 'Edit', edit_applicationcustomtemplate_path(applicationcustomtemplate) %></td>
+        <td><%= link_to 'Destroy', applicationcustomtemplate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Applicationcustomtemplate', new_applicationcustomtemplate_path %>

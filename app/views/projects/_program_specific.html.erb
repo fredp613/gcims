@@ -1,0 +1,37 @@
+
+<% if @project.has_active_specific_template? %>
+
+ 
+
+<% @project.applications.each do |app| %>
+
+
+  <% app.commitmentitem.cicts.programspecifictemplate(app.commitmentitem_id).each do |cict|  %>
+  <fieldset>
+        <legend><%= cict.name %></legend>
+      <% cict.customfields.each do |cf| %>
+               
+        <label><strong class='clearfix'><%= cf.field_label %></strong>
+        	<% if @project.has_specific_data? %>
+
+           <% cf.customfieldvalues.find_by_application(app.id).each do |cv| %>
+             <%= cv.value %>
+           <% end %>
+        	<% else %>
+        	  <%= link_to "Add Program Specific Information", program_specific_applications_path(:app_id=>app.id) %>
+        	<% end %>
+       </label>   
+       
+      <% end %>
+    </fieldset>
+
+
+    <% end %>
+  <% end %>
+
+
+<% else %>  
+ no program specific data
+<% end %>
+
+

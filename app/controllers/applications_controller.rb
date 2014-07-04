@@ -38,6 +38,45 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def program_specific
+
+    @application = Application.find(params[:app_id])
+    # @ps = Applicationcustomtemplate.new
+    if @application.customfieldvalues.blank?
+      @ps = Cict.programspecifictemplate(@application.commitmentitem_id)      
+    else
+      @ps = @application.applicationcustomtemplates.first.customfieldvalues
+    end
+
+
+     # if @wizard.customfieldvalues.blank?
+     #    @eligibility = Cict.eligibilitytemplate(@wizard.commitmentitem_id)
+     #  else
+     #    @eligibility = @wizard.wizardcustomtemplates.first.customfieldvalues
+     #  end
+
+  end
+
+  def submit_program_specific
+
+     @application = Application.find(params[:application][:id])
+
+    # if params[:save]
+      respond_to do |format|
+        # if @application.valid? 
+          @application.update_attributes(params[:application])
+          format.html { redirect_to project_path(:id=>@application.project), notice: "Application updated!" }
+          format.json { render :show, status: :ok, location: @customtemplate }       
+        # else
+        #   format.html { render :program_specific }
+        #   format.json { render json: @applicationcustomtemplate.errors, status: :unprocessable_entity }
+        # end
+      # end
+    end
+    
+    
+  end
+
   # GET /applications/1/edit
   def edit
     @application = Application.find(params[:id])

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620010427) do
+ActiveRecord::Schema.define(version: 20140702213208) do
 
 
   create_extension "pg_trgm", :version => "1.0"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20140620010427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "applicationcustomtemplates", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "application_id"
+    t.integer  "customtemplate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "applicationcustomtemplates", ["application_id"], :name => "index_applicationcustomtemplates_on_application_id"
+  add_index "applicationcustomtemplates", ["customtemplate_id"], :name => "index_applicationcustomtemplates_on_customtemplate_id"
+  add_index "applicationcustomtemplates", ["user_id"], :name => "index_applicationcustomtemplates_on_user_id"
 
   create_table "applications", force: true do |t|
     t.integer  "commitmentitem_id"
@@ -229,6 +241,8 @@ ActiveRecord::Schema.define(version: 20140620010427) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "customfield_id"
+    t.integer  "application_id"
+    t.integer  "applicationcustomtemplate_id"
   end
 
   add_index "customfieldvalues", ["user_id"], :name => "index_customfieldvalues_on_user_id"

@@ -12,8 +12,8 @@
   <tbody>
     <% @cfcts.each do |cfct| %>
       <tr>
-        <td><%= cfct.customfield %></td>
-        <td><%= cfct.customtemplate %></td>
+        <td><%= cfct.customfield.field_label %></td>
+        <td><%= cfct.customtemplate.name %></td>
         <td><%= link_to 'Show', cfct %></td>
         <td><%= link_to 'Edit', edit_cfct_path(cfct) %></td>
         <td><%= link_to 'Destroy', cfct, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -93,6 +93,11 @@ class CustomtemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customtemplate_params
-      params.require(:customtemplate).permit(:name, :active, :commitmentitem_id, :customtemplatetype_id, :wizard_id)
+      params.require(:customtemplate).permit(:name, 
+        :active, 
+        :commitmentitem_id, 
+        :customtemplatetype_id, 
+        :application_id, 
+        :wizard_id)
     end
 end

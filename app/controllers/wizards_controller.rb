@@ -20,21 +20,13 @@ class WizardsController < ApplicationController
   end
 
   def eligibility
-    # @wizard = Wizard.find(params[:id])  
 
-      #@wizardcustomtemplate = Wizardcustomtemplate.find_by_wizard(params[:id])
-      # @wizardcustomtemplate.wizard_state_id = @wizard.current_state.first.id
-     
-      #dont forget to scope this to the actual wizardtemplate
       if @wizard.customfieldvalues.blank?
-        @eligibility = Cict.eligibilitytempate(@wizard.commitmentitem_id)
+        @eligibility = Cict.eligibilitytemplate(@wizard.commitmentitem_id)
       else
         @eligibility = @wizard.wizardcustomtemplates.first.customfieldvalues
       end
-      
-      # if @wizard.customfieldvalues.blank?        
-      #     @wizard.wizardcustomtemplates.build.customfieldvalues.build        
-      # end
+
   end
 
   # GET /wizards/1/edit
@@ -54,7 +46,7 @@ class WizardsController < ApplicationController
 
         # @wizardcustomtemplate = Wizardcustomtemplate.new
         # @wizardcustomtemplate.wizard_id = @wizard.id
-         @eligibility = Cict.eligibilitytempate(@wizard.commitmentitem_id)
+         @eligibility = Cict.eligibilitytemplate(@wizard.commitmentitem_id)
         # @wizardcustomtemplate.customtemplate_id = @eligibility.first.id
         # @wizardcustomtemplate.user_id = current_user.id
         # @wizardcustomtemplate.save!
@@ -94,7 +86,7 @@ class WizardsController < ApplicationController
 
         @wizard.save!
 
-        @eligibility = Cict.eligibilitytempate(@wizard.commitmentitem_id)
+        @eligibility = Cict.eligibilitytemplate(@wizard.commitmentitem_id)
 
         if @wizard.last_state?
           format.html { redirect_to root_url, notice: 'Please complete the application.' }

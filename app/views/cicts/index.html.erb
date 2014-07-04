@@ -12,8 +12,8 @@
   <tbody>
     <% @cicts.each do |cict| %>
       <tr>
-        <td><%= cict.commitmentitem %></td>
-        <td><%= cict.customtemplate %></td>
+        <td><%= cict.commitmentitem.ci_name %></td>
+        <td><%= cict.customtemplate.name %></td>
         <td><%= link_to 'Show', cict %></td>
         <td><%= link_to 'Edit', edit_cict_path(cict) %></td>
         <td><%= link_to 'Destroy', cict, method: :delete, data: { confirm: 'Are you sure?' } %></td>

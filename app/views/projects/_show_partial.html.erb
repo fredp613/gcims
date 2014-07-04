@@ -37,9 +37,12 @@ data-content='<%#= render :partial => "popover" %>'/></div> -->
 	  <li class="active">
 	    <a data-toggle="tab" href="#tombstone">Tombstone</a>
 	  </li>
-	   <li>
-	    <a data-toggle="tab" href="#program">Program Specific</a>
-	  </li>
+
+	  <% if @project.has_active_specific_template? %>
+		   <li>
+		    <a data-toggle="tab" href="#program">Program Specific</a>
+		  </li>
+	  <% end %>
 	  <li>
 	    <a data-toggle="tab" href="#financial">Financial</a>
 	  </li>
@@ -67,12 +70,14 @@ data-content='<%#= render :partial => "popover" %>'/></div> -->
 				 </div>
 
 				 <div id='pre-assessment'>
-				 	<%= render 'pre_assessment'  %>
+				 	<%= render 'pre_assessment' %>
 				 </div>
 			</div>
-			<div class="tab-pane" id="program">
-			  	 program specific (i.e. objectives etc. - specific fields)
-			</div>		
+			<% if @project.has_active_specific_template? %>
+				<div class="tab-pane" id="program">
+				  	 <%= render 'program_specific' %>
+				</div>		
+			<% end %>
 			<div class="tab-pane" id="financial">
 			  	 <%= render 'budget', :project => @project  %>
 			</div>

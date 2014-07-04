@@ -69,6 +69,6 @@ class CustomfieldvaluesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customfieldvalue_params
-      params.require(:customfieldvalue).permit(:id, :value, :user_id, :wizardcustomtemplate_id, :customfield_id)
+      params.require(:customfieldvalue).permit(:id, :value, :user_id, :wizardcustomtemplate_id, :customfield_id, :applicationcustomtemplate_id)
     end
 end

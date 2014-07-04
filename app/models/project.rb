@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   has_many :applications, :dependent=>:destroy
   has_many :budgetitems, through: :applications
   has_many :commitmentitems, through: :applications
+  has_many :applicationcustomtemplates, through: :applications
   has_many :summarycommitments, through: :commitmentitems
   has_many :subservicelines, through: :summarycommitments
   has_many :productservicelines, through: :subservicelines
@@ -54,6 +55,30 @@ class Project < ActiveRecord::Base
 
   
 
+  def has_active_specific_template?
+    # revisit this - you may want to allow specific template at project or application level rather than program level
+    # apps = Application.where(project_id: self.id)
+    # ct = Applicationcustomtemplate.where(application_id: apps.map(&:id))
+    
+    apps = Application.where(project_id: self.id)
+    ct = Cict.programspecifictemplate(apps.map(&:commitmentitem_id))
+
+    if ct.size > 0  
+      true
+    else
+      false
+    end
+  end
+
+  def has_specific_data?
+    apps = Application.where(project_id: self.id)
+    acts = Applicationcustomtemplate.where(application_id: apps.map(&:id))
+    if Customfieldvalue.where(applicationcustomtemplate_id: acts.map(&:id)).count > 0
+      true
+    else
+      false
+    end
+  end
 
   def not_unique_attributes_update?
     !updating_unique_attribute 

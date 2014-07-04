@@ -5,7 +5,9 @@ class Commitmentitem < ActiveRecord::Base
   has_many :applications
   has_many :projects, through: :applications
   has_many :programbudgets
-  has_many :customtemplates
+  has_many :cicts
+  # has_many :customtemplates, through: :cicts
+
 
   belongs_to :summarycommitment
   belongs_to :user

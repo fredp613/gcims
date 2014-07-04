@@ -9,12 +9,7 @@ class Wizard < ActiveRecord::Base
   accepts_nested_attributes_for :wizardcustomtemplates
   accepts_nested_attributes_for :customfieldvalues
 
-  
-  
-
-  attr_accessor :productserviceline, :subserviceline, :summarycommitment
-
-  
+  attr_accessor :productserviceline, :subserviceline, :summarycommitment  
   
   def states
   	 Modelstate.where(object: "wizard")
@@ -37,7 +32,7 @@ class Wizard < ActiveRecord::Base
          
       @new_state = states.where(position: (@position + 1).to_i)
       if @new_state.first.state == "Eligibility" && current_state.first.state != "Eligibility"
-        @eligibility = Cict.eligibilitytempate(self.commitmentitem_id)
+        @eligibility = Cict.eligibilitytemplate(self.commitmentitem_id)
         if @eligibility.blank? 
          @position = current_state.first.position
           @new_state = states.where(position: (@position + 2).to_i)
@@ -55,7 +50,7 @@ class Wizard < ActiveRecord::Base
          
       @new_state = states.where(position: (@position - 1).to_i)
       if @new_state.first.state == "Eligibility" && current_state.first.state != "Eligibility"
-        @eligibility = Cict.eligibilitytempate(self.commitmentitem_id)
+        @eligibility = Cict.eligibilitytemplate(self.commitmentitem_id)
         if @eligibility.blank? 
          @position = current_state.first.position
           @new_state = states.where(position: (@position - 2).to_i)

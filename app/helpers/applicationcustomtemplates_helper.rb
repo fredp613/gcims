@@ -1,0 +1,2 @@
+module ApplicationcustomtemplatesHelper
+end

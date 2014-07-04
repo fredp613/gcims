@@ -4,13 +4,16 @@ class Application < ActiveRecord::Base
   include ActiveModel::Dirty
 
   attr_accessible :corporate_file_number, :project_id, :budgetitems_attributes, 
-  :commitmentitem_id, :applicationtype_id, :summarycommitment, :subserviceline, 
-  :productserviceline, :requested, :requested_other, :otherfunders_attributes,
+  :commitmentitem_id, :applicationtype_id, :requested, :requested_other, :otherfunders_attributes,
+  :applicationcustomtemplates_attributes, :customtemplates_attributes, :customfieldvalues_attributes,
   #user columns
   :updated_by, :created_by, :decision_by, :responsible_official, 
-  :updating_unique_attribute, :startdate, :enddate
+  :startdate, :enddate, 
+  #virtual attributes
+  :updating_unique_attribute,:program_specific, :summarycommitment, :subserviceline, 
+  :productserviceline
 
-  attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute
+  attr_accessor :summarycommitment, :subserviceline, :productserviceline, :updating_unique_attribute, :program_specific
 
     
   belongs_to :applicationtype
@@ -25,9 +28,15 @@ class Application < ActiveRecord::Base
   # has_many :websites, through: :client
 
   has_many :budgetitems, :dependent => :destroy
-  has_many :otherfunders, :dependent => :destroy  
-  
+  has_many :otherfunders, :dependent => :destroy 
 
+  has_many :applicationcustomtemplates
+  has_many :customtemplates, through: :applicationcustomtemplates
+  has_many :customfieldvalues, through: :applicationcustomtemplates
+ 
+  accepts_nested_attributes_for :applicationcustomtemplates
+  accepts_nested_attributes_for :customfieldvalues
+  accepts_nested_attributes_for :customtemplates
   
   accepts_nested_attributes_for :budgetitems
   accepts_nested_attributes_for :otherfunders
@@ -37,31 +46,23 @@ class Application < ActiveRecord::Base
   #accepts_nested_attributes_for :applicationtype
   
 
-  validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?
-  validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?
+  validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?,:unless => :ps?
+  validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?,:unless => :ps?
   
-  validates :subserviceline, presence: true, :if => :unique_attributes_update?
-  validates :summarycommitment, presence: true, :if => :unique_attributes_update?
-  validates :productserviceline, presence: true, :if => :unique_attributes_update?
-  validates :startdate, presence: :true 
-  validates :enddate, presence: :true
+  validates :subserviceline, presence: true, :if => :unique_attributes_update?,:unless => :ps?
+  validates :summarycommitment, presence: true, :if => :unique_attributes_update?,:unless => :ps?
+  validates :productserviceline, presence: true, :if => :unique_attributes_update?,:unless => :ps?
+  validates :startdate, presence: :true,:unless => :ps? 
+  validates :enddate, presence: :true,:unless => :ps?
 
+  validates :requested, presence: :true, numericality: {:greater_than=> 0}, :if => :unique_attributes_update?,:unless => :ps?
 
-
-  validates :requested, presence: :true, numericality: {:greater_than=> 0}, :if => :unique_attributes_update?
-
-  #:numericality => true#,
-            #:format => { :with => /^(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?|\(\$?(0|[1-9]\d{0,2}(,?\d{3})?)(\.\d\d?)?\))$/ }
-            #:format => { :with => /^\d+??(?:\.\d{0,2})?$/ }
-
-
-  validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? } 
-  validate :startdate_comparison
-  validate :enddate_comparison
-  validate :pras_date_range
-  validate :dates_budgetitem_fiscalyears_comparison, :on=>:update
+  validate :budget_verification, :on => :update, if: Proc.new { |b| !b.budgetitems.blank? },:unless => :ps? 
+  validate :startdate_comparison,:unless => :ps?
+  validate :enddate_comparison,:unless => :ps?
+  validate :pras_date_range,:unless => :ps?
+  validate :dates_budgetitem_fiscalyears_comparison, :on=>:update,:unless => :ps?
   
-
   scope :other_funding, -> { 
     where('applications.requested_other > ?', 0)
   }
@@ -165,6 +166,10 @@ class Application < ActiveRecord::Base
 
   def unique_attributes_update?
     !updating_unique_attribute
+  end
+
+  def ps?
+    program_specific
   end
 
   def requested=(num)

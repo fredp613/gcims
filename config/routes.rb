@@ -1,9 +1,11 @@
 GCIMS::Application.routes.draw do
+  resources :applicationcustomtemplates
+
   resources :customfieldvalues
 
   resources :wizardcustomtemplates
 
-    resources :customfields
+   resources :customfields
   resources :customtemplatetypes
   resources :cfcts
   resources :cicts
@@ -45,11 +47,11 @@ GCIMS::Application.routes.draw do
     end
   end
 
-  resources :customtemplates do
-    collection do
-      post "verify_eligibility"
-    end
-  end
+  resources :customtemplates #do
+    # collection do
+    #   post "verify_eligibility"
+    # end
+  #end
 
   resources :productservicelines, :path => "pras"  do 
    collection do 
@@ -105,6 +107,10 @@ GCIMS::Application.routes.draw do
 
   resources :applications do
     resources :budgetitems
+    collection do
+      get "program_specific" => 'applications#program_specific'
+      patch "program_specific" => 'applications#submit_program_specific'
+    end
   end
   
   resources :projects do
