@@ -41,11 +41,14 @@ class ApplicationsController < ApplicationController
   def program_specific
 
     @application = Application.find(params[:app_id])
+    @customtemplate = Customtemplate.find(params[:ct_id])
     # @ps = Applicationcustomtemplate.new
-    if @application.customfieldvalues.blank?
-      @ps = Cict.programspecifictemplate(@application.commitmentitem_id)      
+    if @customtemplate.for_application(@application, @customtemplate).blank?
+      # @ps = Cict.programspecifictemplate(@application.commitmentitem_id)      
+      @ps = Customtemplate.find(params[:ct_id])
     else
-      @ps = @application.applicationcustomtemplates.first.customfieldvalues
+      # @ps = @application.applicationcustomtemplates.first.customfieldvalues
+      @ps = @customtemplate.for_application(@application, @customtemplate).customfieldvalues
     end
 
 

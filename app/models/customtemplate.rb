@@ -23,6 +23,10 @@ class Customtemplate < ActiveRecord::Base
 
   #this most likely resides in the customfieldvalue model - just chain upwards to check validation
 
+  def for_application(app_id, ct_id)
+    Applicationcustomtemplate.where(application_id: app_id).where(customtemplate_id: ct_id).first
+  end
+
   def self.eligibility
   	e = Customtemplatetype.where(:ct_type=>"Eligibility").first.id
   	self.where(:customtemplatetype_id => e)

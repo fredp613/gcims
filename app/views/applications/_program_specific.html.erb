@@ -1,7 +1,7 @@
 
 
 <%= simple_form_for @application, url: {action: "program_specific" } do |f| %>
-  
+  <strong>ADDING</strong>
   
    <%= f.input :id, as: :hidden %>
    <%= f.input :program_specific, as: :hidden, input_html: {value: true} %>
@@ -9,10 +9,10 @@
   <%= f.simple_fields_for :applicationcustomtemplates, @application.applicationcustomtemplates.build  do |builder| %>
 
  
-  <%= builder.input :customtemplate_id, as: :hidden, input_html: { value: @ps.first.id } %> 
+  <%= builder.input :customtemplate_id, as: :hidden, input_html: { value: @ps.id } %> 
 
     
-    <% @ps.first.customfields.each do |cf| %>
+    <% @ps.customfields.each do |cf| %>
 
              
         <%= builder.simple_fields_for :customfieldvalues, 
@@ -33,7 +33,7 @@
             <%= val.input :value, label: cf.field_label %>
           <% end %>
 
-          <%= @application.applicationcustomtemplates.first.id rescue nil %>
+          <%#= @application.applicationcustomtemplates.first.id rescue nil %>
           
         <% end %>
 

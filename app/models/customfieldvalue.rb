@@ -17,9 +17,10 @@ class Customfieldvalue < ActiveRecord::Base
   end
 
   
-  def self.for_customtemplate(app_id, ct)
+  def self.for_customtemplate(app_id=nil, ct)
     act = Applicationcustomtemplate.where(application_id: app_id).where(customtemplate_id: ct)    
-    where(applicationcustomtemplate_id: act.map(&:id))
+    where(applicationcustomtemplate_id: act.first.id)
+
   end
 
   # def to_bool
