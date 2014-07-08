@@ -61,7 +61,7 @@ class Project < ActiveRecord::Base
     # ct = Applicationcustomtemplate.where(application_id: apps.map(&:id))
     
     apps = Application.where(project_id: self.id)
-    ct = Cict.programspecifictemplate(apps.map(&:commitmentitem_id))
+    ct = Cict.programspecifictemplate(apps.map(&:commitmentitem_id), nil)
 
     if ct.size > 0  
       true

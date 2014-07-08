@@ -1,0 +1,63 @@
+
+
+<%= simple_form_for @application, url: {action: "program_specific"} do |f| %>
+  
+   <%= f.input :id, as: :hidden %>
+   <%= f.input :program_specific, as: :hidden, input_html: {value: true} %>
+
+  <%= f.simple_fields_for :applicationcustomtemplates do |builder| %>
+
+        <%= builder.input :id, as: :hidden, input_html: {value: @application.applicationcustomtemplates.first.id } %>
+
+       <%= builder.input :application_id, as: :hidden,  input_html: {value: @application.id} %>
+        
+        <%= builder.input :customtemplate_id, as: :hidden, input_html: { value: @application.applicationcustomtemplates.first.customfieldvalues.first.applicationcustomtemplate.customtemplate_id } %> 
+
+
+        <%= builder.simple_fields_for :customfieldvalues[0] do |val| %>
+
+        <% @application.applicationcustomtemplates.first.customfieldvalues.each_with_index do |cf, i| %>
+
+          <%= val.input :id,as: :hidden, input_html: { value: cf.id, name:
+          "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][id]" } %> 
+
+
+           <%= val.input :applicationcustomtemplate_id,as: :hidden,  input_html: { value: @application.applicationcustomtemplates.first.id, name: "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][applicationcustomtemplate_id]" } %>
+            <%= val.input :user_id,as: :hidden,  input_html: { value: current_user.id, name: 
+            "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][user_id]" } %> 
+
+            <%= val.input :customfield_id,as: :hidden,   input_html: {value: cf.customfield_id, name: 
+              "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][customfield_id]"} %>
+         
+
+          <% if cf.customfield.field_type == "input_text" %>
+              <%= val.input :value, label: cf.customfield.field_label, input_html: {
+              value: cf.value, name:
+              "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]" } %>  
+          <% elsif cf.customfield.field_type == "boolean" %>                   
+              <% if cf.value=="true" %>
+                <%= val.input :value, label: cf.customfield.field_label,  as: :radio_buttons,  checked: true,
+                input_html: { name: 
+                  "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]"} %>
+              <% else %>
+                <%= val.input :value, label: cf.customfield.field_label, as: :radio_buttons, checked: false,
+                input_html: { name: 
+                  "application[applicationcustomtemplates_attributes][0][customfieldvalues_attributes]["+i.to_s+"][value]"} %>
+              <% end %>                    
+          <% end %>
+
+      <% end %> 
+    <% end %>
+  <% end %>
+  
+
+   
+
+   
+    <%= f.button :submit, "Save", name: "save" %> 
+   
+
+   
+
+<% end %>
+

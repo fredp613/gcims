@@ -16,6 +16,12 @@ class Customfieldvalue < ActiveRecord::Base
     where(applicationcustomtemplate_id: act.map(&:id))
   end
 
+  
+  def self.for_customtemplate(app_id, ct)
+    act = Applicationcustomtemplate.where(application_id: app_id).where(customtemplate_id: ct)    
+    where(applicationcustomtemplate_id: act.map(&:id))
+  end
+
   # def to_bool
   #   return true if self == true || self =~ (/^(true|t|yes|y|1)$/i)
   #   return false if self == false || self.blank? || self =~ (/^(false|f|no|n|0)$/i)

@@ -13,6 +13,7 @@ class Customtemplate < ActiveRecord::Base
   has_many :cicts
   has_many :wizardcustomtemplates
   has_many :applicationcustomtemplates
+  has_many :customfieldvalues, through: :applicationcustomtemplates
 
   accepts_nested_attributes_for :customfields
   accepts_nested_attributes_for :wizardcustomtemplates
@@ -37,6 +38,16 @@ class Customtemplate < ActiveRecord::Base
       if field.required? && field.customfieldvalues.first.blank?
         errors.add field.field_name, "must not be blank"
       end
+    end
+  end
+
+  def has_specific_data?(app_id, ct_id)
+    apps = Application.where(id: app_id)
+    acts = Applicationcustomtemplate.where(application_id: apps.map(&:id)).where(customtemplate_id: ct_id)
+    if Customfieldvalue.where(applicationcustomtemplate_id: acts.map(&:id)).count > 0
+      true
+    else
+      false
     end
   end
 end

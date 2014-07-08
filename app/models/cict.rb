@@ -8,9 +8,13 @@ class Cict < ActiveRecord::Base
   	@ct
   end
 
-  def self.programspecifictemplate(ci)
+  def self.programspecifictemplate(ci, ct=nil)
   	@cict = self.where(:commitmentitem_id=>ci)
-  	@ct = Customtemplate.where(:id => @cict.map(&:customtemplate_id)).program_specific
+    if ct != nil
+  	 @ct = Customtemplate.where(:id => ct).program_specific
+    else
+      @ct = Customtemplate.where(:id => @cict.map(&:customtemplate_id)).program_specific
+    end
   	@ct
   end
 

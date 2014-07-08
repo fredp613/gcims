@@ -1,1 +1,6 @@
+
+<% if @application.customfieldvalues.blank? %>
 <%= render "program_specific" %>
+<% else %>
+<%= render "program_specific_edit" %>
+<% end %>

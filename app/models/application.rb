@@ -241,5 +241,9 @@ class Application < ActiveRecord::Base
     @email
   end
 
+  def for_customtemplate(ct)
+    self.applicationcustomtemplates.where(application_id: self.id).where(customtemplate_id: ct)
+  end
+
 
 end
