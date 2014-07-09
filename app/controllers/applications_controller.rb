@@ -42,21 +42,15 @@ class ApplicationsController < ApplicationController
 
     @application = Application.find(params[:app_id])
     @customtemplate = Customtemplate.find(params[:ct_id])
+    @applicationcustomtemplate = Applicationcustomtemplate.where(application_id: @application.id, customtemplate_id: @customtemplate.id)
+
     # @ps = Applicationcustomtemplate.new
     if @customtemplate.for_application(@application, @customtemplate).blank?
-      # @ps = Cict.programspecifictemplate(@application.commitmentitem_id)      
       @ps = Customtemplate.find(params[:ct_id])
-    else
-      # @ps = @application.applicationcustomtemplates.first.customfieldvalues
+    else      
       @ps = @customtemplate.for_application(@application, @customtemplate).customfieldvalues
     end
 
-
-     # if @wizard.customfieldvalues.blank?
-     #    @eligibility = Cict.eligibilitytemplate(@wizard.commitmentitem_id)
-     #  else
-     #    @eligibility = @wizard.wizardcustomtemplates.first.customfieldvalues
-     #  end
 
   end
 

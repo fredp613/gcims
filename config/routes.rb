@@ -1,5 +1,5 @@
 GCIMS::Application.routes.draw do
-  resources :applicationcustomtemplates
+
 
   resources :customfieldvalues
 
@@ -39,6 +39,13 @@ GCIMS::Application.routes.draw do
   resources :programbudgets
   resources :eligibilities
   
+
+  resources :applicationcustomtemplates do 
+    collection do
+      get "program_specific" => 'applicationcustomtemplates#program_specific'
+      post "program_specific" => 'applicationcustomtemplates#submit_program_specific'
+    end
+  end
 
   resources :wizards do
     collection do

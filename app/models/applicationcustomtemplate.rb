@@ -11,4 +11,5 @@ class Applicationcustomtemplate < ActiveRecord::Base
 
   scope :find_by_application, ->(application_id) { where(application_id: application_id).first}
   scope :find_by_customtemplate, ->(customtemplate_id) { where(customtemplate_id: customtemplate_id).first }
+  scope :find_by_app_ct, ->(app_id, ct_id) { where(customtemplate_id: ct_id).where(application_id: app_id).first}
 end

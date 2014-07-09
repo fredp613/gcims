@@ -9,9 +9,9 @@
   <fieldset>
         <legend><%= ct.name %>  
       <% if ct.has_specific_data?(app.id, ct.id) %>
-        <%= link_to "edit", program_specific_applications_path(:app_id=>app.id, :ct_id=>ct.id) %>
+        <%= link_to "edit", edit_applicationcustomtemplate_path(:app_id=>app.id, :ct_id=>ct.id) %>
       <% else %>
-        <%= link_to "add", program_specific_applications_path(:app_id=>app.id, :ct_id=>ct.id) %>
+        <%= link_to "add", new_applicationcustomtemplate_path(:app_id=>app.id, :ct_id=>ct.id) %>
       <% end %>
       </legend>
 

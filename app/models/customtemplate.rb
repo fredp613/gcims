@@ -19,9 +19,6 @@ class Customtemplate < ActiveRecord::Base
   accepts_nested_attributes_for :wizardcustomtemplates
   accepts_nested_attributes_for :applicationcustomtemplates
 
-  # validate :validate_customfields, if: Proc.new { |w| w.wizard_id.blank? }
-
-  #this most likely resides in the customfieldvalue model - just chain upwards to check validation
 
   def for_application(app_id, ct_id)
     Applicationcustomtemplate.where(application_id: app_id).where(customtemplate_id: ct_id).first
