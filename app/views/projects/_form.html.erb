@@ -11,7 +11,6 @@
   <div class="form-inputs">
 
     <div class='tab-content'>
-
       <%= render 'pras', :f=>f %> 
       <br>
 
@@ -23,7 +22,10 @@
 
   </div>
 
-
+<div id='dates'>
+ <%= text_field_tag :sd %>
+ <%= text_field_tag :ed %>
+</div>
 
 <% end %>
 
@@ -31,12 +33,16 @@
 
 $('#frmOpenProject').formToWizard({ submitButton: 'openProjectSubmit' }); 
 
-$element = $(document).find('.datepicker')
+// var sd = $("#sd").val();
+// var ed = $("#ed").val();
 
-  $element.datepicker({
-    autoclose: 'true',
-   format: 'yyyy-mm-dd'
-  });
+// $element = $(document).find('.datepicker')
+//   $element.datepicker({
+//    autoclose: 'true',
+//    format: 'yyyy-mm-dd',
+//    startDate: $("#sd"),
+//    endDate: $("#ed")
+//   });
 
 </script>
 

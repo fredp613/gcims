@@ -13,7 +13,7 @@
     <% @customtemplatetypes.each do |customtemplatetype| %>
       <tr>
         <td><%= customtemplatetype.ct_type %></td>
-        <td><%= customtemplatetype.modelstate %></td>
+        <td><%= customtemplatetype.modelstate.state %></td>
         <td><%= link_to 'Show', customtemplatetype %></td>
         <td><%= link_to 'Edit', edit_customtemplatetype_path(customtemplatetype) %></td>
         <td><%= link_to 'Destroy', customtemplatetype, method: :delete, data: { confirm: 'Are you sure?' } %></td>

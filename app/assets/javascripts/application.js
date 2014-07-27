@@ -16,6 +16,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.formatCurrency-1.4.0
+//= require jq.dateFormat
 //= require twitter/bootstrap
 //= require bootstrap
 //= require bootstrap-datepicker
@@ -51,7 +52,7 @@ function bind_datepicker() {
   $element = $(document).find('.datepicker')
 
   $element.datepicker({
-    autoclose: 'true',
+   autoclose: 'true',
    format: 'yyyy-mm-dd'
   });
 }

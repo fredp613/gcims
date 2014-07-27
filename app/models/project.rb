@@ -55,13 +55,28 @@ class Project < ActiveRecord::Base
 
   
 
-  def has_active_specific_template?
+  def has_active_program_template?
     # revisit this - you may want to allow specific template at project or application level rather than program level
     # apps = Application.where(project_id: self.id)
     # ct = Applicationcustomtemplate.where(application_id: apps.map(&:id))
     
     apps = Application.where(project_id: self.id)
-    ct = Cict.programspecifictemplate(apps.map(&:commitmentitem_id), nil)
+    ct = Cict.program_template(apps.map(&:commitmentitem_id), nil)
+
+    if ct.size > 0  
+      true
+    else
+      false
+    end
+  end
+
+  def has_active_department_template?
+    # revisit this - you may want to allow specific template at project or application level rather than program level
+    # apps = Application.where(project_id: self.id)
+    # ct = Applicationcustomtemplate.where(application_id: apps.map(&:id))
+    
+    apps = Application.where(project_id: self.id)
+    ct = Cict.department_template(apps.map(&:commitmentitem_id), nil)
 
     if ct.size > 0  
       true

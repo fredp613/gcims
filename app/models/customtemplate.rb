@@ -34,6 +34,16 @@ class Customtemplate < ActiveRecord::Base
     self.where(:customtemplatetype_id => ps)
   end
 
+  def self.department_specific
+    ds = Customtemplatetype.where(:ct_type=>"Department Specific").first.id
+    self.where(:customtemplatetype_id => ds)
+  end
+
+  def self.goc_specific
+    gocs = Customtemplatetype.where(:ct_type=>"Government Specific").first.id
+    self.where(:customtemplatetype_id => gocs)
+  end
+
    def validate_customfields
     customfields.each do |field|
       if field.required? && field.customfieldvalues.first.blank?

@@ -12,7 +12,7 @@ class Permission
     allow "devise/registrations", [:edit, :update, :cancel]
     allow "devise/sessions", [:destroy]
  		# allow :searches, [:index]
-    allow :wizards, [:new, :create, :edit, :update, :destroy, :index] 
+    allow :wizards, [:new, :eligibility, :verify_eligibility, :create, :edit, :update, :destroy, :index] 
 		
  		
  		if user.internal?

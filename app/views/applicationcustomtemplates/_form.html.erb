@@ -5,8 +5,6 @@
   <%= f.input :customtemplate_id, as: :hidden, input_html: { value: @customtemplate.id} %> 
   <%= f.input :application_id, as: :hidden, input_html: {value: @application.id} %>
       
-  
-
   <% if @applicationcustomtemplate.new_record? %>
    
     <% @customtemplate.customfields.each do |cf| %>     
@@ -23,7 +21,7 @@
        	  <%= val.input :applicationcustomtemplate_id, as: :hidden %>
           <%= val.input :user_id,as: :hidden, input_html: { value: current_user.id } %>    
           <%= val.input :customfield_id, as: :hidden, input_html: {value: cf.id } %>           
-          <%= val.input :value, as: :radio_buttons %>                      
+          <%= val.input :value, as: :radio_buttons, label: cf.field_label %>                      
         <% end %>
       
       <% end %>
@@ -57,11 +55,11 @@
           <%= val.input :customfield_id,as: :hidden, input_html: {value: cf.customfield.id, 
           name: "applicationcustomtemplate[customfieldvalues_attributes]["+i.to_s+"][customfield_id]"  } %>           
           
-          <% if cf.value == true %>
-          <%= val.input :value, as: :radio_buttons, checked: true, input_html: { 
+          <% if cf.value == "true" %>
+          <%= val.input :value, label: cf.customfield.field_label,as: :radio_buttons, checked: true, input_html: { 
           	name: "applicationcustomtemplate[customfieldvalues_attributes]["+i.to_s+"][value]" } %>
           <% else %>
-          <%= val.input :value, as: :radio_buttons, checked: false, input_html: { 
+          <%= val.input :value, label: cf.customfield.field_label, as: :radio_buttons, checked: false, input_html: { 
           	name:"applicationcustomtemplate[customfieldvalues_attributes]["+i.to_s+"][value]" } %>
           <% end %>
           

@@ -90,18 +90,22 @@ function getCommitmentItemData() {
         
          });       
 
-         var sd = new Date(String(startdate))
-         var ed = new Date(String(enddate))
-         
-          //$(document).find('.datepicker').datepicker();
+         var sd1 = $.format.date(startdate, "yyyy-mm-dd")
+         var ed1 = $.format.date(enddate, "yyyy-mm-dd")
+          
           $(document).delegate(".datepicker", "focusin", function(){            
-              
-              $(this).datepicker('remove');
+            $("#sd").val(sd1);
+            $("#ed").val(ed1);
+            if (sd1 == null) {
+              sd1 = "2013-12-12";
+              ed1 = "2015-12-12";
+            } 
+               // $(this).datepicker('remove');
                $(this).datepicker({
-                autoclose: 'true',  
+                autoclose: 'true',                 
                 format: 'yyyy-mm-dd',
-                startDate: sd,
-                endDate: ed
+                startDate: sd1,
+                endDate: ed1
               }); 
           });
       }); 

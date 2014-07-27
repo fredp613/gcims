@@ -38,41 +38,7 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def program_specific
-
-    @application = Application.find(params[:app_id])
-    @customtemplate = Customtemplate.find(params[:ct_id])
-    @applicationcustomtemplate = Applicationcustomtemplate.where(application_id: @application.id, customtemplate_id: @customtemplate.id)
-
-    # @ps = Applicationcustomtemplate.new
-    if @customtemplate.for_application(@application, @customtemplate).blank?
-      @ps = Customtemplate.find(params[:ct_id])
-    else      
-      @ps = @customtemplate.for_application(@application, @customtemplate).customfieldvalues
-    end
-
-
-  end
-
-  def submit_program_specific
-
-     @application = Application.find(params[:application][:id])
-
-    # if params[:save]
-      respond_to do |format|
-        # if @application.valid? 
-          @application.update_attributes(params[:application])
-          format.html { redirect_to project_path(:id=>@application.project), notice: "Application updated!" }
-          format.json { render :show, status: :ok, location: @customtemplate }       
-        # else
-        #   format.html { render :program_specific }
-        #   format.json { render json: @applicationcustomtemplate.errors, status: :unprocessable_entity }
-        # end
-      # end
-    end
-    
-    
-  end
+ 
 
   # GET /applications/1/edit
   def edit

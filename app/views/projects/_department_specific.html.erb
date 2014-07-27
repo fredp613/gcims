@@ -1,9 +1,11 @@
 
-<% if @project.has_active_program_template? %>
+<div class='row span8 spacer'>
+
+<% if @project.has_active_department_template? %>
 
 <% @project.applications.each do |app| %>
-
-  <% app.commitmentitem.cicts.program_template(app.commitmentitem_id).each do |ct|  %>
+<!-- this should be changed to app.department_id OR tenant if using postgres -->
+  <% app.commitmentitem.cicts.department_template(app.commitmentitem_id).each do |ct|  %>
   <fieldset>
         <legend><%= ct.name %>  
       <% if ct.has_specific_data?(app.id, ct.id) %>
@@ -44,8 +46,10 @@
 
 <% else %>  
 
-
- no program specific data
+<fieldset>
+  <legend>Departmental Data Requirements</legend>
+ no department specific data
+ </fieldset>
 <% end %><!-- template block -->
-
+</div>
 

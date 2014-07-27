@@ -20,7 +20,6 @@ class ApplicationcustomtemplatesController < ApplicationController
     @application = Application.find(params[:app_id])
     @customtemplate = Customtemplate.find(params[:ct_id])
    
-   
     # @ps = Applicationcustomtemplate.new
     if @customtemplate.for_application(@application, @customtemplate).blank?
       @ps = Customtemplate.find(params[:ct_id])
@@ -77,40 +76,7 @@ class ApplicationcustomtemplatesController < ApplicationController
     end
   end
 
-  # def program_specific
-  #   @application = Application.find(params[:app_id])
-  #   @customtemplate = Customtemplate.find(params[:ct_id])
-  #   @act = Applicationcustomtemplate.where(application_id: @application.id, customtemplate_id: @customtemplate.id).first
-  #   if @act 
-  #     @applicationcustomtemplate = Applicationcustomtemplate.find(@act.map(&:id))
-  #   else
-  #     @applicationcustomtemplate = Applicationcustomtemplate.new
-  #   end
-  #   # @ps = Applicationcustomtemplate.new
-  #   if @customtemplate.for_application(@application, @customtemplate).blank?
-  #     @ps = Customtemplate.find(params[:ct_id])
-  #   else      
-  #     @ps = @customtemplate.for_application(@application, @customtemplate).customfieldvalues
-  #   end
-  # end
-
-
-  # def submit_program_specific
-  #     @applicationcustomtemplate = Applicationcustomtemplate.find(applicationcustomtemplate_params)
-
-
-  #   # if params[:save]
-  #     respond_to do |format|
-  #       # if @application.valid? 
-  #         @applicationcustomtemplate.update_attributes(params[:applicationcustomtemplate])
-  #         format.html { redirect_to project_path(:id=>@applicationcustomtemplate.application.project), notice: "Application updated!" }
-  #         format.json { render :show, status: :ok, location: @applicationcustomtemplate }       
-  #       # else
-  #       #   format.html { render :program_specific }
-  #       #   format.json { render json: @applicationcustomtemplate.errors, status: :unprocessable_entity }
-  #       # end
-  #      end
-  # end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -40,12 +40,7 @@ GCIMS::Application.routes.draw do
   resources :eligibilities
   
 
-  resources :applicationcustomtemplates do 
-    collection do
-      get "program_specific" => 'applicationcustomtemplates#program_specific'
-      post "program_specific" => 'applicationcustomtemplates#submit_program_specific'
-    end
-  end
+  resources :applicationcustomtemplates 
 
   resources :wizards do
     collection do
@@ -113,11 +108,7 @@ GCIMS::Application.routes.draw do
   resources :projectcontacts
 
   resources :applications do
-    resources :budgetitems
-    collection do
-      get "program_specific" => 'applications#program_specific'
-      patch "program_specific" => 'applications#submit_program_specific'
-    end
+    resources :budgetitems    
   end
   
   resources :projects do
