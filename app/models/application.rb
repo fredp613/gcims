@@ -245,5 +245,14 @@ class Application < ActiveRecord::Base
     self.applicationcustomtemplates.where(application_id: self.id).where(customtemplate_id: ct)
   end
 
+   def has_eligibility_template?
+    # if self.commitmentitem.cicts.eligibilitytemplate(self.commitmentitem).blank?
+    #   true
+    # else
+    #   false
+    # end
+    true
+  end
+
 
 end

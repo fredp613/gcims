@@ -40,7 +40,8 @@ class Project < ActiveRecord::Base
   # validates :enddate, presence: :true#, :if => :enddate_changed? 
 
   # need to fix this validation for the unique attribute
-  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :division_id_changed?
+  validates :division_id, presence: true, if: Proc.new { |p| p.client.clienttype_id == 3 } || :division_id_changed? 
+  validates :division_id, presence: true, on: :create
   
 
   # validate :startdate_comparison

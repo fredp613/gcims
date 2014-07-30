@@ -75,6 +75,9 @@ class Client < ActiveRecord::Base
     end
   end 
 
+  def divisions
+    Division.where(client_id: self.id)
+  end
 
   def adj_name
   	"#{salutation} #{name} #{name1}"

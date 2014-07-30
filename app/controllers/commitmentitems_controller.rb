@@ -2,29 +2,22 @@
   # GET /commitmentitems
   # GET /commitmentitems.json
   def index
-
     #for ajax call
     if params[:psl]
-      @ssls = Subserviceline.active.where(:productserviceline_id=>params[:psl])
-      @scs = Summarycommitment.active.where(:subserviceline_id=>@ssls)
-      @commitmentitems = Commitmentitem.active.where(:summarycommitment_id=>@scs)
+      @commitmentitems = Commitmentitem.find_by_psl(params[:psl])
     end
 
-    if params[:ssl]
-      @scs = Summarycommitment.active.where(:subserviceline_id=>params[:ssl])
-      @commitmentitems = Commitmentitem.active.where(:summarycommitment_id=>@scs)
+    if params[:ssl]      
+      @commitmentitems = Commitmentitem.find_by_ssl(params[:ssl])
     end
 
     if params[:sc]
-      @commitmentitems = Commitmentitem.active.where(:id=>params[:sc])
+      @commitmentitems = Commitmentitem.find_by_sc(params[:sc])
     end
 
     if params[:id]
       @commitmentitems = Commitmentitem.active.where(:id=>params[:id])
-    end
-
-
-    ##############
+    end    
 
     respond_to do |format|
       format.html # index.html.erb

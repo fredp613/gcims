@@ -16,24 +16,23 @@ class ProductservicelinesController < ApplicationController
 # for ajax call
   def pras_index
 
-     if params[:ssl]
-      @psl_id = Subserviceline.where(:id=>params[:ssl]).select(:productserviceline_id)
+    if params[:ssl]
+      @psl_id = Subserviceline.where(id: params[:ssl]).select(:productserviceline_id)
       @productservicelines =  Productserviceline.where(:id=>@psl_id)
     end
 
     if params[:sc]
       @ssl_id = Summarycommitment.where(:id=>params[:sc]).first.subserviceline_id
-      @psl_id = Subserviceline.where(:id=>@ssl_id).select(:productserviceline_id)
+      @psl_id = Subserviceline.where(:id=>@ssl_id).first.productserviceline_id
       @productservicelines = Productserviceline.where(:id=>@psl_id)
     end
 
     if params[:ci]
       @sc_id = Commitmentitem.where(:id=>params[:ci]).first.summarycommitment_id
       @ssl_id = Summarycommitment.where(:id=>@sc_id).first.subserviceline_id
-      @psl_id = Subserviceline.where(:id=>@ssl_id).select(:productserviceline_id)
+      @psl_id = Subserviceline.where(:id=>@ssl_id).first.productserviceline_id
       @productservicelines = Productserviceline.where(:id=>@psl_id)
     end
-
 
     respond_to do |format|
       format.html 

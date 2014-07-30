@@ -57,7 +57,7 @@ GCIMS::Application.routes.draw do
 
   resources :productservicelines, :path => "pras"  do 
    collection do 
-    get "/pras_index" => 'productservicelines#pras_index'
+    get "pras_index" => 'productservicelines#pras_index'
    end
   end
 

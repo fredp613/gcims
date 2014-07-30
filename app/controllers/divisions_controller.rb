@@ -95,7 +95,7 @@ class DivisionsController < ApplicationController
     if params[:new_address]
 
         respond_to do |format|
-          format.html {redirect_to new_client_division_path(@division.client_id, 
+          format.html {redirect_to new_client_division_path(:client_id=>@division.client_id, 
               :name=>@division.name, 
               :name1=>@division.name1,
               :name2=>@division.name2,
@@ -111,7 +111,7 @@ class DivisionsController < ApplicationController
 
       respond_to do |format|
         
-        if @division.save
+        if @division.save!
            if params[:new_address]         
             format.html { redirect_to edit_client_division_path(@division.client_id, @division), notice: 'Division was successfully created.' }
           else

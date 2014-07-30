@@ -1,24 +1,12 @@
 
 <%= f.simple_fields_for :applications do |application| %>
 
-<% if @province == 3 %>
 
-<fieldset>
-	<legend>Choose division/branch</legend>
-		 		          				
-    <%= f.input :division_id, :label=>false, :wrapper=>:append do %>
-    	<%= f.input_field :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
-        <%= link_to "add", new_client_division_path(params[:client_id]), :class=> 'btn btn-success', :style=>'margin-bottom:5px' %>	      	         
-      <% end %>
-	 	
-</fieldset>
-
-<% end %>
 
 <br><br>
 <fieldset style='margin-top:-40px;'>
 		
-		<legend>Select Program Information</legend>
+ <legend>Select Program Information</legend>
 
 	<%= application.input :productserviceline, label: 'Product Service Line', collection: Productserviceline.active, :label_method => lambda { |psl| "#{psl.psl_name}" }  %> 		
 
@@ -29,9 +17,14 @@
 
 	<%= application.input :commitmentitem_id, collection: Summarycommitment.active, as: :grouped_select, group_method: :commitmentitems, group_label_method: 'sc_name', label_method: 'ci_name'  %> 
 
+<!-- when selecting a program - do an ajax submission to early state of application - check for eligibility template when on edit -->
+
 </fieldset>
 
+
+
 <fieldset style='margin-top:-50px'>
+
         <legend>Project Information</legend>
       	<%= f.input :projectname, label: 'Title' %>
         <%= f.input :projectdesc, label: 'Description', :input_html=>{:rows=>2} %>

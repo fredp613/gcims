@@ -42,7 +42,7 @@ class Productserviceline < ActiveRecord::Base
   before_destroy :check_associations
   
 
-   def startdate_comparison     
+  def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
     if enddate < startdate               
         errors.add(:startdate, 'must be smaller than end date')                

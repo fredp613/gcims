@@ -11,6 +11,20 @@
   <div class="form-inputs">
 
     <div class='tab-content'>
+      <% if @project.client.pt? %>
+
+        <fieldset>
+          <legend>Choose division/branch</legend>
+                                  
+            <%= f.input :division_id, :label=>false, :wrapper=>:append do %>
+              <%= f.input_field :division_id, collection: Division.where(:client_id=>@project.client_id).map { |d| [d.name, d.id] }, include_blank: true %>
+                <%= link_to "add", new_client_division_path(params[:client_id]), :class=> 'btn btn-success', :style=>'margin-bottom:5px' %>                  
+              <% end %>
+            
+        </fieldset>
+
+      <% end %>
+
       <%= render 'pras', :f=>f %> 
       <br>
 
@@ -22,10 +36,10 @@
 
   </div>
 
-<div id='dates'>
- <%= text_field_tag :sd %>
- <%= text_field_tag :ed %>
-</div>
+<!-- <div id='dates'> -->
+ <%#= text_field_tag :sd %>
+ <%#= text_field_tag :ed %>
+<!-- </div> -->
 
 <% end %>
 
@@ -33,16 +47,12 @@
 
 $('#frmOpenProject').formToWizard({ submitButton: 'openProjectSubmit' }); 
 
-// var sd = $("#sd").val();
-// var ed = $("#ed").val();
 
-// $element = $(document).find('.datepicker')
-//   $element.datepicker({
-//    autoclose: 'true',
-//    format: 'yyyy-mm-dd',
-//    startDate: $("#sd"),
-//    endDate: $("#ed")
-//   });
+$element = $(document).find('.datepicker')
+  $element.datepicker({
+   autoclose: 'true',
+   format: 'yyyy-mm-dd'   
+  });
 
 </script>
 

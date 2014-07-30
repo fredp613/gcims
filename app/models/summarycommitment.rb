@@ -31,7 +31,23 @@ class Summarycommitment < ActiveRecord::Base
     where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
   }
 
-   def startdate_comparison     
+  
+  def self.find_by_ci(ci)    
+    sc = Commitmentitem.where(id: ci).select(:summarycommitment_id)
+    self.where(id: sc)
+  end
+  def self.find_by_ssl(ssl)
+    self.where(subserviceline_id: ssl)
+  end
+
+  def self.find_by_psl(psl)
+    ssls = Productserviceline.where(id: psl).first.subservicelines.select(:id)
+    self.where(subserviceline_id: ssls)
+  end
+
+
+
+  def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
     if enddate < startdate               
         errors.add(:startdate, 'must be smaller than end date')                

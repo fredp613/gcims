@@ -94,8 +94,7 @@ class ProjectsController < ApplicationController
     if params[:new]
       session[:new] = true
     end
-
-  
+      
     respond_to do |format|
         if params[:layout]
           format.html { render :layout => false }
@@ -103,10 +102,18 @@ class ProjectsController < ApplicationController
           format.html # show.html.erb
         end
         format.json { render json: @project}
-        format.js
-        
+        format.js        
     end
     
+
+  end
+
+  def eligibility 
+    
+  respond_to do |format|
+    format.json { render json: @eligibility}
+    format.js
+  end
 
   end
 
@@ -122,6 +129,8 @@ class ProjectsController < ApplicationController
     if params[:updating_unique_attribute]      
       @project.updating_unique_attribute = params[:updating_unique_attribute]
     end
+
+    @eligibility_template = true
 
      respond_to do |format|
         if params[:layout]

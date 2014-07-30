@@ -35,7 +35,23 @@ class Subserviceline < ActiveRecord::Base
   before_destroy :check_associations
   
 
-   def startdate_comparison     
+  def self.find_by_psl(psl)
+    self.where(productserviceline_id: psl)
+  end
+
+  def self.find_by_sc(sc)
+    ssl = Summarycommitment.where(id: sc).select(:subserviceline_id)
+    self.where(id: ssl)
+  end
+
+  def self.find_by_ci(ci)
+    sc = Commitmentitem.where(id: ci).select(:summarycommitment_id)
+    ssl = Summarycommitment.where(id: sc).select(:subserviceline_id)
+    self.where(id: ssl)
+  end
+
+
+  def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
     if enddate < startdate               
         errors.add(:startdate, 'must be smaller than end date')                

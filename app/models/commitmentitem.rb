@@ -26,6 +26,22 @@ class Commitmentitem < ActiveRecord::Base
     where('enddate >= ?', Date.today).where('startdate <= ?', Date.today)
   }
 
+  def self.find_by_sc(sc)
+    cis = Summarycommitment.where(id: sc).first.commitmentitems.select(:id)
+    self.where(id:cis)
+  end
+
+  def self.find_by_ssl(ssl)    
+    scs = Summarycommitment.where(subserviceline_id: ssl).select(:id)
+    self.where(summarycommitment_id: scs)
+  end
+
+  def self.find_by_psl(psl)
+    ssls = Subserviceline.where(productserviceline_id: psl).select(:id)
+    scs = Summarycommitment.where(subserviceline_id: ssls).select(:id)
+    self.where(summarycommitment_id: scs)
+  end
+
    def startdate_comparison     
     return if !startdate_changed? || startdate.blank?
     if enddate < startdate               
@@ -103,6 +119,6 @@ class Commitmentitem < ActiveRecord::Base
     end
   end
 
-
+ 
 
 end
