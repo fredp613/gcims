@@ -5,31 +5,6 @@ class ProjectsController < ApplicationController
   # caches_page :show
 
 
-  # def projit
-  #    if params[:ct_id] != ""
-  #      @clients = Client.where(:clienttype_id=>params[:ct_id])
-  #    else
-  #      @clients = Client.order(:name=>:asc)
-  #    end     
-
-  #    @filtered = @clients.where('name ILIKE (?) OR name1 ILIKE (?)', "%#{params[:term]}%", "%#{params[:term]}%")
-    
-  #   if @filtered.blank?
-  #     render json: [key: '-1', value: "no results found"]
-  #   else      
-  #     render json: @filtered.map { |f| { key: f.id, value: f.adj_name} }          
-  #   end
-  # end
-
-  # def projit_static
-  #   if params[:ct_id].blank?
-  #     @clients = Client.order(:name).limit(100);
-  #   else
-  #     @clients = Client.where(:clienttype_id=>params[:ct_id])
-  #   end
-  #   render json: @clients.map { |c| { key: c.id, value: c.adj_name} }          
-  # end
-
   def index
     @projects = Project.where(:created_by=>current_user.id)
 
@@ -65,12 +40,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
-    #@project.applications.build
-    
 
-    # @fy_test = Fiscalyear.year_range(@project.startdate,@project.enddate).map(&:fy)    
-
-    # fresh_when @project
 
     respond_to do |format|
       format.html # show.html.erb
@@ -119,12 +89,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    #@project = Project.find(params[:id])
-    # @mainapplication = Application.where(:project_id=>@project).first
-    # @contacts = Contact.where(:client_id=>@project.client_id)
-    # @existing = Contact.joins(:projectcontact).where("projectcontacts.project_id = ?", @project )
-    # @contacts_clean = @contacts.map(&:id) - @existing.map(&:id)
-    # @ddl = Contact.where(:id=>@contacts_clean)
+
 
     if params[:updating_unique_attribute]      
       @project.updating_unique_attribute = params[:updating_unique_attribute]

@@ -1,4 +1,4 @@
-class Application < ActiveRecord::Base
+ class Application < ActiveRecord::Base
 
   include PgSearch
   include ActiveModel::Dirty
@@ -22,10 +22,7 @@ class Application < ActiveRecord::Base
   belongs_to :commitmentitem
 
   belongs_to :user
-  
-  # has_one :client, through: :project
-  # has_many :emails, through: :client
-  # has_many :websites, through: :client
+
 
   has_many :budgetitems, :dependent => :destroy
   has_many :otherfunders, :dependent => :destroy 
@@ -40,11 +37,7 @@ class Application < ActiveRecord::Base
   
   accepts_nested_attributes_for :budgetitems
   accepts_nested_attributes_for :otherfunders
-  # accepts_nested_attributes_for :emails
-  # accepts_nested_attributes_for :websites
 
-  #accepts_nested_attributes_for :applicationtype
-  
 
   validates :corporate_file_number, presence: :true, :if => :unique_attributes_update?,:unless => :ps?
   validates :commitmentitem_id, presence: true, :if => :unique_attributes_update?,:unless => :ps?
@@ -169,6 +162,7 @@ class Application < ActiveRecord::Base
   end
 
   def ps?
+    #this is an attribute that is passed by the program template form 
     program_specific
   end
 
